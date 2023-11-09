@@ -1,0 +1,152 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}<br>
+
+<h2 style="text-align: center; color:blue">Advertise</h2><br><br>
+<div class="offset-1">
+    <div class="row">
+        
+        <div class="col-12 col-sm-8 offset-sm-2 col-lg-8">
+            <form action="{% url 'advertise' user.username %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        {{form.username.as_hidden}}
+                    </div>
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        {{form.header|as_crispy_field}}    
+                    </div>
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        {{form.media}}
+                        {{form.description|as_crispy_field}}  
+                    </div><br>
+
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        {{form.url|as_crispy_field}}  
+                    </div><br>
+
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        {{form.money|as_crispy_field}}  
+                    </div><br>
+
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        {{form.moneyclick|as_crispy_field}}  
+                    </div>
+                    
+
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        {{form.moneyimpression|as_crispy_field}}  
+                    </div>
+                    
+
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        {{form.silver|as_crispy_field}}  
+                    </div><br>
+
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        {{form.silverclick|as_crispy_field}}  
+                    </div>
+                    
+
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        {{form.silverimpression|as_crispy_field}}  
+                    </div>
+                    
+                    <div class="col-12 col-md-6 col-sm-6 text-center">
+                        <input type="submit" href="advertise" class="btn btn-primary" value="advertise">
+                    </div>
+                </div>
+            </form>
+            
+            <!--&nbsp;
+            <h2 style="text-align: center; color:blue">Advertise</h2><br><br>
+            <div class="offset-1">
+                <div class="row">
+                    <div class="form">
+                        <form action="{% url 'advertise' user.username %}" method="POST">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                        </form>
+                    </div>
+                    <div class="col-12 col-sm-8 col-lg-8">
+                        <div class="form">
+                        <form action="{% url 'advertise' user.username %}" method="POST">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            <div class="row">
+                                <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Heading</label>
+                                <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                                    <input type="text" class="form-control"  id="adhead" name="header" placeholder="Enter heading" required><br>
+                                </div>
+                                <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Description</label>
+                                <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                                    <input type="text" class="form-control" id="adhead" name="description" placeholder="Add description" required><br>
+                                </div><br>
+
+                                <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Url</label>
+                                <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                                    <input type="text" class="form-control" id="adhead" name="url" placeholder="Paste your URL"><br>
+                                </div><br>
+
+                                <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Type</label>
+                                <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                                    <select class="form-control" name="type">
+                                        <option>All</option>
+                                        <option>Silvers</option>
+                                        <option>Paisa</option>
+                                    </select>
+                                </div><br><br>
+
+                                <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Silvers</label>
+                                <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                                    <input type="number" class="form-control" id="adsilver" name="silver" placeholder="Enter silvers"><br>
+                                </div><br>
+
+                                <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Rate</label>
+                                <div class="col-12 col-md-6 offset-xs-1 col-sm-6">
+                                    <input type="number" class="form-control" id="adsilver" name="silverclick" placeholder="Enter silvers per click"><br>
+                                </div>
+                                <div class="col-12 col-md-2 offset-xs-1 col-sm-2">
+                                    <label  id="adsilver" name="silverclick">Per click</label><br>
+                                </div><br>
+
+                                <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label"></label>
+                                <div class="col-12 col-md-6 offset-xs-1 col-sm-6">
+                                    <input type="number" class="form-control" id="adsilver" name="silverimpression" placeholder="Enter silvers per impression"><br>
+                                </div>
+                                <label for="adhead" class="col-12 col-md-2 col-sm-2 col-form-label">Per impression</label><br>
+
+
+                                <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Money</label>
+                                <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                                    <input type="number" class="form-control" id="admoney" name="money" placeholder="Enter money"><br>
+                                </div><br>
+
+                                <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Rate</label>
+                                <div class="col-12 col-md-6 offset-xs-1 col-sm-6">
+                                    <input type="number" class="form-control" id="admoney" name="moneyclick" placeholder="Enter money per click"><br>
+                                </div>
+                                <div class="col-12 col-md-2 offset-xs-1 col-sm-2">
+                                    <label  id="admoney" name="admoney">Per click</label><br>
+                                </div><br>
+
+                                <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label"></label>
+                                <div class="col-12 col-md-6 offset-xs-1 col-sm-6">
+                                    <input type="number" class="form-control" id="admoney" name="moneyimpression" placeholder="Enter money per impression"><br>
+                                </div>
+                                <label for="adhead" class="col-12 col-md-2 col-sm-2 col-form-label">Per impression</label><br>
+
+                                <div class="col-12 col-md-6 col-sm-6 text-center">
+                                    <input type="submit" href="advertise" class="btn btn-primary" value="advertise">
+                                </div>
+                            </div>
+                        </form>-->
+                    </div>
+                </div>    
+            </div><br><br>
+
+
+            <br><br><br><br>
+
+            
+{% endblock %}

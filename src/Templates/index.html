@@ -1,0 +1,334 @@
+<style>
+    td {
+        text-align: center;
+        width: 20%;
+      }
+      
+</style>
+{% extends 'base.html' %}
+
+{% load social_share %}
+{% block content %}
+
+
+            <div class="col-12 col-sm-8 col-bg-8 offset-sm-2">
+                <div class="container">
+                    <!--<div class="row">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item" style=" min-width: 170px;  text-align: center;">
+                                <a class="nav-link active bg-primary"href="#paisa" role="tab" data-toggle="tab">Paisa</a>
+                            </li>
+                            <li class="nav-item" style="min-width: 170px; max-width: 500px; text-align: center;">
+                                <a class="nav-link active" href="#shots" role="tab" data-toggle="tab">Video</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade show active" id="paisa">
+                               
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="shots">
+                                
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="row">
+                        <div><br>
+                            <!-- For loop -->
+                            {% for dest in dest %}
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header bg-primary">
+                                        <div class="row row-content">
+                                            <div class="col-12 col-sm-9 col-xs-3 col-bg-9">
+                                                <h2 style="color: rgb(255, 255, 255);">{{dest.header}}</h2>
+                                            </div>
+                                            <div class="col-12 col-sm-3 col-bg-3 col-xs-3 justify-content-center">
+                                                <!--if conditions-->
+                                                {% if dest.money %}
+                                                <span class="circlesno"></span>
+                                                {% endif %}
+                                                <!--End id-->
+                                                {% if dest.silver%}
+                                                <span class="circlessilver"></span>
+                                                {% endif %}
+                                                {% if dest.free %}
+                                                <span class="circlespaisa"></span>
+                                                {% endif %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <a role="button" href="{{dest.url}}" target="_blank" style="text-decoration: none;">
+                                            <div class="card-body">
+                                                <h3>{{dest.description|safe}}</h3>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="card-footer">
+                                        <table >
+                                            <tbody >
+                                                <tr >
+                                                    <td style="width: 23%; align-items: center;">
+                                                        <form action="{% url 'like'  %}" method="POST" class="like-form" id="{{dest.id}}">
+                                                            {% csrf_token %}
+                                                            <h3>
+                                                                <button class="like-btn{{dest.id}}" id="likebotton" type="submit"  name="post_id" value="{{dest.id}}" style="border:none;">
+                                                                    {% if user not in dest.likes.all %}
+                                                                    <!--<i style="border: none; background: none; color: rgb(0, 0, 0);" class="fa fa-thumbs-up fa-2x" id="Favorite" ></i>-->
+                                                                    like
+                                                                    {% else %}
+                                                                        {% for like in dest.likes.all %}
+                                                                            {% if user.id == like.id %}
+                                                                                <!--<i style="border: none; background: none; color: rgb(25, 0, 255);" class="fa fa-thumbs-up fa-2x" id="Favorite" ></i>-->
+                                                                                Unlike
+                                                                                {{break}}
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                                </button>
+                                                            </h3>
+                                                            
+                                                        </form>
+                                                    </td>
+                                                    <td >
+                                                        <form action="{% url 'followers' %}" method="POST">
+                                                            {% csrf_token %}
+                                                            {% for all in all %}
+                                                                {% if all.username == dest.username%}
+                                                                    {% if user not in all.followers.all %}
+                                                                        <button type="submit"  name="post_id" value="{{dest.username}}" style="border: none; background: none; color: rgb(0, 0, 0);">
+                                                                            <a role="button" ><i class="fa fa-heart fa-2x"></i>
+                                                                        </button>   
+                                                                    {% else %}
+                                                                        {% for follower in all.followers.all %}
+                                                                            {%   if user.id == follower.id %}
+                                                                                <button type="submit"  name="post_id" value="{{dest.username}}" style="border: none; background: none; color: rgb(5, 46, 230);">
+                                                                                    <a role="button"><i class="fa fa-heart fa-2x"></i></a>
+                                                                                </button>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </form>
+                                                    </td>
+                                                    <td ><a role="button" data-toggle="modal" data-target="#share" class="btn btn-primary" style="border: none; background: none; color: rgb(17, 0, 255);"><i class="fa fa-share-alt fa-2x"></i></td>
+                                                    <td >
+                                                        <form action="{% url 'visit' dest.id  %}" method="POST">
+                                                            {% csrf_token %}
+                                                            
+                                                            {% if user not in dest.clicks.all %}
+                                                                <button  type="submit" name="post_url" value="{{dest.url}}" class="btn btn-primary" target="_blank" style="border: none; background: none; color: rgb(0, 0, 0);">
+                                                                    <i class="fa fa-share fa-2x"></i>
+                                                                </button>
+                                                            {% else %}
+                                                                {% for click in dest.clicks.all %}
+                                                                    {% if user.id == click.id %}
+                                                                        <button  type="submit" name="post_url" value="{{dest.url}}" class="btn btn-primary" target="_blank" style="border: none; background: none; color: rgb(25, 0, 255);">
+                                                                            <i class="fa fa-share fa-2x"></i>
+                                                                        </button>
+                                                                        {{break}}
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </form>
+                                                    </td>
+                                                    
+                                                    <td ><a role="button" data-toggle="collapse" data-target="#comment{{dest.id}}" data-id="{{dest.id}}" class="commentbox" name="post_id" id="{{dest.id}}"><i class="fa fa-comments fa-2x"></i></a></td>
+                                                    <!--Comments-->
+<!--<div class="modal fade" id="comment" role="dialog" aria-labelledby="shareModel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="shareModel">Comments{{post_id}}</h5>
+                <h6 id="modal"></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    {% for i in comments %}
+                    <div class="row">
+                        <strong class="col-6">{{i.comment}}</strong>
+                        <week class="col-6">{{i.Date}}</week>
+                    </div><hr>
+                    {% endfor %}
+                    <form action="{% url 'comment' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-11 sm-11">
+                                <input type="hidden" name="destid" id="destid" value="" />
+                                <textarea id="commenttext" placeholder="Enter comment here" name="text" class="form-control" style="width:100%" required></textarea>
+                            </div>
+                            <div class="col-1 sm-1">
+                                <button type="submit" class="btn btn-primary" style="align-items: center;"><i class="fa fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>-->
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if dest.likes.all.count == 1 %}
+                                                        <h5  class="like-count{{dest.id}}">{{dest.likes.all.count}} like</h5>
+                                                        {% elif dest.likes.all.count > 1 %}
+                                                            <h5  class="like-count{{dest.id}}">{{dest.likes.all.count}} likes</h5>
+                                                        {% else %}
+                                                            <h5  class="like-count{{dest.id}}">0 likes</h5>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        {% for all in all %}
+                                                            {% if all.username == dest.username%}
+                                                                {% if user not in all.followers.all %}
+                                                                    <h5>follow</h5>  
+                                                                {% else %}
+                                                                    {% for follower in all.followers.all %}
+                                                                        {% if user.id == follower.id %}
+                                                                            <h5>Unfollow</h5>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td><h5>Share</h5></td>
+                                                    <td><h5>Visit</h5></td>
+                                                    <td><h5>comment</h5></td>
+                                                </tr>
+                                                <!--<tr>
+                                                    <td colspan="5">
+                                                        <div class="commentbox{{dest.id}}">
+                                                            <h4>This is comment box</h4>
+                                                        </div>
+                                                    </td>
+                                                </tr>-->
+                                            </tbody>
+                                        </table>
+                                        <div class="collapse" id="comment{{dest.id}}">
+                                            <div class="card card-body" style="min-height: 10px; max-height: 500;">
+                                                {% for i in comments %}
+                                                    {% if i.post_id == dest.id %}
+                                                        <div class="row">
+                                                            <strong class="col-6">{{i.comment}}</strong>
+                                                            <week class="col-6">{{i.Date}}</week>
+                                                        </div><hr>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <form action="{% url 'comment' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <div class="row">
+                                                        <div class="col-11 sm-11">
+                                                            <input type="hidden" name="destid" id="destid" value="{{dest.id}}" />
+                                                            <textarea id="commenttext" placeholder="Enter comment here" name="text" class="form-control" style="width:100%" required></textarea>
+                                                        </div>
+                                                        <div class="col-1 sm-1">
+                                                            <button type="submit" class="btn btn-primary" style="align-items: center;"><i class="fa fa-arrow-right"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <br><br>
+    <!--Comment-->
+<div class="collapse" id="comment">
+    <div class="card card-body">
+        <h1>hi,bye{{dest.id}}</h1>
+    </div>
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="share" role="dialog" aria-labelledby="shareModel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="shareModel">Share</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-body">
+                {% post_to_facebook object_or_url "Facebook" %}
+                {% post_to_twitter "See this ad: {{object.title}}. " object_or_url "Twitter" %}
+                {% post_to_linkedin object_or_url %}
+                {% send_email object.title "See this ad: {{dest.url}}" object_or_url "Email" %}
+                {% post_to_whatsapp object_or_url "WhatsApp" %}
+                {% save_to_pinterest object_or_url %}
+                {% add_pinterest_script %}
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script>
+        $(document).ready(function(){
+            $('.like-form').submit(function(e){
+                e.preventDefault()
+                const post_id=$(this).attr('id')
+
+                const likeText = $(`.like-btn${post_id}`).text()
+                const trim=$.trim(likeText)
+                console.log(trim)
+                const url = $(this).attr('action')
+                let res;
+                const likes=$(`.like-count${post_id}`).text()
+                const trimcount=parseInt(likes)
+                $.ajax({
+                   type: 'POST',
+                   url: url,
+                   data: {
+                       'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+                       'post_id':post_id,
+                   },
+                   success:function(response){
+                       if(trim === 'like'){
+                            $(`.like-btn${post_id}`).text('Unlike')
+                            res=trimcount+1
+                       }
+                       else{
+                            $(`.like-btn${post_id}`).text(`like`)
+                                res=trimcount-1
+                       }
+                       if(res === 0){
+                            $(`.like-count${post_id}`).text(res+" likes")
+                        }
+                        if(res>1){
+                            $(`.like-count${post_id}`).text(res+" likes")
+                        }
+                        if(res === 1){
+                            $(`.like-count${post_id}`).text(res+" like")
+                        }
+                   },
+                   error:function(response){
+                       console.log('error',response)
+                   },
+                })
+            })
+        });
+        $(document).on("click", ".commentbox", function () {
+            var postid = $(this).data('id');
+            $(".modal-body #destid").val( postid );
+        });
+        
+    </script>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% load social_share %}
+<!DOCTYPE html>
+<head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=sdge">
+        <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css\styles.css' %}">
+        <link rel="stylesheet" href="{% static 'node_modules\font-awesome\font-awesome\css/font-awesome.min.css' %}">
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        
+        <title>Home</title>
+    </head>
+    <body style="font-family: Arial, Helvetica, sans-serif;">
+        
+        <br><br><br><br> 
+            <nav class="navbar navbar-dark navbar-expand-sm bg-dark fixed-top">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <a href="{% url 'index' %}" style="text-decoration: none;" ><h1 id="navpaisa">Paisa</h1></a>
+                   
+                    <div class="collapse navbar-collapse" id="Navbar">
+                        <ul class="navbar-nav ml-auto">&nbsp&nbsp
+                            {% if user.is_authenticated %}
+                                <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Welcome, {{user.first_name}}</a></li>
+                            {%endif%}
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown btn btn-primary dropdown-toggle" role="button" data-target="#paisadropdown" data-toggle="dropdown" >Paisa</a>
+                                    <div class="dropdown-menu" id="paisadropdown">
+                                        <a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a>
+                                        <a class="dropdown-item" href="{% url 'report' %}">Report</a>
+                                        <a class="dropdown-item" href="{% url 'referearn' %}">Refer & Earn</a>
+                                    </div>
+                                </div>
+                            </li>&nbsp&nbsp
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown btn btn-primary dropdown-toggle" role="button" data-target="#advertiserdropdown" data-toggle="dropdown" >Advertiser</a>
+                                    <div class="dropdown-menu" id="advertiserdropdown">
+                                        <a class="dropdown-item" href="{% url 'advdashboard' %}">Dashboard</a>
+                                        <a class="dropdown-item" href="{% url 'advreport' %}">Report</a>
+                                        <a class="dropdown-item" href="{% url 'advhistory' %}">History</a>
+                                        <a class="dropdown-item" href="{% url 'advertise' user.username %}">Advertise</a>
+                                        <a class="dropdown-item" href="{% url 'silverbazar' %}">Silver Bazar</a>
+                                    </div>
+                                </div>
+                            </li>&nbsp&nbsp
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown btn btn-primary dropdown-toggle" role="button" data-target="#settingsdropdown" data-toggle="dropdown" >Settings</a>
+                                    <div class="dropdown-menu" id="settingsdropdown">
+                                        <a class="dropdown-item" href="{% url 'profile' %}" >Profile</a>
+                                        <a class="dropdown-item" href="{% url 'update' user.username %}">Update</a>
+                                        <a class="dropdown-item" href="{% url 'contactus' %}">Contact Us</a>
+                                        {% if user.is_authenticated %}
+                                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                                        {% else %}
+                                            <a class="dropdown-item" href="{% url 'login' %}">Sign-in</a>
+                                            <a class="dropdown-item" href="{% url 'createaccount' %}">Register</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </li>&nbsp&nbsp
+                            <li class="nav-item">
+                                <form action="{% url 'search' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="input-group" style="padding-top: 2px;">
+                                        <input type="search" class="form-control" placeholder="Search" name="search" required>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary fa fa-search" type="submit"  style="height: 38px;"></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+            </nav>
+
+            {% block content %}
+            
+
+
+
+            
+            {% endblock %}
+
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-sm-4 col-bg-4 footer-row">
+                            <th><h3>Pages</h3></th>
+                            <dd><a href="{% url 'termsandcondition' %}" style="text-decoration: none;">Terms and Conditions</a></dd>
+                            <dd><a href="{% url 'privacypolicy' %}" style="text-decoration: none;">Privacy Policy</a></dd>
+                            <dd><a href="{% url 'aboutus' %}" style="text-decoration: none;">About Us</a></dd>
+                            <dd><a href="{% url 'contactus' %}" style="text-decoration: none;">Contact Us</a></dd>
+                        </div>
+                        <div class="col-12 col-sm-4 col-bg-4 footer-row">
+                            <th><h3>Developer</h3></th>
+                            <dd>Bobbili Sai kiran Reddy</dd>
+                        </div>
+                        <div class="col-12 col-sm-3 col-bg-3 offset-sm-1 footer-row" >
+                            <th><h3>Social Media</h3></th>
+                            <dd><a href="https://twitter.com/BloggerBobbili" target="_blank" style="text-decoration: none;">Twitter</a></dd>
+                            <dd><a href="https://www.facebook.com/bobbili.saikiran.94" target="_blank" style="text-decoration: none;">Facebook</a></dd>
+                            <dd><a href="https://in.pinterest.com/bobbilisaikiran/" target="_blank" style="text-decoration: none;">Pinterest</a></dd>
+                            <dd><a href="https://www.youtube.com/channel/UC1sjo5urqghLPvZ0l4c5vnQ/" target="_blank" style="text-decoration: none;">Youtube</a></dd>
+                            <dd><a href="https://www.instagram.com/blo.ggerblogs/" target="_blank" style="text-decoration: none;">Instagram</a></dd>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+    </body>
+    <style>
+        .footer{
+            background-color: hsl(244, 33%, 19%);
+            border-color: green;
+            border: green;
+            border-width: 5px;
+        }
+        .footer-row{
+            padding-left: 20px;
+            padding-top: 20px;
+        }
+    </style>    
+</head>

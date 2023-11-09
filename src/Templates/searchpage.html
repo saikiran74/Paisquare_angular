@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 style="text-align: center;">The search results of "{{searchedtext}}"</h1>
+    {% for dest in searchresult %}
+        
+            <div class="card container">
+                <div class="card-header bg-primary">
+                    <div class="row row-content">
+                        <div class="col-12 col-sm-9 col-xs-3 col-bg-9">
+                            <h1 style="color: rgb(255, 255, 255);">{{dest.header}}</h1>
+                        </div>
+                        <div class="col-12 col-sm-3 col-bg-3 col-xs-3 justify-content-center">
+                            <!--if conditions-->
+                            {% if dest.money %}
+                            <span class="circlesno"></span>
+                            {% endif %}
+                            <!--End id-->
+                            {% if dest.silver%}
+                            <span class="circlessilver"></span>
+                            {% endif %}
+                            {% if dest.free %}
+                            <span class="circlespaisa"></span>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                <a role="button" href="http://{{dest.url}}" target="_blank" style="text-decoration: none;">
+                    <div class="card-body">
+                        <h2>{{dest.description|safe}}</h2>
+                    </div>
+                    {{destination.id}}
+                </a>
+                <div class="card-footer">
+                    <table >
+                        <tbody >
+                            <tr >
+
+                                <td style="width: 23%; align-items: center;">
+                                    <form action="{% url 'like'  %}" method="POST">
+                                        {% csrf_token %}
+                                        {% if user not in dest.likes.all %}
+                                            <button id="likebotton" type="submit"  name="post_id" onclick="Favorite()" value="{{dest.id}}" style="border: none; background: none; color: rgb(0, 0, 0);"><i class="fa fa-thumbs-up fa-2x" id="Favorite" ></i></button>
+                                        {% else %}
+                                            {% for like in dest.likes.all %}
+                                                {% if user.id == like.id %}
+                                                    <button id="likebotton" type="submit"  name="post_id" onclick="Favorite()" value="{{dest.id}}" style="border: none; background: none; color: rgb(17, 0, 255);"><i class="fa fa-thumbs-up fa-2x" id="Favorite" ></i></button>
+                                                    
+                                                    {{break}}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                        
+                                    </form>
+                                </td>
+                                <td >
+                                    <form action="{% url 'followers' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit"  name="post_id" value="{{dest.id}}" style="border: none; background: none; color: rgb(0, 0, 0);">
+                                            <a role="button"><i class="fa fa-heart fa-2x"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td ><a role="button" data-toggle="modal" data-target="#share" class="btn btn-primary" style="border: none; background: none; color: rgb(17, 0, 255);"><i class="fa fa-share-alt fa-2x"></i></td>
+                                <td ><a role="button" href="https://{{dest.url}}" target="_blank" class="btn btn-primary" style="border: none; background: none; color: rgb(17, 0, 255);"><i class="fa fa-share fa-2x"></i></a></td>
+                                <td ><a type="button" id="commentbutton" value="button"><i class="fa fa-comments fa-2x"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {% if dest.likes.all.count == 1 %}
+                                        <h5>{{dest.likes.all.count}} like</h5>
+                                    {% elif dest.likes.all.count > 1 %}
+                                        <h5>{{dest.likes.all.count}} likes</h5>
+                                    {% else %}
+                                        <h5>like</h5>
+                                    {% endif %}
+                                </td>
+                                <td><h5>follow</h5></td>
+                                <td><h5>Share</h5></td>
+                                <td><h5>Visit</h5></td>
+                                <td><h5>comment</h5></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br><br>
+    {% endfor %}
+
+
+
+
+
+
+
+    <br><br><br><br>    <br><br><br><br>    <br><br><br><br>    
+{% endblock %}

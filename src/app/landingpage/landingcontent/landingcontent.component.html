@@ -1,0 +1,97 @@
+
+
+<app-landingnavbar></app-landingnavbar>
+
+<img class="img-fluid" src="\assets\images\Ooty.jpg">
+
+<div class="" >
+    <div class="nav">
+    </div>
+    <div class=" text">
+        <h1 style="color: rgb(4, 0, 255); font-size: 20ch;" >Pai Square</h1>
+        <h1 style="text-align: center; color: rgb(0, 0, 0);">Explore & Earn</h1><br><br>
+    </div>
+</div><br> 
+<div class="container">
+    <div class="row">   
+        <div class="col-sm-6">
+            <h4 style="text-align: center; font-weight: bold;">Advertiser</h4>
+            <ul>
+                <li><h5>Get targetted user to the business</h5></li>
+                <li><h5>Advertiser can advertise ads with money, Pai, And free postings</h5></li>
+                <li><h5>It works on pay per click method</h5></li> 
+                <li><h5>No third party between user and Advertiser</h5></li> 
+                <li><h5>No third party between user and Advertiser</h5></li> 
+                <li><h5>Get followers to the brand by advertising</h5></li> 
+                <li><h5>Direct collabaration between advetiser's and user's</h5></li>
+                <li><h5>It's combination of social media and advertisement flatform</h5></li>
+                <li><h5>Real time comments from user for advertisements</h5></li>
+            </ul>
+        </div>
+        <div class="col-sm-6">
+            <img class="img-fluid" src="\assets\images\advertisment.png">
+        </div>
+    </div>
+</div>
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <img class="img-fluid" src="assets/images/customer.png" style="width: 100%;">
+        </div>
+        <div class="col-sm-6">
+            <h4 style="text-align: center; font-weight: bold;">User</h4>
+            <ul>
+                <li><h5>Get money and pai`s when you click on advertisements</h5></li>
+                <li><h5>Get Personalised advertisements recommendation</h5></li>
+                <li><h5>Explore various kind of brands</h5></li>
+                <li><h5>More about exploring not getting money</h5></li>
+                <li><h5>Sell pai`s to Advertiser as much as you like</h5></li>
+                <li><h5>Users can contact advertiser directly</h5></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<br><br>
+<h2 style="text-align: center;">Contact Us</h2>
+    <div class="col-12 offset-sm-2 col-sm-10 col-md-7">
+        <div class="card" style="align-content: center;">
+            <form #loginform="ngForm" (ngSubmit)="contactusForm()">
+                <h3 style="color: green;">{{message}}</h3>
+                <div class="container"><br>
+                    <div class="row form-group">
+                        <label class="form-group-label col-12 col-bg-3 col-sm-3">Name</label>
+                        <div class="col-12 col-sm-7 col-bg-7">
+                            <input class="form-control" name="name" id="contactname" type="text" placeholder="Enter your name" [(ngModel)]="contactus.name">
+                        </div>
+                        <span class="col-12 col-sm-2 col-bg-2" id="contactname2"> </span>
+                    </div> <br>
+                    <div class="row form-group">
+                        <label class="form-group-label col-12 col-bg-3 col-sm-3">Email</label>
+                        <div class="col-12 col-sm-7 col-bg-7">
+                            <input class="form-control" name="email" id="contactemail" type="text" placeholder="Enter your email id" title="Enter properly" onblur="email()" [(ngModel)]="contactus.email" required>
+                        </div>
+                        <span class="col-12 col-sm-2 col-bg-2" id="contactemail2"> </span>
+                    </div><br>
+                    <div class="row form-group">
+                        <label class="form-group-label col-12 col-bg-3 col-sm-3">Mobile number</label>
+                        <div class="col-12 col-sm-7 col-bg-7">
+                            <input class="form-control" name="email" id="contactemail" type="text" placeholder="Enter your mobile number" title="Enter properly" onblur="email()" [(ngModel)]="contactus.mobilenumber" required>
+                        </div>
+                        <span class="col-12 col-sm-2 col-bg-2" id="contactemail2"> </span>
+                    </div><br>
+                    <div class="row form-group">
+                        <label class="form-group-label col-12 col-bg-3 col-sm-3" id="contactusissue">Issue</label>
+                        <div class="col-12 col-sm-7 col-bg-7">
+                            <textarea class="form-control" name="querry" id="contactissue" type="text" placeholder="describe issue" onblur="issue()" [(ngModel)]="contactus.issue" required></textarea>
+                        </div>
+                        <span class="col-12 col-sm-2 col-bg-2" id="contactissue2"> </span>
+                    </div><br>
+                    <div style="text-align: center;">
+                        <input type="submit" value="Send my query" class="btn btn-primary" >
+                    </div><br>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br><br>

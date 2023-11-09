@@ -1,0 +1,5 @@
+<app-landingnavbar></app-landingnavbar>
+<router-outlet></router-outlet>
+<app-registration  *ngIf="temp==='signup1'"></app-registration>
+<app-login *ngIf="temp==='signin1'"></app-login>
+<app-landingcontent *ngIf="temp==='default1'"></app-landingcontent>

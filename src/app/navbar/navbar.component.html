@@ -1,0 +1,53 @@
+
+<nav class="navbar navbar-dark navbar-expand-sm bg-dark fixed-top ">
+    <div class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <a href="homepage" style="text-decoration: none;"><h1 id="navpaisa">Paisa</h1></a>
+        <h3 style="color: rgb(96, 150, 250);"> {{firstName}}</h3>
+        <div class="collapse navbar-collapse" id="Navbar" style=" margin-right: 0px; margin-left: 300px;">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a class="nav-link" href="index">Home</a></li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown btn btn-primary dropdown-toggle" role="button" data-target="#paisadropdown" data-toggle="dropdown" >Paisa</a>
+                        <div class="dropdown-menu" id="paisadropdown">
+                            <a class="dropdown-item" routerLink="/dashboard">Dashboard</a>
+                            <a class="dropdown-item" routerLink="/report">Report</a>
+                            <a class="dropdown-item" routerLink="/referearn">Refer & Earn</a>
+                            <a class="dropdown-item" routerLink="/withdraw">Withdraw</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown btn btn-primary dropdown-toggle" role="button" data-target="#advertiserdropdown" data-toggle="dropdown" >Advertiser</a>
+                        <div class="dropdown-menu" id="advertiserdropdown">
+                            <a class="dropdown-item" routerLink="/advdashboard">Dashboard</a>
+                            <a class="dropdown-item" routerLink="/advreport">Report</a>
+                            <a class="dropdown-item" routerLink="/advhistory">History</a>
+                            <a class="dropdown-item" routerLink="/advertisementform">Advertise</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown btn btn-primary dropdown-toggle" role="button" data-target="#settingsdropdown" data-toggle="dropdown" >Settings</a>
+                        <div class="dropdown-menu" id="settingsdropdown">
+                            <a class="dropdown-item" routerLink="/profile">Profile</a>
+                            <a class="dropdown-item" routerLink="/update">Update</a>
+                            <a class="dropdown-item" routerLink="/contactus">Contact Us</a>
+                            <a class="dropdown-item"  href="https://www.google.com/">Logout</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <input type="search" class="search form-control input-group-postpend input-group" placeholder="Search" style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+            <button class="fa fa-search fa-lg btn btn-primary" type="button"></button>
+        </div>
+    </div>
+</nav>

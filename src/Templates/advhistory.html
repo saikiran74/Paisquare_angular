@@ -1,0 +1,54 @@
+{% extends 'base.html'%}
+{% block content %}
+    <!--Write code here itself-->
+        <div style="margin: 50px;" class="scroll">
+            <table class="table  table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Header</th>
+                        <th>Url</th>
+                        <th>Description</th>
+                        <th>type</th>
+                        <th>Silver</th>
+                        <th>Silvers/click</th>
+                        <th>Silvers/impression</th>
+                        <th>Money</th>
+                        <th>Money/click</th>
+                        <th>Money/impression</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for hist in hist %}
+                    <tr>
+                        {% if hist.username == user.username %}
+                            <td>{{hist.header}}</td>
+                            <td>{{hist.url}}</td>
+                            <td>{{hist.description|safe}}</td>
+                            <td>{{hist.type}}</td>
+                            <td>{{hist.silver}}</td>
+                            <td>{{hist.silverclick}}</td>
+                            <td>{{hist.silverimpression}}</td>
+                            <td>{{hist.money}}</td>
+                            <td>{{hist.moneyclick}}</td>
+                            <td>{{hist.moneyimpression}}
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br><br><br><br>
+        <style>
+            .scroll::-webkit-scrollbar {
+            display: none;
+            }
+            div.scroll {
+                margin: 4px, 4px;
+                padding: 4px;
+                width: 85%;
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+            }
+        </style>
+{% endblock %}

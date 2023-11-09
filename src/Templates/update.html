@@ -1,0 +1,102 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+        
+        <div class="container">
+            <div class="row row-content">
+                <div class="col-12">
+                    <h1 style="text-align:center;">Profile</h1>
+                    <i class="fa fa-user fa-4x" style="text-align: center;"></i>
+                </div>
+                <div class="col-10 offset-sm-1">
+                    <form action="" method="POST">
+                        <div class="row">
+                            {% csrf_token %}
+                            <!--<label for="email" class="offset-1 col-md-2 col-sm-2 col-form-label">Brand Name</label>-->
+                            <div class="col-12">
+                                {{form.brandname|as_crispy_field}}
+                            </div>
+                            <div class="col-sm-6">
+                                {{form.first_name|as_crispy_field}}
+                            </div>
+                            <div class="col-sm-6">
+                                {{form.last_name|as_crispy_field}}
+                            </div>
+                            <div class="col-sm-6">
+                                {{form.email|as_crispy_field}}
+                            </div>
+                            <div class="col-sm-6">
+                                {{form.email2|as_crispy_field}}
+                            </div><br>
+                            <div class="col-sm-6">
+                                {{form.number|as_crispy_field}}
+                            </div>
+                            <div class="col-sm-6">
+                                {{form.number2|as_crispy_field}}
+                            </div>
+                            <div class="col-sm-4">
+                                {{form.country|as_crispy_field}}
+                            </div>
+                            <div class="col-sm-4">
+                                {{form.language|as_crispy_field}}
+                            </div>
+                            <div class="col-sm-4">
+                                {{form.type|as_crispy_field}}
+                            </div>
+                            <div class="col-12">
+                                {{form.address|as_crispy_field}}
+                            </div>
+                            
+                            
+    
+                            <!--<label for="interested-in" class="offset-1 col-md-2 col-sm-2 col-form-label">Interested in</label>
+                            <div class="form-check col-md-7 col-sm-7" name="interest">
+                                <input type="checkbox" id="check1" name="interest">
+                                <label for="check1">Games</label>
+                                <input type="checkbox" id="check1" name="technologies">
+                                <label for="check1">Technology</label>
+                                <input type="checkbox" id="check1" name="socialmedia">
+                                <label for="check1">Social</label>
+                                <input type="checkbox" id="check1" name="product">
+                                <label for="check1">Products</label>
+                            </div>-->
+                            
+                            <div class="col-12 col-sm-6 col-md-6 ">
+                                {{form.website|as_crispy_field}}
+                            </div>
+                            
+    
+                            <div class="col-12 col-sm-6 col-md-6 ">
+                                {{form.youtube|as_crispy_field}}
+                            </div>
+                            
+                            
+                            <div class="col-12 col-sm-6 col-md-6 ">
+                                {{form.facebook|as_crispy_field}}
+                            </div>
+                            
+                            
+                            <div class="col-12 col-sm-6 col-md-6 ">
+                                {{form.instagram|as_crispy_field}}
+                             </div>
+                            
+                            <div class="col-12 col-sm-6 col-md-6 ">
+                                {{form.twitter|as_crispy_field}}
+                            </div>
+                            
+                            <div class="col-12 col-sm-6 col-md-6 ">
+                                {{form.pinterest|as_crispy_field}}
+                            </div>
+                            <div class="col-12" style="text-align: center;">
+                                <input type="submit" name="submit" class="btn btn-primary">
+                            </div>
+                        </div>
+                    </form>
+    
+                </div>
+            </div>
+        </div>
+<br><br><br><br>
+        
+            
+{% endblock %}

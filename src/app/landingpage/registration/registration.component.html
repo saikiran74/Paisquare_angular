@@ -1,0 +1,46 @@
+<app-landingnavbar></app-landingnavbar>
+<div class="col-md-8 offset-md-2">
+    <div class="card">
+        <div class="card-header bg-primary">
+            <h5 class="text-center ">Create account</h5>
+        </div>
+        <div class="card-body">
+            
+            <form  #loginform="ngForm" (ngSubmit)="registerUser()">
+                <h3 class="text-danger">{{message}}</h3>
+                <div class="form-group row row-content">
+                    <label for="username" class="col-sm-2 col-form-label">Username</label>
+                    <div class="col-sm-10 ">
+                        <input type="text" class="form-control" [(ngModel)]="user.username" id="username" name="username" placeholder="Display name" ngModel  required><br>
+                        
+                    </div>
+                    <label for="fullname" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-5 ">
+                        <input type="text" class="form-control" [(ngModel)]="user.firstname" name="first_name" placeholder="First Name" required><br>
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" [(ngModel)]="user.lastname" name="last_name" placeholder="Last Name" required><br>
+                    </div>
+                    
+                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" [(ngModel)]="user.email" name="email1" placeholder="Required" required><br>
+                    </div>
+                    
+                    <label for="password" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-5">
+                        <input type="password" class="form-control" [(ngModel)]="user.password" name="password1" placeholder="Enter password" required><br>
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="password" class="form-control" [(ngModel)]="user.password" id="password" name="password2" placeholder="Re-enter password" required><br>
+                    </div>
+                    
+                    <div class="col-12 text-center">
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </div>
+                </div>
+            </form>  
+        </div>
+    </div>
+</div>    
+<br><br>

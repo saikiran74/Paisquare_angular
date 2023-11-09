@@ -1,0 +1,30 @@
+<app-landingnavbar></app-landingnavbar>
+    <br><br><br>
+    <div class="col-md-5 offset-md-3">
+        <div class="card ">
+            <h3 class="card-header bg-primary ">Sign in</h3>
+            <div class="card-body ">
+                <div class="row row content">
+                    <form #loginform="ngForm" (ngSubmit)="userLogin()">
+                        <h3 class="text-danger">{{message}}</h3>
+                        <h3>{{user.id}}</h3>
+                        <div class="form-group container row row-content">
+                            <label class="col-12 col-sm-5 col-md-5 form-group-label" placeholder="Enter username">Email</label>
+                            <div class="col-12 col-sm-6 col-md-6">
+                                <input class="form-control" type="text"  name="username"  [(ngModel)]="user.email" ngModel required/>
+                            </div><br><br>
+                            <label class="col-sm-5 col-md-5 form-group-label" aria-placeholder="Enter password">Password</label>
+                            <div class="col-sm-6 col-md-6">
+                                <input class="form-control" type="password"  name="password" [(ngModel)]="user.password" ngModel required/>
+                            </div><br><br><br>
+                            <div class="col-12 text-center">
+                                <input type="submit" value="Sign-in" href="index" class="btn btn-primary"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div> 
+    </div>
+<br><br><br>

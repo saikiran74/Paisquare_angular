@@ -1,0 +1,200 @@
+{% extends 'base.html'%}
+{% block content %}
+        <div class="container">
+            <div style="text-align: end;" >
+                <a role="button" href="{% url 'update' user.username %}" class="btn btn-primary">Edit profile</a>
+    
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <i class="fa fa-user fa-4x" style="color: rgba(48, 0, 70, 0.842);">Alcutro</i>
+        </div>
+        <br>    
+                <div class="container">
+                    <div class="row"  >
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <h5>Followers</h5>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<label name="followers">32k</label>
+                        </div>
+                        <div class="col-12 col-sm-6  col-md-3">
+                            <h5>Likes</h5>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<label name="likes">64k</label>
+                        </div>
+                        <div class="col-12 col-sm-6  col-md-3" >
+                            <h5>Ads</h5>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<label name="ads">4</label>
+                        </div>
+                        <div class="col-12 col-sm-6  col-md-3">
+                            <h5>Rating</h5>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<label name="rating">8.9</label>
+                        </div>
+                    </div>
+                </div><br><br>
+                
+                {% for all in all %}
+                    {% if all.username == user.username %}
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5>Brand Name</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control" name="username">{{all.brandname}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5>Username</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control" name="username">{{all.username}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5>First Name</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control" name="first_name">{{all.first_name}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5>Last name</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control" name="last_name">{{all.last_name}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5>Email</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control" name="email">{{all.email}}</label>
+                                </div>
+                            </div>
+                            {%if all.email2 %}
+                                <div class="row">
+                                    <div class="col-12 col-md-3 col-sm-2">
+                                        <h5>Second email</h5>
+                                    </div>
+                                    <div class="col-12 col-md-8 col-sm-10">
+                                        <label class="form-control" name="email2">{{all.email2}}</label>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5>Number</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control" name="number">{{all.number}}</label>
+                                </div>
+                            </div>
+                            {%if all.number2 %}
+                                <div class="row">
+                                    <div class="col-12 col-md-3 col-sm-2">
+                                        <h5>Second Number</h5>
+                                    </div>
+                                    <div class="col-12 col-md-8 col-sm-10">
+                                        <label class="form-control" name="number2">{{all.number2}}</label>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5>Address</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control" name="address">{{all.address}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5>Country</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control" name="email">{{all.country}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5>Type</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control" name="type">{{all.type}}</label>
+                                </div>
+                            </div>
+                            
+                            {%if all.website %}
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5 style="color: rgb(0, 247, 144);">Website</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control"><a href="{{all.website}}" target="_blank">{{all.website}}</a></label>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {%if all.youtube %}
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5 style="color: rgb(0, 247, 144);">Youtube</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control"><a href="{{all.youtube}}" target="_blank">{{all.youtube}}</a></label>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {%if all.facebook %}
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5 style="color: rgb(0, 247, 144);">Facebook </h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control" name="facebook"><a href="{{all.facebook}}" target="_blank">{{all.facebook}}</a></label>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {%if all.instagram %}
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5 style="color: rgb(0, 247, 144);">Instagram</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control"><a href="{{all.instagram}}" target="_blank">{{all.instagram}}</a></label>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {%if all.twitter %}
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5 style="color: rgb(0, 247, 144);">Twitter</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control" name="twitter"><a href="{{all.twitter}}" target="_blank">{{all.twitter}}</a></label>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {%if all.pinterest %}
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-sm-2">
+                                    <h5 style="color: rgb(0, 247, 144);">Pinterest</h5>
+                                </div>
+                                <div class="col-12 col-md-8 col-sm-10">
+                                    <label class="form-control" name="pinterest"><a href="{{all.pinterest}}" target="_blank">{{all.pinterest}}</a></label>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                    {%endif%}
+                {% endfor %}
+                
+                
+            
+        
+        <br><br><br>
+
+{% endblock %}

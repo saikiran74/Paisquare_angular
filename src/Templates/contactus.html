@@ -1,0 +1,74 @@
+{% extends 'base.html'%}
+{% block content %}
+            <h2 style="text-align: center;">Contact Us</h2>
+            <div class="col-10 offset-sm-2 col-sm-10 col-md-7">
+                <div class="card" style="align-content: center;">
+                    <form action="" onsubmit="return validate()" method="POST">
+                        <div class="container"><br>
+                            <div class="row form-group">
+                                <label class="form-group-label col-12 col-bg-3 col-sm-3" id="contactusname">Name</label>
+                                <div class="col-12 col-sm-7 col-bg-7">
+                                    <input class="form-control" name="contactusname" id="contactname" type="text" placeholder="Enter your name" onblur="name()" required>
+                                </div>
+                                <span class="col-12 col-sm-2 col-bg-2" id="contactname2"> </span>
+                            </div>  
+                            {% csrf_token %}
+                            <div class="row form-group">
+                                <label class="form-group-label col-12 col-bg-3 col-sm-3" id="contactusemail">Email</label>
+                                <div class="col-12 col-sm-7 col-bg-7">
+                                    <input class="form-control" name="contactusemail" id="contactemail" type="text" placeholder="Enter your email id" title="Enter properly" onblur="email()" required>
+                                </div>
+                                <span class="col-12 col-sm-2 col-bg-2" id="contactemail2"> </span>
+                            </div>
+                            <div class="row form-group">
+                                <label class="form-group-label col-12 col-bg-3 col-sm-3" id="contactusissue">Issue</label>
+                                <div class="col-12 col-sm-7 col-bg-7">
+                                    <textarea class="form-control" name="contactusissue" id="contactissue" type="text" placeholder="describe issue" onblur="issue()" required></textarea>
+                                </div>
+                                <span class="col-12 col-sm-2 col-bg-2" id="contactissue2"> </span>
+                            </div>
+                            <div style="text-align: center;">
+                                <input type="submit" value="Send" class="btn btn-primary" >
+                            </div><br>
+                        </div>
+                    </form>
+                </div>
+            </div><br><br>
+            <!--
+                <script>
+                function name(){
+                    var name=document.getElementById("contactname").value;
+                    var regex=/^[A-Za-z\s]{3,50}$/;
+                    if(regex.test(name))
+                        document.getElementById("contactname2").innerHTML="Accepted";
+                    else
+                        document.getElementById("contactname2").innerHTML="Rejected";
+                }
+                function email(){
+                    var email=document.getElementById("contactemail").value;
+                    var regex=/^[A-Za-z\s\@\.]{3-50}$/;
+                    if(regex.test(email))
+                        document.getElementById("contactemail2").innerHTML="Accepted";
+                    else
+                        document.getElementById("contactemail2").innerHTML="Rejected";
+                }
+                function issue(){
+                    var issue=document.getElementById("contactissue").value;
+                    var regex=/^[A-Za-z0-9]{1-250}$/;
+                    if(regex.test(issue))
+                        document.getElementById("contactissue2").innerHTML="Accepted";
+                    else
+                        document.getElementById("contactissue2").innerHTML="Rejected";
+                }
+            </script>
+            <script>
+                function validate(){
+                    alert("hey no!!!")
+                    return false;
+                }
+            </script>
+            -->
+            <br><br><br><br>
+
+            
+{% endblock %}

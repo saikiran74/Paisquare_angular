@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    {% load static %}
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+            <meta http-equiv="x-ua-compatible" content="ie=sdge">
+            <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+            <link rel="stylesheet" href="{% static 'css\styles.css' %}">
+            <title>Paisa</title>
+        </head>
+        <body>
+            <header class="jumbotron">
+                <div class="container">
+                    <div class="row row-header">
+                        <div class="col-12 col-md-8 col-sm-2 col-xs-2">
+                            <a href="/" style="text-decoration: none;"><h1 id="navpaisa">Paisa</h1></a>
+                        </div>
+                        <div class="col-12 col-md-3 offset-md-1 col-sm-6 offset-sm-4 col-xs-10">
+                            <a role="button" class="btn btn-primary" href="createaccount"><h6>Create account</h6></a>
+                            <a role="button" class="btn btn-primary" href="login"><h6>Sign in</h6></a></button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <br><br>
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h5 class="text-center ">Create account</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="createaccount" method="post">
+                            {% csrf_token %}
+                            <div class="form-group row row-content">
+                                <label for="username" class="col-sm-2 col-form-label">Username</label>
+                                <div class="col-sm-10 ">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Display name" required><br>
+                                </div>
+                                <label for="fullname" class="col-sm-2 col-form-label">Name</label>
+                                <div class="col-sm-5 ">
+                                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required><br>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" id="fullname" name="last_name" placeholder="Last Name" required><br>
+                                </div>
+                                
+                                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="email" name="email1" placeholder="Required" required><br>
+                                </div>
+                                <label for="optemail" class="col-2 col-form-label"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="optemail" name="email2" placeholder="Optional" ><br>
+                                </div>
+                                
+                                <label for="password" class="col-sm-2 col-form-label">Password</label>
+                                <div class="col-sm-5">
+                                    <input type="password" class="form-control" id="password" name="password1" placeholder="Enter password" required><br>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input type="password" class="form-control" id="password" name="password2" placeholder="Re-enter password" required><br>
+                                </div>
+                                
+                                <div class="col-12 text-center">
+                                    <input type="submit" class="btn btn-primary" value="Submit">
+                                </div>
+                            </div>
+                        </form>  
+                    
+                        <div class="text-center">
+                            {% for message in messages%}
+                            <h2>{{message}}</h2>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>    
+                <br><br><br>
+                <footer class="footer">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-sm-3 col-bg-1 footer-row">
+                                <th><h3 class="text-center">Pages</h3></th>
+                                <dd><a href="{% url 'termsandcondition' %}" style="text-decoration: none;">Terms and Conditions</a></dd>
+                                <dd><a href="{% url 'privacypolicy' %}" style="text-decoration: none;">Privacy Policy</a></dd>
+                                <dd><a href="{% url 'aboutus' %}" style="text-decoration: none;">About Us</a></dd>
+                                <dd><a href="{% url 'contactus' %}" style="text-decoration: none;">Contact Us</a></dd>
+                            </div>
+                            <div class="col-12 col-bg-3 col-sm-1" >
+                                
+                            </div>
+                            <div class="col-12 col-sm-4 col-bg-4 footer-row">
+                                <th><h3 class="text-center">Developer</h3></th>
+                                <dd>Bobbili Sai kiran Reddy</dd>
+                            </div>
+                            <div class="col-12 col-sm-3 col-bg-3 offset-sm-1 footer-row" >
+                                <th><h3 class="text-center">Social Media</h3></th>
+                                <dd><a href="https://twitter.com/BloggerBobbili" target="_blank" style="text-decoration: none;">Twitter</a></dd>
+                                <dd><a href="https://www.facebook.com/bobbili.saikiran.94" target="_blank" style="text-decoration: none;">Facebook</a></dd>
+                                <dd><a href="https://in.pinterest.com/bobbilisaikiran/" target="_blank" style="text-decoration: none;">Pinterest</a></dd>
+                                <dd><a href="https://www.youtube.com/channel/UC1sjo5urqghLPvZ0l4c5vnQ/" target="_blank" style="text-decoration: none;">Youtube</a></dd>
+                                <dd><a href="https://www.instagram.com/blo.ggerblogs/" target="_blank" style="text-decoration: none;">Instagram</a></dd>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </body>
+            <style>
+                .footer{
+                    background-color: hsl(244, 33%, 19%);
+                    border-color: green;
+                    border: green;
+                    border-width: 5px;
+                }
+                .footer-row{
+                    padding-left: 20px;
+                    padding-top: 20px;
+                }
+                .jumbotron{
+                    height: 100px;
+                    padding-top: 25px;
+                }
+            </style> 
+        </html>

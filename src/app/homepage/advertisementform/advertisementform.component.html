@@ -1,0 +1,65 @@
+<app-navbar></app-navbar><br><br><br><br>
+<h2 style="text-align: center; color:blue">Advertise</h2><br><br>
+<div class="offset-1">
+    <div class="row">
+        <div class="form">
+            <form #loginform="ngForm" (ngSubmit)="advertisementForm()" class="form container">
+                    <div class="row">
+                    <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Brand name</label>
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        <input type="text" class="form-control"  id="adhead" name="header" placeholder="Enter brand or website name" [(ngModel)]="advertise.brandname" required><br>
+                    </div>
+                    <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Description</label>
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        <input type="text" class="form-control" id="adhead" name="description" placeholder="Add description" [(ngModel)]="advertise.description" required><br>
+                    </div><br>
+
+                    <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Url</label>
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        <input type="text" class="form-control" id="adhead" name="url" placeholder="Paste your URL" [(ngModel)]="advertise.url"><br>
+                    </div><br>
+
+                    <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Pai</label>
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        <input type="number" class="form-control" id="adsilver" name="silver" placeholder="Enter total Pai's" [(ngModel)]="advertise.pai"><br>
+                    </div><br>
+
+                    <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Rate</label>
+                    <div class="col-12 col-md-6 offset-xs-1 col-sm-6">
+                        <input type="number" class="form-control" id="adsilver" name="silverclick" placeholder="Enter Pai's per click" [(ngModel)]="advertise.paiperclick"><br>
+                    </div>
+                    <div class="col-12 col-md-2 offset-xs-1 col-sm-2">
+                        <label  id="adsilver" name="silverclick">Per click</label><br>
+                    </div><br>
+
+                    <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Paisa</label>
+                    <div class="col-12 col-md-8 offset-xs-1 col-sm-8">
+                        <input type="number" class="form-control" id="admoney" name="money" placeholder="Enter money" [(ngModel)]="advertise.paisa"><br>
+                    </div><br>
+                        <label for="adhead" class="col-2 offset-1 offset-md-1  col-xs-2 col-form-label">Rate</label>
+                        <div class="col-5 col-xs-6">
+                            <input type="number" class="form-control" id="admoney" name="moneyclick" placeholder="Enter amount per click" [(ngModel)]="advertise.paisaperclick"><br>
+                        </div>
+                        <div class="col-3 col-xs-2 center">
+                            <label  id="admoney" name="admoney">Per click</label><br>
+                        </div><br>
+                    <label for="adhead" class="col-12 offset-1 offset-md-1 col-md-2 col-sm-2 col-form-label">Country</label>
+                    <div class="col-12 col-md-2 offset-xs-1 col-sm-2">
+                        <input type="text" class="form-control" id="adsilver" name="silver" placeholder="Target Country" [(ngModel)]="advertise.country"><br>
+                    </div><br>
+                    <label for="adhead" class="col-12 col-md-1 col-sm-1 col-form-label">State</label>
+                    <div class="col-12 col-md-2 offset-xs-2 col-sm-1">
+                        <input type="text" class="form-control" id="adsilver" name="silver" placeholder="Target State" [(ngModel)]="advertise.state"><br>
+                    </div><br><label for="adhead" class="col-12 col-md-1 col-sm-1 col-form-label">District</label>
+                    <div class="col-12 col-md-2 offset-xs-1 col-sm-2">
+                        <input type="text" class="form-control" id="adsilver" name="silver" placeholder="Target District" [(ngModel)]="advertise.district"><br>
+                    </div><br>
+                    
+                    <div class="col-12 col-md-6 col-sm-6 text-center">
+                        <input type="submit" href="advertise" class="btn btn-primary" value="advertise">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>    
+</div><br><br>
