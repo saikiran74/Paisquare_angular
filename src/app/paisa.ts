@@ -52,3 +52,9 @@ export class Visited{
     userid!:String;
     visited!:boolean;
 }
+
+export class Like{
+    advertisementid!:Number;
+    userid!:String;
+    visited!:boolean;
+}

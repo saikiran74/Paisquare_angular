@@ -6,7 +6,7 @@
         </div>
         <div class="card-body">
             
-            <form  #loginform="ngForm" (ngSubmit)="registerUser()">
+            <form  #registrationform="ngForm" (ngSubmit)="registerUser()">
                 <h3 class="text-danger">{{message}}</h3>
                 <div class="form-group row row-content">
                     <label for="username" class="col-sm-2 col-form-label">Username</label>
@@ -36,7 +36,7 @@
                     </div>
                     
                     <div class="col-12 text-center">
-                        <input type="submit" class="btn btn-primary" value="Submit">
+                        <input type="submit" class="btn btn-primary" value="Submit" [disabled]="!registrationform.valid">
                     </div>
                 </div>
             </form>  

@@ -29,7 +29,7 @@
                                                 <tr >
                                                     <td style="align-items: center;" class="text-align: justify; col-2">
                                                         <button (click)="like(ad.id)" id="likebotton" type="submit"  name="post_id"  style="border:none;">
-                                                            <a role="button" class="fa fa-thumbs-up fa-2x"></a>
+                                                            <a [ngStyle]="{'color': ad.likes.includes(userId) ? 'blue' : 'black'}" style="border: none; background: none; color: rgb(4, 0, 255);" role="button" class="fa fa-thumbs-up fa-2x"></a>
                                                         </button>
                                                     </td>
                                                     <td style="align-items: center; width: 20%;" class="col-2">
@@ -70,7 +70,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><h5>like</h5></td>
+                                                    <td><h5>{{ad.likes.length}} like</h5></td>
                                                     <td><h5>follow</h5>  </td>
                                                     <td><h5>Share</h5></td>
                                                     <td><h5>{{ad.visiteduser.length}} Visits</h5></td>
@@ -79,7 +79,7 @@
                                             </tbody>
                                         </table>
                                         <td>
-                                        <div  *ngIf="currentOpenId == ad.id" style="width: 100%;">
+                                        <div  *ngIf="currentOpenId == ad.id" class="row">
                                             <div class="card " style="min-height: 10px; max-height: 500; width: 100%;" >
                                                         <div class="row"  *ngFor="let comment of comments">
                                                             <strong class="col-6">{{comment.comment}}</strong>

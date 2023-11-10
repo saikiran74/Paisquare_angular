@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PaiService } from '../paisa.service';
 import {HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Comments,Follower,Visited } from '../paisa';
+import { Comments,Follower,Visited,Like } from '../paisa';
 
 @Component({
   selector: 'app-homepage',
@@ -24,15 +24,7 @@ export class HomepageComponent implements OnInit {
   constructor(private _service: PaiService,private http: HttpClient,private _router: Router) {}
   userId=' ';
   ngOnInit(){
-    this._service.getAllAdvertisements().subscribe(
-      data => {
-      this.userId=this._service.userId;
-      console.log("all advertisment list:",data)
-      this.advertisements = data;
-      console.log("all advertisment list:",this.advertisements)
-    },
-      error=>{console.log("erroe occure while retrieving the data!")
-    });
+    this.fetchadvertisement()
     this._service.getAllFollowersList().subscribe(
       data =>{
         this.followerslist=data;
@@ -52,8 +44,31 @@ export class HomepageComponent implements OnInit {
       }
     );
   }
+  fetchadvertisement(){
+    this._service.getAllAdvertisements().subscribe(
+      data => {
+      this.userId=this._service.userId;
+      console.log("all advertisment list:",data)
+      this.advertisements = data;
+      console.log("all advertisment list:",this.advertisements)
+    },
+      error=>{console.log("error occure while retrieving the data!")
+    });
+  }
+  likeobj=new Like();
   like(advertisementid:Number){
-    
+    this.likeobj.advertisementid=advertisementid;
+    this.likeobj.userid=this.userId;
+    this._service.LikeFromRemote(this.likeobj,+this.userId,advertisementid).subscribe(
+      data=>{
+        console.log("Like recieved")
+        this.fetchadvertisement()
+        this._router.navigate(['homepage'])
+      },
+      error=>{
+        console.log("like error occured")
+      }
+    )
   }
   visited(advertisementid:Number,advertisementurl:String){
     this.visitobj.userid=this.userId;
@@ -62,6 +77,8 @@ export class HomepageComponent implements OnInit {
     this._service.VisitedFromRemote(this.visitobj,+this.userId,advertisementid).subscribe(
       data=>{
         console.log("visited received")
+        this.fetchadvertisement()
+        this._router.navigate(['homepage'])
       },
       error=>{
         console.log("visited error occured")
@@ -75,6 +92,8 @@ export class HomepageComponent implements OnInit {
     this._service.FollowerFromRemote(this.followerobj,advertiserid).subscribe(
       data=>{
         console.log("follower updated");
+        this.fetchadvertisement()
+        this._router.navigate(['homepage'])
       },
       error=>{
         console.log("error occured for following");
@@ -89,6 +108,7 @@ export class HomepageComponent implements OnInit {
     this._service.CommentsFromRemote(this.commentobj,val,+this.userId).subscribe(
       data=>{
       console.log("Response received");
+      this.fetchadvertisement()
       this._router.navigate(['homepage'])
     },
       error=>{console.log("Error occured");

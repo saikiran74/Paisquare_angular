@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Advertise, User,Contactus,Comments, Follower, Visited } from './paisa';
+import { Advertise, User,Contactus,Comments, Follower, Visited, Like } from './paisa';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { Observable } from 'rxjs';
 import {HttpClient } from '@angular/common/http';
@@ -44,5 +44,8 @@ export class PaiService {
   }
   public VisitedFromRemote(visited:Visited,userid:Number,advertiserid: Number):Observable<any>{
     return this._http.post<any>(`http://localhost:3300/${userid}/${advertiserid}/visit`,visited)
+  }
+  public LikeFromRemote(like:Like,userid:Number,advertisementid:Number):Observable<any>{
+    return this._http.post<any>(`http://localhost:3300/${userid}/${advertisementid}/like`,like)
   }
 }
