@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PaiService } from '../../paisa.service';
+import { PaiService } from '../../../paisa.service';
 import { Router } from '@angular/router';
-import { Advertise } from '../../paisa';
+import { Advertise } from '../../../paisa';
 @Component({
   selector: 'app-advertisementform',
   templateUrl: './advertisementform.component.html',

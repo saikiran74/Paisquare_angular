@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PaiService } from '../paisa.service';
-import { Contactus } from '../paisa';
+import { PaiService } from '../../paisa.service';
+import { Contactus } from '../../paisa';
 
 @Component({
   selector: 'app-contactus',

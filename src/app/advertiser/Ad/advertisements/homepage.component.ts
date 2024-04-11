@@ -1,9 +1,9 @@
 import { Component, OnInit,Input, ChangeDetectorRef,EventEmitter, Output } from '@angular/core';
-import { PaiService } from '../../paisa.service';
+import { PaiService } from '../../../paisa.service';
 import {HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { Comments,Follower,Visited,Like, Block, Report,Favourite } from '../../paisa';
+import { Comments,Follower,Visited,Like, Block, Report,Favourite } from '../../../paisa';
 
 @Component({
   selector: 'app-homepage',

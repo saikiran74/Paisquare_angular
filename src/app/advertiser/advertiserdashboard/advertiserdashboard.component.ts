@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PaiService} from '../paisa.service';
+import { PaiService} from '../../paisa.service';
 import { error } from 'jquery';
 
 @Component({

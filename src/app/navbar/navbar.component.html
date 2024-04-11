@@ -11,7 +11,7 @@
     </div>
 </nav><br><br>
 <div class="row">
-    <div class="col-3 fixed-left" id="sidebar" style="position: fixed; top: 0; left: 0">
+    <div class="col-3 fixed-left" id="sidebar">
         <p-tree [value]="nodes" [style]="{'border': 'none'}">
                 <ng-template let-node pTemplate="url" [style]="{'border': 'none','background-color':'blue' }">
                     <i (click)="componentViewMethod(node.data)" style="text-decoration: none; outline: none;" rel="noopener noreferrer" class="text-700 hover:text-primary btn" >{{ node.label }}</i>
@@ -21,7 +21,7 @@
                 </ng-template>
         </p-tree>
     </div>
-    <div class="col-8  ml-auto bg-primary" id="content" style="padding-top: 56px;">
+    <div class="col-8 " id="content">
         <div class="container">
             <br>
             @if(displayadvertisementformComponent){

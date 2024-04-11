@@ -1,7 +1,7 @@
 import { Component , ViewChild, ElementRef } from '@angular/core';
-import { Profile } from '../paisa';
+import { Profile } from '../../paisa';
 import { Router } from '@angular/router';
-import { PaiService } from '../paisa.service';
+import { PaiService } from '../../paisa.service';
 import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-profile',

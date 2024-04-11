@@ -5,28 +5,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './landingpage/login/login.component';
 import { RegistrationComponent } from './landingpage/registration/registration.component';
-import { FooterComponent } from './footer/footer.component';
+import { FooterComponent } from './general/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
-import { LandingpageComponent } from './landingpage/landingpage.component';
-import { HomepageComponent } from './homepage/advertisements/homepage.component';
+import { HomepageComponent } from './advertiser/Ad/advertisements/homepage.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { AdvertisementformComponent } from './homepage/advertisementform/advertisementform.component';
-import { ContactusComponent } from './contactus/contactus.component';
+import { AdvertisementformComponent } from './advertiser/Ad/advertisementform/advertisementform.component';
+import { ContactusComponent } from './general/contactus/contactus.component';
 import { LandingnavbarComponent } from './landingpage/landingnavbar/landingnavbar.component';
 import { LandingcontentComponent } from './landingpage/landingcontent/landingcontent.component';
-import { ProfileupdateComponent } from './profileupdate/profileupdate.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileupdateComponent } from './user/profileupdate/profileupdate.component';
+import { ProfileComponent } from './user/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AdvertiserreportsComponent } from './advertiserreports/advertiserreports.component';
+import { AdvertiserreportsComponent } from './advertiser/advertiserreports/advertiserreports.component';
 import { ChartModule } from 'primeng/chart';
-import { UseractivitiesComponent } from './homepage/useractivities/useractivities.component';
-import { AlladvertisementsComponent } from './homepage/alladvertisements/alladvertisements.component';
-import { AdvertiserdashboardComponent } from './advertiserdashboard/advertiserdashboard.component';
-import { UserdashboardComponent } from './userdashboard/userdashboard.component';
+import { UseractivitiesComponent } from './advertiser/useractivities/useractivities.component';
+import { AlladvertisementsComponent } from './advertiser/Ad/alladvertisements/alladvertisements.component';
+import { AdvertiserdashboardComponent } from './advertiser/advertiserdashboard/advertiserdashboard.component';
+import { UserdashboardComponent } from './user/userdashboard/userdashboard.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TermsandConditionsComponent } from './static/termsand-conditions/termsand-conditions.component';
-import { PrivacyPolicyComponent } from './static/privacy-policy/privacy-policy.component'
-
+import { PrivacyPolicyComponent } from './static/privacy-policy/privacy-policy.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
@@ -42,7 +40,6 @@ import { MenubarModule } from 'primeng/menubar';
     LoginComponent,
     RegistrationComponent,
     FooterComponent,
-    LandingpageComponent,
     HomepageComponent,
     NavbarComponent,
     AdvertisementformComponent,

@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './landingpage/login/login.component';
-import { LandingpageComponent } from './landingpage/landingpage.component';
 import { RegistrationComponent } from './landingpage/registration/registration.component';
-import { HomepageComponent } from './homepage/advertisements/homepage.component';
-import { AdvertisementformComponent } from './homepage/advertisementform/advertisementform.component';
+import { HomepageComponent } from './advertiser/Ad/advertisements/homepage.component';
+import { AdvertisementformComponent } from './advertiser/Ad/advertisementform/advertisementform.component';
 import { LandingcontentComponent } from './landingpage/landingcontent/landingcontent.component';
-import { ContactusComponent } from './contactus/contactus.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ProfileupdateComponent } from './profileupdate/profileupdate.component';
-import { AdvertiserreportsComponent } from './advertiserreports/advertiserreports.component';
-import { UseractivitiesComponent } from './homepage/useractivities/useractivities.component';
-import { AlladvertisementsComponent } from './homepage/alladvertisements/alladvertisements.component';
-import { AdvertiserdashboardComponent } from './advertiserdashboard/advertiserdashboard.component';
+import { ContactusComponent } from './general/contactus/contactus.component';
+import { ProfileComponent } from './user/profile/profile.component';
+import { ProfileupdateComponent } from './user/profileupdate/profileupdate.component';
+import { AdvertiserreportsComponent } from './advertiser/advertiserreports/advertiserreports.component';
+import { UseractivitiesComponent } from './advertiser/useractivities/useractivities.component';
+import { AlladvertisementsComponent } from './advertiser/Ad/alladvertisements/alladvertisements.component';
+import { AdvertiserdashboardComponent } from './advertiser/advertiserdashboard/advertiserdashboard.component';
 import { NavbarComponent } from './navbar/navbar.component';
 const routes: Routes = [
   { path: 'profileupdate', component:ProfileupdateComponent},
@@ -29,8 +28,8 @@ const routes: Routes = [
   { path: 'save/:id', component:LandingcontentComponent},
   { path: 'advertiserreport', component:AdvertiserreportsComponent},
   { path: 'useractivities', component:UseractivitiesComponent},
-  {path: 'advertiserdashboard',component:AdvertiserdashboardComponent},
-  {path: 'home',component:NavbarComponent},
+  { path: 'advertiserdashboard',component:AdvertiserdashboardComponent},
+  { path: 'home',component:NavbarComponent},
   { path: '', component:LandingcontentComponent}
 ];
 
