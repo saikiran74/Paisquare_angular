@@ -28,8 +28,8 @@ const routes: Routes = [
     path:'general',
     component:NavbarComponent,
     children:[
-      { path:'app-termsand-conditions',component: TermsandConditionsComponent},
-      { path:'app-privacy-policy',component:PrivacyPolicyComponent},
+      { path:'termsandconditions',component: TermsandConditionsComponent},
+      { path:'privacyandpolicy',component:PrivacyPolicyComponent},
       { path:'contactUs',component:ContactusComponent},
       { path:'aboutUs',component:AboutUSComponent},
       { path: 'profile/:id', component: ProfileComponent},

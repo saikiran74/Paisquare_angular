@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { PaiService } from '../../paisa.service';
 import { Contactus } from '../../paisa';
@@ -8,6 +8,12 @@ import { Contactus } from '../../paisa';
   templateUrl: './landingcontent.component.html',
   styleUrls: ['./landingcontent.component.css']
 })
-export class LandingcontentComponent {
-  
+export class LandingcontentComponent implements OnInit {
+border: any;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
 }
+
