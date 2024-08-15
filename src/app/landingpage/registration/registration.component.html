@@ -1,47 +1,118 @@
 <app-landingnavbar></app-landingnavbar>
 <br>
 <div class="grid">
-    <div class="col-12 md:col-8 md:col-offset-2">
-        <p-card header="Create account">
-            <div class="card-body">
-                <form  #registrationform="ngForm" (ngSubmit)="registerUser()">
-                    <h3 class="text-danger">{{message}}</h3>
-                    <div class="form-group grid grid-content">
-                        <label for="username" class="sm:col-4 col-form-label">Username</label>
-                        <div class="sm:col-8 ">
-                            <input pInputText  type="text" class="form-control" [(ngModel)]="user.username" id="username" name="username" placeholder="Display name" ngModel  required><br>
-                            
-                        </div>
-                        <label for="fullname" class="sm:col-4 col-form-label">Name</label>
-                        <div class="sm:col-4 ">
-                            <input pInputText type="text" class="form-control" [(ngModel)]="user.firstname" name="first_name" placeholder="First Name" required><br>
-                        </div>
-                        <div class="sm:col-4">
-                            <input pInputText type="text" class="form-control" [(ngModel)]="user.lastname" name="last_name" placeholder="Last Name" required><br>
-                        </div>
-                        
-                        <label for="email" class="sm:col-4 col-form-label">Email</label>
-                        <div class="sm:col-8">
-                            <input pInputText type="text" class="form-control" [(ngModel)]="user.email" name="email1" placeholder="Required" required><br>
-                        </div>
-                        
-                        <label for="password" class="sm:col-4 col-form-label">Password</label>
-                        <div class="sm:col-8">
-                            <input pInputText type="password" class="form-control" [(ngModel)]="user.password" name="password1" placeholder="Enter password" required><br>
-                        </div>
-                        <label for="password" class="sm:col-4 col-form-label">Confirm Password</label>
-                        <div class="sm:col-8">
-                            <input pInputText type="password" class="form-control" [(ngModel)]="user.password" id="password" name="password2" placeholder="Re-enter password" required><br>
-                        </div>
-                        
-                        <div class="col-12 text-center">
-                            <p-button type="submit" class="btn btn-primary" value="Submit" [disabled]="!registrationform.valid">Submit</p-button>
+  <div class="md:col-8 md:col-offset-2">
+    <p-card header="Create account">
+      <div class="card-body">
+        <form [formGroup]="registrationForm" (ngSubmit)="registerUser()">
+          <h3 class="text-danger">{{message}}</h3>
+          <div class="form-group grid-content">
+
+            <div class="grid">
+              <label for="username" class="col-12 sm:col-4 col-form-label">User name</label>
+              <div class="col-12 sm:col-8">
+                <input pInputText type="text" class="form-control" formControlName="username" placeholder="Enter username" required><br>
+                <div *ngIf="registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched" class="text-danger">
+                    <div *ngIf="registrationForm.get('username')?.errors?.['required']">
+                      Username is required.
+                    </div>
+                </div>
+            </div>
+              
+            </div>
+
+            <div class="grid">
+              <label for="email" class="col-12 sm:col-4 col-form-label">Email</label>
+              <div class="col-12 sm:col-8">
+                <input pInputText type="email" class="form-control" formControlName="email" placeholder="Required" required><br>
+                <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="text-danger">
+                    <div *ngIf="registrationForm.get('email')?.errors?.['required']">
+                      Email is required.
+                    </div>
+                    <div *ngIf="registrationForm.get('email')?.errors?.['email']">
+                      Please enter a valid email address.
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+              <label for="zipcode" class="col-12 md:col-4 col-form-label">zipcode</label>
+              <div class="col-12 md:col-8">
+                <input pInputText type="text" class="form-control" formControlName="zipcode" placeholder="Enter your location zipcode" required><br>
+              
+                <div *ngIf="registrationForm.get('zipcode')?.invalid && registrationForm.get('zipcode')?.touched" class="text-danger">
+                    <div *ngIf="registrationForm.get('zipcode')?.errors?.['required']">
+                      Zipcode is required.
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="grid">
+              <label for="accountType" class="col-12 md:col-4 col-form-label">Account Type</label>
+              <div class="col-12 md:col-8">
+                <div class="flex gap-2">
+                  <div class="flex" id="accountType">
+                    <p-radioButton value="advertiser" inputId="advertiser" formControlName="accountType"></p-radioButton>
+                    <label for="advertiser" class="ml-2">Advertiser</label>
+                  </div>
+                  <div class="flex">
+                    <p-radioButton value="generalUser" inputId="generalUser" formControlName="accountType"></p-radioButton>
+                    <label for="generalUser" class="ml-2">General User</label>
+                  </div>
+                  <div class="flex">
+                    <p-radioButton value="both" inputId="both" formControlName="accountType"></p-radioButton>
+                    <label for="both" class="ml-2">Both</label>
+                  </div>
+                </div>
+                <div *ngIf="registrationForm.get('accountType')?.invalid && registrationForm.get('accountType')?.touched" class="text-danger">
+                  <div *ngIf="registrationForm.get('accountType')?.errors?.['required']">
+                    Account type is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid">
+              <label for="password" class="col-12 sm:col-4 col-form-label">Password</label>
+                <div class="col-12 sm:col-4">
+                    <input pInputText type="password" class="form-control" formControlName="password" placeholder="Enter password" required><br>
+                
+                    <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="text-danger">
+                        <div *ngIf="registrationForm.get('password')?.errors?.['required']">
+                        Password is required.
                         </div>
                     </div>
-                </form>  
+                </div>
+                <div class="col-12 sm:col-4">
+                    <input pInputText type="password" class="form-control" formControlName="confirmPassword" placeholder="Re-enter password" required><br>
+                    <div *ngIf="registrationForm.hasError('mismatch') && registrationForm.get('confirmPassword')?.touched" class="text-danger">
+                        <div>Passwords do not match.</div>
+                    </div>
+                    <div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched" class="text-danger">
+                        <div *ngIf="registrationForm.get('confirmPassword')?.errors?.['required']">
+                        Confirm Password is required.
+                        </div>
+                    </div>
+                </div>
+              
             </div>
-        </p-card>
-    </div> 
+
+            <div *ngIf="showEmailOTPBox" class="grid">
+              <label for="emailOTP" class="col-12 md:col-4 col-form-label">Email OTP</label>
+              <div class="col-12 md:col-8">
+                <input pInputText type="text" class="form-control" placeholder="Enter OTP" required><br>
+              </div>
+            </div>
+            <div class="col-12 text-center">
+              <p-button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid">Submit</p-button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </p-card>
+  </div>
 </div>
-   
 <br><br>
