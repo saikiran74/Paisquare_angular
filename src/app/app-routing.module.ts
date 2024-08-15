@@ -42,8 +42,8 @@ const routes: Routes = [
       { path: 'profile/:id', component: ProfileComponent},
     ]
   },
-  { path:'app-termsand-conditions',component: TermsandConditionsComponent},
-  { path:'app-privacy-policy',component:PrivacyPolicyComponent},
+  { path:'termsandconditions',component: TermsandConditionsComponent},
+  { path:'privacyandpolicy',component:PrivacyPolicyComponent},
   { path: 'login', component: LoginComponent },
   { path: 'createaccount', component: RegistrationComponent },
   { path: '', component: LandingcontentComponent },
