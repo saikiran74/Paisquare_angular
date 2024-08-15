@@ -1,0 +1,10 @@
+.logo {
+    height: 60px;
+    width:60px;
+    align-items:left;
+}
+.container {
+    margin: 0 auto;
+    max-width: 1200px; /* Adjust based on your design requirements */
+    padding: 0 15px;
+}
