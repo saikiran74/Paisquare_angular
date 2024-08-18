@@ -16,6 +16,14 @@ export class PaiService {
   public loginUserFromRemote(user: User ):Observable<any>{
      return this._http.post<any>("http://localhost:3300/login",user)
   }
+  //OTP call
+  /*
+  public verifyOTPCallFromRemote(email: string, otp: string):Observable<any>{
+    return this._http.post<any>("http://localhost:3300/verifyOTP",{ email, otp })
+ }*/
+  public verifyOTPCallFromRemote(user: User): Observable<any> {
+    return this._http.post<any>("http://localhost:3300/verifyOTP", user);
+}
   public registerUserFromRemote(user: User ):Observable<any>{
     return this._http.post<any>("http://localhost:3300/registeruser",user)
  }

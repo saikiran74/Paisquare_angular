@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TreeNode } from 'primeng/api';
 import { Tree } from 'primeng/tree';
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -60,6 +61,7 @@ export class NavbarComponent  implements OnInit{
             children: [
                 { key: '2-0', label: 'Profile', data: 'home/profile/:userId', type: 'url',icon:'pi pi-home'},
                 { key: '2-1', label: 'Update profile', data: 'home/profileupdate', type: 'url',icon:'pi pi-chart-line'},
+                { key: '2-2', label: 'logout', data: 'logout', type: 'url',icon:'pi pi-sign-out'},
             ]
           },
       ];
@@ -70,6 +72,8 @@ export class NavbarComponent  implements OnInit{
       this._router.navigate([val.replace(':userId', this.userId)]);
     }else if (val.includes('home/profile/')) {
       this._router.navigate([val.replace(':userId', this.userId)]);
+    } else if (val.includes('logout')) {
+      this._router.navigate(['/login']);
     } 
      else {
       this._router.navigate([val]);

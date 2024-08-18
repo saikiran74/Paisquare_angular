@@ -5,13 +5,12 @@
     <p-card header="Create account">
       <div class="card-body">
         <form [formGroup]="registrationForm" (ngSubmit)="registerUser()">
-          <h3 class="text-danger">{{message}}</h3>
           <div class="form-group grid-content">
 
             <div class="grid">
               <label for="username" class="col-12 sm:col-4 col-form-label">User name</label>
               <div class="col-12 sm:col-8">
-                <input pInputText type="text" class="form-control" formControlName="username" placeholder="Enter username" required><br>
+                <input pInputText type="text" class="form-control" formControlName="username" placeholder="Enter username" autocomplete="postal-code" required><br>
                 <div *ngIf="registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched" class="text-danger">
                     <div *ngIf="registrationForm.get('username')?.errors?.['required']">
                       Username is required.
@@ -37,16 +36,16 @@
             </div>
 
             <div class="grid">
-              <label for="zipcode" class="col-12 md:col-4 col-form-label">zipcode</label>
+              <label for="pincode" class="col-12 md:col-4 col-form-label">pincode</label>
               <div class="col-12 md:col-8">
-                <input pInputText type="text" class="form-control" formControlName="zipcode" placeholder="Enter your location zipcode" required><br>
+                <p-inputMask mask="999999" class="form-control" formControlName="pincode" placeholder="Enter your location pincode"/><br>
               
-                <div *ngIf="registrationForm.get('zipcode')?.invalid && registrationForm.get('zipcode')?.touched" class="text-danger">
-                    <div *ngIf="registrationForm.get('zipcode')?.errors?.['required']">
-                      Zipcode is required.
+                <div *ngIf="registrationForm.get('pincode')?.invalid && registrationForm.get('pincode')?.touched" class="text-danger">
+                    <div *ngIf="registrationForm.get('pincode')?.errors?.['required']">
+                      pincode is required.
                     </div>
-                  </div>
                 </div>
+              </div>
             </div>
 
             <div class="grid">
@@ -75,40 +74,73 @@
             </div>
 
             <div class="grid">
-              <label for="password" class="col-12 sm:col-4 col-form-label">Password</label>
+                <label for="password" class="col-12 sm:col-4 col-form-label">Password</label>
                 <div class="col-12 sm:col-4">
-                    <input pInputText type="password" class="form-control" formControlName="password" placeholder="Enter password" required><br>
+                  <input pInputText type="password" id="password" formControlName="password" placeholder="Enter password" required>
+                  
+                </div>
+                <div class="col-12 sm:col-4">
+                    <input pInputText type="password" 
+                    autocomplete="new-password"  class="form-control" formControlName="confirmPassword" placeholder="Re-enter password" required><br>
+                    
+                    
+                </div>
                 
-                    <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="text-danger">
-                        <div *ngIf="registrationForm.get('password')?.errors?.['required']">
-                        Password is required.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 sm:col-4">
-                    <input pInputText type="password" class="form-control" formControlName="confirmPassword" placeholder="Re-enter password" required><br>
-                    <div *ngIf="registrationForm.hasError('mismatch') && registrationForm.get('confirmPassword')?.touched" class="text-danger">
-                        <div>Passwords do not match.</div>
-                    </div>
-                    <div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched" class="text-danger">
-                        <div *ngIf="registrationForm.get('confirmPassword')?.errors?.['required']">
-                        Confirm Password is required.
-                        </div>
-                    </div>
-                </div>
-              
             </div>
-
-            <div *ngIf="showEmailOTPBox" class="grid">
-              <label for="emailOTP" class="col-12 md:col-4 col-form-label">Email OTP</label>
-              <div class="col-12 md:col-8">
-                <input pInputText type="text" class="form-control" placeholder="Enter OTP" required><br>
+            <div class="grid">
+              <div class="col-12 md:col-8 md:col-offset-4">
+                <div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched" class="text-danger">
+                  <div *ngIf="registrationForm.get('confirmPassword')?.errors?.['required']">
+                  Confirm Password is required.
+                  </div>
+                </div>
+                <div *ngIf="registrationForm.hasError('mismatch') && registrationForm.get('confirmPassword')?.touched" class="text-danger">
+                  <div>Passwords do not match.</div>
+                </div>
+                <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="text-danger">
+                  <div *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required.</div>
+                  <div *ngIf="registrationForm.get('password')?.errors?.['missingUpperCase']">
+                    Password must contain at least one uppercase letter.
+                  </div>
+                  <div *ngIf="registrationForm.get('password')?.errors?.['missingLowerCase']">
+                    Password must contain at least one lowercase letter.
+                  </div>
+                  <div *ngIf="registrationForm.get('password')?.errors?.['missingNumber']">
+                    Password must contain at least one number.
+                  </div>
+                  <div *ngIf="registrationForm.get('password')?.errors?.['missingSpecialChar']">
+                    Password must contain at least one special character.
+                  </div>
+                  <div *ngIf="registrationForm.get('password')?.errors?.['tooShort']">
+                    Password must be at least 8 characters long.
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-12 text-center">
-              <p-button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid">Submit</p-button>
-            </div>
-
+            @if (showEmailOTPBox) {
+              <div class="grid">
+                <div class="col-12 md:col-4 col-form-label">
+                  <label for="emailOTP">Email OTP</label>
+                </div>
+                <div class="col-12 md:col-8">
+                  <p-inputMask mask="999999" type="text" class="form-control" formControlName="emailOTP" placeholder="Enter OTP"/><br>
+                </div>
+              </div>
+            }
+            @if(successMessage){
+              <h3 class="text-success text-green-500">{{message}}</h3>
+            } @else {
+              <h3 class="text-danger">{{message}}</h3>
+            }
+            @if (!showEmailOTPBox) {
+              <div class="col-12 text-center">
+                <p-button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid">Create Account</p-button>
+              </div>
+            } @else{
+              <div class="col-12 text-center">
+                <p-button type="button" (onClick)="verifyOTP()" class="btn btn-primary" [disabled]="!registrationForm.valid || disableverifyOTPButton" >Verify OTP</p-button>
+              </div>
+            }
           </div>
         </form>
       </div>
