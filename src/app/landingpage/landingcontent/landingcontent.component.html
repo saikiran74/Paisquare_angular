@@ -1,31 +1,34 @@
 <div class="main">
-  <img src="../../../assets/images/landingPage/MainpageBackground.jpg" width="100%" height="100%">
-  <div class="contentOverImage">
-    <div class="grid">
-      <div class="col-8">
+  <img src="../../../assets/images/landingPage/MainpageBackground.jpg" class="responsive-image">
+  <div class="contentOverImage"  >
+    <div class="grid flex align-items-center" style="padding-top: 10px;">
+      <div class="col-4">
         <img src="../../../assets/images/landingPage/PaisquarewithLogo.jpg" alt="Logo" class="logo">
       </div>
-      <div class="col-4 flex justify-content-end gap-3">
-        <button pButton type="button"  routerLink="/createaccount" label="Create Account" class="p-button-raised p-button-primary custom-button"></button>
-        <button pButton type="button" routerLink="/login" label="Sign in" class="p-button-raised p-button-primary custom-button"></button>
+      <div class="col-8 flex justify-content-end flex-wrap gap-3" style="padding-right: 40px;">
+        <button pButton type="button"  routerLink="/createaccount" label="Create Account" class="p-button-raised p-button-primary custom-button"
+        ></button>
+        <button pButton type="button" routerLink="/login" label="Sign in" class="p-button-raised p-button-primary custom-button"
+        ></button>
       </div>
     </div>
-    <br><br><br>
+    <br>
     <div class="grid">
       <div class="col-8">
-        <h4 style="margin-bottom: 0%;">Welcome to</h4>
-        <h1 style="color: rgb(4, 0, 255); font-size: 7ch; margin-top: 0px; margin-bottom: 0%;">Pai Square</h1>
-        <h2 style="color: rgb(0, 0, 0); margin-top: 0px; padding-top: 0px;">Explore & Earn</h2>
-        <p>
+        <h4 style="color: #0000FF; margin-top: 0px; margin-bottom: 0%; font-weight: 400; font-size: 40px;
+        margin-bottom: 0px;">Welcome to</h4>
+        <h1 style="color: #0000FF; margin-top: -27px;margin-bottom: 0%; font-weight: 600; font-size: 128px;">Pai Square</h1>
+        <h2 style="color: #827397; margin-top: 0px; padding-top: 0px;  font-weight: 600; font-size: 40px;">Explore & Earn</h2>
+        <div style="font-family: Arial, Helvetica, sans-serif; font-weight: 400; font-size: 20px; color: #000000;">
           Unlock Your Earning Potential with Pai Square!<br>
           Empowering Advertisers and Users Alike for Limitless Possibilities in Online Engagement.<br>
           Join the Revolution of Rewarding Ad Interactions Today!
-        </p>
+        </div>
       </div>
-      <div class="col-4 relative flex justify-content-end">
+      <div class="col-4 relative flex justify-content-end align-items-center">
           <img src="assets/images/landingPage/mainpageRightside.jpg" alt="Right Image" width="100%" height="100%" class="rightimage1">
       </div>
-      <div>
+      <div class="col-12">
         <button pButton type="button" label="Get Started" class="p-button-raised p-button-primary"></button>
       </div>
     </div>
@@ -34,12 +37,8 @@
 <div class="advertiser">
   <img src="../../../assets/images/landingPage/AdvertiserBackground.jpg" width="100%" height="100%">
   <div class="contentOverImage">
-    <div class="grid">
-      <div class="p-col-sm-12">
-        <div class="flex justify-content-center">
-          <h1 class="text-center p-12" style="font-size: 3.5em; color: yellow;">Advertiser</h1>
-        </div>
-      </div>  
+    <div class="flex justify-content-center">
+      <h1 class="tab-header"  style=" color: yellow;">Advertiser</h1>
     </div>
     <div class="grid">
       <div class="p-col-12">
@@ -60,44 +59,39 @@
     </div>
   </div>
 </div>
+
 <div class="user">
   <img src="../../../assets/images/landingPage/UsersBackground.jpg" width="100%" height="100%">
   <div class="contentOverImage">
-    <div class="grid">
-      <div class="col-12">
-        <div class="flex justify-content-center">
-          <h1 class="text-center p-12" style="font-size: 3.5em; color: rgb(38, 20, 237);">Users</h1>
-        </div>
-      </div>  
+    <div class="flex justify-content-center">
+      <h1 class="tab-header" style="font-size: 3.5em; color: rgb(38, 20, 237); padding-top:0px ; padding-bottom: 0px;">Users</h1>
     </div>
     <div class="grid">
-        <div class="p-col-12 relative flex justify-content-left" style="padding-right: 100px;">
-          <img src="../../../assets/images/landingPage/UsersLeftside.jpg" alt="left Image 3" width="60%" height="60%" class="leftImage3">
-        </div>
-        <div class="p-col-12">
-          <div class="my-3 p-3">
-            <ul class="userList">
-                <li><p class="font-bold  text-2xl">Clicking on ads online can earn you money and PAIs</p></li>
-                <li><p class="font-bold text-2xl">You can explore different brands and products through these ads.</p></li>
-                <li><p class="font-bold text-2xl">If you have a bunch of PAIs, you can sell them to advertisers,<br> who use them to make better ads.</p></li>
-                <li><p class="font-bold text-2xl">Users can directly contact advertisers.</p></li>
-            </ul>
-        </div>
-        </div>
+      <div class="md:col-6 sm:col-6">
+        <img src="../../../assets/images/landingPage/UsersLeftside.jpg" alt="left Image 3" width="60%" height="60%" class="leftImage3">
+      </div>
+      <div class="md:col-6 sm:col-6">
+          <ul class="userList">
+              <li><p class="font-bold  text-2xl">Clicking on ads online can earn you money and PAIs</p></li>
+              <li><p class="font-bold text-2xl">You can explore different brands and products through these ads.</p></li>
+              <li><p class="font-bold text-2xl">If you have a bunch of PAIs, you can sell them to advertisers,<br> who use them to make better ads.</p></li>
+              <li><p class="font-bold text-2xl">Users can directly contact advertisers.</p></li>
+          </ul>
+      </div>
     </div>
   </div>
 </div>
 <div class="services">
-  <div class="flex flex-wrap col-gap-3 row-gap-3">
+  <div class="grid flex flex-wrap col-gap-3 row-gap-3">
     <div class="col-12">
-      <div class="flex justify-content-center" style="padding-top: 50px;">
-        <h1 style="padding-bottom: 3.5rem;">Who can Advertise</h1>
+      <div class="flex justify-content-center">
+        <h1 class="tab-header">Who can Advertise</h1>
       </div>
     </div>
-    <div class="col-4 col-offset-2">
+    <div class="sm:col-4 sm:col-offset-2">
       <p-card class="flex border-round justify-content-center" [style]="{ width: '400px',height: '500px'}">
         <ng-template pTemplate="header">
-          <div class="flex gap-3">
+          <div class="flex gap-1">
             <img src="../../../assets/images/landingPage/businessIcon.png" alt="Business Icon" class="servicesIcons" />
             <h2>Business</h2>
           </div>
@@ -114,10 +108,10 @@
         </div>
       </p-card>
     </div>
-    <div class="col-6">
+    <div class="sm:col-4">
       <p-card class="flex border-round" [style]="{ width: '400px',height: '500px'}">
         <ng-template pTemplate="header">
-          <div class="flex gap-3">
+          <div class="flex gap-1">
             <img src="../../../assets/images/landingPage/ServicespageEvents.jpg" alt="Events Icon" class="servicesIcons"/>
             <h2>Events</h2>
           </div>
@@ -133,10 +127,10 @@
         </div>
       </p-card>
     </div>
-    <div class="col-4 col-offset-2">
+    <div class="sm:col-4 sm:col-offset-2">
       <p-card class="flex border-round justify-content-center" [style]="{ width: '400px',height: '500px'}">
         <ng-template pTemplate="header">
-          <div class="flex gap-3">
+          <div class="flex gap-1">
             <img src="../../../assets/images/landingPage/ServicespageAgriculture.png" alt="Agriculture Icon" class="servicesIcons" />
             <h2>Agricultural</h2>
           </div>
@@ -151,10 +145,10 @@
         </div>
       </p-card>
     </div>
-    <div class="col-6">
+    <div class="sm:col-4">
       <p-card class="flex border-round" [style]="{ width: '400px',height: '500px'}">
         <ng-template pTemplate="header">
-          <div class="flex gap-3">
+          <div class="flex gap-1">
             <img src="../../../assets/images/landingPage/ServicespageEducationtraining.jpg" alt="Educationtraining Icon" class="servicesIcons"/>
             <h2>Education & Training</h2>
           </div>
@@ -169,10 +163,10 @@
         </div>
       </p-card>
     </div>
-    <div class="col-4 col-offset-2">
+    <div class="sm:col-4 sm:col-offset-2">
       <p-card class="flex border-round justify-content-center" [style]="{ width: '400px',height: '500px'}">
         <ng-template pTemplate="header">
-          <div class="flex gap-3">
+          <div class="flex gap-1">
             <img src="../../../assets/images/landingPage/ServicespageHealandwealth.png" alt="Health & wealth Icon" class="servicesIcons" />
             <h2>Health & Wealth</h2>
           </div>
@@ -186,10 +180,10 @@
         </div>
       </p-card>
     </div>
-    <div class="col-6">
+    <div class="sm:col-4">
       <p-card class="flex border-round" [style]="{ width: '400px',height: '500px'}">
         <ng-template pTemplate="header">
-          <div class="flex gap-3">
+          <div class="flex gap-1">
             <img src="../../../assets/images/landingPage/ServicespageTravelling.jpg" alt="Travelling Icon" class="servicesIcons"/>
             <h2>Travelling</h2>
           </div>
@@ -203,10 +197,10 @@
         </div>
       </p-card>
     </div>
-    <div class="col-4 col-offset-2">
+    <div class="sm:col-4 sm:col-offset-2">
       <p-card class="flex border-round justify-content-center" [style]="{ width: '400px',height: '500px'}">
         <ng-template pTemplate="header">
-          <div class="flex gap-3">
+          <div class="flex gap-1">
             <img src="../../../assets/images/landingPage/ServicespageContentcreators.jpg" alt="Content creators Icon" class="servicesIcons" />
             <h2>Content creators</h2>
           </div>
@@ -220,10 +214,10 @@
         </div>
       </p-card>
     </div>
-    <div class="col-6">
+    <div class="sm:col-4">
       <p-card class="flex border-round" [style]="{ width: '400px',height: '500px'}">
         <ng-template pTemplate="header">
-          <div class="flex gap-3">
+          <div class="flex gap-1">
             <img src="../../../assets/images/landingPage/ServicespageNonprofitorganization.jpg" alt="Nonprofitorganization Icon" class="servicesIcons"/>
             <h2>Non-profit Organization</h2>
           </div>
@@ -246,14 +240,14 @@
       <div class="col-12">
         <div class="flex justify-content-center">
           <div class="contactunderline">
-            <h1 class="text-center" style="font-size: 3em; color: white; margin-top: 0px;">CONTACT US</h1>
+            <h1 class="tab-header" style="font-size: 3em; color: white; margin-top: 0px;">CONTACT US</h1>
           </div>
         </div>
       </div>
-      <div class="col-6 flex justify-content-center">
+      <div class="sm:col-6 flex justify-content-center">
         <img src="../../../assets/images/landingPage/ContactusleftSide.png" alt="Left Image" width="100%" height="100%" class="contactUsLeftImage">
       </div>
-      <div class="col-6" style="margin-left: 0px;">
+      <div class="sm:col-6" style="margin-left: 0px;">
         <p-card class="p-shadow-24">
           <form>
             <div class="p-fluid">

@@ -39,19 +39,31 @@ li{
 }
 .contentOverImage{
     position: absolute;
-    top: 10%;
-    left: 10%;
+    top: 3%;
+    left: 8%;
     color: black;  
+}
+.tab-header{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 3.5em;
 }
 
 .logo {
     height: 60px;
     width:60px;
     align-items:left;
+    cursor: pointer;
 }
 .custom-button{
     height: 50px;
+    height: auto;
+    padding: 0.5rem 1rem;
 }
+.responsive-image {
+    width: 100%;
+    height: 96vh;
+  }
   .rightimage1 {
     height:300px;
     width: 350px;

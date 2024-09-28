@@ -22,3 +22,9 @@ textarea{
     border-width: 2px;
     border-color:#89c0eb;
 }
+.text-danger{
+    color: red;
+}
+.text-success{
+    color: green;
+}

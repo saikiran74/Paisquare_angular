@@ -3,27 +3,45 @@
 <div class="grid">
     <div class="md:col-5 md:col-offset-3">
         <p-card header="Sign in">
-            <div class="card-body">
-                <div class="grid">
-                    <form #loginform="ngForm" (ngSubmit)="userLogin()">
-                        <h3 class="text-danger">{{message}}</h3>
-                        <h3>{{user.id}}</h3>
-                        <div class="form-group container grid grid-content">
-                            <label class="col-12 sm:col-5 md:col-5 form-group-label" placeholder="Enter username">Email</label>
-                            <div class="col-12 sm:col-6 md:col-6">
-                                <input pInputText class="form-control" type="text"  name="username"  [(ngModel)]="user.email" ngModel required/>
-                            </div><br><br>
-                            <label class="sm:col-5 md:col-5 form-group-label" aria-placeholder="Enter password">Password</label>
-                            <div class="sm:col-6 md:col-6">
-                                <input pInputText class="form-control" type="password"  name="password" [(ngModel)]="user.password" ngModel required/>
-                            </div><br><br><br>
-                            <div class="col-12 text-center">
-                                <p-button type="submit" value="Sign-in" href="index" class="btn btn-primary">Sign-in</p-button>
+            <form [formGroup]="loginForm" (ngSubmit)="userLogin()">
+                <div class="">
+                    <div class="grid">
+                        <label for="email" class="col-12 sm:col-4 col-form-label">Email</label>
+                        <div class="col-12 sm:col-8">
+                            <input pInputText type="email" class="form-control" formControlName="email" placeholder="Required" required><br>
+                            <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+                                <div *ngIf="loginForm.get('email')?.errors?.['required']">
+                                Email is required.
+                                </div>
+                                <div *ngIf="loginForm.get('email')?.errors?.['email']">
+                                Please enter a valid email address.
+                                </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="grid">
+                        <label for="password" class="col-12 sm:col-4 col-form-label">Password</label>
+                        <div class="col-12 sm:col-4">
+                            <input pInputText type="password" 
+                            autocomplete="new-password"  class="form-control" formControlName="password" placeholder="Enter password" required><br>
+                        
+                            <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+                                <div *ngIf="loginForm.get('password')?.errors?.['required']">
+                                Password is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if(successMessage){
+                        <h3 class="text-success text-green-500">{{message}}</h3>
+                        } @else {
+                        <h3 class="text-danger">{{message}}</h3>
+                        }
+                    <div class="col-12 text-center">
+                        <p-button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid || loginButtonDisable">Login</p-button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </p-card> 
     </div>
 </div>

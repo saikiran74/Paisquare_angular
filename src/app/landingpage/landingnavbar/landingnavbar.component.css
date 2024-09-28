@@ -2,6 +2,7 @@
     height: 60px;
     width:60px;
     align-items:left;
+    cursor: pointer;
 }
 .container {
     margin-left: auto;
@@ -10,7 +11,8 @@
     max-width: 1200px;
     padding: 10px 15px;
 }
-
 .custom-button{
     height: 50px;
+    height: auto;
+    padding: 0.5rem 1rem;
 }

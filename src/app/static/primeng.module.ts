@@ -31,6 +31,7 @@ import { SliderModule } from 'primeng/slider';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MessagesModule } from 'primeng/messages';
 import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
 const PRIMENG_MODULES:any[]=[
     CommonModule,
     InputMaskModule,
@@ -42,6 +43,7 @@ const PRIMENG_MODULES:any[]=[
     DialogModule,
     FormsModule,
     InputTextareaModule,
+    InputNumberModule,
     CalendarModule,
     RadioButtonModule,
     ListboxModule,
