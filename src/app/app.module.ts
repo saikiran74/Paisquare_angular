@@ -16,6 +16,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { PrimengModule } from './static/primeng.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { startingLetterPipe } from './static/startingLetterPipe.pipe';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './service/jwt-interceptor.service';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { startingLetterPipe } from './static/startingLetterPipe.pipe';
     PrimengModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

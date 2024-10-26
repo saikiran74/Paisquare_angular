@@ -3,6 +3,7 @@ import { PaiService } from '../../../paisa.service';
 import {HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../../service/auth-service.service';
 import { Comments,Follower,Visited,Like, Block, Report,Favourite } from '../../../paisa';
 interface City {
   name: string,
@@ -16,7 +17,8 @@ interface City {
 /* todo write code for filtering ad by country*/
 
 export class AlladvertisementsComponent implements OnInit {
-constructor(private _service: PaiService,private http: HttpClient,private _router: Router,private _route: ActivatedRoute) {
+constructor(private _service: PaiService,private http: HttpClient,private _router: Router,
+  private _route: ActivatedRoute,private authService: AuthService) {
        
 }
 advertisements:any[]=[];
@@ -38,7 +40,10 @@ ngOnInit(){
     {name: 'London', value: 'LDN'},
     {name: 'Istanbul', value: 'IST'},
     {name: 'Paris', value: 'PRS'}
+
 ];
+
+  const token = this.authService.getToken();
   this._route.params.subscribe(params => {
     const adId = params['id']; // Access ad ID from URL if provided
     const userId = params['userId']; // Access user ID from URL if provided

@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import { User } from '../../paisa';
 import { PaiService } from '../../paisa.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../service/auth-service.service';
 import { FormControl, FormGroup, Validators,ValidatorFn, AbstractControl,ValidationErrors  } from '@angular/forms';
 
 @Component({
@@ -12,14 +13,14 @@ import { FormControl, FormGroup, Validators,ValidatorFn, AbstractControl,Validat
 })
 export class LoginComponent implements OnInit {
   message=''
-  constructor(private _service: PaiService, private _router: Router){};
+  constructor(private _service: PaiService, private _router: Router, private authService: AuthService){};
   text=''
   loginForm!: FormGroup;
   successMessage:boolean=false;
   loginFormGroup(): FormGroup {
     return new FormGroup({
       email: new FormControl('bobbilisaikiran1999@gmail.com', [Validators.required,Validators.email]),
-      password: new FormControl('sa', Validators.required),
+      password: new FormControl('Bobbili@123', Validators.required),
     });
   }
   ngOnInit() {
@@ -47,6 +48,10 @@ export class LoginComponent implements OnInit {
           }
           if(response.apiMessage.code.includes("validUser")){
             console.log("Valid user");
+
+            // Store the JWT token in AuthServsice
+            this.authService.login(response.token);
+            console.log("response.token.token"+response.token);
             this._service.userId=response.user.id;
             this._service.userName=response.user.username;
             this._router.navigate(['advertiser'])
@@ -63,7 +68,7 @@ export class LoginComponent implements OnInit {
       },
         error=>{
         console.log("Error occured");
-        this.message="Invalid email and password";
+        this.message="Backend error! Please retry";
       });
     }
     this.loginButtonDisable=false;
