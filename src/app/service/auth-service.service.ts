@@ -1,30 +1,22 @@
 import { Injectable } from '@angular/core';
 import * as jwt from 'jsonwebtoken';
-
+import { jwtDecode } from 'jwt-decode';
 
 interface DecodedToken {
   exp: number;
   iat: number;
   role?: string[]; // Adjust based on your JWT structure
   sub?: string;
+  user?:string[];
 }
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
   constructor() { }
-  private secretKey: string = 'your_secret_key';
-
-  decodeToken(token: string): DecodedToken | null {
-    try {
-      return jwt.verify(token, this.secretKey) as DecodedToken; 
-    } catch (error) {
-      console.error('Invalid token', error);
-      return null;
-    }
-  }
-
 
   getToken(): string | null {
     return localStorage.getItem('token');
@@ -40,7 +32,10 @@ export class AuthService {
   
   isTokenExpired(token: string): boolean {
     try {
-      const decodedToken: any = jwt.verify(token, this.secretKey); // Verify the token
+      const decodedToken: DecodedToken = jwtDecode(token);
+
+      //const decodedToken: any = jwt.verify(token, this.secretKey); // Verify the token
+      console.log("decodedToken-->",decodedToken)
       const currentTime = Math.floor(Date.now() / 1000); // Get current time in seconds
       return decodedToken.exp < currentTime; // Compare expiration time
     } catch (error) {
@@ -59,16 +54,17 @@ export class AuthService {
   getUserRoles(): string[] {
     const token = this.getToken();
     if (token) {
-      const decoded: DecodedToken | null = this.decodeToken(token);
-      return decoded?.role || []; // Adjust based on your JWT payload structure
+      const decodedToken: DecodedToken = jwtDecode(token);
+      return decodedToken?.role || [];
     }
     return [];
   }
   getUserDetails(): any {
     const token = this.getToken();
+
     if (token) {
-      const decoded: DecodedToken | null = this.decodeToken(token);
-      return decoded; // Decode the token to get the claims
+      const decodedToken: DecodedToken = jwtDecode(token);
+      return decodedToken.user;
     }
     return null;
   }

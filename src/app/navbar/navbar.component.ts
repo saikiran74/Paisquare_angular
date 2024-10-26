@@ -26,12 +26,15 @@ export class NavbarComponent  implements OnInit{
   userName=' ';
     ngOnInit() {
       const token = localStorage.getItem('token');
+      console.log("token in navbar-->",token)
       if (token && this.authService.isAuthenticated()) {
-        console.log(this.authService.getUserDetails)
-        this.userId=this._service.userId;
-        this.userName=this._service.userName;
+        const userdetails=this.authService.getUserDetails()
+        console.log("userdetails-->",userdetails)
+        this.userId=userdetails.id;
+        this.userName=userdetails.username;
       } else {
-        this._router.navigate(['/login']); // Redirect to login if token is missing or invalid
+        console.log("Token is not authencated in navbar")
+        this._router.navigate(['/login']);
       }
       this.nodes = [
           {
