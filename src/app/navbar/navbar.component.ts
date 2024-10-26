@@ -7,7 +7,7 @@ import {HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { TreeNode } from 'primeng/api';
 import { Tree } from 'primeng/tree';
-
+import { AuthService } from '../service/auth-service.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,24 +16,22 @@ import { Tree } from 'primeng/tree';
 })
 export class NavbarComponent  implements OnInit{
   nodes!: TreeNode[];
-  constructor(private _service: PaiService,private http: HttpClient,private _router: Router,private _route: ActivatedRoute) {
+  constructor(private _service: PaiService,private http: HttpClient, private authService: AuthService,private _router: Router,private _route: ActivatedRoute) {
        
   }
   userId='';
   @ViewChild('tree') tree: Tree | undefined;
   sidebarVisible: boolean = false;
   sidebarVisible1:boolean=true;
-  firstName=' ';
-  lastName=' ';
   userName=' ';
     ngOnInit() {
-      
-      this.userId=this._service.userId;
-      this.firstName=this._service.firstName;
-      this.lastName=this._service.lastName;
-      this.userName=this._service.userName;
-      if(!this.userId && !this.firstName && !this.lastName){
-        this._router.navigate(['login'])
+      const token = localStorage.getItem('token');
+      if (token && this.authService.isAuthenticated()) {
+        console.log(this.authService.getUserDetails)
+        this.userId=this._service.userId;
+        this.userName=this._service.userName;
+      } else {
+        this._router.navigate(['/login']); // Redirect to login if token is missing or invalid
       }
       this.nodes = [
           {
@@ -73,6 +71,7 @@ export class NavbarComponent  implements OnInit{
     }else if (val.includes('home/profile/')) {
       this._router.navigate([val.replace(':userId', this.userId)]);
     } else if (val.includes('logout')) {
+      this.authService.logout();
       this._router.navigate(['/login']);
     } 
      else {

@@ -8,8 +8,6 @@ import {HttpClient } from '@angular/common/http';
 })
 export class PaiService {
   userId: any;
-  lastName: any;
-  firstName: any;
   userName: any;
   constructor( private _http : HttpClient) { }
 

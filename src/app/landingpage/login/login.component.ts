@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
           }
           if(response.apiMessage.code.includes("validUser")){
             console.log("Valid user");
-
             // Store the JWT token in AuthServsice
             this.authService.login(response.token);
             console.log("response.token.token"+response.token);
