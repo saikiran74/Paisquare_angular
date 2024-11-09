@@ -13,6 +13,7 @@ export class Advertise{
     brandname!:string;
     description!:string;
     url!:string
+    gender!:string;
     pai!:Number;
     paiperclick!:Number;
     paisa!:Number;

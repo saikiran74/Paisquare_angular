@@ -1,50 +1,162 @@
-<p-card header="Advertise"><br><br>
+<p-card header="Advertise">
     <div class="container">
         <div class="form">
             <form #loginform="ngForm" (ngSubmit)="advertisementForm()" class="form container">
                 <div class="grid">
-                    <label for="adhead" class="col-12 md:col-3 sm:col-3 col-form-label">Brand name</label>
-                    <div class="col-12 md:col-9 sm:col-offset-1 sm:col-9">
-                        <input pInputText type="text" class="form-control"  id="adhead" name="header" placeholder="Enter brand or website name" [(ngModel)]="advertise.brandname" required><br>
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adhead">Brand name</label>
+                        <div>
+                            <input pInputText type="text" class="form-control"  id="adhead" name="header" placeholder="Enter brand or website name" [(ngModel)]="advertise.brandname" required><br>
+                        </div>
+                    </div>
+                    <div  class="md:col-6 sm:col-6">
+                        <label for="adhead">Url</label>
+                        <div>
+                            <input pInputText  type="text" class="form-control" id="adhead" name="url" placeholder="Paste your URL" [(ngModel)]="advertise.url"><br>
+                        </div>
+                    </div>
+                </div><br>
+                <div class="grid">
+                    <label for="adhead" class="col-12">Description</label>
+                    <div class="col-12">
+                        <p-editor [style]="{'height':'320px'}" placeholder="Add description" name="description" [(ngModel)]="advertise.description"></p-editor><br><br>
                     </div>
                 </div>
-                <div  class="grid">
-                    <label for="adhead" class="col-12 md:col-3 sm:col-3 col-form-label">Description</label>
-                    <div class="col-12 md:col-9 sm:col-offset-1 sm:col-9">
-                        <p-editor [style]="{'height':'320px'}" placeholder="Add description" name="description" [(ngModel)]="advertise.description"></p-editor><br><br>
-                    </div><br>
-                    <label for="adhead" class="col-12 md:col-3 sm:col-3 col-form-label">Url</label>
-                    <div class="col-12 md:col-9 sm:col-offset-1 sm:col-9">
-                        <input pInputText pinput pInputTextText type="text" class="form-control" id="adhead" name="url" placeholder="Paste your URL" [(ngModel)]="advertise.url"><br>
-                    </div><br>
-                    <div class="grid">
-                        <label for="adhead" class="col-12 md:col-3 sm:col-3 col-form-label">Select Advertisement Type</label>
-                        <div class="md:col-4 sm:col-offset-1 sm:col-4">
-                            <input pInputText type="checkbox" [(ngModel)]="paiChecked" (change)="paiCheckbox()" name="paiChecked"> Pai's
-                        </div><br>
-                        <div class="md:col-4 sm:col-offset-1 sm:col-4">
-                            <input pInputText type="checkbox" [(ngModel)]="paisaChecked" (change)="paisaCheckbox()" name="paisaChecked" disabled="true"> Paisa(Money)
-                        </div><br>
+                <div class="grid">
+                    <div class="col-12 md:col-3 sm:col-3">
+                        <div class="relative">
+                            <img src="../../../../assets/images/Sample_adver_bg_image1.jpg" alt="Background Image 1" class="w-full" />
+                            <i class="pi pi-plus absolute top-0 right-0 m-2" 
+                               [ngClass]="{'pi-check': dialogBackgroundImage === '../../../../assets/images/Sample_adver_bg_image1.jpg', 'pi-plus': dialogBackgroundImage !== '../../../../assets/images/Sample_adver_bg_image1.jpg'}"
+                               (click)="onImageSelect('../../../../assets/images/Sample_adver_bg_image1.jpg')"></i>
+                        </div>
                     </div>
-                    
-                    <div *ngIf="paiChecked" class="grid">
-                        <label for="adhead" class="col-12 md:col-3 sm:col-3 col-form-label">Pai</label>
-                        <div class="col-12 md:col-9 sm:col-offset-1 sm:col-9">
+                    <div class="col-12 md:col-3 sm:col-3">
+                        <div class="relative">
+                            <img src="../../../../assets/images/Sample_adver_bg_image2.jpg" alt="Background Image 2" class="w-full" />
+                            <i class="pi pi-plus absolute top-0 right-0 m-2" 
+                               [ngClass]="{'pi-check': dialogBackgroundImage === '../../../../assets/images/Sample_adver_bg_image2.jpg', 'pi-plus': dialogBackgroundImage !== '../../../../assets/images/Sample_adver_bg_image2.jpg'}"
+                               (click)="onImageSelect('../../../../assets/images/Sample_adver_bg_image2.jpg')"></i>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-3 sm:col-3">
+                        <div class="relative">
+                            <img src="../../../../assets/images/Sample_adver_bg_image3.jpg" alt="Background Image 3" class="w-full" />
+                            <i class="pi pi-plus absolute top-0 right-0 m-2" 
+                               [ngClass]="{'pi-check': dialogBackgroundImage === '../../../../assets/images/Sample_adver_bg_image3.jpg', 'pi-plus': dialogBackgroundImage !== '../../../../assets/images/Sample_adver_bg_image3.jpg'}"
+                               (click)="onImageSelect('../../../../assets/images/Sample_adver_bg_image3.jpg')"></i>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-3 sm:col-3">
+                        <div class="relative">
+                            <img src="../../../../assets/images/Sample_adver_bg_image4.jpg" alt="Background Image 4" class="w-full" />
+                            <i class="pi pi-plus absolute top-0 right-0 m-2" 
+                               [ngClass]="{'pi-check': dialogBackgroundImage === '../../../../assets/images/Sample_adver_bg_image4.jpg', 'pi-plus': dialogBackgroundImage !== '../../../../assets/images/Sample_adver_bg_image4.jpg'}"
+                               (click)="onImageSelect('../../../../assets/images/Sample_adver_bg_image4.jpg')"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="grid">
+                    <div class="snippet-actions">
+                        <button (click)="showPreviewAdMethod()" pButton type="button" label="Preview ad" icon="pi pi-external-link" class="p-button-secondary"></button>
+                    </div>
+                </div><br>
+                <div class="grid">
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adage">Age</label>
+                        <div>
+                            <input pInputText type="number" class="form-control" id="adage" name="age" placeholder="Enter age"><br>
+                        </div>
+                    </div>
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adlanguage">Language</label>
+                        <div>
+                            <input pInputText type="text" class="form-control" id="adlanguage" name="Language" placeholder="Enter Language"><br>
+                        </div>
+                    </div>
+                </div><br>
+                <div class="grid">
+                    <div class="md:col-7 sm:col-7">
+                        <label for="adgender" class="col-2">Gender</label>
+                        <div class="flex align-items-center">
+                          <div class="col-3 p-field-radiobutton">
+                            <p-radioButton name="gender" value="Male" [(ngModel)]="advertise.gender" inputId="gender1"></p-radioButton>
+                            <label for="gender1">Male</label>
+                          </div>
+                          <div class="col-3 p-field-radiobutton ml-3" style="margin-right: 0px;">
+                            <p-radioButton name="gender" value="Female" [(ngModel)]="advertise.gender" inputId="gender2"></p-radioButton>
+                            <label for="gender2">Female</label>
+                          </div>
+                          <div class="col-3 p-field-radiobutton ml-3" style="margin-right: 0px;">
+                            <p-radioButton name="gender" value="Others" [(ngModel)]="advertise.gender" inputId="gender3"></p-radioButton>
+                            <label for="gender3">Others</label>
+                          </div>
+                        </div>
+                      </div>
+                    <!--
+                    <div class="md:col-4 sm:col-4">
+                        <p-dropdown optionLabel="name" placeholder="Select a City"></p-dropdown>
+                    </div> -->
+                </div>
+                <div class="grid">
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adhead">Enter hashtags</label>
+                        <div>
+                           <p-chips [(ngModel)]="advertise.hashtags" separator="," placeholder="Maximum 5 items"></p-chips>
+                        </div>
+                    </div>
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adcategory">Category</label>
+                        <div>
+                            <p-dropdown optionLabel="name" placeholder="Select food Category"></p-dropdown>
+                        </div>
+                    </div>
+                </div><br>
+                <div class="grid">
+                        <label for="adhead" class="md:col-4 sm:col-4 col-form-label">Select Advertisement Type</label>
+                        <div class="md:col-3 sm:col-4">
+                            <input type="checkbox" id="paiCheckbox" [(ngModel)]="paiChecked" (change)="paiCheckbox()" name="paiChecked"> Pai's
+                        </div>
+                        <div class="md:col-3 sm:col-4">
+                            <input type="checkbox" id="paisaCheckbox" [(ngModel)]="paisaChecked" (change)="paisaCheckbox()" name="paisaChecked"> Paisa(Money)
+                        </div>
+                </div>
+                <div *ngIf="paiChecked" class="grid">
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adhead">Pai</label>
+                        <div>
                             <input pInputText type="number" class="form-control" id="adsilver" name="silver" placeholder="Enter total Pai's" [(ngModel)]="advertise.pai"><br>
-                        </div><br>
-    
-                        <label for="adhead" class="col-12 md:col-3 sm:col-3 col-form-label">Rate</label>
-                        <div class="col-12 md:col-6 sm:col-offset-1 sm:col-6">
+                        </div>
+                    </div>
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adhead">Rate per Click</label>
+                        <div>
                             <input pInputText type="number" class="form-control" id="adsilver" name="silverclick" placeholder="Enter Pai's per click" [(ngModel)]="advertise.paiperclick"><br>
                         </div>
-                    
-                        <div class="col-12 md:col-3 sm:col-offset-1 sm:col-3">
-                            <label  id="adsilver" name="silverclick">Per click</label><br>
-                        </div><br>
+                    </div> 
+                </div>   
+                            <!--
+                            <div class="md:col-3 sm:col-offset-1 sm:col-3">
+                                <label  id="adsilver" name="silverclick">Per click</label><br>
+                            </div><br> -->
+                <div *ngIf="paisaChecked" class="grid">
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adhead">Paisa</label>
+                        <div>
+                            <input pInputText type="number" class="form-control" id="admoney" name="money" placeholder="Enter money" [(ngModel)]="advertise.paisa"><br><br>
+                        </div>
                     </div>
-                    <div *ngIf="paisaChecked" class="grid" >
-                        <label for="adhead" class="col-12 md:col-3 sm:col-3 col-form-label">Paisa</label>
-                        <div class="col-12 md:col-9 sm:col-offset-1 sm:col-9">
+                    <div  class="md:col-6 sm:col-6">
+                        <label for="adhead">Rate Per Click</label>
+                        <div>
+                            <input pInputText type="number" class="form-control" id="admoney" name="moneyclick" placeholder="Enter amount per click" [(ngModel)]="advertise.paisaperclick"><br>
+                        </div>
+                    </div>
+                </div>
+                    <!--    <label for="adhead" class="md:col-3 sm:col-3 col-form-label">Paisa</label>
+                        <div class="md:col-9 sm:col-offset-1 sm:col-9">
                             <input pInputText type="number" class="form-control" id="admoney" name="money" placeholder="Enter money" [(ngModel)]="advertise.paisa"><br>
                         </div><br>
                         <label for="adhead" class="col-3  sm:col-3 col-form-label">Rate</label>
@@ -53,31 +165,106 @@
                         </div>
                         <div class="col-3 sm:col-3 center">
                             <label  id="admoney" name="admoney">Per click</label><br>
-                        </div><br>
-                    </div>
-                    <div class="grid">
-                        <label for="adhead" class="col-12 md:col-3 sm:col-3 col-form-label">Country</label>
-                        <div class="col-12 md:col-3 sm:col-offset-1 sm:col-3">
-                            <input pInputText type="text" class="form-control" id="adsilver" name="silver" placeholder="Target Country" [(ngModel)]="advertise.country"><br>
-                        </div><br>
-                        <label for="adhead" class="col-12 md:col-1 sm:col-1 col-form-label">State</label>
-                        <div class="col-12 md:col-3 sm:col-offset-3 sm:col-1">
-                            <input pInputText type="text" class="form-control" id="adsilver" name="silver" placeholder="Target State" [(ngModel)]="advertise.state"><br>
-                        </div><br><label for="adhead" class="col-12 md:col-1 sm:col-1 col-form-label">District</label>
-                        <div class="col-12 md:col-3 sm:col-offset-1 sm:col-3">
-                            <input pInputText type="text" class="form-control" id="adsilver" name="silver" placeholder="Target District" [(ngModel)]="advertise.district"><br>
-                        </div><br>
+                        </div><br> -->
+                <div class="grid">
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adhead">District</label>
                         <div>
-                            <label>Enter hashtags</label>
-                            <p-chips [(ngModel)]="advertise.hashtags" separator="," placeholder="Maximum 5 items"></p-chips>
+                            <input pInputText  type="text" class="form-control" id="adsilver" name="District" placeholder="Target District" [(ngModel)]="advertise.district"><br>
                         </div>
                     </div>
-                    <h3 class="text-danger">{{message}}</h3>
-                    <div class="col-12 flex justify-content-center align-content-center">
-                        <p-button type="submit" href="advertise" class="btn btn-primary">Advertise</p-button>
+                    <div class="md:col-6 sm:col:6">
+                        <label for="adhead">State</label>
+                        <div>
+                            <input pInputText  type="text" class="form-control" id="adsilver" name="State" placeholder="Target State" [(ngModel)]="advertise.state"><br>
+                        </div>
+                    </div>
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adhead">Country</label>
+                        <div>
+                            <input pInputText  type="text" class="form-control" id="adsilver" name="Country" placeholder="Target Country" [(ngModel)]="advertise.country"><br>
+                        </div>
                     </div>
                 </div>
+                <h3 class="text-danger">{{message}}</h3>
+                <div class="col-12">
+                    <div class="flex justify-content-center align-content-center">
+                        <p-button type="submit" href="advertise" class="btn btn-primary">Advertise</p-button>
+                    </div>
+                </div>  
             </form>
         </div>
     </div>    
 </p-card>
+<br>
+<p-dialog header="Report" [(visible)]="showPreviewAd" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw', 'background-image': 'url(' + dialogBackgroundImage + ')' }" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+        <label class="modal-title" id="reportModel" style="font-weight: bold;">Previewing Ad</label>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <p-card>
+                    <ng-template pTemplate="header" >
+                        <div style="background-color: #0000FF; border-radius: 5px;">
+                            <div class="grid">
+                                <div class="col-11">
+                                    <label class="brandname">{{advertise.brandname}}</label>
+                                </div>
+                                <div class="col-1">
+                                    <i class="pi pi-ellipsis-v" style="font-size: 2rem"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <div class="card-body">
+                        <a role="button"  target="_blank" style="text-decoration: none;">
+                            <div class="card-body">
+                                <div>
+                                    <label [innerHTML]="advertise.description"></label>
+                                </div> 
+                            </div>
+                        </a>
+                    </div>
+                    <ng-template pTemplate="footer">
+                            <div class="grid">
+                                <div class="col-12 flex justify-content-between ">
+                                    <div class="flex justify-content-center ">
+                                        <div>
+                                            <i class="pi pi-thumbs-up" style="font-size: 2rem; color: blue;"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <i class="pi pi-heart" style="font-size: 2rem; color: blue;"></i>
+                                    </div>
+                                    <div>
+                                        <i class="pi pi-share-alt " style="font-size: 2.5rem"></i>
+                                        <div>
+                                            <label>Share</label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <i role="button" class="pi pi-link" style="font-size: 2.5rem"></i>
+                                        <div>
+                                            <label>Visits</label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <i role="button" class="pi pi-comments" style="font-size: 2.5rem"></i>
+                                        <div>
+                                            <label>Comment</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                    </ng-template>
+                </p-card>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="justify-content-between">
+            <p-button (click)="closePreviewAdMethod()" class="btn btn-primary">Close</p-button>
+        </div>
+    </ng-template>
+</p-dialog>

@@ -147,4 +147,20 @@ export class AdvertisementformComponent implements OnInit{
       return false;
     }
   }
+  showPreviewAd:boolean=false;
+  showPreviewAdMethod(){ 
+    this.showPreviewAd=true;
+  }
+
+  closePreviewAdMethod(){
+    this.showPreviewAd=false;
+  }
+
+  dialogBackgroundImage: string = ''; // Initialize with an empty string or default image
+
+  onImageSelect(imagePath: string) {
+      this.dialogBackgroundImage = imagePath; // Update the background image when an image is selected
+  }
+
+  
 }
