@@ -1,37 +1,35 @@
+:host ::ng-deep .p-tree {
+  border: 1px solid #dee2e6;
+  background: #C6E6F1;
+  color: #055298;
+  padding: 0rem;
+}
+a{
+  cursor: pointer;
+  text-decoration: none;
+}
 
-  .p-tree .p-treenode-content {
-    padding-left: 0; /* Removes default padding for content */
-    text-align: left; /* Aligns content to left edge */
-  }
-  
-  .p-tree .p-treenode-icon {
-    margin-left: 5px; /* Adjusts offset for icon display */
-  }
-  a{
-    cursor: pointer;
-    text-decoration: none;
-  }
-  
+:host ::ng-deep .p-tree .p-treenode-children {
+  padding: 0 0 0 0rem;
+}
+
+:host ::ng-deep .p-toolbar {
+  background: #035493;
+  border: 1px solid #035493;
+  padding: 0.1rem;
+  border-radius: 3px;
+  gap: 0.5rem;
+}
+:host ::ng-deep .col-2  {
+  padding-top: 0px;
+}
+:host ::ng-deep .col-7  {
+  padding-top: 0px;
+}
 
 :host ::ng-deep .p-tree .p-tree-container .p-treenode {
   padding: 0px;
   outline: 0 none;
+  color: #055298;
   overflow: hidden;
-}
-:host ::ng-deep .p-treenode-content {
-  display: flex;
-  align-items: center;
-  height: 30px;
-}
-:host ::ng-deep .p-tree .p-tree-container ol, ul {
-  padding-left: 0rem !important;
-}
-ol, ul {
-  padding-left: 0rem !important;
-}
-.my-tree .p-tree .p-treecontainer .p-treenode-content {
-  padding-left: 0rem !important;
-}
-.tree-container .p-tree {
-  overflow: hidden; 
 }
