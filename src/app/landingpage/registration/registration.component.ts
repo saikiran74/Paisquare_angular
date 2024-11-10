@@ -84,7 +84,9 @@ export class RegistrationComponent implements OnInit, OnChanges{
   }
 
   registerUser() {
+    this.message=''
     if (this.registrationForm.valid) {
+      
       this.email = this.registrationForm.get('email')?.value;
       console.log('Form submitted', this.registrationForm.value);
       this._service.registerUserFromRemote(this.registrationForm.value).subscribe(

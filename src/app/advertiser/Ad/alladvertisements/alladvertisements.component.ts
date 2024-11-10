@@ -40,10 +40,10 @@ ngOnInit(){
     {name: 'London', value: 'LDN'},
     {name: 'Istanbul', value: 'IST'},
     {name: 'Paris', value: 'PRS'}
-
+    
 ];
-
   const token = this.authService.getToken();
+  console.log("all add token-->",token)
   this._route.params.subscribe(params => {
     const adId = params['id']; // Access ad ID from URL if provided
     const userId = params['userId']; // Access user ID from URL if provided
