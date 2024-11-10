@@ -31,6 +31,8 @@ export class NavbarComponent  implements OnInit{
         const userdetails=this.authService.getUserDetails()
         console.log("userdetails-->",userdetails)
         this.userId=userdetails.id;
+        this._service.userId=userdetails.id;
+        this._service.userName=userdetails.username;
         this.userName=userdetails.username;
       } else {
         console.log("Token is not authencated in navbar")
