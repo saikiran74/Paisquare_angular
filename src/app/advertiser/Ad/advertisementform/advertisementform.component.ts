@@ -148,19 +148,47 @@ export class AdvertisementformComponent implements OnInit{
     }
   }
   showPreviewAd:boolean=false;
+  showPreviewAdMethodErrorMethod:string='';
   showPreviewAdMethod(){ 
-    this.showPreviewAd=true;
+    if(this.advertise.brandname===''){
+      this.showPreviewAdMethodErrorMethod="Enter BrandName to preview Ad";
+    } else if(this.advertise.description==''){
+      this.showPreviewAdMethodErrorMethod="Enter description to preview Ad";
+    } else{
+      this.showPreviewAd=true;
+
+    }
   }
 
   closePreviewAdMethod(){
     this.showPreviewAd=false;
   }
 
-  dialogBackgroundImage: string = ''; // Initialize with an empty string or default image
-
-  onImageSelect(imagePath: string) {
-      this.dialogBackgroundImage = imagePath; // Update the background image when an image is selected
-  }
-
+  adBackground: string = 'background1'; // Initialize with an empty string or default image
+  background1:string = 'linear-gradient(to bottom, #00ADFF, #B2579B)';
+  background2:string = 'linear-gradient(to bottom, #4444E9, #30B4F2)';
+  background3:string = 'linear-gradient(to bottom, #30B4F2, #035493)';
+  background4:string = 'linear-gradient(to bottom, #5ABFEF, #8FB4F7)';
+  backgroundMap: { [key: string]: string } = {
+    background1: this.background1,
+    background2: this.background2,
+    background3: this.background3,
+    background4: this.background4,
+  };
+  adBackgroundSelected:string=this.background1;
   
+  onImageSelect(val: string) {
+      this.adBackground = val;
+      this.adBackgroundSelected=this.backgroundMap[val] || '';
+  }
+  locationEnabled: boolean = false;
+  viewLocationValue: boolean = false;
+  viewLocation(){
+    this.viewLocationValue=true;
+  }
+  onLocationToggle(event: any) {
+    console.log('Toggled:', event.checked);
+    this.locationEnabled = event.checked;
+    console.log('locationEnabled:', this.locationEnabled);
+}
 }

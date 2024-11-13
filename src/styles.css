@@ -23,8 +23,12 @@ textarea{
     border-color:#89c0eb;
 }
 .text-danger{
-    color: red;
+    color: rgb(167, 24, 24);
 }
 .text-success{
-    color: green;
+    color: rgb(47, 185, 47);
+}
+
+.goldColor{
+    color: #F8CF40
 }

@@ -10,9 +10,10 @@ export class User {
 }
 
 export class Advertise{
-    brandname!:string;
-    description!:string;
-    url!:string
+    brandname:string='Pai Square ADs';
+    description:string='Pai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADs';
+    url:string='';
+    location:string='';
     gender!:string;
     pai!:Number;
     paiperclick!:Number;
