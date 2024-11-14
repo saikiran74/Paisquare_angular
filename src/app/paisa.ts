@@ -12,8 +12,9 @@ export class User {
 export class Advertise{
     brandname:string='Pai Square ADs';
     description:string='Pai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADs';
-    url:string='';
-    location:string='';
+    url:string='https://chatgpt.com/';
+    location:string='Ramula Banda ';
+    backGroundColor:string='';
     gender!:string;
     pai!:Number;
     paiperclick!:Number;
@@ -23,6 +24,7 @@ export class Advertise{
     state!:string;
     district!:string;
     hashtags!:string;
+    status!:string;
     constructor(){}
 }
 export class Contactus{
