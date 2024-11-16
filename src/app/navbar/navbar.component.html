@@ -10,7 +10,11 @@
         <div class="p-toolbar-group-end">
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
-                <input pInputText placeholder="Search" />
+                <input 
+                    pInputText 
+                    placeholder="Search"
+                    (keyup.enter)="onSearch($event)" 
+                />
             </span>
         </div>
     </p-toolbar>
@@ -28,7 +32,20 @@
     </div>
     <div class="col-7" id="content" style="background-color: rgba(239, 242, 245, 0.877); border-radius: 5px; margin-top: 5px;">
         <div class="container">
-            <router-outlet></router-outlet>
+            @if (querySearch) {
+                @if (advertisements.length > 0) {
+                    <app-homepage
+                    *ngFor="let ad of advertisements"
+                    [ad]="ad"
+                ></app-homepage>
+                } @else {
+                    <p>No advertisements found for your query.</p>
+                }
+                <app-homepage *ngFor="let ad of advertisements" [ad]="ad"></app-homepage>
+
+            } @else {
+                <router-outlet></router-outlet>
+            }
         </div>
     </div>
     <br><br><br><br>

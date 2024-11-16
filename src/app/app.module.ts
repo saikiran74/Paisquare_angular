@@ -26,7 +26,6 @@ import { JwtInterceptor } from './service/jwt-interceptor.service';
     LoginComponent,
     RegistrationComponent,
     FooterComponent,
-    NavbarComponent,
     ContactusComponent,
     LandingnavbarComponent,
     LandingcontentComponent,

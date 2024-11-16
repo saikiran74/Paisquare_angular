@@ -102,4 +102,25 @@ export class NavbarComponent  implements OnInit{
       }
     });
   }
+  advertisements:any[]=[];
+  querySearch:boolean=false;
+
+  onSearch(queryEvent: Event): void {
+    console.log('In query search',queryEvent);
+    const inputElement = queryEvent.target as HTMLInputElement;
+    const query = inputElement.value?.trim();
+    this.querySearch=true;
+    if (!query.trim()) {
+        this.querySearch = false;
+        console.log('Search query is empty');
+    }
+    this._service.getGlobalSearchresult(query).subscribe(
+      data => {
+        this.userId=this._service.userId;
+        this.advertisements = data;
+        console.log("advertisment list for userId: ",this.advertisements)
+      },
+        error=>{console.log("error occurred while retrieving the data for query -",query)
+    });
+  }
 }

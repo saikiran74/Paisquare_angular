@@ -9,6 +9,7 @@ import { PrimengModule } from '../static/primeng.module';
 import { HomepageComponent } from './Ad/advertisements/homepage.component';
 import { UseractivitiesComponent } from '../user/useractivities/useractivities.component';
 import { ProfileComponent } from '../settings/profile/profile.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ProfileComponent } from '../settings/profile/profile.component';
     AdvertiserreportsComponent,
     AlladvertisementsComponent,
     UseractivitiesComponent,
+    NavbarComponent,
     ProfileComponent,
   ],
   imports: [

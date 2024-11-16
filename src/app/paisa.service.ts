@@ -130,5 +130,10 @@ export class PaiService {
   public getAdvertisementTransactionData(){
     return this._http.get<any>(`http://localhost:3300/getadvertisementtransactiondata/${this.userId}`);
   }
+
+  //Search functionally
+  public getGlobalSearchresult(query:string){
+    return this._http.get<any>(`http://localhost:3300/search?query=${query}`);
+  }
 }
 
