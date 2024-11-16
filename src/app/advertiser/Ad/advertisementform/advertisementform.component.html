@@ -32,7 +32,7 @@
                         <!-- Toggle Button to Enable/Disable Location -->
                          <div>
                             <p-toggleButton 
-                                onLabel="On"
+                                onLabel="On" 
                                 offLabel="Off"
                                 (onChange)="onLocationToggle($event)">
                             </p-toggleButton>
@@ -93,8 +93,6 @@
                         </div>
                     </div>
                 </div>
-                
-                
                 <div class="grid">
                     <div class="snippet-actions">
                         <button (click)="showPreviewAdMethod()" pButton type="button" label="Preview ad" icon="pi pi-external-link" class="p-button-secondary"></button>
@@ -102,37 +100,23 @@
                 </div>
                 <label style="color: red;">{{showPreviewAdMethodErrorMethod}}</label><br><br>
                 <div class="grid">
-                    <div class="md:col-6 sm:col-6">
-                        <label for="adage">Age</label>
-                        <div>
-                            <input pInputText type="number" class="form-control" id="adage" name="age" placeholder="Enter age"><br>
-                        </div>
-                    </div>
-                    <div class="md:col-6 sm:col-6">
-                        <label for="adlanguage">Language</label>
-                        <div>
-                            <input pInputText type="text" class="form-control" id="adlanguage" name="Language" placeholder="Enter Language"><br>
-                        </div>
-                    </div>
-                </div><br>
-                <div class="grid">
-                    <div class="md:col-7 sm:col-7">
-                        <label for="adgender" class="col-2">Gender</label>
+                    <label for="adgender" class="md:col-4 sm:col-4 col-form-label">Gender</label>
+                    <div class="md:col-8 sm:col-8">
                         <div class="flex align-items-center">
-                          <div class="col-3 p-field-radiobutton">
-                            <p-radioButton name="gender" value="Male" [(ngModel)]="advertise.gender" inputId="gender1"></p-radioButton>
-                            <label for="gender1">Male</label>
-                          </div>
-                          <div class="col-3 p-field-radiobutton ml-3" style="margin-right: 0px;">
-                            <p-radioButton name="gender" value="Female" [(ngModel)]="advertise.gender" inputId="gender2"></p-radioButton>
-                            <label for="gender2">Female</label>
-                          </div>
-                          <div class="col-3 p-field-radiobutton ml-3" style="margin-right: 0px;">
-                            <p-radioButton name="gender" value="Others" [(ngModel)]="advertise.gender" inputId="gender3"></p-radioButton>
-                            <label for="gender3">Others</label>
-                          </div>
+                            <div class="col-3 p-field-radiobutton">
+                              <p-radioButton name="gender" value="Male" [(ngModel)]="advertise.gender" inputId="gender1"></p-radioButton>
+                              <label for="gender1">Male</label>
+                            </div>
+                            <div class="col-3 p-field-radiobutton ml-3" style="margin-right: 0px;">
+                              <p-radioButton name="gender" value="Female" [(ngModel)]="advertise.gender" inputId="gender2"></p-radioButton>
+                              <label for="gender2">Female</label>
+                            </div>
+                            <div class="col-3 p-field-radiobutton ml-3" style="margin-right: 0px;">
+                              <p-radioButton name="gender" value="Others" [(ngModel)]="advertise.gender" inputId="gender3"></p-radioButton>
+                              <label for="gender3">Others</label>
+                            </div>
                         </div>
-                      </div>
+                    </div>
                 </div>
                 <div class="grid">
                     <div class="md:col-6 sm:col-6">
@@ -148,15 +132,7 @@
                         </div>
                     </div>
                 </div><br>
-                <div class="grid">
-                        <label for="adhead" class="md:col-4 sm:col-4 col-form-label">Select Advertisement Type</label>
-                        <div class="md:col-3 sm:col-4">
-                            <input type="checkbox" id="paiCheckbox" [(ngModel)]="paiChecked" (change)="paiCheckbox()" name="paiChecked"> Pai's
-                        </div>
-                        <div class="md:col-3 sm:col-4">
-                            <input type="checkbox" id="paisaCheckbox" [(ngModel)]="paisaChecked" (change)="paisaCheckbox()" name="paisaChecked"> Paisa(Money)
-                        </div>
-                </div>
+                
                 <div *ngIf="paiChecked" class="grid">
                     <div class="md:col-6 sm:col-6">
                         <label for="adhead">Pai</label>
@@ -203,6 +179,29 @@
                         <div>
                             <input pInputText  type="text" class="form-control" id="adsilver" name="Country" placeholder="Target Country" [(ngModel)]="advertise.country"><br>
                         </div>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adage">Age</label>
+                        <div>
+                            <input pInputText type="number" class="form-control" id="adage" name="age" placeholder="Enter age"><br>
+                        </div>
+                    </div>
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adlanguage">Language</label>
+                        <div>
+                            <input pInputText type="text" class="form-control" id="adlanguage" name="Language" placeholder="Enter Language"><br>
+                        </div>
+                    </div>
+                </div><br>
+                <div class="grid">
+                    <label for="adhead" class="md:col-4 sm:col-4 col-form-label">Select Advertisement Type</label>
+                    <div class="md:col-3 sm:col-4">
+                        <input type="checkbox" id="paiCheckbox" [(ngModel)]="paiChecked" (change)="paiCheckbox()" name="paiChecked"> Pai's
+                    </div>
+                    <div class="md:col-3 sm:col-4">
+                        <input type="checkbox" id="paisaCheckbox" [(ngModel)]="paisaChecked" (change)="paisaCheckbox()" name="paisaChecked"> Paisa(Money)
                     </div>
                 </div>
                 <h3 class="text-danger">{{message}}</h3>

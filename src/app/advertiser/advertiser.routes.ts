@@ -17,7 +17,7 @@ const routes: Routes = [
       { path: 'advertiserdashboard', component: AdvertiserdashboardComponent },
       { path: 'advertiserreport',component:AdvertiserreportsComponent},
       { path: 'advertise',component:AdvertisementformComponent},
-      { path: 'myadvertisement/:id',component:AlladvertisementsComponent},
+      { path: 'myadvertisement',component:AlladvertisementsComponent},
       { path: 'block/:id', component: LandingcontentComponent },
       { path: 'reportadvertisement/:id', component: LandingcontentComponent },
       { path: 'save/:id', component: LandingcontentComponent },

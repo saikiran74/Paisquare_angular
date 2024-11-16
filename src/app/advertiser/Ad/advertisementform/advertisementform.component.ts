@@ -92,6 +92,9 @@ export class AdvertisementformComponent implements OnInit{
     }
     else if(this.advertise.description==null || this.advertise.description==''){
       this.message="Please enter brand description"
+    } else if(this.advertise.description.length>1000) {
+      console.log("Please enter description less than 1000 Characters");
+      this.message = "Please enter description less than 1000 Characters";
     }
     else if(this.advertise.url==null || this.advertise.url==''){
       this.message="Please enter brand Website url"

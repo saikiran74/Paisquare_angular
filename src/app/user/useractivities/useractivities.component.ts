@@ -32,9 +32,13 @@ export class UseractivitiesComponent implements OnInit{
   }
   advertisementsOnClick:any;
   activeButton:String='Liked';
+  followingactiveButton:String='FollowingAdvertisement';
+  blockedactiveButton:string='BlockedAdvertisements';
   fetchAdvertisementsOnClick(value:string){
     this.advertisement=true;
     this.profile=false;
+    this.followingactiveButton='FollowingAdvertisement';
+    this.blockedactiveButton='BlockedAdvertisements';
     if(value=='Liked'){
       this.activeButton='Liked'
       this.likedAdvertisements()
@@ -109,6 +113,8 @@ export class UseractivitiesComponent implements OnInit{
   fetchProfileOnClick(value:string){
     this.advertisement=false;
     this.profile=true;
+    this.followingactiveButton='FollowingProfiles';
+    this.blockedactiveButton='BlockedProfiles';
     if(value=='Blocked'){
       this.activeButton='Blocked'
       this.followingProfileView=false;

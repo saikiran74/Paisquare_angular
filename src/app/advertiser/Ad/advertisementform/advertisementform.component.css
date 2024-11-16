@@ -41,3 +41,6 @@
   height: 100%;
   padding-right: 10px;
 }
+:host ::ng-deep .p-toggleButton{
+  border: none !important;
+}

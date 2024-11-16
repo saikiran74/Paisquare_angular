@@ -54,7 +54,8 @@ export class NavbarComponent  implements OnInit{
               children: [
                   { key: '1-0', label: 'Dashboard', data: 'advertiser/advertiserdashboard', type: 'url',icon:'pi pi-home' },
                   { key: '1-1', label: 'Report', data: 'advertiser/advertiserreport', type: 'url' ,icon:'pi pi-chart-bar'},
-                  { key: '1-2', label: 'My Advertisment', data: 'advertiser/myadvertisement/:userId', type: 'url',icon:'pi pi-folder' },
+                  //{ key: '1-2', label: 'My Advertisment', data: 'advertiser/myadvertisement/:userId', type: 'url',icon:'pi pi-folder' },
+                  { key: '1-2', label: 'My Advertisment', data: '/myadvertisement', type: 'url',icon:'pi pi-folder' },
                   { key: '1-3', label: 'Advertise', data: 'advertiser/advertise', type: 'url',icon:'pi pi-plus' }
               ]
           },
@@ -72,7 +73,11 @@ export class NavbarComponent  implements OnInit{
   componentViewMethod(val:String){
     console.log(val)
     if (val.includes('myadvertisement')) {
-      this._router.navigate([val.replace(':userId', this.userId)]);
+      //this._router.navigate([val.replace(':userId', this.userId)]);
+      //this._router.navigate(['/advertiser/myadvertisement'], { queryParams: { userId: this.userId } });
+      this._router.navigate(['/advertiser/myadvertisement'], {
+        state: { userId: this.userId },
+      });
     }else if (val.includes('home/profile/')) {
       this._router.navigate([val.replace(':userId', this.userId)]);
     } else if (val.includes('logout')) {

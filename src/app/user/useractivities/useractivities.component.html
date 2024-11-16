@@ -1,57 +1,63 @@
 <div class="flex gap-2">
     <a (click)="fetchAdvertisementsOnClick('Liked')">
-        <p-chip label="Liked" [style.color]="activeButton === 'Liked' ? 'blue' : 'red'">
+        <p-chip label="Liked" [styleClass]="activeButton === 'Liked' ? 'active-chip' : 'inactive-chip'">
         </p-chip>
+        
     </a>
     <a (click)="fetchAdvertisementsOnClick('Following')">
-        <p-chip label="Following" [ngStyle]="{'color': activeButton== 'Following'? 'blue' : 'black'}">
+        <p-chip label="Following" 
+        [styleClass]="activeButton === 'Following' ? 'active-chip' : 'inactive-chip'">
         </p-chip>
     </a>
     <a (click)="fetchAdvertisementsOnClick('Favourites')">
-        <p-chip label="Favourites" [ngStyle]="{'color': activeButton== 'Favourites'? 'blue' : 'black'}">
+        <p-chip label="Favourites" 
+        [styleClass]="activeButton === 'Favourites' ? 'active-chip' : 'inactive-chip'">
         </p-chip>
     </a>
     <a (click)="fetchAdvertisementsOnClick('Visited')">
-        <p-chip label="Visited" [ngStyle]="{'color': activeButton=== 'Liked'? 'blue' : 'black'}">
+        <p-chip label="Visited"
+        [styleClass]="activeButton === 'Visited' ? 'active-chip' : 'inactive-chip'">
         </p-chip>
     </a>
     <a (click)="fetchAdvertisementsOnClick('Blocked')">
-        <p-chip label="Blocked" [ngStyle]="{'color': activeButton=== 'Liked'? 'blue' : 'black'}">
+        <p-chip label="Blocked"
+        [styleClass]="activeButton === 'Blocked' ? 'active-chip' : 'inactive-chip'">
         </p-chip>
     </a>
 </div>
 
 <div >
     @if (activeButton=='Following') {
-        <br>
         <div class="flex gap-2">
             <a (click)="fetchAdvertisementsOnClick('Following')">
-                <p-chip label="Advertisement" [ngStyle]="{'color': activeButton=== 'Liked'? 'blue' : 'black'}">
+                <p-chip label="Advertisement"
+                [styleClass]="followingactiveButton === 'FollowingAdvertisement' ? 'active-chip' : 'inactive-chip'">
                 </p-chip>
             </a>
             <a (click)="fetchProfileOnClick('Following')">
-                <p-chip label="Profiles" [ngStyle]="{'color': activeButton=== 'Liked'? 'blue' : 'black'}">
+                <p-chip label="Profiles"
+                [styleClass]="followingactiveButton === 'FollowingProfiles' ? 'active-chip' : 'inactive-chip'">
                 </p-chip>
             </a>
         </div>
     }
     @if (activeButton=='Blocked') {
-        <br>
         <div  class="flex gap-2">
             <a (click)="fetchAdvertisementsOnClick('Blocked')">
-                <p-chip label="Advertisement" [ngStyle]="{'color': activeButton=== 'Liked'? 'blue' : 'black'}">
+                <p-chip label="Advertisements"
+                [styleClass]="blockedactiveButton === 'BlockedAdvertisements' ? 'active-chip' : 'inactive-chip'">
                 </p-chip>
             </a>
             <a (click)="fetchProfileOnClick('Blocked')">
-                <p-chip label="Profiles" [ngStyle]="{'color': activeButton=== 'Liked'? 'blue' : 'black'}">
+                <p-chip label="Profiles" 
+                [styleClass]="blockedactiveButton === 'BlockedProfiles' ? 'active-chip' : 'inactive-chip'">
                 </p-chip>
             </a>
         </div>
     }
     
     @if (profile==true) {
-        <br>
-        <div class="grid">
+        <div class="grid" style="padding-top: 5px;">
             @for (profile of profileList; track $index) {
                 <div class="lg:col-4 md:col-3 sm:col-2">
                     <p-card>

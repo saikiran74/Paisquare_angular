@@ -1,9 +1,11 @@
+
 <div style="display: flex; padding: 5px; padding-left: 0px;" class="gap-2">
-    <p-chip label="All"></p-chip>
-    <p-chip label="Blogging"></p-chip>
-    <p-chip label="Agriculture"></p-chip>
-    <p-chip label="Software"></p-chip>
-    <p-chip label="Industry" [removable]="true"></p-chip>
+<p-chip
+    *ngFor="let chip of chips; let i = index"
+    [label]="chip.label"
+    [styleClass]="activeChipIndex === i ? 'active-chip' : 'inactive-chip'"
+    (click)="onChipClick(i)"
+    ></p-chip>
     <div class="card flex justify-content-center">
         <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" 
         optionLabel="name"
@@ -11,5 +13,7 @@
         display="chip" [showClear]="true" ></p-multiSelect>
     </div>
 </div>
+  
+
 
 <app-homepage *ngFor="let ads of advertisements" [ad]="ads" (fetchData)="fetchadvertisement()"></app-homepage>

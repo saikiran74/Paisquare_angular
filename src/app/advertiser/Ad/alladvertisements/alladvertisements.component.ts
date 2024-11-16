@@ -30,9 +30,21 @@ userData: any[] = [];
 blockedlist: any[]=[];
 favouriteslist: any[]=[];
 userId='';
-
+adId='';
 cities!: City[];
 selectedCities!: City[];
+chips = [
+  { label: 'All' },
+  { label: 'Blogging' },
+  { label: 'Agriculture' },
+  { label: 'Software' },
+  { label: 'Industry' }
+];
+activeChipIndex = 0;
+
+onChipClick(index: number) {
+  this.activeChipIndex = index;
+}
 ngOnInit(){
   this.cities = [
     {name: 'New York', value: 'NY'},
@@ -40,16 +52,43 @@ ngOnInit(){
     {name: 'London', value: 'LDN'},
     {name: 'Istanbul', value: 'IST'},
     {name: 'Paris', value: 'PRS'}
-    
-];
+      
+    ];
   const token = this.authService.getToken();
   console.log("all add token-->",token)
   this._route.params.subscribe(params => {
     const adId = params['id']; // Access ad ID from URL if provided
     const userId = params['userId']; // Access user ID from URL if provided
-
-    if (adId) {
-      // Fetch and display specific ad by ID
+    if (this._router.getCurrentNavigation()?.extras.state) {
+      const state = this._router.getCurrentNavigation()?.extras.state as { userId: string };
+      this.userId = state.userId;
+      console.log('User ID:', this.userId);
+      
+      this._service.getUserAdvertisements(userId).subscribe(
+        data => {
+          this.userId=this._service.userId;
+          this.advertisements = data;
+          console.log("advertisment list for userId: ",adId,this.advertisements)
+        },
+          error=>{console.log("error occurred while retrieving the data for userId -",userId)
+      });
+    } else if(this._router.getCurrentNavigation()?.extras.state) {
+      const state = this._router.getCurrentNavigation()?.extras.state as { adId: string };
+      this.adId = state.adId;
+      console.log('adId ID:', this.adId);
+      this._service.getIDAdvertisements(adId).subscribe(
+        data => {
+          this.userId=this._service.userId;
+          this.advertisements = data;
+          console.log("advertisment list for id: ",adId,this.advertisements)
+        },
+          error=>{console.log("error occured while retrieving the data for ID -",adId)
+      });
+    } else {
+      this.fetchadvertisement()
+    }
+    /*if (adId) {
+      console.log("adId-> ",adId)
       this._service.getIDAdvertisements(adId).subscribe(
         data => {
           this.userId=this._service.userId;
@@ -59,6 +98,7 @@ ngOnInit(){
           error=>{console.log("error occured while retrieving the data for ID -",adId)
       });
     } else if (userId) {
+      console.log("adId-> ",userId)
       // Fetch and display ads by user
       this._service.getUserAdvertisements(userId).subscribe(
         data => {
@@ -70,7 +110,7 @@ ngOnInit(){
       });
     } else {
       this.fetchadvertisement()
-    }
+    }*/
   });
   this.userId=this._service.userId;
 }
