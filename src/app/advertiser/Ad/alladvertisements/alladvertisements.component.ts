@@ -33,19 +33,12 @@ userId='';
 adId='';
 cities!: City[];
 selectedCities!: City[];
-chips = [
-  { label: 'All' },
-  { label: 'Blogging' },
-  { label: 'Agriculture' },
-  { label: 'Software' },
-  { label: 'Industry' }
-];
+chips: { label: string }[] = [];
 activeChipIndex = 0;
 
-onChipClick(index: number) {
-  this.activeChipIndex = index;
-}
+
 ngOnInit(){
+  this.fetchDistinctHashtags();
   this.cities = [
     {name: 'New York', value: 'NY'},
     {name: 'Rome', value: 'RM'},
@@ -87,40 +80,56 @@ ngOnInit(){
     } else {
       this.fetchadvertisement()
     }
-    /*if (adId) {
-      console.log("adId-> ",adId)
-      this._service.getIDAdvertisements(adId).subscribe(
-        data => {
-          this.userId=this._service.userId;
-          this.advertisements = data;
-          console.log("advertisment list for id: ",adId,this.advertisements)
-        },
-          error=>{console.log("error occured while retrieving the data for ID -",adId)
-      });
-    } else if (userId) {
-      console.log("adId-> ",userId)
-      // Fetch and display ads by user
-      this._service.getUserAdvertisements(userId).subscribe(
-        data => {
-          this.userId=this._service.userId;
-          this.advertisements = data;
-          console.log("advertisment list for userId: ",adId,this.advertisements)
-        },
-          error=>{console.log("error occurred while retrieving the data for userId -",userId)
-      });
-    } else {
-      this.fetchadvertisement()
-    }*/
   });
   this.userId=this._service.userId;
 }
 fetchadvertisement(){
   this._service.getAllAdvertisements().subscribe(
-    data => {
-    this.userId=this._service.userId;
-    this.advertisements = data;
-  },
-    error=>{console.log("error occur while retrieving the data!")
-  });
-}
+      data => {
+      this.userId=this._service.userId;
+      this.advertisements = data;
+    },
+      error=>{console.log("error occur while retrieving the data!")
+    });
+  }
+  fetchDistinctHashtags() {
+    this._service.getHashTags().subscribe(data => {
+      this.chips = [{ label: 'All' }, ...data.map((hashtag:string) => ({ label: hashtag }))];
+      console.log("this.chips-->",this.chips)
+    });
+  }
+  onChipClick(index: number) {
+    this.activeChipIndex = index;
+    const selectedHashtag = this.chips[index].label;
+    console.log("selectedHashtag",selectedHashtag)
+    if (selectedHashtag === 'All') {
+      this.fetchadvertisement();  // Fetch all advertisements
+    } else {
+      this.getHashTagsAdvertisement(selectedHashtag);  // Fetch advertisements by selected hashtag
+    }
+  }
+  getHashTagsAdvertisement(query: string) {
+    this._service.getHashTagsAdvertisement(query).subscribe(data => {
+      this.advertisements = data;
+    });
+  }
+  querySearch:boolean=false;
+  onSearch(queryEvent: Event): void {
+    console.log('In query search',queryEvent);
+    const inputElement = queryEvent.target as HTMLInputElement;
+    const query = inputElement.value?.trim();
+    this.querySearch=true;
+    if (!query.trim()) {
+        this.querySearch = false;
+        console.log('Search query is empty');
+    }
+    this._service.getPincodesAdvertisement(query).subscribe(
+      data => {
+        this.userId=this._service.userId;
+        this.advertisements = data;
+        console.log("advertisment list for userId: ",this.advertisements)
+      },
+        error=>{console.log("error occurred while retrieving the data for query -",query)
+    });
+  }
 }

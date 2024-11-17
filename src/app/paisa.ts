@@ -16,15 +16,16 @@ export class Advertise{
     location:string='Ramula Banda ';
     backGroundColor:string='';
     gender!:string;
-    pai!:Number;
-    paiperclick!:Number;
+    pai:Number=2000;
+    paiperclick:Number=20;
     paisa!:Number;
     paisaperclick!:Number;
     country!:string;
     state!:string;
     district!:string;
-    hashtags!:string;
+    hashtags!: string;
     status!:string;
+    pincodes!:string;
     constructor(){}
 }
 export class Contactus{

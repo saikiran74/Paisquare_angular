@@ -122,7 +122,7 @@
                     <div class="md:col-6 sm:col-6">
                         <label for="adhead">Enter hashtags</label>
                         <div>
-                           <p-chips [(ngModel)]="advertise.hashtags" separator="," placeholder="Maximum 5 items" name="hashtags"></p-chips>
+                           <p-chips [(ngModel)]="hashtags" separator="," placeholder="Maximum 5 items" name="hashtags"></p-chips>
                         </div>
                     </div>
                     <div class="md:col-6 sm:col-6">
@@ -132,7 +132,55 @@
                         </div>
                     </div>
                 </div><br>
-                
+                <div class="grid">
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adhead">District</label>
+                        <div>
+                            <input pInputText  type="text" class="form-control" id="adsilver" name="District" placeholder="Target District" [(ngModel)]="advertise.district"><br>
+                        </div>
+                    </div>
+                    <div class="md:col-6 sm:col:6">
+                        <label for="adhead">State</label>
+                        <div>
+                            <input pInputText  type="text" class="form-control" id="adsilver" name="State" placeholder="Target State" [(ngModel)]="advertise.state"><br>
+                        </div>
+                    </div>
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adhead">Country</label>
+                        <div>
+                            <input pInputText  type="text" class="form-control" id="adsilver" name="Country" placeholder="Target Country" [(ngModel)]="advertise.country"><br>
+                        </div>
+                    </div>
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adhead">Enter Location PinCodes</label>
+                        <div>
+                           <p-chips [(ngModel)]="pincodes" separator="," placeholder="Enter location pincode where your wants to publish" name="pincodes"></p-chips>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adage">Age</label>
+                        <div>
+                            <input pInputText type="number" class="form-control" id="adage" name="age" placeholder="Enter age"><br>
+                        </div>
+                    </div>
+                    <div class="md:col-6 sm:col-6">
+                        <label for="adlanguage">Language</label>
+                        <div>
+                            <input pInputText type="text" class="form-control" id="adlanguage" name="Language" placeholder="Enter Language"><br>
+                        </div>
+                    </div>
+                </div><br>
+                <div class="grid">
+                    <label for="adhead" class="md:col-4 sm:col-4 col-form-label">Select Advertisement Type</label>
+                    <div class="md:col-3 sm:col-4">
+                        <input type="checkbox" id="paiCheckbox" [(ngModel)]="paiChecked" (change)="paiCheckbox()" name="paiChecked"> Pai's
+                    </div>
+                    <div class="md:col-3 sm:col-4">
+                        <input type="checkbox" id="paisaCheckbox" [(ngModel)]="paisaChecked" (change)="paisaCheckbox()" name="paisaChecked"> Paisa(Money)
+                    </div>
+                </div>
                 <div *ngIf="paiChecked" class="grid">
                     <div class="md:col-6 sm:col-6">
                         <label for="adhead">Pai</label>
@@ -159,49 +207,6 @@
                         <div>
                             <input pInputText type="number" class="form-control" id="admoney" name="moneyclick" placeholder="Enter amount per click" [(ngModel)]="advertise.paisaperclick"><br>
                         </div>
-                    </div>
-                </div>
-                <div class="grid">
-                    <div class="md:col-6 sm:col-6">
-                        <label for="adhead">District</label>
-                        <div>
-                            <input pInputText  type="text" class="form-control" id="adsilver" name="District" placeholder="Target District" [(ngModel)]="advertise.district"><br>
-                        </div>
-                    </div>
-                    <div class="md:col-6 sm:col:6">
-                        <label for="adhead">State</label>
-                        <div>
-                            <input pInputText  type="text" class="form-control" id="adsilver" name="State" placeholder="Target State" [(ngModel)]="advertise.state"><br>
-                        </div>
-                    </div>
-                    <div class="md:col-6 sm:col-6">
-                        <label for="adhead">Country</label>
-                        <div>
-                            <input pInputText  type="text" class="form-control" id="adsilver" name="Country" placeholder="Target Country" [(ngModel)]="advertise.country"><br>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid">
-                    <div class="md:col-6 sm:col-6">
-                        <label for="adage">Age</label>
-                        <div>
-                            <input pInputText type="number" class="form-control" id="adage" name="age" placeholder="Enter age"><br>
-                        </div>
-                    </div>
-                    <div class="md:col-6 sm:col-6">
-                        <label for="adlanguage">Language</label>
-                        <div>
-                            <input pInputText type="text" class="form-control" id="adlanguage" name="Language" placeholder="Enter Language"><br>
-                        </div>
-                    </div>
-                </div><br>
-                <div class="grid">
-                    <label for="adhead" class="md:col-4 sm:col-4 col-form-label">Select Advertisement Type</label>
-                    <div class="md:col-3 sm:col-4">
-                        <input type="checkbox" id="paiCheckbox" [(ngModel)]="paiChecked" (change)="paiCheckbox()" name="paiChecked"> Pai's
-                    </div>
-                    <div class="md:col-3 sm:col-4">
-                        <input type="checkbox" id="paisaCheckbox" [(ngModel)]="paisaChecked" (change)="paisaCheckbox()" name="paisaChecked"> Paisa(Money)
                     </div>
                 </div>
                 <h3 class="text-danger">{{message}}</h3>
