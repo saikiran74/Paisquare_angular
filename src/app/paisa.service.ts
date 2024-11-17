@@ -130,5 +130,20 @@ export class PaiService {
   public getAdvertisementTransactionData(){
     return this._http.get<any>(`http://localhost:3300/getadvertisementtransactiondata/${this.userId}`);
   }
+
+  //Search functionally
+  public getGlobalSearchresult(query:string){
+    return this._http.get<any>(`http://localhost:3300/search?query=${query}`);
+  }
+  public getHashTags(){
+    return this._http.get<any>(`http://localhost:3300/getHashTags`);
+  }
+  public getHashTagsAdvertisement(query:string){
+    return this._http.get<any>(`http://localhost:3300/getHashTagsAdvertisement/${query}`);
+  }
+  public getPincodesAdvertisement(query:string){
+    return this._http.get<any>(`http://localhost:3300/getpincodesadvertisement/${query}`);
+  }
+  
 }
 

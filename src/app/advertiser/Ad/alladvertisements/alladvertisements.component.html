@@ -6,14 +6,27 @@
     [styleClass]="activeChipIndex === i ? 'active-chip' : 'inactive-chip'"
     (click)="onChipClick(i)"
     ></p-chip>
-    <div class="card flex justify-content-center">
-        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" 
-        optionLabel="name"
-        optionValue="value" placeholder="Select location"
-        display="chip" [showClear]="true" ></p-multiSelect>
-    </div>
+    <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input 
+            pInputText 
+            placeholder="Filter by pincodes"
+            (keyup.enter)="onSearch($event)" 
+        />
+    </span>
 </div>
-  
+<div class="container">
+    @if (querySearch) {
+        @if (advertisements.length > 0) {
+            <app-homepage
+            *ngFor="let ad of advertisements"
+            [ad]="ad"
+        ></app-homepage>
+        } @else {
+            <p>No advertisements found for your query.</p>
+        }
 
-
-<app-homepage *ngFor="let ads of advertisements" [ad]="ads" (fetchData)="fetchadvertisement()"></app-homepage>
+    } @else {
+        <app-homepage *ngFor="let ads of advertisements" [ad]="ads" (fetchData)="fetchadvertisement()"></app-homepage>
+    }
+</div>

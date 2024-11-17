@@ -26,6 +26,8 @@ export class AdvertisementformComponent implements OnInit{
   /* todo included p-clips add respective code for hastages 
   add hashTagSeparatorExp in html*/
   advertise= new Advertise();
+  hashtags: string[] = [];  // Assume these are arrays
+  pincodes: string[] = []; 
   paiChecked: boolean = false;
   paisaChecked: boolean = false;
   editorConfig = {
@@ -104,14 +106,19 @@ export class AdvertisementformComponent implements OnInit{
     }
     else if(!(this.paiChecked || this.paisaChecked)){
       this.message="Please select advertisement type";
+    } else if(this.pinCodeValidator(this.pincodes)){
+      this.message="Enter 8 digit pin codes only"
     }
     else if(((this.paiChecked && this.validPai()) || (this.paisaChecked && this.validPaisa()))){
       //Correcting
     } else if (!this.advertise.backGroundColor) {
       this.message = "Please select a background color";
       return;
-    }
+    } 
     else{
+      
+      this.advertise.hashtags = this.hashtags.join(', ');
+      this.advertise.pincodes = this.pincodes.join(', '); 
       this._service.advertiseFromRemote(this.advertise,this._service.userId).subscribe(
         data=>{
           console.log("Response received--------------->",data);
@@ -196,5 +203,18 @@ export class AdvertisementformComponent implements OnInit{
     console.log('Toggled:', event.checked);
     this.locationEnabled = event.checked;
     console.log('locationEnabled:', this.locationEnabled);
-}
+  }
+  pinCodeValidator(pincodes:string[]) {
+    console.log(pincodes);
+      console.log("pincodes")
+      const invalidPinCodes = pincodes.filter(pin => !/^\d{6}$/.test(pin.trim()));
+      console.log("invalidPinCodes->",invalidPinCodes);
+      const invalidPinCodesList=invalidPinCodes.join(', ');
+      if(invalidPinCodesList.length>0){
+        return true;
+      }
+      else{
+        return false;
+      }
+  }
 }
