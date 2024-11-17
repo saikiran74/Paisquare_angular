@@ -22,6 +22,7 @@ export class ProfileupdateComponent implements OnInit {
   constructor(private _service: PaiService,private _router: Router,private messageService: MessageService
     , private http: HttpClient
   ) {}
+
   categories: any[] = [
     { label: 'Blogging', value: 'Blogging' },
     { label: 'designer', value: 'designer' },
@@ -31,7 +32,53 @@ export class ProfileupdateComponent implements OnInit {
     { label: 'India', value: 'IN' },
     { label: 'Other', value: 'O' }
   ];
-
+ ngOnInit(){
+    this.profileForm = this.createFormGroup();
+    // loading profile data
+    console.log("Oninit profile update page for ",this._service.userId);
+    this._service.getProfileList(this._service.userId).subscribe(
+      data =>{
+        console.log("user profile data-->",data)
+        this.profileData=data;
+        this.profileForm.get('brandInformation.brandName')?.setValue(data.brandName);
+        this.profileForm.get('brandInformation.brandDescription')?.setValue(data.brandDescription);
+        this.profileForm.get('brandInformation.brandTagLine')?.setValue(data.brandTagLine);
+        this.profileForm.get('brandInformation.website')?.setValue(data.website);
+        this.profileForm.get('personalInformation.advertiserName')?.setValue(data.advertiserName);
+        this.profileForm.get('personalInformation.mobileNumber')?.setValue(data.mobileNumber);
+        this.profileForm.get('personalInformation.country')?.setValue(data.country);
+        this.profileForm.get('personalInformation.email')?.setValue(data.email);
+        this.profileForm.get('personalInformation.brandLocation')?.setValue(data.brandLocation);
+        this.profileForm.get('socialMedia.youtube')?.setValue(data.youtube);
+        this.profileForm.get('socialMedia.facebook')?.setValue(data.facebook);
+        this.profileForm.get('socialMedia.instagram')?.setValue(data.instagram);
+        this.profileForm.get('socialMedia.twitter')?.setValue(data.twitter);
+        this.profileForm.get('socialMedia.pinterest')?.setValue(data.pinterest);
+        this.profileForm.get('brandRecommendation.brandCategory')?.setValue(data.brandCategory);
+        this.profileForm.get('brandRecommendation.brandTargetGender')?.setValue(data.brandTargetGender);
+        this.profileForm.get('brandRecommendation.brandEstablishedIn')?.setValue(data.brandEstablishedIn);
+        if(data.pinCodes){
+          this.profileForm.get('brandRecommendation.pinCodes')?.setValue(data.pinCodes);
+        } else{
+          this.profileForm.get('brandRecommendation.pinCodes')?.setValue([]);
+        }
+        this.profileForm.get('brandRecommendation.brandCompanyEmployeeSize')?.setValue(data.brandCompanyEmployeeSize);
+        if (data.brandHashTags) {
+          this.profileForm.get('brandRecommendation.brandHashTags')?.setValue(data.brandHashTags);
+        } else {
+          this.profileForm.get('brandRecommendation.brandHashTags')?.setValue([]);
+        }
+        this.profileForm.get('brandRecommendation.brandTargetAges')?.setValue(data.brandTargetAges);
+        this.profileForm.get('brandRecommendation.country')?.setValue(data.country);
+        //this.profileForm.patchValue(data);
+        console.log("profile data is:",this.profileData);
+        console.log("this.profileForm-->",this.profileForm)
+        },
+      error=>{
+        console.log("error occured in followerslist")
+      }
+    );
+  }
   createFormGroup(): FormGroup {
     return new FormGroup({
       brandInformation: new FormGroup({
@@ -73,51 +120,7 @@ export class ProfileupdateComponent implements OnInit {
   }
   profileForm!: FormGroup<any>;
   profileData: any;
-  ngOnInit(){
-    this.profileForm = this.createFormGroup();
-    // loading profile data
-    this._service.getProfileList(this._service.userId).subscribe(
-      data =>{
-        this.profileData=data;
-        this.profileForm.get('brandInformation.brandName')?.setValue(data.brandName);
-        this.profileForm.get('brandInformation.brandDescription')?.setValue(data.brandDescription);
-        this.profileForm.get('brandInformation.brandTagLine')?.setValue(data.brandTagLine);
-        this.profileForm.get('brandInformation.website')?.setValue(data.website);
-        this.profileForm.get('personalInformation.advertiserName')?.setValue(data.advertiserName);
-        this.profileForm.get('personalInformation.mobileNumber')?.setValue(data.mobileNumber);
-        this.profileForm.get('personalInformation.country')?.setValue(data.country);
-        this.profileForm.get('personalInformation.email')?.setValue(data.email);
-        this.profileForm.get('personalInformation.brandLocation')?.setValue(data.brandLocation);
-        this.profileForm.get('socialMedia.youtube')?.setValue(data.youtube);
-        this.profileForm.get('socialMedia.facebook')?.setValue(data.facebook);
-        this.profileForm.get('socialMedia.instagram')?.setValue(data.instagram);
-        this.profileForm.get('socialMedia.twitter')?.setValue(data.twitter);
-        this.profileForm.get('socialMedia.pinterest')?.setValue(data.pinterest);
-        this.profileForm.get('brandRecommendation.brandCategory')?.setValue(data.brandCategory);
-        this.profileForm.get('brandRecommendation.brandTargetGender')?.setValue(data.brandTargetGender);
-        this.profileForm.get('brandRecommendation.brandEstablishedIn')?.setValue(data.brandEstablishedIn);
-        if(data.pinCodes){
-          this.profileForm.get('brandRecommendation.pinCodes')?.setValue(data.pinCodes);
-        } else{
-          this.profileForm.get('brandRecommendation.pinCodes')?.setValue([]);
-        }
-        this.profileForm.get('brandRecommendation.brandCompanyEmployeeSize')?.setValue(data.brandCompanyEmployeeSize);
-        if (data.brandHashTags) {
-          this.profileForm.get('brandRecommendation.brandHashTags')?.setValue(data.brandHashTags);
-        } else {
-          this.profileForm.get('brandRecommendation.brandHashTags')?.setValue([]);
-        }
-        this.profileForm.get('brandRecommendation.brandTargetAges')?.setValue(data.brandTargetAges);
-        this.profileForm.get('brandRecommendation.country')?.setValue(data.country);
-        //this.profileForm.patchValue(data);
-        console.log("profile data is:",this.profileData);
-        console.log("this.profileForm-->",this.profileForm)
-        },
-      error=>{
-        console.log("error occured in followerslist")
-      }
-    );
-  }
+ 
   onSubmitbrandInformationUpdate(){
     this.updatingInformation=true;
     console.log(this.updatingInformation)

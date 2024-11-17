@@ -14,3 +14,33 @@
   button {
     margin-left: 8px;
   }
+  .backgroundselection{
+    width:100px;
+    height:100px;
+  }
+:host ::ng-deep .p-dialog .p-dialog-header {
+  /* border-bottom: 0 none; */
+  background: #ffffff;
+  /* color: #495057; */
+  padding: 0.2rem;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+:host ::ng-deep .p-dialog {
+  background: #ffffff;
+  padding: 0rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-height: 50%;
+  width: 70%;
+}
+:host ::ng-deep .p-dialog .p-dialog-content {
+  background: #ffffff;
+  padding: 0rem;
+  padding-left: 10px;
+  height: 100%;
+  padding-right: 10px;
+}
+:host ::ng-deep .p-toggleButton{
+  border: none !important;
+}

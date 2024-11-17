@@ -26,13 +26,13 @@ export class PaiService {
     return this._http.post<any>("http://localhost:3300/registeruser",user)
  }
   public advertiseFromRemote(advertise: Advertise,userid:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/${userid}/advertise`,advertise)
+    return this._http.post<any>(`http://localhost:3300/advertise/${userid}`,advertise)
   }
   public ContactusFromRemote(contactus: Contactus):Observable<any>{
     return this._http.post<any>("http://localhost:3300/contactus",contactus)
   }
   public CommentsFromRemote(comments: Comments,advertisementid: Number,userid:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/${userid}/${advertisementid}/comments`,comments)
+    return this._http.post<any>(`http://localhost:3300/comments/${userid}/${advertisementid}`,comments)
   }
   public getAllAdvertisements() {
     return this._http.get<any>(`http://localhost:3300/advertisements`);
@@ -41,94 +41,94 @@ export class PaiService {
     return this._http.get<any>("http://localhost:3300/commentslist");
   }
   public CommentsListFromRemote(advertisementid: Number){
-    return this._http.get<any>(`http://localhost:3300/${advertisementid}/commentslist`);
+    return this._http.get<any>(`http://localhost:3300/commentslist/${advertisementid}`);
   }
   public FollowerFromRemote(follower:Follower,advertiserid: Number,userId:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/${userId}/${advertiserid}/follow`,follower)
+    return this._http.post<any>(`http://localhost:3300/follow/${userId}/${advertiserid}`,follower)
   }
   public VisitedFromRemote(visited:Visited,userid:Number,advertiserid: Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/${userid}/${advertiserid}/visit`,visited)
+    return this._http.post<any>(`http://localhost:3300/visit/${userid}/${advertiserid}`,visited)
   }
   public LikeFromRemote(like:Like,userid:Number,advertisementid:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/${userid}/${advertisementid}/like`,like)
+    return this._http.post<any>(`http://localhost:3300/like/${userid}/${advertisementid}`,like)
   }
   //Updating profiles
   public getProfileList(userId:Number) {
-    return this._http.get<any>(`http://localhost:3300/${userId}/profile`);
+    return this._http.get<any>(`http://localhost:3300/profile/${userId}`);
   }
   public getUserdata(userId:Number){
-    return this._http.get<any>(`http://localhost:3300/${userId}/userdata`);
+    return this._http.get<any>(`http://localhost:3300/userdata/${userId}`);
   }
   public ProfileSocialMediaUpdate(profile:Profile,userId:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/${userId}/updateProfile/socialMediaLinks`,profile)
+    return this._http.post<any>(`http://localhost:3300/updateProfile/socialMediaLinks/${userId}`,profile)
   }
   public ProfileBrandRecommendationUpdate(profile:Profile,userId:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/${userId}/updateProfile/BrandRecommendation`,profile)
+    return this._http.post<any>(`http://localhost:3300/updateProfile/BrandRecommendation/${userId}`,profile)
   }
   public ProfilepasswordUpdate(profile:Profile,userId:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/${userId}/updateProfile/password`,profile)
+    return this._http.post<any>(`http://localhost:3300/updateProfile/password/${userId}`,profile)
   }
   public ProfilepersonalInformationUpdate(profile:Profile,userId:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/${userId}/updateProfile/personalInformation`,profile)
+    return this._http.post<any>(`http://localhost:3300/updateProfile/personalInformation/${userId}`,profile)
   }
   public ProfilebrandInformationUpdate(profile:Profile,userId:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/${userId}/updateProfile/brandInformation`,profile)
+    return this._http.post<any>(`http://localhost:3300/updateProfile/brandInformation/${userId}`,profile)
   }
   //-----------------------
   public getIDAdvertisements(advertisementid:Number){
-    return this._http.get<any>(`http://localhost:3300/${advertisementid}/idadvertisements`);
+    return this._http.get<any>(`http://localhost:3300/idadvertisements/${advertisementid}`);
   }
   public getUserAdvertisements(userId:Number){
-    return this._http.get<any>(`http://localhost:3300/${userId}/useradvertisements`);
+    return this._http.get<any>(`http://localhost:3300/useradvertisements/${userId}`);
   }
   public getUserFollowingProfiles(userId:number){
-    return this._http.get<any>(`http://localhost:3300/${userId}/UserFollowingProfiles`);
+    return this._http.get<any>(`http://localhost:3300/UserFollowingProfiles/${userId}`);
   }
   public getUserBlockedProfiles(userId:number){
-    return this._http.get<any>(`http://localhost:3300/${userId}/UserBlockedProfiles`);
+    return this._http.get<any>(`http://localhost:3300/UserBlockedProfiles/${userId}`);
   }
   public postBlockAdvertiser(block:Block,userid:Number,advertiserId:Number){
-    return this._http.post<any>(`http://localhost:3300/${userid}/${advertiserId}/blockadvertiser`,block);
+    return this._http.post<any>(`http://localhost:3300/blockadvertiser/${userid}/${advertiserId}`,block);
   }
   public postReportadvertisement(report:Report){
     return this._http.post<any>(`http://localhost:3300/reportadvertisement`,report);
   }
   public postfavouriteAdvertisement(favourite:Favourite,userid:Number,advertisementid:Number){
-    return this._http.post<any>(`http://localhost:3300/${userid}/${advertisementid}/addAdvetisementToFavourite`,favourite);
+    return this._http.post<any>(`http://localhost:3300/addAdvetisementToFavourite/${userid}/${advertisementid}`,favourite);
   }
   //Data for graphs
   public getVisitorGraphFromRemote(userId:Number,reportperiod:String){
-    return this._http.get<any>(`http://localhost:3300/${userId}/${reportperiod}/visitorgraph`);
+    return this._http.get<any>(`http://localhost:3300/visitorgraph/${userId}/${reportperiod}`);
   }
   public getFollowersGraphFromRemote(userId:Number,reportperiod:String){
-    return this._http.get<any>(`http://localhost:3300/${userId}/${reportperiod}/followersgraph`);
+    return this._http.get<any>(`http://localhost:3300/followersgraph/${userId}/${reportperiod}`);
   }
   public getLikeGraphFromRemote(userId:Number,reportperiod:String){
-    return this._http.get<any>(`http://localhost:3300/${userId}/${reportperiod}/likesgraph`);
+    return this._http.get<any>(`http://localhost:3300/likesgraph/${userId}/${reportperiod}`);
   }
   public getFavouriteGraphFromRemote(userId:Number,reportperiod:String){
-    return this._http.get<any>(`http://localhost:3300/${userId}/${reportperiod}/favouritegraph`);
+    return this._http.get<any>(`http://localhost:3300/favouritegraph/${userId}/${reportperiod}`);
   }
   //------------------For userdashboard----------------
   public getFavouriteAdvertisements(){
-    return this._http.get<any>(`http://localhost:3300/${this.userId}/getfavouriteadvertisementslist`);
+    return this._http.get<any>(`http://localhost:3300/getfavouriteadvertisementslist/${this.userId}`);
   }
   public getLikedAdvertisements(){
-    return this._http.get<any>(`http://localhost:3300/${this.userId}/getlikedadvertisementslist`);
+    return this._http.get<any>(`http://localhost:3300/getlikedadvertisementslist/${this.userId}`);
   }
   public getFollowingAdvertisements(){
-    return this._http.get<any>(`http://localhost:3300/${this.userId}/getfollowingadvertisementslist`);
+    return this._http.get<any>(`http://localhost:3300/getfollowingadvertisementslist/${this.userId}`);
   }
   public getBlockedAdvertisements(){
-    return this._http.get<any>(`http://localhost:3300/${this.userId}/getUserBlockedAdvertisementsList`);
+    return this._http.get<any>(`http://localhost:3300/getUserBlockedAdvertisementsList/${this.userId}`);
   }
   public getVisitedAdvertisements(){
-    return this._http.get<any>(`http://localhost:3300/${this.userId}/getvisitedadvertisementslist`);
+    return this._http.get<any>(`http://localhost:3300/getvisitedadvertisementslist/${this.userId}`);
   }
 
 
   public getAdvertisementTransactionData(){
-    return this._http.get<any>(`http://localhost:3300/${this.userId}/getadvertisementtransactiondata`);
+    return this._http.get<any>(`http://localhost:3300/getadvertisementtransactiondata/${this.userId}`);
   }
 }
 

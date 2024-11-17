@@ -32,8 +32,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MessagesModule } from 'primeng/messages';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 const PRIMENG_MODULES:any[]=[
     CommonModule,
+    SelectButtonModule,
+    ToggleButtonModule,
     InputMaskModule,
     RatingModule,
     ReactiveFormsModule,

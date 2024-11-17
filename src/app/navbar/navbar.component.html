@@ -1,14 +1,11 @@
 <div class="grid">
     <p-toolbar class="col-12">
         <div class="p-toolbar-group-start">
-            <a>
-                <img src="../../../assets/images/pai_square_with_name.jpg" width="50px" height="50px" routerLink="advertiser">
-            </a>
-            <button style="background-color: black;" (click)="sidebarVisible = true" class="btn">
+            <button (click)="sidebarVisible = true" style="border: none; background-color: transparent;" class="btn">
                 <i class="pi pi-bars" style="font-size: 2rem; color: white;"></i></button>
         </div>
         <div class="p-toolbar-group-center">
-            {{userName}}
+            <a style="color: #85B6FF;" routerLink="/advertiser">{{userName}}</a>
         </div>
         <div class="p-toolbar-group-end">
             <span class="p-input-icon-left">
@@ -19,7 +16,7 @@
     </p-toolbar>
 </div>
 <div class="grid">
-    <div class="col-3 fixed-left" id="sidebar">
+    <div class="col-2 fixed-left" id="sidebar">
         <p-tree [value]="nodes" [style]="{'border': 'none'}" #tree class="w-full md:w-30rem">
             <ng-template let-node pTemplate="url">
                 <a (click)="componentViewMethod(node.data)" rel="noopener noreferrer" class="text-700 hover:text-primary">{{ node.label }}</a>
@@ -29,7 +26,7 @@
             </ng-template>
         </p-tree>
     </div>
-    <div class="col-6" id="content" style="background-color: rgba(239, 242, 245, 0.877); border-radius: 5px; margin-top: 5px;">
+    <div class="col-7" id="content" style="background-color: rgba(239, 242, 245, 0.877); border-radius: 5px; margin-top: 5px;">
         <div class="container">
             <router-outlet></router-outlet>
         </div>
