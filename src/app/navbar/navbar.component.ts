@@ -45,7 +45,8 @@ export class NavbarComponent  implements OnInit{
               children: [
                   { key: '0-0', label: 'Dashboard', data: 'user/userdashboard', type: 'url',icon:'pi pi-home'},
                   { key: '0-1', label: 'Your activities', data: 'user/useractivities', type: 'url',icon:'pi pi-chart-line'},
-                  { key: '0-3', label: 'Withdraw', data: 'user/withdraw', type: 'url',icon:'pi-cart-plus'}
+                  { key: '0-3', label: 'Withdraw', data: 'user/withdraw', type: 'url',icon:'pi-cart-plus'},
+                  { key: '0-4', label: 'Chat', data: 'user/chat', type: 'url',icon:'pi-cart-plus'}
               ]
           },
           {

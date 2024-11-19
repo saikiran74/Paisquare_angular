@@ -144,6 +144,15 @@ export class PaiService {
   public getPincodesAdvertisement(query:string){
     return this._http.get<any>(`http://localhost:3300/getpincodesadvertisement/${query}`);
   }
+
+  /* Chat */
+  sendMessage(chat: any): Observable<any> {
+    return this._http.post(`http://localhost:3300/chat/send`, chat);
+  }
+
+  getMessages(senderId: number, receiverId: number): Observable<any> {
+    return this._http.get(`http://localhost:3300/chat/${senderId}/${receiverId}`);
+  }
   
 }
 

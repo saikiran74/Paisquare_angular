@@ -1,0 +1,24 @@
+/* Ensures the chat messages have proper alignment and styling */
+.max-w-75 {
+  max-width: 75%;
+}
+
+.bg-primary {
+  background-color: #007ad9;
+}
+
+.bg-secondary {
+  background-color: #6c757d;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

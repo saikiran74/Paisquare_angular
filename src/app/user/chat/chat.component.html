@@ -1,0 +1,57 @@
+<div class="grid h-screen">
+  <!-- User List (Right Sidebar) -->
+  <div class="col-12 lg:col-3 border-right-1 surface-border flex-shrink-0">
+    <h3 class="p-3 text-center lg:text-left">Chat List</h3>
+    <ul class="list-none p-0">
+      <li
+        *ngFor="let user of users"
+        (click)="selectUser(user)"
+        class="p-3 cursor-pointer hover:surface-hover"
+        [class.surface-200]="user.id === selectedUserId"
+      >
+        {{ user.name }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Chat Window -->
+  <div class="col-12 lg:col-9 flex flex-column">
+    <!-- Chat Header -->
+    <div class="p-3 shadow-2 surface-100 border-bottom-1 surface-border flex justify-content-between align-items-center">
+      <label class="text-center lg:text-left flex-grow-1">{{ selectedUserName }}</label>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="flex-1 p-3 overflow-y-auto" style="max-height: calc(100vh - 120px);">
+      <div *ngFor="let message of messages" class="mb-3">
+        <div
+          [class.ml-auto]="message.senderId === currentUserId"
+          [class.mr-auto]="message.senderId !== currentUserId"
+          [class.text-right]="message.senderId === currentUserId"
+          [class.text-left]="message.senderId !== currentUserId"
+          [class.bg-primary]="message.senderId === currentUserId"
+          [class.bg-secondary]="message.senderId !== currentUserId"
+          class="p-2 border-round text-white max-w-75 sm:max-w-50 md:max-w-40 lg:max-w-30"
+        >
+          <p class="m-0">{{ message.message }}</p>
+          <small class="block mt-1 text-xs">{{ message.time | date: 'shortTime' }}</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div
+      class="p-3 border-top-1 surface-border flex align-items-center"
+      style="position: sticky; bottom: 0; background: white;"
+    >
+      <input
+        type="text"
+        pInputText
+        class="flex-1 mr-3"
+        [(ngModel)]="messageText"
+        placeholder="Type your message"
+      />
+      <button pButton label="Send" icon="pi pi-send" class="p-button-primary" (click)="sendMessage()"></button>
+    </div>
+  </div>
+</div>
