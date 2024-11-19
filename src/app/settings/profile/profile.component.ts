@@ -64,4 +64,12 @@ export class ProfileComponent  implements OnInit{
     
     this._router.navigate(['advertiser/advertiserreport'])
   }
+
+
+  openChat(Id: number, Name: string): void {
+    console.log("number",Id,"advertiserName",Name)
+    this._router.navigate(['/user/chat'], { 
+      queryParams: { userId: Id, name: Name }
+    });
+  }
 }
