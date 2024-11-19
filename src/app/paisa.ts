@@ -43,6 +43,7 @@ export class Contactus{
 
 export class Profile{
     username!:string;
+    userId!:number;
     brandName!:string;
     brandDescription!:string;
     brandTagLine!:string;

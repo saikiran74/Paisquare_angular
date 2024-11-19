@@ -151,8 +151,15 @@ export class PaiService {
   }
 
   getMessages(senderId: number, receiverId: number): Observable<any> {
-    return this._http.get(`http://localhost:3300/chat/${senderId}/${receiverId}`);
+    return this._http.get(`http://localhost:3300/chat/getmessages/${senderId}/${receiverId}`);
   }
-  
+
+  getChatHistoryUsers(userId: number): Observable<any> {
+    return this._http.get(`http://localhost:3300/chat/getchathistoryusers/${userId}`);
+  }
+  initializeChat(chat: any): Observable<any> {
+    return this._http.post(`http://localhost:3300/chat/initialize-chat`, chat);
+  }
+
 }
 

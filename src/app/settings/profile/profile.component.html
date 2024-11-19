@@ -22,9 +22,14 @@
                         <p-rating [(ngModel)]="value" formControlName="value" [cancel]="false" />
                     </div>
                 </div>
-                <div class="flex justify-content-end "  >
-                    <p-button label="Insights" [outlined]="true" (onClick)="navigateToAdvertiserReports()" ></p-button>
-                </div>
+                
+            </div>
+            <div class="flex gap-2 justify-content-start "  >
+                <p-button label="Insights" [outlined]="true" (onClick)="navigateToAdvertiserReports()" ></p-button>
+                <p-button  (click)="openChat(profile.userId, profile.username)">
+                    Chat
+                </p-button>
+
             </div>
             <br>
             <div class="flex gap-3">
