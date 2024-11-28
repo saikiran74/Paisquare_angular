@@ -15,7 +15,9 @@ export class ChatComponent implements OnInit {
   chatHistoryUsers: any[] = [];
   messages: any[] = [];
   currentUserId = this._service.userId; // Logged-in user
+  currentUserName = this._service.userName; // Logged-in user
   selectedUserId!: number;
+  userSelected:boolean=false;
   messageText: string = '';
   selectedUserName: string ='';
   constructor(private _service: PaiService,private http: HttpClient,private _router: Router,private _route: ActivatedRoute) {
@@ -74,7 +76,7 @@ export class ChatComponent implements OnInit {
 
   selectUser(user: any): void {
     this.selectedUserId = user.id;
-    console.log("currentUserId-->"+this.currentUserId," selectedUserId", this.selectedUserId)
+    console.log("currentUserId-->"+this.currentUserId,"selectedUserId", this.selectedUserId)
     this._service.getMessages(this.currentUserId, this.selectedUserId).subscribe((data) => {
       this.messages = data;
       console.log("this.messages",this.messages)
@@ -82,6 +84,7 @@ export class ChatComponent implements OnInit {
       this.chatHistoryUsers = [];
       this.getChatHistoryUsers()
     });
+    this.userSelected=true;
   }
   sendMessage(): void {
     if (this.messageText.trim() && this.selectedUserId) {
