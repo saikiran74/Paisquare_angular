@@ -47,9 +47,46 @@ ngOnInit(){
     {name: 'Paris', value: 'PRS'}
       
     ];
+  this.advertisements=[];
+  this.fetchDistinctHashtags();
   const token = this.authService.getToken();
-  console.log("all add token-->",token)
-  this._route.params.subscribe(params => {
+  /*const navigation = this._router.getCurrentNavigation();
+  console.log('Navigation object:', navigation); // Debugging
+  const state = navigation?.extras.state as { userId?: string; adId?: string };
+  console.log('Router state:', state); // Debugging
+  if (state?.userId) {
+    this.userId = state.userId;
+    console.log('Fetching advertisements for userId:', this.userId);
+    
+  } else if (state?.adId) {
+    this.adId = state.adId;
+    console.log('Fetching advertisement for adId:', this.adId);
+    this._service.getIDAdvertisements(this.adId).subscribe(
+      data => {
+        this.userId=this._service.userId;
+        this.advertisements = data;
+        console.log("advertisment list for id: ",this.adId,this.advertisements)
+      },
+        error=>{console.log("error occured while retrieving the data for ID -",this.adId)
+    });
+  } else {
+    console.log('Fetching all advertisement', this.adId);
+    this.fetchadvertisement();
+  }*/
+  this._route.queryParams.subscribe(params => {
+    this.userId = params['userId'];
+    console.log('Query Params userId:', this.userId);
+
+    if (this.userId) {
+      console.log('Fetching advertisements for userId:', this.userId);
+      this.fetchUserAdvertisements(this.userId);
+    } else {
+      console.log('Fetching all advertisements');
+      this.fetchadvertisement();
+    }
+  });
+
+  /*this._route.params.subscribe(params => {
     const adId = params['id']; // Access ad ID from URL if provided
     const userId = params['userId']; // Access user ID from URL if provided
     if (this._router.getCurrentNavigation()?.extras.state) {
@@ -80,8 +117,17 @@ ngOnInit(){
     } else {
       this.fetchadvertisement()
     }
-  });
+  });*/
   this.userId=this._service.userId;
+}
+fetchUserAdvertisements(userId:string){
+  this._service.getUserAdvertisements(this.userId).subscribe(
+    data => {
+      this.advertisements = data;
+      console.log("advertisment list for userId: ",userId,this.advertisements)
+    },
+      error=>{console.log("error occurred while retrieving the data for userId -",this.userId)
+  });
 }
 fetchadvertisement(){
   this._service.getAllAdvertisements().subscribe(
@@ -91,7 +137,7 @@ fetchadvertisement(){
     },
       error=>{console.log("error occur while retrieving the data!")
     });
-  }
+}
   fetchDistinctHashtags() {
     this._service.getHashTags().subscribe(data => {
       this.chips = [{ label: 'All' }, ...data.map((hashtag:string) => ({ label: hashtag }))];

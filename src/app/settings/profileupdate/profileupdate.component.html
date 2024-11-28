@@ -3,9 +3,31 @@
     <form [formGroup]="profileForm">
         <p-fieldset legend="Brand information" formGroupName="brandInformation">
             <div class="grid">
-                <div class="col-12 md:col-6 sm:col-12">
-                    <img src="../../../assets/images/pai_square_with_name.jpg" width="250" height="250">
-                </div>
+                
+                <div class="col-12 md:col-6 sm:col-12 flex justify-content-center align-items-center">
+                    <div class="profile-container" 
+                    (mouseover)="showPencil = true" (mouseout)="showPencil = false">
+                      <ng-container *ngIf="profileImage; else noImage">
+                        <img [src]="profileImageUrl" alt="Profile Image" style="cursor: pointer;"
+                         width="250" height="250" (click)="onPencilClick()"/>
+                        <i *ngIf="showPencil"  class="pi pi-pencil hover-pencil large-pencil"
+                        style="cursor: pointer;"
+                         (click)="onPencilClick()"></i>
+                      </ng-container>
+                      <ng-template #noImage>
+                        <i class="pi pi-pencil large-pencil" (click)="onPencilClick()" ></i>
+                      </ng-template>
+                    </div>
+                    <input 
+                      type="file" 
+                      id="fileInput" 
+                      (change)="onFileSelected($event)" 
+                      style="display: none" 
+                    />
+                  </div>
+                  
+                  
+                  
                 <div class="col-12 md:col-6 sm:col-12">
                     <div class="pairs">
                         <label for="brandName">Brand name</label>
@@ -18,7 +40,7 @@
                     <div class="pairs">
                         <label for="">Brand Description</label>
                         <div>
-                            <input pInputText id="brandDescription" formControlName="brandDescription" name="brandDescription" placeholder="About your brand">
+                            <textarea  pInputTextarea id="brandDescription" formControlName="brandDescription" name="brandDescription" placeholder="About your brand"></textarea>
                         </div>
                     </div><br>
                     <div class="pairs">
@@ -176,8 +198,7 @@
                             <p-calendar id="brandEstablishedIn" formControlName="brandEstablishedIn"
                             dateFormat="yy" view="year" [showIcon]="true" placeholder="Your brand established in"></p-calendar>
                         </div>
-                        <span>ssss->{{ profileForm.get('brandRecommendation.brandEstablishedIn')?.value | date: 'dd/MM/yyyy'}}</span>
-    
+                        
                     </div>
                 </div>
                 <div class="col-12 md:col-6 sm:col-12">

@@ -75,10 +75,13 @@ export class NavbarComponent  implements OnInit{
     console.log(val)
     if (val.includes('myadvertisement')) {
       //this._router.navigate([val.replace(':userId', this.userId)]);
-      //this._router.navigate(['/advertiser/myadvertisement'], { queryParams: { userId: this.userId } });
+      console.log('Navigating to myadvertisement with userId:', this.userId);
       this._router.navigate(['/advertiser/myadvertisement'], {
-        state: { userId: this.userId },
+        queryParams: { userId: this.userId },
       });
+      console.log('Navigating to myadvertisement with userId:', this.userId);
+
+      //this._router.navigate(['/advertiser/myadvertisement'], {state: { userId: this.userId },});
     }else if (val.includes('home/profile/')) {
       this._router.navigate([val.replace(':userId', this.userId)]);
     } else if (val.includes('logout')) {

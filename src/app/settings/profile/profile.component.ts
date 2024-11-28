@@ -15,10 +15,13 @@ export class ProfileComponent  implements OnInit{
   username=''
   value:number=3;
   advertisements:any;
+  profileImageUrl: string ="";
   constructor(private _service: PaiService,private _router: Router,private _route: ActivatedRoute) {}
   ngOnInit(){
     
     this.username=this._service.userName
+    this.userId=this._service.userId;
+    this.getProfileImage()
     this._route.params.subscribe(params => {
       const advertiserId = params['id']; 
       if (advertiserId) {
@@ -26,36 +29,48 @@ export class ProfileComponent  implements OnInit{
         this.getProfile(advertiserId)
       }
     });
-    this._service.getUserAdvertisements(+this.userId).subscribe(
+    this._service.getUserAdvertisements(this.userId).subscribe(
       //todo not working check this.
       data => {
-        this.userId=this._service.userId;
+        
         this.advertisements = data;
         console.log("advertisements",this.advertisements)
       },
         error=>{
           console.log("error occurred while retrieving the data for userId -")
     });
-    this._service.getFavouriteAdvertisements().subscribe(
-      data => {
-        this.advertisements = data;
-        console.log("favourite list",data)
-    },
-      error=>{console.log("error occure while retrieving the data!")
-    });
   }
   // loading profile data
+  profileFound:boolean=false
   getProfile(advertiserId:Number){
     this._service.getProfileList(advertiserId).subscribe(
       data =>{
         this.profile=data;
+        console.log("this.profile",this.profile);
+        if (this.profile && Object.keys(this.profile).length > 0) {
+          this.profileFound = true;
+        }
         console.log("profile data is:",this.profile);
       },
       error=>{
         console.log("error occured in followerslist")
       }
     );
+    console.log("this.profileFound ",this.profileFound)
   }
+  getProfileImage(): void {
+    console.log("profileImageUrl")
+    this._service.fetchAndProcessProfileImage(this.userId).subscribe(
+      (url: string) => {
+        this.profileImageUrl = url;
+        console.log("Profile Image URL:", this.profileImageUrl);
+      },
+      (error) => {
+        console.error("Error fetching profile image:", error);
+      }
+    );
+  }
+  
   showLocationDialog:boolean=false;
   mapDialog(){
     this.showLocationDialog=true;

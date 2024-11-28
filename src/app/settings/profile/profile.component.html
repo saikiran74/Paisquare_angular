@@ -1,159 +1,168 @@
-<div class="container">
-    <div class="grid">
-        <div class="col-12 md:col-6 sm:col-12 flex justify-content-center">
-            <img class="profileimg" src="../../../assets/images/pai_square_with_name.jpg" width="250" height="250">
-        </div>
-        <div class="col-12 md:col-6 sm:col-12">
-            <div class="brandName">
-                <span>{{profile.brandName}}</span>
+@if (!this.profileFound) {
+    <span style="font-size: 1.2rem;">No profile found </span>
+} @else {
+    
+    <div class="container">
+        <div class="grid">
+            <div class="col-12 md:col-6 sm:col-12 flex justify-content-center">
+                <img [src]="profileImageUrl" alt="Profile Image"
+                width="250" height="250"/>    
             </div>
-            <div class="brandTagLine" *ngIf="profile.brandTagLine">
-                <span>{{profile.brandTagLine}}</span>
-            </div>
-            <div class="brandDescription" *ngIf="profile.brandDescription">
-                <span>{{profile.brandDescription}}</span>
-            </div>
-            <div class="pairs" *ngIf="profile.website">
-                <a href="{{profile.website}}">{{profile.website}}</a>
-            </div>
-            <div class="pairs flex align-items-center" style="padding-top: 10px;">
-                <div class="flex gap-3"><label>Rating</label>
-                    <div class="justify-content-between"  >
-                        <p-rating [(ngModel)]="value" formControlName="value" [cancel]="false" />
+            
+            <div class="col-12 md:col-6 sm:col-12">
+                <div class="brandName">
+                    <span>{{profile.brandName}}</span>
+                </div>
+                <div class="brandTagLine" *ngIf="profile.brandTagLine">
+                    <span>{{profile.brandTagLine}}</span>
+                </div>
+                <div class="brandDescription" *ngIf="profile.brandDescription">
+                    <span>{{profile.brandDescription}}</span>
+                </div>
+                <div class="pairs" *ngIf="profile.website">
+                    <a href="{{profile.website}}">{{profile.website}}</a>
+                </div>
+                <div class="pairs flex align-items-center" style="padding-top: 10px;">
+                    <div class="flex gap-3"><label>Rating</label>
+                        <div class="justify-content-between"  >
+                            <p-rating [(ngModel)]="value" formControlName="value" [cancel]="false" />
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="flex gap-2 justify-content-start "  >
+                    <p-button label="Insights" [outlined]="true" (onClick)="navigateToAdvertiserReports()" ></p-button>
+                    <p-button  (click)="openChat(profile.userId, profile.username)">
+                        Chat
+                    </p-button>
+    
+                </div>
+                <br>
+                <div class="flex gap-3">
+                    <div *ngIf="profile.youtube">
+                        <a href="{{profile.youtube}}" target="_blank">
+                            <i class="pi pi-youtube" style="font-size: 2rem; color: red;"></i>
+                        </a>
+                    </div>
+                    <div *ngIf="profile.facebook">
+                        <a  href="{{profile.facebook}}" target="_blank">
+                            <i class="pi pi-facebook" style="font-size: 2rem; color: blue;"></i>
+                        </a>
+                    </div>
+                    <div *ngIf="profile.instagram">
+                        <a  href="{{profile.instagram}}" target="_blank">
+                            <i class="pi pi-instagram" style="font-size: 2rem; color: pink;"></i>
+                        </a>
+                    </div>
+                    <div *ngIf="profile.twitter">
+                        <a  href="{{profile.twitter}}" target="_blank">
+                            <i class="pi pi-twitter" style="font-size: 2rem; color: blue;"></i>
+                        </a>
+                    </div>
+                    <div *ngIf="profile.pinterest">
+                        <a  href="{{profile.pinterest}}" target="_blank">
+                            <i class="pi pi-pinterest" style="font-size: 2rem; color: red;"></i>
+                        </a>
+                    </div>
+                    <div *ngIf="profile.brandLocation">
+                        <a (click)="mapDialog()" target="_blank">
+                            <i class="pi pi-map-marker" style="font-size: 2rem; color: blue;"></i>
+                        </a>
                     </div>
                 </div>
-                
             </div>
-            <div class="flex gap-2 justify-content-start "  >
-                <p-button label="Insights" [outlined]="true" (onClick)="navigateToAdvertiserReports()" ></p-button>
-                <p-button  (click)="openChat(profile.userId, profile.username)">
-                    Chat
-                </p-button>
-
+        </div>
+        <p-dialog header="Location" [modal]="true" [(visible)]="showLocationDialog"   [draggable]="false" [style]="{ width: '25rem' }">
+            <label style="font-weight: 500;">Main Brand Located</label>
+            <div>
+                <label>{{profile.brandLocation}}</label>
             </div>
             <br>
-            <div class="flex gap-3">
-                <div *ngIf="profile.youtube">
-                    <a href="{{profile.youtube}}" target="_blank">
-                        <i class="pi pi-youtube" style="font-size: 2rem; color: red;"></i>
-                    </a>
-                </div>
-                <div *ngIf="profile.facebook">
-                    <a  href="{{profile.facebook}}" target="_blank">
-                        <i class="pi pi-facebook" style="font-size: 2rem; color: blue;"></i>
-                    </a>
-                </div>
-                <div *ngIf="profile.instagram">
-                    <a  href="{{profile.instagram}}" target="_blank">
-                        <i class="pi pi-instagram" style="font-size: 2rem; color: pink;"></i>
-                    </a>
-                </div>
-                <div *ngIf="profile.twitter">
-                    <a  href="{{profile.twitter}}" target="_blank">
-                        <i class="pi pi-twitter" style="font-size: 2rem; color: blue;"></i>
-                    </a>
-                </div>
-                <div *ngIf="profile.pinterest">
-                    <a  href="{{profile.pinterest}}" target="_blank">
-                        <i class="pi pi-pinterest" style="font-size: 2rem; color: red;"></i>
-                    </a>
-                </div>
-                <div *ngIf="profile.brandLocation">
-                    <a (click)="mapDialog()" target="_blank">
-                        <i class="pi pi-map-marker" style="font-size: 2rem; color: blue;"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <p-dialog header="Location" [modal]="true" [(visible)]="showLocationDialog"   [draggable]="false" [style]="{ width: '25rem' }">
-        <label style="font-weight: 500;">Main Brand Located</label>
-        <div>
-            <label>{{profile.brandLocation}}</label>
-        </div>
-        <br>
-        <div>
-            <label style="font-weight: 500;">franchises</label>
             <div>
-                <label>{{profile.pinCodes}}</label>
+                <label style="font-weight: 500;">franchises</label>
+                <div>
+                    <label>{{profile.pinCodes}}</label>
+                </div>
+            </div>
+            <br>
+            <div class="flex justify-content-end gap-2">
+                <p-button label="Close" severity="secondary" 
+                [outlined]="true" (click)="showLocationDialog = false" />
+            </div>
+        </p-dialog>
+        <br><br>
+        <div class="surface-ground md:px-4 lg:px-4">
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3">
+                    <div class="surface-card shadow-2 3 border-round">
+                        <div class="flex justify-content-between mb-3">
+                            <div>
+                                <span class="block text-500 font-medium mb-3">Post</span>
+                                <div class="text-900 font-medium text-xl">8</div>
+                            </div>
+                            <div class="flex align-items-center justify-content-center bg-blue-100 border-round" style="width:2.5rem;height:2.5rem">
+                                <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
+                            </div>
+                        </div>
+                        <span class="text-green-500 font-medium">3 new </span>
+                        <span class="text-500">since last visit</span>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3">
+                    <div class="surface-card shadow-2 3 border-round">
+                        <div class="flex justify-content-between mb-3">
+                            <div>
+                                <span class="block text-500 font-medium mb-3">Likes</span>
+                                <div class="text-900 font-medium text-xl">300</div>
+                            </div>
+                            <div class="flex align-items-center justify-content-center bg-orange-100 border-round" style="width:2.5rem;height:2.5rem">
+                                <i class="pi pi-mamarker text-orange-500 text-xl"></i>
+                            </div>
+                        </div>
+                        <span class="text-green-500 font-medium">%52+ </span>
+                        <span class="text-500">since last week</span>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3">
+                    <div class="surface-card shadow-2 3 border-round">
+                        <div class="flex justify-content-between mb-3">
+                            <div>
+                                <span class="block text-500 font-medium mb-3">Followers</span>
+                                <div class="text-900 font-medium text-xl">28441</div>
+                            </div>
+                            <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" style="width:2.5rem;height:2.5rem">
+                                <i class="pi pi-inbox text-cyan-500 text-xl"></i>
+                            </div>
+                        </div>
+                        <span class="text-green-500 font-medium">520  </span>
+                        <span class="text-500">newly registered</span>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3">
+                    <div class="surface-card shadow-2 3 border-round">
+                        <div class="flex justify-content-between mb-3">
+                            <div>
+                                <span class="block text-500 font-medium mb-3">Comments</span>
+                                <div class="text-900 font-medium text-xl">152</div>
+                            </div>
+                            <div class="flex align-items-center justify-content-center bg-purple-100 border-round" style="width:2.5rem;height:2.5rem">
+                                <i class="pi pi-comment text-purple-500 text-xl"></i>
+                            </div>
+                        </div>
+                        <span class="text-green-500 font-medium">85 </span>
+                        <span class="text-500">responded</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <br>
-        <div class="flex justify-content-end gap-2">
-            <p-button label="Close" severity="secondary" 
-            [outlined]="true" (click)="showLocationDialog = false" />
-        </div>
-    </p-dialog>
-    <br><br>
-    <div class="surface-ground md:px-4 lg:px-4">
-        <div class="grid">
-            <div class="col-12 md:col-6 lg:col-3">
-                <div class="surface-card shadow-2 3 border-round">
-                    <div class="flex justify-content-between mb-3">
-                        <div>
-                            <span class="block text-500 font-medium mb-3">Post</span>
-                            <div class="text-900 font-medium text-xl">8</div>
-                        </div>
-                        <div class="flex align-items-center justify-content-center bg-blue-100 border-round" style="width:2.5rem;height:2.5rem">
-                            <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
-                        </div>
-                    </div>
-                    <span class="text-green-500 font-medium">3 new </span>
-                    <span class="text-500">since last visit</span>
-                </div>
-            </div>
-            <div class="col-12 md:col-6 lg:col-3">
-                <div class="surface-card shadow-2 3 border-round">
-                    <div class="flex justify-content-between mb-3">
-                        <div>
-                            <span class="block text-500 font-medium mb-3">Likes</span>
-                            <div class="text-900 font-medium text-xl">300</div>
-                        </div>
-                        <div class="flex align-items-center justify-content-center bg-orange-100 border-round" style="width:2.5rem;height:2.5rem">
-                            <i class="pi pi-mamarker text-orange-500 text-xl"></i>
-                        </div>
-                    </div>
-                    <span class="text-green-500 font-medium">%52+ </span>
-                    <span class="text-500">since last week</span>
-                </div>
-            </div>
-            <div class="col-12 md:col-6 lg:col-3">
-                <div class="surface-card shadow-2 3 border-round">
-                    <div class="flex justify-content-between mb-3">
-                        <div>
-                            <span class="block text-500 font-medium mb-3">Followers</span>
-                            <div class="text-900 font-medium text-xl">28441</div>
-                        </div>
-                        <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" style="width:2.5rem;height:2.5rem">
-                            <i class="pi pi-inbox text-cyan-500 text-xl"></i>
-                        </div>
-                    </div>
-                    <span class="text-green-500 font-medium">520  </span>
-                    <span class="text-500">newly registered</span>
-                </div>
-            </div>
-            <div class="col-12 md:col-6 lg:col-3">
-                <div class="surface-card shadow-2 3 border-round">
-                    <div class="flex justify-content-between mb-3">
-                        <div>
-                            <span class="block text-500 font-medium mb-3">Comments</span>
-                            <div class="text-900 font-medium text-xl">152</div>
-                        </div>
-                        <div class="flex align-items-center justify-content-center bg-purple-100 border-round" style="width:2.5rem;height:2.5rem">
-                            <i class="pi pi-comment text-purple-500 text-xl"></i>
-                        </div>
-                    </div>
-                    <span class="text-green-500 font-medium">85 </span>
-                    <span class="text-500">responded</span>
-                </div>
-            </div>
-        </div>
+    
+    
+    
+        <app-homepage *ngFor="let ads of advertisements" [ad]="ads">
+        </app-homepage>
+        <!--<app-homepage *ngFor="let ads of advertisements" [ad]="ads" (fetchData)="fetchadvertisement()"></app-homepage>
+        -->
+    
+    
     </div>
-
-
-
-    <app-homepage *ngFor="let ads of advertisements" [ad]="ads">
-    </app-homepage>
-
-
-</div>
+}

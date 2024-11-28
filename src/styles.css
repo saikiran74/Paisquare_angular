@@ -9,9 +9,10 @@
 a{
    cursor: pointer;
 }
-.p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
+:host ::ng-deep .p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
     margin: 0;
     width: 250px;
+    font-size:1rem;
 }
 textarea{
     width: 250px;
@@ -21,6 +22,7 @@ textarea{
     box-shadow: none;
     border-width: 2px;
     border-color:#89c0eb;
+    font-size:1.2rem;
 }
 .text-danger{
     color: #FF0000;
