@@ -121,7 +121,7 @@ ngOnInit(){
   this.userId=this._service.userId;
 }
 fetchUserAdvertisements(userId:string){
-  this._service.getUserAdvertisements(this.userId).subscribe(
+  this._service.getUserAdvertisements(+this.userId).subscribe(
     data => {
       this.advertisements = data;
       console.log("advertisment list for userId: ",userId,this.advertisements)
@@ -134,6 +134,7 @@ fetchadvertisement(){
       data => {
       this.userId=this._service.userId;
       this.advertisements = data;
+      console.log("Ads in all ads ",this.advertisements)
     },
       error=>{console.log("error occur while retrieving the data!")
     });

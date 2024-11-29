@@ -1,10 +1,10 @@
 @if (!this.profileFound) {
-    <span style="font-size: 1.2rem;">No profile found </span>
+    <span style="font-size: 1.2rem; color: #cccccc;">No profile found </span>
 } @else {
     
     <div class="container">
         <div class="grid">
-            <div class="col-12 md:col-6 sm:col-12 flex justify-content-center">
+            <div class="col-12 md:col-6 sm:col-12 flex justify-content-center align-items-center">
                 <img [src]="profileImageUrl" alt="Profile Image"
                 width="250" height="250"/>    
             </div>
@@ -25,18 +25,40 @@
                 <div class="pairs flex align-items-center" style="padding-top: 10px;">
                     <div class="flex gap-3"><label>Rating</label>
                         <div class="justify-content-between"  >
-                            <p-rating [(ngModel)]="value" formControlName="value" [cancel]="false" />
+                            <p-rating [(ngModel)]="profile.rating" formControlName="value" [cancel]="false" />
                         </div>
                     </div>
+                </div>
+                <div class="pairs flex align-items-center" style="padding-top: 10px;">
+                    <div class="flex gap-3">
+                        <label>Rating</label>
+                        <div class="justify-content-between">
+                            <!-- Two-way binding to display and update the rating -->
+                            <p-rating [(ngModel)]="profile.rating" 
+                                      [cancel]="false" 
+                                      (onRate)="saveRating(advertiserId)"></p-rating>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex gap-2 justify-content-start "  >
+                    @if(profile.userId==+userId){
+                        <p-button label="Insights" [outlined]="true" (onClick)="navigateToAdvertiserReports()" ></p-button>
+                    } @else{
+                        <p-button  (click)="openChat(profile.userId, profile.username)">
+                            Chat
+                        </p-button>
+                        <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
+                            <p-button (click)="follower(advertiserId)" name="post_id">
+                                <span class="goldColor">
+                                    {{ followerslist.includes(+advertiserId) ? 'Following' : 'Follow' }}
+                                </span>
+                            </p-button>
+                        </div>
+                    }
                     
                 </div>
-                <div class="flex gap-2 justify-content-start "  >
-                    <p-button label="Insights" [outlined]="true" (onClick)="navigateToAdvertiserReports()" ></p-button>
-                    <p-button  (click)="openChat(profile.userId, profile.username)">
-                        Chat
-                    </p-button>
-    
-                </div>
+                
                 <br>
                 <div class="flex gap-3">
                     <div *ngIf="profile.youtube">
@@ -97,8 +119,8 @@
                     <div class="surface-card shadow-2 3 border-round">
                         <div class="flex justify-content-between mb-3">
                             <div>
-                                <span class="block text-500 font-medium mb-3">Post</span>
-                                <div class="text-900 font-medium text-xl">8</div>
+                                <span class="block text-500 font-medium mb-3">Ads</span>
+                                <div class="text-900 font-medium text-xl">{{advertisements.length}}</div>
                             </div>
                             <div class="flex align-items-center justify-content-center bg-blue-100 border-round" style="width:2.5rem;height:2.5rem">
                                 <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
@@ -113,7 +135,7 @@
                         <div class="flex justify-content-between mb-3">
                             <div>
                                 <span class="block text-500 font-medium mb-3">Likes</span>
-                                <div class="text-900 font-medium text-xl">300</div>
+                                <div class="text-900 font-medium text-xl">{{getTotalLikes()}}</div>
                             </div>
                             <div class="flex align-items-center justify-content-center bg-orange-100 border-round" style="width:2.5rem;height:2.5rem">
                                 <i class="pi pi-mamarker text-orange-500 text-xl"></i>
@@ -128,7 +150,7 @@
                         <div class="flex justify-content-between mb-3">
                             <div>
                                 <span class="block text-500 font-medium mb-3">Followers</span>
-                                <div class="text-900 font-medium text-xl">28441</div>
+                                <div class="text-900 font-medium text-xl">{{followersCount}}</div>
                             </div>
                             <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" style="width:2.5rem;height:2.5rem">
                                 <i class="pi pi-inbox text-cyan-500 text-xl"></i>
@@ -143,7 +165,22 @@
                         <div class="flex justify-content-between mb-3">
                             <div>
                                 <span class="block text-500 font-medium mb-3">Comments</span>
-                                <div class="text-900 font-medium text-xl">152</div>
+                                <div class="text-900 font-medium text-xl">{{getTotalComments()}}</div>
+                            </div>
+                            <div class="flex align-items-center justify-content-center bg-purple-100 border-round" style="width:2.5rem;height:2.5rem">
+                                <i class="pi pi-comment text-purple-500 text-xl"></i>
+                            </div>
+                        </div>
+                        <span class="text-green-500 font-medium">85 </span>
+                        <span class="text-500">responded</span>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3">
+                    <div class="surface-card shadow-2 3 border-round">
+                        <div class="flex justify-content-between mb-3">
+                            <div>
+                                <span class="block text-500 font-medium mb-3">Total Visit</span>
+                                <div class="text-900 font-medium text-xl">{{getTotalvisiteduser()}}</div>
                             </div>
                             <div class="flex align-items-center justify-content-center bg-purple-100 border-round" style="width:2.5rem;height:2.5rem">
                                 <i class="pi pi-comment text-purple-500 text-xl"></i>
@@ -156,13 +193,11 @@
             </div>
         </div>
     
-    
-    
+    @if(advertisements.length>0){
+        <h1>Advertisements</h1>
         <app-homepage *ngFor="let ads of advertisements" [ad]="ads">
         </app-homepage>
-        <!--<app-homepage *ngFor="let ads of advertisements" [ad]="ads" (fetchData)="fetchadvertisement()"></app-homepage>
-        -->
-    
+    }
     
     </div>
 }

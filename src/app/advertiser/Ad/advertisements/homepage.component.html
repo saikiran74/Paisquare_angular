@@ -99,7 +99,7 @@
                     </a>
                 </div>
                 <div>
-                    <label class="goldColor">{{ad.visiteduser.length}} Visits</label>
+                    <label class="goldColor">{{ad.visitscount}} Visits</label>
                 </div>
             </div>
 
@@ -135,15 +135,23 @@
                     <div class="grid">
                         <div class="col-12">
                             <div class="p-inputgroup">
-                                <input pInputText id="commenttext" name="commentbox" placeholder="Enter comment here"
-                                    [(ngModel)]="commentobj.comment" class="form-control" required />
+                                <input 
+                                    pInputText 
+                                    id="commentbox" 
+                                    name="commentbox" 
+                                    placeholder="Enter comment here" 
+                                    [(ngModel)]="commentobj.comment" 
+                                    class="form-control" 
+                                    required 
+                                />
                                 <span class="p-inputgroup-addon">
-                                    <a type="submit"><i class="pi pi-angle-right"></i></a>
+                                    <button type="submit" pButton icon="pi pi-angle-right"></button>
                                 </span>
                             </div>
                         </div>
                     </div>
                 </form>
+                
             </div>
     </div>
 

@@ -26,6 +26,8 @@ export class Advertise{
     hashtags!: string;
     status!:string;
     pincodes!:string;
+    commenteduser!:Number[];
+    visiteduser!:Number[];
     constructor(){}
 }
 export class Contactus{
@@ -61,8 +63,11 @@ export class Profile{
     brandHashTags!: string[];
     pinCodes!:number[];
     brandTargetAge!:string;
-    followers!:Number;
-    ads!:Number;
+    followers!:Number[];
+    following!:Number[];
+    ads!:Number[];
+    accountType!:String;
+    rating!:number;
     youtube!:string;
     facebook!:string;
     instagram!:string;
@@ -95,6 +100,12 @@ export class Like{
     advertisementid!:Number;
     userid!:string;
     visited!:boolean;
+}
+
+export class Rating{
+    advertiser!:Number;
+    user!:string;
+    rating!:Number;
 }
 
 export class Block{

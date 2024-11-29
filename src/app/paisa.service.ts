@@ -42,11 +42,20 @@ export class PaiService {
   public getAllCommentList(){
     return this._http.get<any>("http://localhost:3300/commentslist");
   }
+  public getlikeFromRemote(){
+    return this._http.get<any>(`http://localhost:3300/likelist/${this.userId}`);
+  }
+  public getVisitedFromRemote(){
+    return this._http.get<any>(`http://localhost:3300/vistlist/${this.userId}`);
+  }
   public CommentsListFromRemote(advertisementid: Number){
     return this._http.get<any>(`http://localhost:3300/commentslist/${advertisementid}`);
   }
   public FollowerFromRemote(follower:Follower,advertiserid: Number,userId:Number):Observable<any>{
     return this._http.post<any>(`http://localhost:3300/follow/${userId}/${advertiserid}`,follower)
+  }
+  public saveRatingFromRemote(rating:any,advertiserid:Number):Observable<any>{
+    return this._http.post<any>(`http://localhost:3300/rating/${this.userId}/${advertiserid}`,rating)
   }
   public VisitedFromRemote(visited:Visited,userid:Number,advertiserid: Number):Observable<any>{
     return this._http.post<any>(`http://localhost:3300/visit/${userid}/${advertiserid}`,visited)
@@ -116,10 +125,10 @@ export class PaiService {
   
   
   //-----------------------
-  public getIDAdvertisements(advertisementid:String){
+  public getIDAdvertisements(advertisementid:number){
     return this._http.get<any>(`http://localhost:3300/idadvertisements/${advertisementid}`);
   }
-  public getUserAdvertisements(userId:String){
+  public getUserAdvertisements(userId:number){
     return this._http.get<any>(`http://localhost:3300/useradvertisements/${userId}`);
   }
   public getUserFollowingProfiles(userId:number){
