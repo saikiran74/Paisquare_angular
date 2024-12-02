@@ -68,6 +68,7 @@ export class Profile{
     ads!:Number[];
     accountType!:String;
     rating!:number;
+    noOfRating!:number;
     youtube!:string;
     facebook!:string;
     instagram!:string;
@@ -104,7 +105,7 @@ export class Like{
 
 export class Rating{
     advertiser!:Number;
-    user!:string;
+    user!:Number;
     rating!:Number;
 }
 

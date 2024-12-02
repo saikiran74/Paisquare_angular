@@ -67,11 +67,14 @@ export class ProfileComponent  implements OnInit{
   }
   saveRating(advertiserId:any): any {
     console.log("this.profile.rating-->",this.profile.rating)
-    this.rating.advertiser=advertiserId;
-    this.rating.user=this.userId;
+    //this.rating.advertiser=+advertiserId;
+    //this.rating.user=+this.userId;
     this.rating.rating=this.profile.rating;
+    console.log("this.rating-->",this.rating)
     this._service.saveRatingFromRemote(this.rating,advertiserId).subscribe(response => {
+      
       console.log('Rating saved successfully:', response);
+      this.profile.noOfRating=this.profile.noOfRating+1;
     }, error => {
       console.error('Error saving rating:', error);
     });
@@ -141,12 +144,15 @@ export class ProfileComponent  implements OnInit{
       queryParams: { userId: Id, name: Name }
     });
   }
+  advertisementsAvailable:number=0;
   getTotalLikes(): number {
     // Guard clause: check if advertisements array is defined and non-empty
     if (!this.advertisements || this.advertisements.length === 0) {
       return 0;
+    } else{
+      this.advertisementsAvailable=this.advertisements.length;
     }
-
+    
     return this.advertisements.reduce((total: number, ad: { id: number; name: string; likes: number[] }) => {
       return total + ad.likes.length;
     }, 0);

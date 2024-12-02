@@ -1,4 +1,4 @@
-@if (!this.profileFound) {
+@if (!this.profileFound && this.profile.accountType==='advertiser') {
     <span style="font-size: 1.2rem; color: #cccccc;">No profile found </span>
 } @else {
     
@@ -11,7 +11,7 @@
             
             <div class="col-12 md:col-6 sm:col-12">
                 <div class="brandName">
-                    <span>{{profile.brandName}}</span>
+                    <span class="goldColor">{{profile.brandName}}</span>
                 </div>
                 <div class="brandTagLine" *ngIf="profile.brandTagLine">
                     <span>{{profile.brandTagLine}}</span>
@@ -23,13 +23,6 @@
                     <a href="{{profile.website}}">{{profile.website}}</a>
                 </div>
                 <div class="pairs flex align-items-center" style="padding-top: 10px;">
-                    <div class="flex gap-3"><label>Rating</label>
-                        <div class="justify-content-between"  >
-                            <p-rating [(ngModel)]="profile.rating" formControlName="value" [cancel]="false" />
-                        </div>
-                    </div>
-                </div>
-                <div class="pairs flex align-items-center" style="padding-top: 10px;">
                     <div class="flex gap-3">
                         <label>Rating</label>
                         <div class="justify-content-between">
@@ -38,6 +31,7 @@
                                       [cancel]="false" 
                                       (onRate)="saveRating(advertiserId)"></p-rating>
                         </div>
+                        <span style="font-size: 0.7rem; font-family: Arial, Helvetica, sans-serif;" class="flex justify-content-center align-items-end">{{profile.noOfRating}} Ratings</span>
                     </div>
                 </div>
                 
@@ -120,7 +114,8 @@
                         <div class="flex justify-content-between mb-3">
                             <div>
                                 <span class="block text-500 font-medium mb-3">Ads</span>
-                                <div class="text-900 font-medium text-xl">{{advertisements.length}}</div>
+                                <div class="text-900 font-medium text-xl">{{advertisementsAvailable}}</div>
+
                             </div>
                             <div class="flex align-items-center justify-content-center bg-blue-100 border-round" style="width:2.5rem;height:2.5rem">
                                 <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
@@ -193,10 +188,12 @@
             </div>
         </div>
     
-    @if(advertisements.length>0){
+    @if(advertisementsAvailable>0){
         <h1>Advertisements</h1>
         <app-homepage *ngFor="let ads of advertisements" [ad]="ads">
         </app-homepage>
+    } @else {
+        <h1>No post available</h1>
     }
     
     </div>
