@@ -1,4 +1,4 @@
-import { Component , OnInit, ViewChild } from '@angular/core';
+import { Component , OnInit, ViewChild, HostListener  } from '@angular/core';
 import { PaiService} from '../paisa.service';
 import { Router } from '@angular/router';
 import { Sidebar } from 'primeng/sidebar';
@@ -16,6 +16,8 @@ import { AuthService } from '../service/auth-service.service';
 })
 export class NavbarComponent  implements OnInit{
   nodes!: TreeNode[];
+  isMobileView: boolean = false;
+  isSidebarVisible: boolean = true;
   constructor(private _service: PaiService,private http: HttpClient, private authService: AuthService,private _router: Router,private _route: ActivatedRoute) {
        
   }
@@ -25,6 +27,7 @@ export class NavbarComponent  implements OnInit{
   sidebarVisible1:boolean=true;
   userName=' ';
     ngOnInit() {
+      this.checkViewport();
       const token = localStorage.getItem('token');
       console.log("token in navbar-->",token)
       if (token && this.authService.isAuthenticated()) {
@@ -126,5 +129,23 @@ export class NavbarComponent  implements OnInit{
       },
         error=>{console.log("error occurred while retrieving the data for query -",query)
     });
+  }
+  checkViewport() {
+    this.isMobileView = window.innerWidth <= 768;
+    console.log("this.isMobileView ",this.isMobileView,window.innerWidth)
+    this.isSidebarVisible = !this.isMobileView; // Sidebar hidden by default on mobile
+  }
+
+  @HostListener('window:resize', [])
+  @HostListener('window:resize', ['$event'])
+    onResize(event: Event): void {
+        this.checkMobileView();
+    }
+  toggleSidebar() {
+    this.isSidebarVisible = !this.isSidebarVisible;
+    console.log("isSidebarVisible ",this.isSidebarVisible)
+  }
+  checkMobileView(): void {
+    this.isMobileView = window.innerWidth <= 768; // Adjust width as needed
   }
 }

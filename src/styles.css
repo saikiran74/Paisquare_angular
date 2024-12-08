@@ -3,9 +3,7 @@
 @import '~primeng/resources/themes/saga-blue/theme.css';
 @import '~primeng/resources/primeng.min.css';
 
-:host ::ng-deep .p-tree .p-tree-container ol, ul {
-    padding-left: 0rem !important;
-}
+
 a{
    cursor: pointer;
 }

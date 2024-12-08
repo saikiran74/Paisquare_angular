@@ -1,3 +1,4 @@
+
 @if (!this.profileFound && this.profile.accountType==='advertiser') {
     <span style="font-size: 1.2rem; color: #cccccc;">No profile found </span>
 } @else {
@@ -34,7 +35,6 @@
                         <span style="font-size: 0.7rem; font-family: Arial, Helvetica, sans-serif;" class="flex justify-content-center align-items-end">{{profile.noOfRating}} Ratings</span>
                     </div>
                 </div>
-                
                 <div class="flex gap-2 justify-content-start "  >
                     @if(profile.userId==+userId){
                         <p-button label="Insights" [outlined]="true" (onClick)="navigateToAdvertiserReports()" ></p-button>

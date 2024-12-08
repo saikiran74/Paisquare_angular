@@ -146,7 +146,6 @@ export class ProfileComponent  implements OnInit{
   }
   advertisementsAvailable:number=0;
   getTotalLikes(): number {
-    // Guard clause: check if advertisements array is defined and non-empty
     if (!this.advertisements || this.advertisements.length === 0) {
       return 0;
     } else{
