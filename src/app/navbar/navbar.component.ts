@@ -48,8 +48,8 @@ export class NavbarComponent  implements OnInit{
               children: [
                   { key: '0-0', label: 'Dashboard', data: 'user/userdashboard', type: 'url',icon:'pi pi-home'},
                   { key: '0-1', label: 'Your activities', data: 'user/useractivities', type: 'url',icon:'pi pi-chart-line'},
-                  { key: '0-3', label: 'Withdraw', data: 'user/withdraw', type: 'url',icon:'pi-cart-plus'},
-                  { key: '0-4', label: 'Chat', data: 'user/chat', type: 'url',icon:'pi-cart-plus'}
+                  { key: '0-3', label: 'Withdraw', data: 'user/withdraw', type: 'url',icon:'pi pi-credit-card'},
+                  { key: '0-4', label: 'Chat', data: 'user/chat', type: 'url',icon:'pi pi-id-card'}
               ]
           },
           {
@@ -74,8 +74,16 @@ export class NavbarComponent  implements OnInit{
           },
       ];
     }
+    selectedNode: any;
+  onNodeClick(node: TreeNode) {
+    console.log("onNodeClick -->",this.selectedNode)
+    this.selectedNode = node;  // Set the clicked node as selected
+    console.log('Selected node: ', node);
+  }
   componentViewMethod(val:String){
     console.log(val)
+    this.selectedNode = val;
+    console.log('Selected node: ', val);
     if (val.includes('myadvertisement')) {
       //this._router.navigate([val.replace(':userId', this.userId)]);
       console.log('Navigating to myadvertisement with userId:', this.userId);
@@ -100,6 +108,7 @@ export class NavbarComponent  implements OnInit{
       this.expandAllNodes(this.tree.value);
     }
   }
+  
 
   expandAllNodes(nodes: TreeNode[]) {
     nodes.forEach(node => {

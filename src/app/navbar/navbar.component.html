@@ -24,16 +24,18 @@
 </div>
 
 <div class="grid body">
+    
     @if (isSidebarVisible) {
         <div class="col-12 md:col-2 sm:col-0 left-content">
-            <p-tree [value]="nodes" [style]="{'border': 'none'}" #tree class="w-full md:w-30rem">
+            <p-tree (onNodeClick)="onNodeClick($event)" [value]="nodes" [style]="{'border': 'none'}" #tree class="w-full md:w-30rem">
                 <ng-template let-node pTemplate="url">
                     <a (click)="componentViewMethod(node.data)" rel="noopener noreferrer" 
-                    class="text-700 hover:text-primary">{{ node.label }}</a>
+                    class="treechildren"
+                     [ngClass]="{'highlight': selectedNode === node.data}">{{ node.label }}</a>
                 </ng-template>
                 <ng-template let-node pTemplate="default">
-                    <b>{{ node.label }}</b>
-                </ng-template>
+                    <b [ngClass]="{'highlight': selectedNode === node.label}">{{ node.label }}</b>
+                  </ng-template>
             </p-tree>
         </div>
     }

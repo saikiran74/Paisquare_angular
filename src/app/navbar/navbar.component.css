@@ -2,12 +2,16 @@
 :host ::ng-deep .p-tree {
   border: 1px solid #000000;
   background: #C6E6F1;
-  color: #055298;
+  color: #056e98;
   padding: 0rem;
   outline: none; 
   border: none;
   background: transparent; 
   
+}
+:host ::ng-deep .highlight {
+  color: #043d74;; /* Change the text color to red (or any color you prefer) */
+  font-weight: bold;
 }
 :host ::ng-deep .p-tree .p-tree-container .p-treenode:focus > .p-treenode-content {
   outline: 0 none;
@@ -24,7 +28,15 @@ a{
 :host ::ng-deep .p-tree .p-treenode-children {
   padding: 0 !important;
 }
-
+:host ::ng-deep .treechildren {
+  color: #055298; 
+}
+:host ::ng-deep .treechildren:hover {
+  color: rgb(126, 165, 236);
+}
+:host ::ng-deep .treechildren:hover .pi {
+  color: rgb(236, 126, 218);
+}
 :host ::ng-deep .p-toolbar {
   background: #035493;
   border: 1px solid #035493;
