@@ -138,23 +138,32 @@ export class NavbarComponent  implements OnInit{
       },
         error=>{console.log("error occurred while retrieving the data for query -",query)
     });
+    this.showSearchBox=false
   }
   checkViewport() {
     this.isMobileView = window.innerWidth <= 768;
     console.log("this.isMobileView ",this.isMobileView,window.innerWidth)
+    
+    if(this.isMobileView){
+      this.showSearchBox=false;
+    }
     this.isSidebarVisible = !this.isMobileView; // Sidebar hidden by default on mobile
   }
 
   @HostListener('window:resize', [])
   @HostListener('window:resize', ['$event'])
-    onResize(event: Event): void {
-        this.checkMobileView();
-    }
+  onResize(event: Event): void {
+      this.checkMobileView();
+  }
+  checkMobileView(): void {
+    this.isMobileView = window.innerWidth <= 768; // Adjust width as needed
+  }
   toggleSidebar() {
     this.isSidebarVisible = !this.isSidebarVisible;
     console.log("isSidebarVisible ",this.isSidebarVisible)
   }
-  checkMobileView(): void {
-    this.isMobileView = window.innerWidth <= 768; // Adjust width as needed
+  showSearchBox:boolean=false;
+  toggleSearchBox(){
+    this.showSearchBox=!this.showSearchBox
   }
 }

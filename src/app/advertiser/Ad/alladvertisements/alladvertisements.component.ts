@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,HostListener } from '@angular/core';
 import { PaiService } from '../../../paisa.service';
 import {HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -38,6 +38,7 @@ activeChipIndex = 0;
 
 
 ngOnInit(){
+  this.checkViewport();
   this.fetchDistinctHashtags();
   this.cities = [
     {name: 'New York', value: 'NY'},
@@ -178,5 +179,21 @@ fetchadvertisement(){
       },
         error=>{console.log("error occurred while retrieving the data for query -",query)
     });
+  }
+  isMobileView:boolean=false;
+  showSearchBox=false
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+      this.checkViewport();
+  }
+  checkViewport() {
+    this.isMobileView = window.innerWidth <= 768;
+    console.log("this.isMobileView ",this.isMobileView,window.innerWidth)
+    if(this.isMobileView){
+      this.showSearchBox=false;
+    }
+  }
+  toggleSearchBox(){
+    this.showSearchBox=!this.showSearchBox
   }
 }
