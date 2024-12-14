@@ -17,7 +17,7 @@ import { AuthService } from '../service/auth-service.service';
 export class NavbarComponent  implements OnInit{
   nodes!: TreeNode[];
   isMobileView: boolean = false;
-  isSidebarVisible: boolean = true;
+  isSidebarVisible: boolean = false;
   constructor(private _service: PaiService,private http: HttpClient, private authService: AuthService,private _router: Router,private _route: ActivatedRoute) {
        
   }
@@ -44,6 +44,7 @@ export class NavbarComponent  implements OnInit{
       this.nodes = [
           {
               key: '0',
+              expanded: true,
               label: 'User',
               children: [
                   { key: '0-0', label: 'Dashboard', data: 'user/userdashboard', type: 'url',icon:'pi pi-home'},
@@ -54,6 +55,7 @@ export class NavbarComponent  implements OnInit{
           },
           {
               key: '1',
+              expanded: true,
               label: 'Advertiser',
               children: [
                   { key: '1-0', label: 'Dashboard', data: 'advertiser/advertiserdashboard', type: 'url',icon:'pi pi-home' },
@@ -65,6 +67,7 @@ export class NavbarComponent  implements OnInit{
           },
           {
             key: '2',
+            expanded: true,
             label: 'Settings',
             children: [
                 { key: '2-0', label: 'Profile', data: 'home/profile/:userId', type: 'url',icon:'pi pi-home'},
@@ -102,6 +105,7 @@ export class NavbarComponent  implements OnInit{
      else {
       this._router.navigate([val]);
     }
+    this.isSidebarVisible = !this.isSidebarVisible;
   }
   ngAfterViewInit() {
     if (this.tree) {

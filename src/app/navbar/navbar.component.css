@@ -63,3 +63,35 @@ a{
   font-size: 24px;
   cursor: pointer;
 }
+.body {
+    position: relative;
+}
+
+.left-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 10px;
+    height: 550px;
+    width: 70%;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+
+.left-content.visible {
+  transform: translateX(100%) /* Slide in to view */
+}
+
+/* Middle content adjustment */
+.middle-content {
+  position: relative;
+  z-index: 0; /* Ensure it stays behind the sidebar */
+}
+:host ::ng-deep .p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
+  margin: 0;
+  width: 405px !important;
+  font-size:1rem;
+}
