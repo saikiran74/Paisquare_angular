@@ -68,16 +68,16 @@ a{
 }
 
 .left-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-left: 10px;
-    height: 550px;
-    width: 70%;
-    z-index: 1000;
-    background-color: white;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 10px;
+  height: 550px;
+  width: 70%;
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
 }
 
 

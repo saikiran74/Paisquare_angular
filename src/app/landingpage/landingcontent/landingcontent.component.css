@@ -39,9 +39,10 @@ li{
     top: 3%;
     left: 8%;
     color: black;  
+    width: 90%; 
 }
 .tab-header{
-    margin-top: 0px;
+    margin-top: -15px;
     margin-bottom: 0px;
     font-size: 3.5em;
 }
@@ -138,7 +139,7 @@ label{
 }
 .infoText{
     font: bold;
-    font-size: 3rem;
+    font-size: 1rem;
 }
 @media (max-width: 768px) {
     .responsive-image {
@@ -158,12 +159,12 @@ label{
         margin-left: 40px;
     }
     .tab-header{
-        margin-top: 0px;
+        margin-top: -15px;
         margin-bottom: 0px;
         font-size: 2rem;
     }
     .infoText{
         font: bold;
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
 }
