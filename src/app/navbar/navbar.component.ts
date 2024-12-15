@@ -96,7 +96,7 @@ export class NavbarComponent  implements OnInit{
       console.log('Navigating to myadvertisement with userId:', this.userId);
 
       //this._router.navigate(['/advertiser/myadvertisement'], {state: { userId: this.userId },});
-    }else if (val.includes('home/profile/')) {
+    } else if (val.includes('home/profile/')) {
       this._router.navigate([val.replace(':userId', this.userId)]);
     } else if (val.includes('logout')) {
       this.authService.logout();
@@ -105,7 +105,8 @@ export class NavbarComponent  implements OnInit{
      else {
       this._router.navigate([val]);
     }
-    this.isSidebarVisible = !this.isSidebarVisible;
+    this.checkViewport();
+    this.isSidebarVisible = !this.isMobileView; 
   }
   ngAfterViewInit() {
     if (this.tree) {
@@ -150,17 +151,16 @@ export class NavbarComponent  implements OnInit{
     
     if(this.isMobileView){
       this.showSearchBox=false;
+    } else{
+      this.isSidebarVisible = !this.isMobileView; // Sidebar hidden by default on mobile
+      console.log("this.isSidebarVisible ->",this.isSidebarVisible )
     }
-    this.isSidebarVisible = !this.isMobileView; // Sidebar hidden by default on mobile
   }
 
   @HostListener('window:resize', [])
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
-      this.checkMobileView();
-  }
-  checkMobileView(): void {
-    this.isMobileView = window.innerWidth <= 768; // Adjust width as needed
+      this.checkViewport();
   }
   toggleSidebar() {
     this.isSidebarVisible = !this.isSidebarVisible;

@@ -7,20 +7,16 @@
 a{
    cursor: pointer;
 }
-:host ::ng-deep .p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
-    margin: 0;
-    width: 250px;
-    font-size:1rem;
-}
+
 textarea{
     width: 250px;
     resize: vertical;
 }
 .p-inputtext {
     box-shadow: none;
-    border-width: 2px;
+    border-width: 1px;
     border-color:#89c0eb;
-    font-size:1.2rem;
+    font-size:1rem;
 }
 .text-danger{
     color: #FF0000;
@@ -41,10 +37,10 @@ textarea{
 }
 
 .inactive-chip {
-background-color: #f1f1f1;
-color: #333;
-border: 1px solid #ccc;
-  }
+    background-color: #f1f1f1;
+    color: #333;
+    border: 1px solid #ccc;
+}
 .p-chip {
     padding-left: 7px;
     padding-right: 7px;
@@ -57,3 +53,18 @@ border: 1px solid #ccc;
     padding-left: 5px;
     padding-right: 5px;
 }
+
+@media (max-width: 768px) {
+    .p-inputtext, .p-dropdown, .p-textarea, .p-calendar, .p-dialog {
+      padding: 5px;
+      width: 100% !important;
+      height: 35px;
+      font-size:1rem;
+    }
+    .p-chip {
+      padding: 5px;
+      width: 100% !important;
+      height: 35px;
+      font-size:1rem;
+    }
+  }

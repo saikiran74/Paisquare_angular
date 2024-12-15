@@ -57,7 +57,7 @@
             
         </div>
     }
-    <div class="col-12 md:col-7 sm:col-12 middle-content" style="background-color: rgba(239, 242, 245, 0.877); margin: 5px;">
+    <div class="col-12 md:col-7 sm:col-12 middle-content" style="background-color: rgba(239, 242, 245, 0.877); margin-top: 5px;">
          @if (querySearch) {
             @if (advertisements.length > 0) {
                 <app-homepage
@@ -69,6 +69,8 @@
             }
 
         } @else {
+            {{isMobileView}}
+            {{isSidebarVisible}}
             <router-outlet></router-outlet>
         }
     </div>

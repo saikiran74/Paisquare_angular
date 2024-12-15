@@ -2,14 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { PaiService } from '../../../paisa.service';
 import { Router } from '@angular/router';
 import { Advertise } from '../../../paisa';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-advertisementform',
   templateUrl: './advertisementform.component.html',
   styleUrls: ['./advertisementform.component.css']
 })
 export class AdvertisementformComponent implements OnInit{
-  
+  adId: string | null = null;
+  constructor(private _service: PaiService, private _router: Router,private route: ActivatedRoute){};
+  isEditAdvertisement:boolean=false;
   ngOnInit(): void {
+    this.adId = this.route.snapshot.paramMap.get('id');
+    if (this.adId) {
+      this.isEditAdvertisement=true;
+      this.loadAdDetails(this.adId);
+    }
     this._service.getUserdata(this._service.userId).subscribe(
       data=>{
         console.log(data)
@@ -57,7 +65,6 @@ export class AdvertisementformComponent implements OnInit{
   public editorData: string = '';
   
   hashTagSeparatorExp: RegExp = /,| /;
-  constructor(private _service: PaiService, private _router: Router){};
   onEditorChange(event: any) {
     this.editorData = event;
   }
@@ -104,12 +111,12 @@ export class AdvertisementformComponent implements OnInit{
     else if(!this.advertise.url.startsWith('https://')){
       this.message="Please enter valid url starts with https://.."
     }
-    else if(!(this.paiChecked || this.paisaChecked)){
+    else if(!(this.paiChecked || this.paisaChecked) && !this.isEditAdvertisement){
       this.message="Please select advertisement type";
     } else if(this.pinCodeValidator(this.pincodes)){
       this.message="Enter 8 digit pin codes only"
     }
-    else if(((this.paiChecked && this.validPai()) || (this.paisaChecked && this.validPaisa()))){
+    else if(!this.isEditAdvertisement && ((this.paiChecked && this.validPai()) || (this.paisaChecked && this.validPaisa()))){
       //Correcting
     } else if (!this.advertise.backGroundColor) {
       this.message = "Please select a background color";
@@ -217,4 +224,15 @@ export class AdvertisementformComponent implements OnInit{
         return false;
       }
   }
+  loadAdDetails(adId: string) {
+    this._service.getIDAdvertisements(+adId).subscribe(
+      data => {
+        this.advertise = data;
+        console.log("Advertisement ",this.advertise,this.advertise.brandname);
+      },
+        error=>{console.log("error occure while retrieving the data for ID -",adId)
+    });
+    console.log(`Editing ad with ID: ${adId}`);
+  }
+  
 }

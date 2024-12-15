@@ -211,6 +211,9 @@ export class HomepageComponent implements OnInit {
     this.commentobj.userid=this.userId;
     this.commentobj.advertisementid=val;
     this.commentobj.adid=val;
+    if(this.commentobj.comment.length<1){
+        const commentErrorMessage="Please enter comment"
+    }
     console.log("--comment--",this.commentobj);
     this._service.CommentsFromRemote(this.commentobj,val,+this.userId).subscribe(
       data=>{
@@ -235,6 +238,7 @@ export class HomepageComponent implements OnInit {
     this._service.CommentsListFromRemote(advertisementid).subscribe(
       data=>{
         this.comments=data;
+        console.log("comments",this.comments)
         //this._router.navigate(['alladvertisements'])
     },
       error=>{console.log("Error occured");
@@ -274,7 +278,8 @@ export class HomepageComponent implements OnInit {
   }
 
   editAdvertisement(advertisementid:Number){
-
+    console.log("in editAdvertisement",advertisementid)
+    this._router.navigate([`/advertiser/edit/${advertisementid}`]);
   }
   showReportDialog:boolean=false;
   advertisementId:number=0;

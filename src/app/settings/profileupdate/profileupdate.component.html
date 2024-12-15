@@ -32,7 +32,7 @@
                     <div class="pairs">
                         <label for="brandName">Brand name</label>
                         <div>
-                            <input pInputText id="brandName" formControlName="brandName" name="brandName"
+                            <input pInputText class="inputtext" id="brandName" formControlName="brandName" name="brandName"
                              placeholder="Enter your brand name"
                              [style]="{'width':'250px'}">
                         </div>
@@ -40,19 +40,19 @@
                     <div class="pairs">
                         <label for="">Brand Description</label>
                         <div>
-                            <textarea  pInputTextarea id="brandDescription" formControlName="brandDescription" name="brandDescription" placeholder="About your brand"></textarea>
+                            <textarea  pInputText class="inputtext"area id="brandDescription" formControlName="brandDescription" name="brandDescription" placeholder="About your brand"></textarea>
                         </div>
                     </div><br>
                     <div class="pairs">
                         <label for="brandTagLine">Brand Tagline</label>
                         <div>
-                            <input pInputText id="brandTagLine" formControlName="brandTagLine"  name="brandTagLine" placeholder="About your brand tagline">
+                            <input pInputText class="inputtext" id="brandTagLine" formControlName="brandTagLine"  name="brandTagLine" placeholder="About your brand tagline">
                         </div>
                     </div><br>
                     <div class="pairs">
                         <label for="">Website</label>
                         <div>
-                            <input pInputText id="website" formControlName="website" name="website" placeholder="Enter offical brand website">
+                            <input pInputText class="inputtext" id="website" formControlName="website" name="website" placeholder="Enter offical brand website">
                         </div>
                     </div>
                     
@@ -83,7 +83,7 @@
                     <div class="pairs">
                         <label for="advertiserName">Advertiser name</label>
                         <div>
-                            <input pInputText id="advertiserName" formControlName="advertiserName" name="advertiserName" placeholder="Enter your name">
+                            <input pInputText class="inputtext" id="advertiserName" formControlName="advertiserName" name="advertiserName" placeholder="Enter your name">
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                     <div class="pairs">
                         <label for="email">Email</label>
                         <div>
-                            <input pInputText id="email" formControlName="email" name="email" placeholder="Enter Email">
+                            <input pInputText class="inputtext" id="email" formControlName="email" name="email" placeholder="Enter Email">
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                     <div class="pairs">
                         <label for="mobileNumber">Number</label>
                         <div>
-                            <input pInputText id="mobileNumber" pKeyFilter="int" formControlName="mobileNumber"  name="mobileNumber" placeholder="Enter number">
+                            <input pInputText class="inputtext" id="mobileNumber" pKeyFilter="int" formControlName="mobileNumber"  name="mobileNumber" placeholder="Enter number">
                         </div>
                     </div>
                 </div>
@@ -108,8 +108,8 @@
                     <div class="pairs">
                         <label for="brandLocation">Primary Location</label>
                         <div>
-                            <textarea  pInputTextarea id="brandLocation" formControlName="brandLocation"
-                             name="brandLocation" style="width: 100px;" placeholder="Brand located at"
+                            <textarea  pInputText class="inputtext"area id="brandLocation" formControlName="brandLocation"
+                             name="brandLocation"  placeholder="Brand located at"
                              [style]="{'width':'250px'}"></textarea>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                     <div class="pairs">
                         <label for="password">Password</label>
                         <div>
-                            <input pInputText id="password" formControlName="password"  name="password" placeholder="Enter password">
+                            <input pInputText class="inputtext" id="password" formControlName="password"  name="password" placeholder="Enter password">
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
                     <div class="pairs">
                         <label for="password">Confirm Password</label>
                         <div>
-                            <input pInputText id="password" formControlName="password" name="ConfirmPassword" placeholder="Confirm password">
+                            <input pInputText class="inputtext" id="password" formControlName="password" name="ConfirmPassword" placeholder="Confirm password">
                         </div>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                     <div class="pairs">
                         <label for="brandCategory">category</label>
                         <div>
-                            <p-dropdown id="brandCategory" [options]="categories" formControlName="brandCategory"
+                            <p-dropdown [style]="{'width':'250px'}" id="brandCategory" [options]="categories" formControlName="brandCategory"
                              name="brandCategory" placeholder="Enter brand category"></p-dropdown>
                         </div>
                     </div>
@@ -195,7 +195,7 @@
                     <div class="pairs">
                         <label for="brandEstablishedIn">Established in</label>
                         <div>
-                            <p-calendar id="brandEstablishedIn" formControlName="brandEstablishedIn"
+                            <p-calendar [style]="{'width':'250px'}" id="brandEstablishedIn" formControlName="brandEstablishedIn"
                             dateFormat="yy" view="year" [showIcon]="true" placeholder="Your brand established in"></p-calendar>
                         </div>
                         
@@ -205,7 +205,7 @@
                     <div class="pairs">
                         <label for="brandCompanyEmployeeSize">Company size</label>
                         <div>
-                            <input pInputText id="brandCompanyEmployeeSize" formControlName="brandCompanyEmployeeSize"  pKeyFilter="int" name="brandCompanyEmployeeSize" placeholder="Number of employees working in">
+                            <input pInputText class="inputtext" id="brandCompanyEmployeeSize" formControlName="brandCompanyEmployeeSize"  pKeyFilter="int" name="brandCompanyEmployeeSize" placeholder="Number of employees working in">
                         </div>
                     </div>
                 </div>
@@ -214,7 +214,7 @@
                     <div class="pairs">
                         <label for="country">Country</label>
                         <div>
-                            <p-dropdown id="country" [options]="country" formControlName="country" name="country" placeholder="Select country"></p-dropdown>
+                            <p-dropdown [style]="{'width':'250px'}" id="country" [options]="country" formControlName="country" name="country" placeholder="Select country"></p-dropdown>
                         </div>
                     </div>
                 </div>
@@ -251,7 +251,7 @@
                             <label for="brandTargetAges" >Target age</label>
                         </div>
                         <div class="col-6">
-                            <input type="text" pInputText id="brandTargetAges" formControlName="brandTargetAges" name="brandTargetAges" class="w-full"/>
+                            <input type="text" pInputText class="inputtext" id="brandTargetAges" formControlName="brandTargetAges" name="brandTargetAges" class="w-full"/>
                         </div>
                     </div>
                     {{agerange}}
@@ -288,7 +288,7 @@
                     <div class="pairs">
                         <label for="youtube">Youtube</label>
                         <div>
-                            <input pInputText id="youtube" formControlName="youtube" name="youtube" placeholder="Enter youtube url">
+                            <input pInputText class="inputtext" id="youtube" formControlName="youtube" name="youtube" placeholder="Enter youtube url">
                         </div>
                     </div>
                 </div>
@@ -296,7 +296,7 @@
                     <div class="pairs">
                         <label for="facebook">Facebook</label>
                         <div>
-                            <input pInputText id="facebook" formControlName="facebook" name="facebook" placeholder="Enter facebook url">
+                            <input pInputText class="inputtext" id="facebook" formControlName="facebook" name="facebook" placeholder="Enter facebook url">
                         </div>
                     </div>
                 </div>
@@ -304,7 +304,7 @@
                     <div class="pairs">
                         <label for="instagram">Instagram</label>
                         <div>
-                            <input pInputText id="instagram" formControlName="instagram" name="instagram" placeholder="Enter instagram url">
+                            <input pInputText class="inputtext" id="instagram" formControlName="instagram" name="instagram" placeholder="Enter instagram url">
                         </div>
                     </div>
                 </div>
@@ -312,7 +312,7 @@
                     <div class="pairs">
                         <label for="twitter">Twitter</label>
                         <div>
-                            <input pInputText id="twitter" formControlName="twitter"  name="twitter" placeholder="Enter twitter url">
+                            <input pInputText class="inputtext" id="twitter" formControlName="twitter"  name="twitter" placeholder="Enter twitter url">
                         </div>
                     </div>
                 </div>
@@ -320,7 +320,7 @@
                     <div class="pairs">
                         <label for="pinterest">Pinterest</label>
                         <div>
-                            <input pInputText id="pinterest" formControlName="pinterest" name="pinterest" placeholder="Enter printerest url">
+                            <input pInputText class="inputtext" id="pinterest" formControlName="pinterest" name="pinterest" placeholder="Enter printerest url">
                         </div>
                     </div>
                 </div> 
