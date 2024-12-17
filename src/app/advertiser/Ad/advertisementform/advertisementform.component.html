@@ -11,20 +11,40 @@
                     </div>
                     <div  class="col-12 col-12 md:col-6 sm:col-6">
                         <label for="adhead">Url</label>
-                        <div>
-                            <input pInputText  type="text" class="form-control" id="adhead" name="url" 
-                            placeholder="Paste your URL" [(ngModel)]="advertise.url"><br>
-                            <p-dropdown 
-                            [options]="urlTypes" 
-                            [(ngModel)]="selectedUrlType" 
-                            optionLabel="name"
-                            [style]="{'width': '50px'}" 
-                            placeholder="Type">
-                            
-                          </p-dropdown>
-                        </div>
+                        <div class="p-inputgroup">
+                            <!-- Dropdown on the left -->
+                            <span class="p-inputgroup-addon">
+                              <p-dropdown 
+                                [options]="urlTypes" 
+                                [(ngModel)]="selectedUrlType"
+                                (onChange)="onUrlTypeChange($event)" 
+                                class="small-dropdown" 
+                                placeholder="Select Type" name="urldropdown"
+                                [style]="{'width': '70px'}">
+                          
+                                <!-- Template for dropdown options -->
+                                <ng-template let-item pTemplate="item">
+                                  <i [ngClass]="item.icon" style="font-size: 1.2rem; margin-right: 5px;"></i>
+                                </ng-template>
+                          
+                                <!-- Template for selected value -->
+                                <ng-template pTemplate="selectedItem" let-selected>
+                                    <!-- Display the selected icon, fall back to the first item if not selected -->
+                                    <i [ngClass]="selected?.icon || urlTypes[0].icon" style="font-size: 1.2rem;"></i>
+                                    {{ selected?.name || urlTypes[0].name }}
+                                </ng-template>
+                              </p-dropdown>
+                            </span>
+                          
+                            <!-- Input Field -->
+                            <input
+                              pInputText name="url"
+                              type="text"  style="margin-left: 20px; width: 150px !important;"
+                              placeholder="Paste your URL" 
+                              [(ngModel)]="advertise.url" />
+                          </div>
                     </div>
-                      
+                    
                 </div><br>
                 <div class="grid">
                     <label for="adhead" class="col-12">Description</label>

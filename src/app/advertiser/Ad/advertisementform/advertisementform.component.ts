@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PaiService } from '../../../paisa.service';
+import { ValidationErrors,Validator,FormGroup,FormControl, Validators,ValidatorFn, AbstractControl } from '@angular/forms';
+
 import { Router } from '@angular/router';
 import { Advertise } from '../../../paisa';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +18,7 @@ export class AdvertisementformComponent implements OnInit{
     { name: 'Web URL', value: 'web', icon: 'pi pi-globe' },
     { name: 'WhatsApp', value: 'whatsapp', icon: 'pi pi-whatsapp' }
   ];
-  selectedUrlType = this.urlTypes[0];
+  selectedUrlType = this.urlTypes[0].value;
   ngOnInit(): void {
     this.adId = this.route.snapshot.paramMap.get('id');
     if (this.adId) {
@@ -113,8 +115,18 @@ export class AdvertisementformComponent implements OnInit{
       this.freeTypeChecked = false;
     console.log("this.paisaChecked+",this.freeTypeChecked)
   }
+  onUrlTypeChange(event: any) {
+    console.log("Selected URL Type:", event.value);
+    this.selectedUrlType = event.value;
+  }
   advertisementForm(){
+    console.log(this.advertise.url.startsWith("https://wa.me/"))
+    if(this.selectedUrlType=='whatsapp' && !this.advertise.url.startsWith("https://wa.me/")){
+      this.advertise.url="https://wa.me/"+this.advertise.url
+    }
+    console.log("this.advertise.url",this.advertise.url)
     this.message=''
+    console.log("selectedUrlType",this.selectedUrlType)
     this.advertise.backGroundColor = this.adBackgroundSelected;
     this.advertise.status='Active';
     if(this.advertise.brandname==null || this.advertise.brandname==''){
@@ -129,8 +141,10 @@ export class AdvertisementformComponent implements OnInit{
     else if(this.advertise.url==null || this.advertise.url==''){
       this.message="Please enter brand Website url"
     }
-    else if(!this.advertise.url.startsWith('https://')){
+    else if(!this.advertise.url.startsWith('https://') ){
       this.message="Please enter valid url starts with https://.."
+    } else if (this.selectedUrlType=="whatsapp" && !this.mobileNumberValidator(this.advertise.url)){
+      this.message="Please check whatsapp number"
     }
     else if(!(this.paiChecked || this.paisaChecked) && !this.isEditAdvertisement && !this.freeTypeChecked){
       this.message="Please select advertisement type";
@@ -144,7 +158,10 @@ export class AdvertisementformComponent implements OnInit{
       return;
     } 
     else{
-      
+      if(this.selectedUrlType=='whatsapp'){
+        this.advertise.url="https:wa.me/"+this.advertise.url
+      }
+      console.log("this.advertise.url",this.advertise.url)
       this.advertise.hashtags = this.hashtags.join(', ');
       this.advertise.pincodes = this.pincodes.join(', '); 
       this._service.advertiseFromRemote(this.advertise,this._service.userId).subscribe(
@@ -255,5 +272,10 @@ export class AdvertisementformComponent implements OnInit{
     });
     console.log(`Editing ad with ID: ${adId}`);
   }
-  
+  mobileNumberValidator(number:any) {
+      const isValid = /^\d{10}$/.test(number.replace('https://wa.me/', ''));
+      console.log("isValid", isValid);
+      console.log("number", number.replace('https://wa.me/', ''));
+      return isValid;
+  }
 }

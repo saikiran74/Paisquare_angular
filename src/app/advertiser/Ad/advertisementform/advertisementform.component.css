@@ -43,3 +43,11 @@
   height: 100%;
   padding-right: 10px;
 }
+:host ::ng-deep .p-inputgroup-addon {
+  padding: 0rem;
+  width: 50px;
+}
+:host ::ng-deep .small-dropdown .p-dropdown {
+  width: 70px !important;
+  height: 35px !important;
+}
