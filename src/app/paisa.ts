@@ -21,6 +21,7 @@ export class Advertise{
     paisa!:Number;
     paisaperclick!:Number;
     country!:string;
+    advertisement_type!:string;
     state!:string;
     district!:string;
     hashtags!: string;

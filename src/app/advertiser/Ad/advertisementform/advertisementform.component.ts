@@ -12,6 +12,11 @@ export class AdvertisementformComponent implements OnInit{
   adId: string | null = null;
   constructor(private _service: PaiService, private _router: Router,private route: ActivatedRoute){};
   isEditAdvertisement:boolean=false;
+  urlTypes = [
+    { name: 'Web URL', value: 'web', icon: 'pi pi-globe' },
+    { name: 'WhatsApp', value: 'whatsapp', icon: 'pi pi-whatsapp' }
+  ];
+  selectedUrlType = this.urlTypes[0];
   ngOnInit(): void {
     this.adId = this.route.snapshot.paramMap.get('id');
     if (this.adId) {
@@ -37,6 +42,7 @@ export class AdvertisementformComponent implements OnInit{
   hashtags: string[] = [];  // Assume these are arrays
   pincodes: string[] = []; 
   paiChecked: boolean = false;
+  freeTypeChecked: boolean = false;
   paisaChecked: boolean = false;
   editorConfig = {
     // Configuration options
@@ -73,8 +79,10 @@ export class AdvertisementformComponent implements OnInit{
   
   paiCheckbox(){
     this.paiChecked=!this.paiChecked
-    if(!this.paiChecked)
+    if(!this.paiChecked){
       this.paiChecked = true;
+      this.advertise.advertisement_type="pai";
+    }
     else
       this.paiChecked = false;
       this.advertise.pai=0;
@@ -84,13 +92,26 @@ export class AdvertisementformComponent implements OnInit{
   paisaCheckbox(){
     console.log("this.paisaChecked-",this.paisaChecked)
     this.paisaChecked=!this.paisaChecked
-    if(!this.paisaChecked)
+    if(!this.paisaChecked){
       this.paisaChecked = true;
+      this.advertise.advertisement_type="paisa";
+    }
     else
       this.paisaChecked = false;
       this.advertise.paisa=0;
       this.advertise.paisaperclick=0;
     console.log("this.paisaChecked+",this.paisaChecked)
+  }
+  freeTypeCheckbox(){
+    console.log("this.paisaChecked-",this.freeTypeChecked)
+    this.freeTypeChecked=!this.freeTypeChecked
+    if(!this.freeTypeChecked){
+      this.freeTypeChecked = true;
+      this.advertise.advertisement_type="free";
+    }
+    else
+      this.freeTypeChecked = false;
+    console.log("this.paisaChecked+",this.freeTypeChecked)
   }
   advertisementForm(){
     this.message=''
@@ -111,7 +132,7 @@ export class AdvertisementformComponent implements OnInit{
     else if(!this.advertise.url.startsWith('https://')){
       this.message="Please enter valid url starts with https://.."
     }
-    else if(!(this.paiChecked || this.paisaChecked) && !this.isEditAdvertisement){
+    else if(!(this.paiChecked || this.paisaChecked) && !this.isEditAdvertisement && !this.freeTypeChecked){
       this.message="Please select advertisement type";
     } else if(this.pinCodeValidator(this.pincodes)){
       this.message="Enter 8 digit pin codes only"
