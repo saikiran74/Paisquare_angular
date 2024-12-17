@@ -34,6 +34,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { TagModule } from 'primeng/tag';
 const PRIMENG_MODULES:any[]=[
     CommonModule,
     SelectButtonModule,
@@ -72,6 +73,7 @@ const PRIMENG_MODULES:any[]=[
     InputTextModule,
     DropdownModule,
     KeyFilterModule,
+    TagModule,
 ]
 
 @NgModule({

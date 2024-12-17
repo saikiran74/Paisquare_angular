@@ -8,6 +8,7 @@ import { AdvertiserreportsComponent } from './advertiserreports/advertiserreport
 import { AdvertisementformComponent } from './Ad/advertisementform/advertisementform.component';
 import { LandingcontentComponent } from '../landingpage/landingcontent/landingcontent.component';
 import { ProfileComponent } from '../settings/profile/profile.component';
+import { PaiSquareRightSideAdvertisementComponent } from './pai-square-right-side-advertisement/pai-square-right-side-advertisement.component';
 const routes: Routes = [
   {
     path:'',
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'advertiserreport',component:AdvertiserreportsComponent},
       { path: 'advertise',component:AdvertisementformComponent},
       { path: 'edit/:id', component: AdvertisementformComponent },
+      { path: 'paisquaread',component:PaiSquareRightSideAdvertisementComponent},
       { path: 'myadvertisement',component:AlladvertisementsComponent},
       { path: 'block/:id', component: LandingcontentComponent },
       { path: 'reportadvertisement/:id', component: LandingcontentComponent },
