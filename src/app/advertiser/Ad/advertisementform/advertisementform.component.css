@@ -43,25 +43,3 @@
   height: 100%;
   padding-right: 10px;
 }
-
-:host ::ng-deep .p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
-  padding: 0px;
-  width: 250px !important;
-  padding-right: 20px;
-  height: 35px;
-  font-size:1rem;
-}
-@media (max-width: 768px) {
-  :host ::ng-deep .p-inputtext, .p-dropdown, .p-textarea, .p-calendar, .p-dialog {
-    padding: 5px;
-    width: 100% !important;
-    height: 35px;
-    font-size:1rem;
-  }
-  :host ::ng-deep  .p-chip {
-    padding: 5px;
-    width: 100% !important;
-    height: 35px;
-    font-size:1rem;
-  }
-}

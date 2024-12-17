@@ -40,7 +40,9 @@
                     <div class="pairs">
                         <label for="">Brand Description</label>
                         <div>
-                            <textarea  pInputText class="inputtext"area id="brandDescription" formControlName="brandDescription" name="brandDescription" placeholder="About your brand"></textarea>
+                            <textarea  pInputTextarea [style]="{'width':'250px'}" rows="5"
+                            style="height: 80px;"  id="brandDescription" 
+                            formControlName="brandDescription" name="brandDescription" placeholder="About your brand"></textarea>
                         </div>
                     </div><br>
                     <div class="pairs">
@@ -60,20 +62,22 @@
                     
             </div>
             <div class="grid">
-                <div class="col-10">
-                    <div *ngIf="profileForm.get('brandInformation.website')?.errors?.['invalidUrl']?.invalidResponse">
-                        <label class="validator">YouTube URL is not reachable.</label>
-                      </div>
-                    @if (profileForm.get('brandInformation.website')?.errors?.['invalidUrl']) {
-                        
-                        <label class="validator">Enter valid url for youtube</label>
-                    } 
-                    @if (showMessageFor=='brandInformation') {
-                        <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                    }
-                </div>
-                <div class="col-2">
-                    <p-button label="Update" (onClick)="onSubmitbrandInformationUpdate()" [disabled]="!profileForm.get('brandInformation')?.valid || updatingInformation"></p-button>
+                <div class="col-12">
+                    <div class="flex justify-content-start">
+                        <div *ngIf="profileForm.get('brandInformation.website')?.errors?.['invalidUrl']?.invalidResponse">
+                            <label class="validator">YouTube URL is not reachable.</label>
+                          </div>
+                        @if (profileForm.get('brandInformation.website')?.errors?.['invalidUrl']) {
+                            
+                            <label class="validator">Enter valid url for youtube</label>
+                        } 
+                        @if (showMessageFor=='brandInformation') {
+                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                        }
+                    </div>
+                    <div class="flex justify-content-end">
+                        <p-button label="Update" (onClick)="onSubmitbrandInformationUpdate()" [disabled]="!profileForm.get('brandInformation')?.valid || updatingInformation"></p-button>
+                    </div>
                 </div>
             </div>
         </p-fieldset><br>
@@ -103,29 +107,31 @@
                         </div>
                     </div>
                 </div>
-                
                 <div class="col-12 md:col-6 sm:col-12">
                     <div class="pairs">
                         <label for="brandLocation">Primary Location</label>
                         <div>
-                            <textarea  pInputText class="inputtext"area id="brandLocation" formControlName="brandLocation"
+                            <textarea  pInputTextarea [style]="{'width':'250px'}" rows="5"
+                            style="height: 80px;" id="brandLocation" formControlName="brandLocation"
                              name="brandLocation"  placeholder="Brand located at"
                              [style]="{'width':'250px'}"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="grid">
-                <div class="col-10">
-                    <div *ngIf="profileForm.get('personalInformation.mobileNumber')?.errors?.['invalidMobileNumber']">
-                        <label style="color: red;">Enter a valid 10-digit mobile number.</label> 
+            <div class="grid ">
+                <div class="col-12">
+                    <div class="flex justify-content-start">
+                        <div *ngIf="profileForm.get('personalInformation.mobileNumber')?.errors?.['invalidMobileNumber']">
+                            <label style="color: red;">Enter a valid 10-digit mobile number.</label> 
+                        </div>
+                        @if (showMessageFor=='personalInformation') {
+                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                        }
                     </div>
-                    @if (showMessageFor=='personalInformation') {
-                        <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                    }
-                </div>
-                <div class="col-2">
-                    <p-button label="Update" (onClick)="onSubmitpersonalInformationUpdate()" [disabled]="!profileForm.get('personalInformation')?.valid || updatingInformation"></p-button>
+                    <div class="flex justify-content-end ">
+                        <p-button label="Update" (onClick)="onSubmitpersonalInformationUpdate()" [disabled]="!profileForm.get('personalInformation')?.valid || updatingInformation"></p-button>
+                    </div>
                 </div>
             </div>
         </p-fieldset><br>
@@ -151,13 +157,15 @@
             </div>
             
             <div class="grid">
-                <div class="col-10">
-                    @if (showMessageFor=='password') {
-                        <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                    }
-                </div>
-                <div class="col-2">
-                    <p-button label="Update" (onClick)="onSubmitpasswordUpdate()" [disabled]="updatingInformation"></p-button>
+                <div class="col-12">
+                    <div class="flex justify-content-start">
+                        @if (showMessageFor=='password') {
+                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                        }
+                    </div>
+                    <div class="flex justify-content-end ">
+                        <p-button label="Update" (onClick)="onSubmitpasswordUpdate()" [disabled]="updatingInformation"></p-button>
+                    </div>
                 </div>
             </div>
         </p-fieldset><br>
@@ -259,26 +267,28 @@
                 </div>-->
             </div>
             
-            <div class="grid">
-                <div class="col-10">
-                    @if (invalidPinCodesList) {
-                        <span class="validator">Invalid Pin Codes: {{ invalidPinCodesList }}</span>
-                    }
-                        
-                    @if (profileForm.get('socialMedia.youtube')?.errors?.['invalidPinCode']) {
-                        <label class="validator"> enter valid 8-digit numeric pin codes separated by commas.</label>
-                    }
-                    <div *ngIf="profileForm.get('brandRecommendation.pinCodes')?.invalid && (profileForm.get('brandRecommendation.pinCodes')?.dirty || profileForm.get('brandRecommendation.pinCodes')?.touched)">
-                        <div *ngIf="profileForm.get('brandRecommendation.pinCodes')?.hasError('invalidPinCode')">
-                            <span class="validator"> enter valid 8-digit numeric pin codes separated by commas.</span>
+            <div class="grid col-12">
+                <div class="col-12 ">
+                    <div class="flex justify-content-start">
+                        @if (invalidPinCodesList) {
+                            <span class="validator">Invalid Pin Codes: {{ invalidPinCodesList }}</span>
+                        }
+                            
+                        @if (profileForm.get('socialMedia.youtube')?.errors?.['invalidPinCode']) {
+                            <label class="validator"> enter valid 8-digit numeric pin codes separated by commas.</label>
+                        }
+                        <div *ngIf="profileForm.get('brandRecommendation.pinCodes')?.invalid && (profileForm.get('brandRecommendation.pinCodes')?.dirty || profileForm.get('brandRecommendation.pinCodes')?.touched)">
+                            <div *ngIf="profileForm.get('brandRecommendation.pinCodes')?.hasError('invalidPinCode')">
+                                <span class="validator"> enter valid 8-digit numeric pin codes separated by commas.</span>
+                            </div>
                         </div>
+                        @if (showMessageFor=='BrandRecommendation') {
+                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                        }
                     </div>
-                    @if (showMessageFor=='BrandRecommendation') {
-                        <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                    }
-                </div>
-                <div class="col-2">
-                    <p-button label="Update" (onClick)="onSubmitBrandRecommendationUpdate()" [disabled]="!profileForm.get('brandRecommendation')?.valid || updatingInformation"></p-button>
+                    <div class="flex justify-content-end">
+                        <p-button label="Update" (onClick)="onSubmitBrandRecommendationUpdate()" [disabled]="!profileForm.get('brandRecommendation')?.valid || updatingInformation"></p-button>
+                    </div>
                 </div>
             </div>
         </p-fieldset><br>
@@ -326,32 +336,34 @@
                 </div> 
             </div>
             <div class="grid">
-                <div class="col-10">
-                    <div *ngIf="profileForm.get('socialMedia.youtube')?.errors?.['invalidUrl']?.invalidResponse">
-                        
-                        <label class="validator">YouTube URL is not reachable.</label>
-                      </div>
-                    @if (profileForm.get('socialMedia.youtube')?.errors?.['invalidUrl']) {
-                        
-                        <label class="validator">Enter valid url for youtube</label>
-                    } @else if (profileForm.get('socialMedia.facebook')?.errors?.['invalidUrl']) {
-                        <label class="validator">Enter valid url for facebook</label>
-                    } @else if (profileForm.get('socialMedia.instagram')?.errors?.['invalidUrl']) {
-                        <label class="validator">Enter valid url for instagram</label>
-                    } @else if (profileForm.get('socialMedia.twitter')?.errors?.['invalidUrl']) {
-                        <label class="validator">Enter valid url for twitter</label>
-                    } @else if (profileForm.get('socialMedia.pinterest')?.errors?.['invalidUrl']) {
-                        <label class="validator">Enter valid url for printerest</label>
-                    }
-                    <div *ngIf="">
-                        <label style="color: #ff0000;">Enter a valid 10-digit mobile number.</label> 
+                <div class="col-12">
+                    <div class="flex justify-content-start">
+                        <div *ngIf="profileForm.get('socialMedia.youtube')?.errors?.['invalidUrl']?.invalidResponse">
+                            
+                            <label class="validator">YouTube URL is not reachable.</label>
+                          </div>
+                        @if (profileForm.get('socialMedia.youtube')?.errors?.['invalidUrl']) {
+                            
+                            <label class="validator">Enter valid url for youtube</label>
+                        } @else if (profileForm.get('socialMedia.facebook')?.errors?.['invalidUrl']) {
+                            <label class="validator">Enter valid url for facebook</label>
+                        } @else if (profileForm.get('socialMedia.instagram')?.errors?.['invalidUrl']) {
+                            <label class="validator">Enter valid url for instagram</label>
+                        } @else if (profileForm.get('socialMedia.twitter')?.errors?.['invalidUrl']) {
+                            <label class="validator">Enter valid url for twitter</label>
+                        } @else if (profileForm.get('socialMedia.pinterest')?.errors?.['invalidUrl']) {
+                            <label class="validator">Enter valid url for printerest</label>
+                        }
+                        <div *ngIf="">
+                            <label style="color: #ff0000;">Enter a valid 10-digit mobile number.</label> 
+                        </div>
+                        @if (showMessageFor=='SocialMedia') {
+                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                        }
                     </div>
-                    @if (showMessageFor=='SocialMedia') {
-                        <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                    }
-                </div>
-                <div class="col-2">
-                    <p-button label="Update" (onClick)="onSubmitSocialMediaUpdate()" [disabled]="!profileForm.get('socialMedia')?.valid || updatingInformation"></p-button>
+                    <div class="flex justify-content-end">
+                        <p-button label="Update" (onClick)="onSubmitSocialMediaUpdate()" [disabled]="!profileForm.get('socialMedia')?.valid || updatingInformation"></p-button>
+                    </div>
                 </div>
             </div>
         </p-fieldset><br>

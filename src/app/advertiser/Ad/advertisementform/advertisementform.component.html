@@ -2,8 +2,6 @@
     <div class="container">
         <div class="form">
             <form #loginform="ngForm" (ngSubmit)="advertisementForm()" class="form container">
-                
-
                 <div class="grid">
                     <div class="col-12 col-12 md:col-6 sm:col-6">
                         <label for="adhead">Brand name</label>
@@ -31,7 +29,7 @@
                     <div class="col-8">
                         <!-- Toggle Button to Enable/Disable Location -->
                          <div>
-                            <p-toggleButton style="width: 30px; height: 30px; border: none;"
+                            <p-toggleButton
                                 onLabel="On" width="10px" height="10px"
                                 offLabel="Off"
                                 (onChange)="onLocationToggle($event)">
