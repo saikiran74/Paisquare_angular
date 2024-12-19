@@ -6,6 +6,8 @@ h2{
 }
 li{
     font-size: x-large;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 .advertiser{ 
     position: relative;
@@ -165,6 +167,9 @@ label{
     }
     .infoText{
         font: bold;
+        margin-top: 0px;
+        margin-bottom: 2px;
         font-size: 1rem;
+        font-family: Arial, Helvetica, sans-serif;
     }
 }

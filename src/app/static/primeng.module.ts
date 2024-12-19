@@ -35,6 +35,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TagModule } from 'primeng/tag';
+import { TableModule } from 'primeng/table';
 const PRIMENG_MODULES:any[]=[
     CommonModule,
     SelectButtonModule,
@@ -58,6 +59,7 @@ const PRIMENG_MODULES:any[]=[
     CheckboxModule,
     HttpClientModule,
     AppRoutingModule,
+    TableModule,
     ChartModule,
     SidebarModule,
     ButtonModule,

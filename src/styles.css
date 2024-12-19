@@ -53,7 +53,7 @@ textarea{
     padding-left: 5px;
     padding-right: 5px;
 }
-.p-inputtext, .p-dropdown, .p-textarea, .p-calendar, .p-dialog {
+.p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
     padding-left: 5px;
     width: 250px !important;
     height: 35px;
@@ -61,9 +61,10 @@ textarea{
     
   }
   .p-chip {
-    width: 120px !important;
+    width: 100% !important;
     height: 35px;
     font-size:1rem;
+    justify-content: center;
   }
   .p-calendar-w-btn .p-datepicker-trigger {
       border-top-left-radius: 0;
@@ -71,7 +72,7 @@ textarea{
       height: 30px;
   }
 @media (max-width: 768px) {
-    .p-inputtext, .p-dropdown, .p-textarea, .p-calendar, .p-dialog {
+    .p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
       padding-left: 5px;
       width: 250px !important;
       height: 35px;

@@ -211,5 +211,22 @@ export class PaiService {
     return this._http.post(`http://localhost:3300/chat/initialize-chat`, chat);
   }
 
+  sellCoins(coins: number, price: number) {
+    const payload = {
+      coins,
+      price,
+    };
+    return this._http.post(`http://localhost:3300/sell-coins`, payload);
+  }
+  addFunds(userId: number, amount: number): Observable<any> {
+    const url = `/api/addFunds`; // Replace with your backend API endpoint
+    return this._http.post(url, { userId, amount });
+  }
+
+  // Withdraw Funds method
+  withdrawFunds(userId: number, amount: number): Observable<any> {
+    const url = `/api/withdrawFunds`; // Replace with your backend API endpoint
+    return this._http.post(url, { userId, amount });
+  }
 }
 

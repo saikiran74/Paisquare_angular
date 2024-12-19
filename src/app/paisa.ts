@@ -47,6 +47,8 @@ export class Contactus{
 export class Profile{
     username!:string;
     userId!:number;
+    paisa!:number;
+    pai!:number;
     brandName!:string;
     brandDescription!:string;
     brandTagLine!:string;

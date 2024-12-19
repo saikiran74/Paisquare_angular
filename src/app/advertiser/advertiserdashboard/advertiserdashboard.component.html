@@ -1,102 +1,165 @@
 <div class="container">
-    <div class="row">
-        <div class="col-12 col-sm-6 col-bg-6">
-            <div class="card">
-                <div class="card-header bg-primary" >
-                    <div class="container">
-                        <h3>Balance</h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row container">
-                        <div class="col-4">
-                            <h5 >Money</h5>
-                        </div>
-                        <div class="col-8">
-                            <label title="Money" class="form-control">{{money}}</label>
-                        </div>
-                    </div><br>
-                    <div class="row container">
-                        <div class="col-4">                    
-                            <h5 >Pai's</h5>
-                        </div>
-                        <div class="col-8">
-                            <label title="Pai" class="form-control">{{pai}}</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><br>
-        <div class="col-12 col-sm-6 col-bg-6">
-            <br>
-            <div class="card">
-                <form action="{% url 'pay' user.username %}" method="POST">
-                    <div class="container">
-                        <div class="form-group row row-content">
-                            <br><br>
-                            <div class="col col-8"><br>
-                                <input type="number" class="form-control" placeholder="Enter amount to add in $" id="amount" name="amount" required>
-                            </div>
-                            <div class="col col-8"><br>
-                                <input type="number" class="form-control" placeholder="Enter number of silver coin to add " id="silver" name="silver" required>
-                                
-                            </div>
-                            <div style="text-align: center;">
-                                <input type="submit" class="btn btn-primary" value="Pay">
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                </form>
-            </div>
-            <br><br><br>
-        </div><br><br><br>
-    </div>
-</div>
-<div class="container" >
-    <div class="card">
-        <div class="card-header bg-primary">
-            <h2>All Advertisement transaction details</h2>
-        </div>
-        <div class="card-body">
-            <table class="table table-striped">
-                <thead>
-                  <tr>
-                      <th>ID</th>
-                      <th>Pai</th>
-                      <th>Pai's per click</th>
-                      <th>Paisa</th>
-                      <th>Paisa per click</th>
-                      <th>available Pai's</th>
-                      <th>available paisa</th>
-                      <th>likes count</th>
-                      <th>comments count</th>
-                      <th>visit count</th>
-                      <th>Status</th>
-                      <th>Created on</th>
-                  </tr>
-                </thead>
-                <tbody *ngFor="let ad of advertisement">
-                  <tr>
-                      <td>{{ad.id}}</td>
-                      <td>{{ad.pai}}</td>
-                      <td>{{ad.paiperclick}}</td>
-                      <td>{{ad.paisa}}</td>
-                      <td>{{ad.paisaperclick}}</td>
-                      <td>{{ad.availablepai}}</td>
-                      <td>{{ad.availablepaisa}}</td>
-                      <td>{{ad.likescount}}</td>
-                      <td>{{ad.commentscount}}</td>
-                      <td>{{ad.visitscount}}</td>
-                      <td>{{ ad.availablepai>=0 ? 'Active':'Compeleted'}}</td>
-                      <td>{{ad.opendate | date}}</td>
-                  </tr>
-                </tbody>
-              </table>
-        </div>
-    </div>
-    
+  <span style="font-size: 2rem;">Balance</span>
   </div>
+  <div class="">
+    <div class="grid justify-content-center">
+      
+      <!-- Your Funds Section -->
+      <div class="col-6 md:col-3 lg:col-3">
+        <div class="surface-card shadow-2  border-round">
+          <div class="flex justify-content-between mb-3">
+            <div>
+              <span class="block text-500 font-medium mb-3">Your Funds</span>
+              <div class="block text-900 font-medium text-xl">{{ userData.paisa }}</div>
+            </div>
+            <div class="flex align-items-center justify-content-center bg-purple-100 border-round" style="width:2.5rem;height:2.5rem">
+                <i class="pi pi-money-bill text-purple-500 text-xl"></i>
+            </div>
+          </div>
+          <div class="flex mt-1 justify-content-center" style="padding-bottom: 5px;">
+            <button
+              *ngIf="userData.accountType === 'generalUser'"
+              pButton
+              type="button"
+              label="Withdraw"
+              class="p-button-warning l"
+              (click)="showWithdrawDialog()"
+            ></button>
+            <button
+              *ngIf="userData.accountType === 'advertiser'"
+              pButton
+              type="button"
+              label="Add Funds"
+              class="p-button-success l"
+              (click)="showAddFundsDialog()"
+            ></button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Pai's Left Section -->
+      <div class="col-6 md:col-6 lg:col-3">
+        <div class="surface-card shadow-2  border-round">
+          <div class="flex justify-content-between mb-3">
+            <div>
+              <span class="block text-500 font-medium mb-3">Pai's Left</span>
+              <div class="block text-900 font-medium text-xl">{{ userData.pai }}</div>
+            </div>
+            <div class="flex align-items-center justify-content-center border-round" style="width: 2.5rem; height: 2.5rem">
+              <img src="../../../assets/images/pai_square_without_name.jpg" 
+               style="width: 90%; height: 90%; object-fit: cover;" />
+            </div>
+          </div>
+          <div class="flex gap-1 justify-content-center" style="padding-bottom: 5px;">
+            <button
+                *ngIf="userData.accountType === 'advertiser'"
+                pButton
+                type="button"
+                label="Buy"  disabled="true"
+                class="p-button-primary l"
+                (click)="onBuyCoins()"
+                ></button>
+            <button
+              pButton
+              type="button"
+              label="Sell"
+              class="p-button-success l"
+              (click)="showSellDialog()"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Add funds-->
+  <p-dialog header="Add Funds" [(visible)]="addFundsDialogVisible" [breakpoints]="{ '960px': '75vw' }"
+    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <div class="flex gap-4 align-items-center">
+      <label for="addAmount">Enter Amount to Add (₹)</label>
+      <input pInputText id="addAmount" type="number" [(ngModel)]="addAmount" class="l" placeholder="Enter amount" [min]="1" />
+    </div>
+    <div class="grid col-12 justify-content-end">
+      <button pButton label="Add Funds" class="p-button-success l" (click)="onAddFunds()"  disabled="true"></button>
+    </div>
+  </p-dialog>
+  <p-dialog header="Withdraw Funds" [(visible)]="withdrawDialogVisible" [breakpoints]="{ '960px': '75vw' }"
+    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <div class="flex gap-4">
+      <label for="withdrawAmount">Enter Amount to Withdraw (₹)</label>
+      <input pInputText id="withdrawAmount" type="number" [(ngModel)]="withdrawAmount" class="l" placeholder="Enter amount" [min]="1" />
+    </div>
+    <div class="grid col-12 justify-content-end">
+      <button pButton label="Withdraw Funds" class="p-button-warning l" (click)="onWithdrawFunds()"  disabled="true"></button>
+    </div>
+  </p-dialog>
+  <!-- Sell Coins Dialog -->
+  <p-dialog header="Sell Coins" [(visible)]="sellDialogVisible" [breakpoints]="{ '960px': '75vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <div class="field flex gap-4 align-items-center">
+      <label for="coinAmount">Enter Amount of Coins to Sell</label>
+      <input pInputText id="coinAmount" type="number" [(ngModel)]="sellAmount" class="l" placeholder="Enter number of coins" [min]="1" />
+    </div>
 
-<br><br><br><br>
+    <div class="field mt-3">
+      <label>Choose Price Option</label>
+      <div class="flex gap-4 mt-2">
+        <p-radioButton name="priceOption" value="fixed" [(ngModel)]="priceOption" label="Fixed Price (₹0.9)" (onClick)="updateSellPrice(0.9)"></p-radioButton>
+        <p-radioButton name="priceOption" value="custom" [(ngModel)]="priceOption" label="Custom Price (₹0.5 - ₹0.9)" (onClick)="updateSellPrice()"></p-radioButton>
+      </div>
+    </div>
+
+    <div class="field mt-3" *ngIf="priceOption === 'custom'">
+      <label for="customPrice">Enter Custom Price (₹0.5 - ₹0.9)</label>
+      <input pInputText id="customPrice" type="number" [(ngModel)]="customPrice" class="l" placeholder="Enter price per coin" [min]="0.5" [max]="0.9" (input pInputText)="updateSellPrice()" />
+    </div>
+
+    <div class="mt-3">
+      <p>Price Per Coin: ₹{{ sellPrice }}</p>
+      <p>Total: ₹{{ totalSellPrice }}</p>
+    </div>
+
+    <div class="grid col-12 justify-content-end">
+      <button pButton label="Sell Coins" class="p-button-success l" (click)="onSellCoins()"  disabled="true"></button>
+    </div>
+  </p-dialog>
+
+
+  <br><br>
+  <!-- Advertisement Table -->
+  <span style="font-size: 2rem;">Transactional history</span>
+  <div *ngIf="userData.accountType === 'advertiser'">
+      <p-table [value]="advertisement" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '90rem' }">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>ID</th>
+                  <th>Pai</th>
+                  <th>Pai's/Click</th>
+                  <th>Paisa</th>
+                  <th>Paisa/Click</th>
+                  <th>Available Pai's</th>
+                  <th>Available Paisa</th>
+                  <th>Likes Count</th>
+                  <th>Comments Count</th>
+                  <th>Visit Count</th>
+                  <th>Status</th>
+                  <th>Created On</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-ad>
+              <tr>
+                  <td>{{ ad.id }}</td>
+                  <td>{{ ad.pai }}</td>
+                  <td>{{ ad.paiperclick }}</td>
+                  <td>{{ ad.paisa }}</td>
+                  <td>{{ ad.paisaperclick }}</td>
+                  <td>{{ ad.availablepai }}</td>
+                  <td>{{ ad.availablepaisa }}</td>
+                  <td>{{ ad.likescount }}</td>
+                  <td>{{ ad.commentscount }}</td>
+                  <td>{{ ad.visitscount }}</td>
+                  <td>{{ ad.availablepai >= 0 ? 'Active' : 'Completed' }}</td>
+                  <td>{{ ad.opendate | date }}</td>
+              </tr>
+          </ng-template>
+      </p-table>
+  </div>

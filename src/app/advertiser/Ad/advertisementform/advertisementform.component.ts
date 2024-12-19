@@ -28,10 +28,8 @@ export class AdvertisementformComponent implements OnInit{
     this._service.getUserdata(this._service.userId).subscribe(
       data=>{
         console.log(data)
-        data.forEach((user:any)=>{
-          this.paisa=user.paisa
-          this.pai=user.pai
-        });
+        this.paisa=data.paisa
+        this.pai=data.pai
       },
       error=>{
         console.log("error occured while retreiving the user data!")
