@@ -60,12 +60,23 @@
         <div class="grid" style="padding-top: 5px;">
             @for (profile of profileList; track $index) {
                 <div class="lg:col-4 md:col-3 sm:col-2">
-                    <p-card>
+                    <p-card [style]="{'width':'220px'}">
                         <ng-template pTemplate="body">
-                            <div class="flex justify-content-center algin-content-center">
-                                <div class="flex flex-column">
-                                    <p-avatar [label]="profile.brandname" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
-                                    <label>{{profile.brandname}}</label>
+                            <div >
+                                <div class="flex justify-content-center algin-content-center">
+                                    <div  *ngIf="profile.profileImage; else placeholder"
+                                        class="logo-container">
+                                        <img [src]="'data:image/png;base64,' + profile.profileImage" alt="Logo"
+                                        style="width: 50px; height: 50px;" class="logo">
+                                    </div>
+                                    <ng-template #placeholder>
+                                        <div class="logo-placeholder">
+                                        £
+                                        </div>
+                                    </ng-template>
+                                </div>
+                                <div class="flex justify-content-center algin-content-center">
+                                    <label style="font-size: 2rem;">{{profile.brandName}}</label>
                                 </div>
                             </div>
                         </ng-template>

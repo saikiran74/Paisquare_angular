@@ -133,6 +133,7 @@ export class UseractivitiesComponent implements OnInit{
     this._service.getUserFollowingProfiles(+this.userId).subscribe(
       data => {
         this.profileList = data;
+        console.log(this.profileList)
     },
       error=>{console.log("error occure while retrieving the data!")
     });

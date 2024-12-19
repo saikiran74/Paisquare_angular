@@ -10,8 +10,7 @@
   
 }
 :host ::ng-deep .highlight {
-  color: #043d74;; /* Change the text color to red (or any color you prefer) */
-  font-weight: bold;
+  color: #000000 !important; /* Change the text color to red (or any color you prefer) */
 }
 :host ::ng-deep .p-tree .p-tree-container .p-treenode:focus > .p-treenode-content {
   outline: 0 none;
@@ -32,7 +31,7 @@ a{
   color: #055298; 
 }
 :host ::ng-deep .treechildren:hover {
-  color: rgb(126, 165, 236);
+  color: rgb(0, 0, 0);
 }
 :host ::ng-deep .treechildren:hover .pi {
   color: rgb(236, 126, 218);

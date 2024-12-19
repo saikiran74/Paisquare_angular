@@ -39,7 +39,6 @@ export class ProfileComponent  implements OnInit{
         error=>{
           console.log("error occurred while retrieving the data for userId -")
     });
-    this.likes()
   }
   followerslist: any[] = [];
   userData: any[] = [];
@@ -160,25 +159,5 @@ export class ProfileComponent  implements OnInit{
       return this.profile.following?.length || 0;  // Safely access length
     }
 
-    likes(){
-      this._service.getlikeFromRemote().subscribe(
-        data=>{
-          console.log("Likes recieved -->",data)
-        },
-        error=>{
-          console.log("like error occured")
-        }
-      )
-    }
-    visited(){
-      this._service.getVisitedFromRemote().subscribe(
-        data=>{
-          console.log("visited received",data)
-        },
-        error=>{
-          console.log("visited error occured")
-        }
-      )
-    }
     
 }

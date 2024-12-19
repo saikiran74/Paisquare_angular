@@ -16,6 +16,7 @@ import { AuthService } from '../service/auth-service.service';
 })
 export class NavbarComponent  implements OnInit{
   nodes!: TreeNode[];
+  nodes_which_is_not_in_use!: TreeNode[];
   isMobileView: boolean = false;
   isSidebarVisible: boolean = false;
   constructor(private _service: PaiService,private http: HttpClient, private authService: AuthService,private _router: Router,private _route: ActivatedRoute) {
@@ -39,6 +40,26 @@ export class NavbarComponent  implements OnInit{
         this._router.navigate(['/login']);
       }
       this.nodes = [
+        {
+            key: '0',
+            expanded: true,
+            label: 'Pai Square',
+            children: [
+              { key: '0-0', label: 'Home page', data: '/advertiser', type: 'url',icon:'pi pi-home'},
+              { key: '0-1', label: 'Advertise', data: 'advertiser/advertise', type: 'url',icon:'pi pi-plus' },
+              { key: '0-2', label: 'Your activities', data: 'user/useractivities', type: 'url',icon:'pi pi-chart-line'},
+              { key: '0-3', label: 'Dashboard', data: 'advertiser/advertiserdashboard', type: 'url',icon:'pi pi-home' },
+              { key: '0-4', label: 'Report', data: 'advertiser/advertiserreport', type: 'url' ,icon:'pi pi-chart-bar'},
+              { key: '0-5', label: 'My Advertisment', data: '/myadvertisement', type: 'url',icon:'pi pi-folder' },
+              { key: '0-6', label: 'Profile', data: 'home/profile/:userId', type: 'url',icon:'pi pi-home'},
+              { key: '0-7', label: 'Update profile', data: 'home/profileupdate', type: 'url',icon:'pi pi-chart-line'},
+              { key: '0-8', label: 'Chat', data: 'user/chat', type: 'url',icon:'pi pi-id-card'},
+              { key: '0-9', label: 'logout', data: 'logout', type: 'url',icon:'pi pi-sign-out'},
+          ]
+        },
+    ];
+    /* Not using now for future purpose*/
+      this.nodes_which_is_not_in_use = [
           {
               key: '0',
               expanded: true,
@@ -80,6 +101,7 @@ export class NavbarComponent  implements OnInit{
   }
   componentViewMethod(val:String){
     this.selectedNode = val;
+    console.log("this.selectedNode->",this.selectedNode,"val-->",val)
     if (val.includes('myadvertisement')) {
       //this._router.navigate([val.replace(':userId', this.userId)]);
       this._router.navigate(['/advertiser/myadvertisement'], {

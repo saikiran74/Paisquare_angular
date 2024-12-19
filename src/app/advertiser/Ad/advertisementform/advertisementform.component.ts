@@ -20,7 +20,7 @@ export class AdvertisementformComponent implements OnInit{
   ];
   selectedUrlType = this.urlTypes[0].value;
   ngOnInit(): void {
-    this.hashtags = ['saikira']; // Set initial value
+    this.hashtags = []; // Set initial value
     this.cdr.detectChanges();
     this.adId = this.route.snapshot.paramMap.get('id');
     if (this.adId) {

@@ -10,9 +10,9 @@ export class User {
 }
 
 export class Advertise{
-    brandname:string='Pai Square ADs';
-    description:string='Pai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADsPai Square ADs';
-    url:string='https://chatgpt.com/';
+    brandname:string='';
+    description:string='';
+    url:string='';
     location:string='Ramula Banda ';
     backGroundColor:string='';
     gender!:string;

@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
   successMessage:boolean=false;
   loginFormGroup(): FormGroup {
     return new FormGroup({
-      email: new FormControl('bobbilisaikiran1999@gmail.com', [Validators.required,Validators.email]),
-      password: new FormControl('Bobbili@123', Validators.required),
+      email: new FormControl('', [Validators.required,Validators.email]),
+      password: new FormControl('', Validators.required),
     });
   }
   ngOnInit() {

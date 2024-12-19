@@ -46,7 +46,7 @@
                     <ng-template let-node pTemplate="url">
                         <a (click)="componentViewMethod(node.data)" rel="noopener noreferrer" 
                         class="treechildren"
-                         [ngClass]="{'highlight': selectedNode === node.data}">{{ node.label }}</a>
+                         [ngClass]="{'highlight': selectedNode === node.data}">{{ node.label}}</a>
                     </ng-template>
                     <ng-template let-node pTemplate="default">
                         <b [ngClass]="{'highlight': selectedNode === node.label}">{{ node.label }}</b>
