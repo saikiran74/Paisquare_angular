@@ -3,24 +3,20 @@
 @import '~primeng/resources/themes/saga-blue/theme.css';
 @import '~primeng/resources/primeng.min.css';
 
-:host ::ng-deep .p-tree .p-tree-container ol, ul {
-    padding-left: 0rem !important;
-}
+
 a{
    cursor: pointer;
 }
-.p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
-    margin: 0;
-    width: 250px;
-}
+
 textarea{
     width: 250px;
     resize: vertical;
 }
 .p-inputtext {
     box-shadow: none;
-    border-width: 2px;
+    border-width: 1px;
     border-color:#89c0eb;
+    font-size:1rem;
 }
 .text-danger{
     color: #FF0000;
@@ -32,7 +28,8 @@ textarea{
 }
 
 .goldColor{
-    color: #F8CF40
+    color: #F8CF40;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .active-chip {
     background-color: lightgray !important;
@@ -41,10 +38,10 @@ textarea{
 }
 
 .inactive-chip {
-background-color: #f1f1f1;
-color: #333;
-border: 1px solid #ccc;
-  }
+    background-color: #f1f1f1;
+    color: #333;
+    border: 1px solid #ccc;
+}
 .p-chip {
     padding-left: 7px;
     padding-right: 7px;
@@ -57,3 +54,43 @@ border: 1px solid #ccc;
     padding-left: 5px;
     padding-right: 5px;
 }
+.p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
+    padding-left: 5px;
+    width: 250px !important;
+    height: 35px;
+    font-size:1rem;
+    
+  }
+  .p-chip {
+    width: 90% !important;
+    height: 25px;
+    font-size:1rem;
+    justify-content: center;
+  }
+  .p-calendar-w-btn .p-datepicker-trigger {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      height: 35px;
+  }
+@media (max-width: 768px) {
+    .p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
+      padding-left: 5px;
+      width: 250px !important;
+      height: 35px;
+      font-size:1rem;
+      
+    }
+    .p-chip {
+        width: 100% !important;
+        height: 35px;
+        font-size: 1rem;
+        justify-content: center;
+    }
+
+    .p-calendar-w-btn .p-datepicker-trigger {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        height: 35px;
+        padding-left: 0px;
+    }
+  }

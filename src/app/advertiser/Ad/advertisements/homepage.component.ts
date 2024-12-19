@@ -79,13 +79,11 @@ export class HomepageComponent implements OnInit {
     this.fetchUserData();
   }
   fetchUserData(){
-    this._service.getUserdata(+this.userId).subscribe(
+    this._service.getProfileList(+this.userId).subscribe(
       data =>{
         this.userData=data;
-        data.forEach((user: any) => {
-          this.followerslist=user.following;
-          this.blockedlist=user.blocked;
-        });
+        this.followerslist=data.following;
+        this.blockedlist=data.blocked;
       },
       error=>{
         console.log("error occured in followerslist")
@@ -184,6 +182,7 @@ export class HomepageComponent implements OnInit {
     this._service.postfavouriteAdvertisement(this.favouriteobj,this._service.userId,advertisementid).subscribe(
       data=>{
         console.log("advertisement added favourites successfully")
+        
         this.fetchData.emit();
       },
       error=>{
@@ -198,6 +197,7 @@ export class HomepageComponent implements OnInit {
       data=>{
         console.log("follower updated");
         console.log("fetching user data");
+        this.fetchData.emit();
         this.fetchUserData()
         //this._router.navigate(['homepage'])
       },
@@ -210,12 +210,18 @@ export class HomepageComponent implements OnInit {
     this.commentobj.userid=this.userId;
     this.commentobj.advertisementid=val;
     this.commentobj.adid=val;
-    //console.log("----",this.commentobj);
+    if(this.commentobj.comment.length<1){
+        const commentErrorMessage="Please enter comment"
+    }
+    console.log("--comment--",this.commentobj);
     this._service.CommentsFromRemote(this.commentobj,val,+this.userId).subscribe(
       data=>{
       //console.log("Response received");
       this.fetchData.emit();
       //this._router.navigate(['homepage'])
+      this.commentlist(val)
+      this.commentobj= new Comments();
+      this.fetchadvertisement();
     },
       error=>{console.log("Error occured");
     }
@@ -223,14 +229,15 @@ export class HomepageComponent implements OnInit {
   }
   commentlist(advertisementid:Number){
     if (this.currentOpenId === advertisementid) {
-    this.currentOpenId = null;
-  } else {
-    this.currentOpenId = advertisementid;
-  }
+      this.currentOpenId = null;
+    } else {
+      this.currentOpenId = advertisementid;
+    }
     this.comments = [];
     this._service.CommentsListFromRemote(advertisementid).subscribe(
       data=>{
         this.comments=data;
+        console.log("comments",this.comments)
         //this._router.navigate(['alladvertisements'])
     },
       error=>{console.log("Error occured");
@@ -270,7 +277,8 @@ export class HomepageComponent implements OnInit {
   }
 
   editAdvertisement(advertisementid:Number){
-
+    console.log("in editAdvertisement",advertisementid)
+    this._router.navigate([`/advertiser/edit/${advertisementid}`]);
   }
   showReportDialog:boolean=false;
   advertisementId:number=0;

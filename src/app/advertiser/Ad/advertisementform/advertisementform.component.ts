@@ -1,34 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { PaiService } from '../../../paisa.service';
+import { ValidationErrors,Validator,FormGroup,FormControl, Validators,ValidatorFn, AbstractControl } from '@angular/forms';
+import { ChipsModule } from 'primeng/chips';
 import { Router } from '@angular/router';
 import { Advertise } from '../../../paisa';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-advertisementform',
   templateUrl: './advertisementform.component.html',
   styleUrls: ['./advertisementform.component.css']
 })
 export class AdvertisementformComponent implements OnInit{
-  
+  adId: string | null = null;
+  constructor(private _service: PaiService, private _router: Router,private route: ActivatedRoute,private cdr: ChangeDetectorRef){};
+  isEditAdvertisement:boolean=false;
+  urlTypes = [
+    { name: 'Web URL', value: 'web', icon: 'pi pi-globe' },
+    { name: 'WhatsApp', value: 'whatsapp', icon: 'pi pi-whatsapp' }
+  ];
+  selectedUrlType = this.urlTypes[0].value;
   ngOnInit(): void {
+    this.hashtags = ['saikira']; // Set initial value
+    this.cdr.detectChanges();
+    this.adId = this.route.snapshot.paramMap.get('id');
+    if (this.adId) {
+      this.isEditAdvertisement=true;
+      this.loadAdDetails(this.adId);
+    }
     this._service.getUserdata(this._service.userId).subscribe(
       data=>{
         console.log(data)
-        data.forEach((user:any)=>{
-          this.paisa=user.paisa
-          this.pai=user.pai
-        });
+        this.paisa=data.paisa
+        this.pai=data.pai
       },
       error=>{
         console.log("error occured while retreiving the user data!")
       }
     );
   }
-  /* todo included p-clips add respective code for hastages 
-  add hashTagSeparatorExp in html*/
   advertise= new Advertise();
   hashtags: string[] = [];  // Assume these are arrays
   pincodes: string[] = []; 
   paiChecked: boolean = false;
+  freeTypeChecked: boolean = false;
   paisaChecked: boolean = false;
   editorConfig = {
     // Configuration options
@@ -50,14 +64,10 @@ export class AdvertisementformComponent implements OnInit{
       this.adBackground = val;
       this.adBackgroundSelected=this.backgroundMap[val] || '';
   }
-  editorContent="Hi"
   message=''
-  text="www";
-  value='wwwwwwwwwwwwwwwwwwwwwww'
   public editorData: string = '';
   
   hashTagSeparatorExp: RegExp = /,| /;
-  constructor(private _service: PaiService, private _router: Router){};
   onEditorChange(event: any) {
     this.editorData = event;
   }
@@ -66,8 +76,10 @@ export class AdvertisementformComponent implements OnInit{
   
   paiCheckbox(){
     this.paiChecked=!this.paiChecked
-    if(!this.paiChecked)
+    if(!this.paiChecked){
       this.paiChecked = true;
+      this.advertise.advertisement_type="pai";
+    }
     else
       this.paiChecked = false;
       this.advertise.pai=0;
@@ -77,16 +89,39 @@ export class AdvertisementformComponent implements OnInit{
   paisaCheckbox(){
     console.log("this.paisaChecked-",this.paisaChecked)
     this.paisaChecked=!this.paisaChecked
-    if(!this.paisaChecked)
+    if(!this.paisaChecked){
       this.paisaChecked = true;
+      this.advertise.advertisement_type="paisa";
+    }
     else
       this.paisaChecked = false;
       this.advertise.paisa=0;
       this.advertise.paisaperclick=0;
     console.log("this.paisaChecked+",this.paisaChecked)
   }
+  freeTypeCheckbox(){
+    console.log("this.paisaChecked-",this.freeTypeChecked)
+    this.freeTypeChecked=!this.freeTypeChecked
+    if(!this.freeTypeChecked){
+      this.freeTypeChecked = true;
+      this.advertise.advertisement_type="free";
+    }
+    else
+      this.freeTypeChecked = false;
+    console.log("this.paisaChecked+",this.freeTypeChecked)
+  }
+  onUrlTypeChange(event: any) {
+    console.log("Selected URL Type:", event.value);
+    this.selectedUrlType = event.value;
+  }
   advertisementForm(){
+    console.log(this.advertise.url.startsWith("https://wa.me/"))
+    if(this.selectedUrlType=='whatsapp' && !this.advertise.url.startsWith("https://wa.me/")){
+      this.advertise.url="https://wa.me/"+this.advertise.url
+    }
+    console.log("this.advertise.url",this.advertise.url)
     this.message=''
+    console.log("selectedUrlType",this.selectedUrlType)
     this.advertise.backGroundColor = this.adBackgroundSelected;
     this.advertise.status='Active';
     if(this.advertise.brandname==null || this.advertise.brandname==''){
@@ -101,22 +136,27 @@ export class AdvertisementformComponent implements OnInit{
     else if(this.advertise.url==null || this.advertise.url==''){
       this.message="Please enter brand Website url"
     }
-    else if(!this.advertise.url.startsWith('https://')){
+    else if(!this.advertise.url.startsWith('https://') ){
       this.message="Please enter valid url starts with https://.."
+    } else if (this.selectedUrlType=="whatsapp" && !this.mobileNumberValidator(this.advertise.url)){
+      this.message="Please check whatsapp number"
     }
-    else if(!(this.paiChecked || this.paisaChecked)){
+    else if(!(this.paiChecked || this.paisaChecked) && !this.isEditAdvertisement && !this.freeTypeChecked){
       this.message="Please select advertisement type";
     } else if(this.pinCodeValidator(this.pincodes)){
-      this.message="Enter 8 digit pin codes only"
+      this.message="Enter 6 digit pin codes only"
     }
-    else if(((this.paiChecked && this.validPai()) || (this.paisaChecked && this.validPaisa()))){
+    else if(!this.isEditAdvertisement && ((this.paiChecked && this.validPai()) || (this.paisaChecked && this.validPaisa()))){
       //Correcting
     } else if (!this.advertise.backGroundColor) {
       this.message = "Please select a background color";
       return;
     } 
     else{
-      
+      if(this.selectedUrlType=='whatsapp'){
+        this.advertise.url="https:wa.me/"+this.advertise.url
+      }
+      console.log("this.advertise.url",this.advertise.url)
       this.advertise.hashtags = this.hashtags.join(', ');
       this.advertise.pincodes = this.pincodes.join(', '); 
       this._service.advertiseFromRemote(this.advertise,this._service.userId).subscribe(
@@ -216,5 +256,45 @@ export class AdvertisementformComponent implements OnInit{
       else{
         return false;
       }
+  }
+  loadAdDetails(adId: string) {
+    this._service.getIDAdvertisements(+adId).subscribe(
+      data => {
+        this.advertise = data;
+        console.log("Advertisement ",this.advertise.hashtags.split(','));
+        this.hashtags = this.advertise.hashtags && this.advertise.hashtags.trim() 
+          ? this.advertise.hashtags.split(',').map(pincode => pincode.trim()).filter(pincode => pincode) 
+          : [];
+        this.pincodes = this.advertise.pincodes && this.advertise.pincodes.trim() 
+          ? this.advertise.pincodes.split(',').map(pincode => pincode.trim()).filter(pincode => pincode) 
+          : [];
+
+        console.log("this.advertise.pincodes",this.advertise.pincodes.length,this.pincodes)
+      },
+        error=>{console.log("error occure while retrieving the data for ID -",adId)
+    });
+    console.log(`Editing ad with ID: ${adId}`);
+  }
+  mobileNumberValidator(number:any) {
+      const isValid = /^\d{10}$/.test(number.replace('https://wa.me/', ''));
+      console.log("isValid", isValid);
+      console.log("number", number.replace('https://wa.me/', ''));
+      return isValid;
+  }
+  onAddChip(event: any): void {
+    if (this.hashtags.length > 5) {
+        this.hashtags.pop(); // Prevent adding more than 5 items
+        alert('You can only add up to 5 hashtags.');
+    }
+    this.cdr.detectChanges();
+
+  }
+
+  onRemoveChip(event: any): void {
+      // Optionally handle any logic when a chip is removed
+      console.log('Removed:', event);
+  }
+  removeChip(index: number): void {
+    this.hashtags.splice(index, 1);
   }
 }

@@ -6,6 +6,8 @@ h2{
 }
 li{
     font-size: x-large;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 .advertiser{ 
     position: relative;
@@ -20,10 +22,7 @@ li{
 .footer{
     position: relative;
 }
-.col-12 {
-    flex: 0 0 100%;
-    width: 100%;
-}
+  
 .contactunderline h1 {
     position: relative;
     padding-bottom: .4rem;
@@ -42,9 +41,10 @@ li{
     top: 3%;
     left: 8%;
     color: black;  
+    width: 90%; 
 }
 .tab-header{
-    margin-top: 0px;
+    margin-top: -15px;
     margin-bottom: 0px;
     font-size: 3.5em;
 }
@@ -63,8 +63,14 @@ li{
 .responsive-image {
     width: 100%;
     height: 96vh;
-  }
-  .rightimage1 {
+    object-fit: cover;
+}
+.whoCanAdvertiserCard{
+    width: 400px;
+    height: 500px;
+}
+
+.rightimage1 {
     height:300px;
     width: 350px;
     display: block;
@@ -104,10 +110,7 @@ li{
     color: black;
     font-family: Arial, Helvetica, sans-serif;
 }
-.p-card{
-     width: 500px;
-     height: 400px;
-}
+
 .servicesIcons{
     margin-left: 25px;
     margin-top: 15px;
@@ -124,6 +127,10 @@ li{
 label{
     color: black;
 }
+:host ::ng-deep .p-card{
+    width: 400px;
+    height: 500px;
+}
 :host ::ng-deep .p-card .p-field {
     margin-bottom: 1.5rem;
 }
@@ -131,4 +138,38 @@ label{
 :host ::ng-deep .p-card .p-field label {
     display: block;
     margin-bottom: 0.5rem;
+}
+.infoText{
+    font: bold;
+    font-size: 1rem;
+}
+@media (max-width: 768px) {
+    .responsive-image {
+        width: 100%;
+        height: 80vh;
+        object-fit: cover;
+    }
+    .responsive-image-Contactus {
+        width: 100%;
+        height: 87vh;
+        object-fit: cover;
+    }
+    :host ::ng-deep .p-card{
+        margin-top: 10px;
+        width: 360px;
+        height: 500px;
+        margin-left: 40px;
+    }
+    .tab-header{
+        margin-top: -15px;
+        margin-bottom: 0px;
+        font-size: 2rem;
+    }
+    .infoText{
+        font: bold;
+        margin-top: 0px;
+        margin-bottom: 2px;
+        font-size: 1rem;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 }

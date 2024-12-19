@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, HostListener} from '@angular/core';
 import { Router } from '@angular/router';
 import { PaiService } from '../../paisa.service';
 import { Contactus } from '../../paisa';
@@ -14,6 +14,20 @@ border: any;
   constructor() { }
 
   ngOnInit(): void {
+    this.checkViewport();
+  }
+  isMobileView:boolean=false;
+  showSearchBox=false
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+      this.checkViewport();
+  }
+  checkViewport() {
+    this.isMobileView = window.innerWidth <= 768;
+    console.log("this.isMobileView ",this.isMobileView,window.innerWidth)
+    if(this.isMobileView){
+      this.showSearchBox=false;
+    }
   }
 }
 

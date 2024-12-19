@@ -2,59 +2,87 @@
     <div class="container">
         <div class="form">
             <form #loginform="ngForm" (ngSubmit)="advertisementForm()" class="form container">
-                
-
                 <div class="grid">
-                    <div class="md:col-6 sm:col-6">
+                    <div class="col-12 col-12 md:col-6 sm:col-6">
                         <label for="adhead">Brand name</label>
                         <div>
                             <input pInputText type="text" class="form-control"  id="adhead" name="header" placeholder="Enter brand or website name" [(ngModel)]="advertise.brandname" required><br>
                         </div>
                     </div>
-                    <div  class="md:col-6 sm:col-6">
+                    <div  class="col-12 col-12 md:col-6 sm:col-6">
                         <label for="adhead">Url</label>
-                        <div>
-                            <input pInputText  type="text" class="form-control" id="adhead" name="url" placeholder="Paste your URL" [(ngModel)]="advertise.url"><br>
-                        </div>
+                        <div class="p-inputgroup">
+                            <!-- Dropdown on the left -->
+                            <span class="p-inputgroup-addon">
+                              <p-dropdown 
+                                [options]="urlTypes" 
+                                [(ngModel)]="selectedUrlType"
+                                (onChange)="onUrlTypeChange($event)" 
+                                class="small-dropdown" 
+                                placeholder="Select Type" name="urldropdown"
+                                [style]="{'width': '70px'}">
+                          
+                                <!-- Template for dropdown options -->
+                                <ng-template let-item pTemplate="item">
+                                  <i [ngClass]="item.icon" style="font-size: 1.2rem; margin-right: 5px;"></i>
+                                </ng-template>
+                          
+                                <!-- Template for selected value -->
+                                <ng-template pTemplate="selectedItem" let-selected>
+                                    <!-- Display the selected icon, fall back to the first item if not selected -->
+                                    <i [ngClass]="selected?.icon || urlTypes[0].icon" style="font-size: 1.2rem;"></i>
+                                    {{ selected?.name || urlTypes[0].name }}
+                                </ng-template>
+                              </p-dropdown>
+                            </span>
+                          
+                            <!-- Input Field -->
+                            <input
+                              pInputText name="url"
+                              type="text"  style="margin-left: 20px; width: 150px !important;"
+                              placeholder="Paste your URL" 
+                              [(ngModel)]="advertise.url" />
+                          </div>
                     </div>
+                    
                 </div><br>
                 <div class="grid">
                     <label for="adhead" class="col-12">Description</label>
                     <div class="col-12">
-                        <p-editor [style]="{'height':'320px'}" placeholder="Add description" name="description" [(ngModel)]="advertise.description"></p-editor><br><br>
+                        <p-editor [style]="{'height':'320px','font-size': '1rem'}" placeholder="Add description" name="description" [(ngModel)]="advertise.description"></p-editor><br><br>
                     </div>
                 </div>
                 <div class="grid">
-                    <div class="col-3">
+                    <div class="col-4">
                         <label>Enable Location</label>
                     </div>
-                    <div class="col-9">
+                    <div class="col-8">
                         <!-- Toggle Button to Enable/Disable Location -->
                          <div>
-                            <p-toggleButton 
-                                onLabel="On" 
+                            <p-toggleButton
+                                onLabel="On" width="10px" height="10px"
                                 offLabel="Off"
                                 (onChange)="onLocationToggle($event)">
                             </p-toggleButton>
                          </div>
                          <br>
-                        @if(locationEnabled){
-                            <label for="Location" class="col-12">Enter Location</label>
-                            <div class="col-12">
-                                <textarea  pInputTextarea rows="5"
-                                style="width: 90%;" type="text" class="form-control" id="Location" name="Location"
-                                placeholder="Type here your location to Display on ad"
-                                 [(ngModel)]="advertise.location"></textarea><br>
-                            </div>
-                        }
                     </div>
-                </div><br>
-                
+                </div>
+                @if(locationEnabled){
+                    <div class="grid">
+                        <label class="col-12" for="Location" >Enter Location</label>
+                        <div class="col-12">
+                            <textarea  pInputTextarea [style]="{'width':'250px'}" rows="5"
+                            style="height: 120px;" type="text" class="form-control" id="Location" name="Location"
+                            placeholder="Type here your location to Display on ad"
+                             [(ngModel)]="advertise.location"></textarea><br>
+                        </div>
+                    </div>
+                } <br>
                 
                 <div class="grid">
-                    <div class="col-12 md:col-3 sm:col-3">
+                    <div class="col-6 md:col-3 sm:col-6">
                         <div class="relative backgroundselection" 
-                            
                             [ngStyle]="{'background': background1, 'color': 'white'}">
                             <i class="pi pi-plus absolute top-0 right-0 m-2" 
                             [ngClass]="{'pi-check': adBackground === 'background1', 
@@ -62,7 +90,7 @@
                             (click)="onImageSelect('background1')"></i>
                         </div>
                     </div>
-                    <div class="col-12 md:col-3 sm:col-3">
+                    <div class="col-6 md:col-3 sm:col-6">
                         <div class="relative backgroundselection" 
                             
                             [ngStyle]="{'background': background2, 'color': 'white'}">
@@ -72,7 +100,7 @@
                             (click)="onImageSelect('background2')"></i>
                         </div>
                     </div>
-                    <div class="col-12 md:col-3 sm:col-3">
+                    <div class="col-6 md:col-3 sm:col-6">
                         <div class="relative backgroundselection" 
                             
                             [ngStyle]="{'background': background3, 'color': 'white'}">
@@ -82,7 +110,7 @@
                             (click)="onImageSelect('background3')"></i>
                         </div>
                     </div>
-                    <div class="col-12 md:col-3 sm:col-3">
+                    <div class="col-6 md:col-3 sm:col-6">
                         <div class="relative backgroundselection" 
                             [ngStyle]="{'background': background4, 'color': 'white'}">
                             
@@ -100,7 +128,7 @@
                 </div>
                 <label style="color: red;">{{showPreviewAdMethodErrorMethod}}</label><br><br>
                 <div class="grid">
-                    <label for="adgender" class="md:col-4 sm:col-4 col-form-label">Gender</label>
+                    <label for="adgender" class="col-12 md:col-4 sm:col-4 col-form-label">Gender</label>
                     <div class="md:col-8 sm:col-8">
                         <div class="flex align-items-center">
                             <div class="col-3 p-field-radiobutton">
@@ -118,97 +146,141 @@
                         </div>
                     </div>
                 </div>
+                
+                
                 <div class="grid">
-                    <div class="md:col-6 sm:col-6">
+                    <div class="col-12 col-12 md:col-6 sm:col-6">
+                        
                         <label for="adhead">Enter hashtags</label>
+                        
                         <div>
-                           <p-chips [(ngModel)]="hashtags" separator="," placeholder="Maximum 5 items" name="hashtags"></p-chips>
+                          <p-chips 
+                              [(ngModel)]="hashtags" 
+                              separator="," 
+                              placeholder="Enter up to 5 hashtags" 
+                              (onAdd)="onAddChip($event)"  name="hashtagInput"
+                              (onRemove)="onRemoveChip($event)">
+                          </p-chips>
+                          <p *ngIf="hashtags.length >= 5" class="text-danger" style="font-size: 1rem;">
+                            You can only add up to 5 hashtags.
+                          </p>
                         </div>
-                    </div>
-                    <div class="md:col-6 sm:col-6">
+                        <div style="display: flex; padding: 5px; padding-left: 0px;" class="gap-2 justify-content-start align-items-center">
+                            <p-chip 
+                                *ngFor="let chip of hashtags | slice:0:5; let i = index" 
+                                [style]="{'display':'flex', 'margin-right': '5px', 'margin-bottom': '5px'}" 
+                                [label]="chip" 
+                                [removable]="true" 
+                                (onRemove)="removeChip(i)">
+                            </p-chip>
+                           
+                        </div>
+                      </div>
+                    <div class="col-12 col-12 md:col-6 sm:col-6">
                         <label for="adcategory">Category</label>
                         <div>
-                            <p-dropdown optionLabel="name" placeholder="Select food Category" name="Category"></p-dropdown>
+                            <p-dropdown [style]="{'width':'250px'}" optionLabel="name" placeholder="Select Category" name="Category"></p-dropdown>
                         </div>
                     </div>
                 </div><br>
                 <div class="grid">
-                    <div class="md:col-6 sm:col-6">
+                    <div class="col-12 md:col-6 sm:col-6">
                         <label for="adhead">District</label>
                         <div>
                             <input pInputText  type="text" class="form-control" id="adsilver" name="District" placeholder="Target District" [(ngModel)]="advertise.district"><br>
                         </div>
                     </div>
-                    <div class="md:col-6 sm:col:6">
+                    <div class="col-12 md:col-6 sm:col:6">
                         <label for="adhead">State</label>
                         <div>
                             <input pInputText  type="text" class="form-control" id="adsilver" name="State" placeholder="Target State" [(ngModel)]="advertise.state"><br>
                         </div>
                     </div>
-                    <div class="md:col-6 sm:col-6">
+                    <div class="col-12 md:col-6 sm:col-6">
                         <label for="adhead">Country</label>
                         <div>
                             <input pInputText  type="text" class="form-control" id="adsilver" name="Country" placeholder="Target Country" [(ngModel)]="advertise.country"><br>
                         </div>
                     </div>
-                    <div class="md:col-6 sm:col-6">
+                    <div class="col-12 md:col-6 sm:col-6">
                         <label for="adhead">Enter Location PinCodes</label>
                         <div>
-                           <p-chips [(ngModel)]="pincodes" separator="," placeholder="Enter location pincode where your wants to publish" name="pincodes"></p-chips>
+                           <p-chips [(ngModel)]="pincodes" separator="," name="hashtagInput"
+                            placeholder="Enter location pincode where your wants to publish" name="pincodes"></p-chips>
+                        </div>
+                        <div style="display: flex; padding: 5px; padding-left: 0px;" class="gap-2 justify-content-start align-items-center">
+                            <p-chip 
+                                *ngFor="let chip of pincodes | slice:0:5; let i = index" 
+                                [style]="{'display':'flex', 'margin-right': '5px', 'margin-bottom': '5px'}" 
+                                [label]="chip" 
+                                [removable]="true" 
+                                (onRemove)="removeChip(i)">
+                            </p-chip>
                         </div>
                     </div>
                 </div>
                 <div class="grid">
-                    <div class="md:col-6 sm:col-6">
+                    <div class="col-12 md:col-6 sm:col-6">
                         <label for="adage">Age</label>
                         <div>
                             <input pInputText type="number" class="form-control" id="adage" name="age" placeholder="Enter age"><br>
                         </div>
                     </div>
-                    <div class="md:col-6 sm:col-6">
+                    <div class="col-12 md:col-6 sm:col-6">
                         <label for="adlanguage">Language</label>
                         <div>
                             <input pInputText type="text" class="form-control" id="adlanguage" name="Language" placeholder="Enter Language"><br>
                         </div>
                     </div>
                 </div><br>
-                <div class="grid">
-                    <label for="adhead" class="md:col-4 sm:col-4 col-form-label">Select Advertisement Type</label>
-                    <div class="md:col-3 sm:col-4">
-                        <input type="checkbox" id="paiCheckbox" [(ngModel)]="paiChecked" (change)="paiCheckbox()" name="paiChecked"> Pai's
+                @if(!isEditAdvertisement){
+                    <div class="grid">
+                        <label for="adhead" class="col-12 md:col-4 sm:col-4 col-form-label">Advertisement Type</label>
+                        <div class="col-12 md:col-8 sm:col-8 ">
+                            <div class="grid">
+                                <div class="col-3 md:col-3 sm:col-3">
+                                    <input type="checkbox" id="paiCheckbox" [(ngModel)]="paiChecked" (change)="paiCheckbox()" name="paiChecked"> Pai's
+                                </div>
+                                <div class="col-3 md:col-3 sm:col-3">
+                                    <input type="checkbox" id="paisaCheckbox" [(ngModel)]="paisaChecked" (change)="paisaCheckbox()" name="paisaChecked"> Paisa
+                                </div>
+                                <div class="col-3 md:col-3 sm:col-3">
+                                    <input type="checkbox" id="freeTypeCheckbox" [(ngModel)]="freeTypeChecked" (change)="freeTypeCheckbox()" name="paisaChecked"> Free
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
-                    <div class="md:col-3 sm:col-4">
-                        <input type="checkbox" id="paisaCheckbox" [(ngModel)]="paisaChecked" (change)="paisaCheckbox()" name="paisaChecked"> Paisa(Money)
-                    </div>
-                </div>
-                <div *ngIf="paiChecked" class="grid">
-                    <div class="md:col-6 sm:col-6">
-                        <label for="adhead">Pai</label>
-                        <div>
-                            <input pInputText type="number" class="form-control" id="adsilver" name="silver" placeholder="Enter total Pai's" [(ngModel)]="advertise.pai"><br>
+                    <div *ngIf="paiChecked" class="grid">
+                        <div class="col-12 md:col-6 sm:col-6">
+                            <label for="adhead">Pai</label>
+                            <div>
+                                <input pInputText type="number" class="form-control" id="adsilver" name="silver" placeholder="Enter total Pai's" [(ngModel)]="advertise.pai"><br>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 sm:col-6">
+                            <label for="adhead">Rate per Click</label>
+                            <div>
+                                <input pInputText type="number" class="form-control" id="adsilver" name="silverclick" placeholder="Enter Pai's per click" [(ngModel)]="advertise.paiperclick"><br>
+                            </div>
+                        </div> 
+                    </div>   
+                    <div *ngIf="paisaChecked" class="grid">
+                        <div class="col-12 md:col-6 sm:col-6">
+                            <label for="adhead">Paisa</label>
+                            <div>
+                                <input pInputText type="number" class="form-control" id="admoney" name="money" placeholder="Enter money" [(ngModel)]="advertise.paisa"><br><br>
+                            </div>
+                        </div>
+                        <div  class="col-12 md:col-6 sm:col-6">
+                            <label for="adhead">Rate Per Click</label>
+                            <div>
+                                <input pInputText type="number" class="form-control" id="admoney" name="moneyclick" placeholder="Enter amount per click" [(ngModel)]="advertise.paisaperclick"><br>
+                            </div>
                         </div>
                     </div>
-                    <div class="md:col-6 sm:col-6">
-                        <label for="adhead">Rate per Click</label>
-                        <div>
-                            <input pInputText type="number" class="form-control" id="adsilver" name="silverclick" placeholder="Enter Pai's per click" [(ngModel)]="advertise.paiperclick"><br>
-                        </div>
-                    </div> 
-                </div>   
-                <div *ngIf="paisaChecked" class="grid">
-                    <div class="md:col-6 sm:col-6">
-                        <label for="adhead">Paisa</label>
-                        <div>
-                            <input pInputText type="number" class="form-control" id="admoney" name="money" placeholder="Enter money" [(ngModel)]="advertise.paisa"><br><br>
-                        </div>
-                    </div>
-                    <div  class="md:col-6 sm:col-6">
-                        <label for="adhead">Rate Per Click</label>
-                        <div>
-                            <input pInputText type="number" class="form-control" id="admoney" name="moneyclick" placeholder="Enter amount per click" [(ngModel)]="advertise.paisaperclick"><br>
-                        </div>
-                    </div>
-                </div>
+                }
+                
                 <h3 class="text-danger">{{message}}</h3>
                 <div class="col-12">
                     <div class="flex justify-content-center align-content-center">

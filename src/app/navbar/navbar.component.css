@@ -1,22 +1,48 @@
+
 :host ::ng-deep .p-tree {
-  border: 1px solid #dee2e6;
+  border: 1px solid #000000;
   background: #C6E6F1;
-  color: #055298;
+  color: #056e98;
   padding: 0rem;
+  outline: none; 
+  border: none;
+  background: transparent; 
+  
 }
+:host ::ng-deep .highlight {
+  color: #043d74;; /* Change the text color to red (or any color you prefer) */
+  font-weight: bold;
+}
+:host ::ng-deep .p-tree .p-tree-container .p-treenode:focus > .p-treenode-content {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 0rem #ffffff;
+}
+
+
 a{
   cursor: pointer;
   text-decoration: none;
 }
 
 :host ::ng-deep .p-tree .p-treenode-children {
-  padding: 0 0 0 0rem;
+  padding: 0 !important;
 }
-
-:host ::ng-deep .p-toolbar {
+:host ::ng-deep .treechildren {
+  color: #055298; 
+}
+:host ::ng-deep .treechildren:hover {
+  color: rgb(126, 165, 236);
+}
+:host ::ng-deep .treechildren:hover .pi {
+  color: rgb(236, 126, 218);
+}
+:host ::ng-deep .p-toolbar{
   background: #035493;
   border: 1px solid #035493;
-  padding: 0.1rem;
+  padding: 0rem;
+  margin-top: -8px;
+  margin-bottom: -8px;
   border-radius: 3px;
   gap: 0.5rem;
 }
@@ -27,9 +53,41 @@ a{
   padding-top: 0px;
 }
 
-:host ::ng-deep .p-tree .p-tree-container .p-treenode {
-  padding: 0px;
-  outline: 0 none;
-  color: #055298;
-  overflow: hidden;
+
+.sidebar.hidden {
+  transform: translateX(-250px);
+}
+
+
+.menu-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+  .body {
+      position: relative;
+  }
+
+  .left-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 10px;
+    height: 550px;
+    width: 70%;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+
+
+  .left-content.visible {
+    transform: translateX(100%) /* Slide in to view */
+  }
+
 }

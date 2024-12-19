@@ -1,15 +1,24 @@
-<br>
-<div [ngStyle]="{'background': ad.backGroundColor, 'color': 'white','padding':'10px'}">
+<div [ngStyle]="{'background': ad.backGroundColor, 'color': 'white','margin-top':'20px'}">
     <!-- Header Section with Brand Info -->
     <div>
         <div class="grid">
             <div class="col-10 flex">
                 <div class="flex align-items-center">
-                    <img src="../../../assets/images/landingPage/PaisquarewithLogo.jpg" routerLink="" alt="Logo"
-                        style="width: 30px; height: 30px;" class="logo">
-                </div>
+                    <div
+                      *ngIf="ad.advertiser.profileImage; else placeholder"
+                      class="logo-container">
+                        <img [src]="'data:image/png;base64,' + ad.advertiser.profileImage" routerLink="" alt="Logo"
+                        style="width: 35px; height: 30px; padding-left: 5px; margin-top: -10px;" class="logo">
+                    </div>
+                    <ng-template #placeholder>
+                      <div class="logo-placeholder">
+                        {{ ad.brandName.charAt(0).toUpperCase() }}
+                      </div>
+                    </ng-template>
+                  </div>
+                  
                 <div>
-                    <label class="brandname goldColor" style="padding-left: 10px;">{{ad.brandname}}</label>
+                    <label class="brandname goldColor" style="padding-left: 10px; margin-top: 100px;  padding-bottom: 0px;">{{ad.brandname}}</label>
                 </div>
             </div>
             <div class="col-2">
@@ -19,7 +28,6 @@
                             <i class="pi pi-map-marker" style="font-size: 2rem"></i>
                         </a>
                     }
-                    
                     <a (click)="op.toggle($event)" style="cursor: pointer;">
                         <i class="pi pi-ellipsis-v" style="font-size: 2rem"></i>
                     </a>
@@ -34,14 +42,8 @@
     <div class="grid" style="padding-left: 5px;">
         <div class="col-12 flex">
             <div class="card-body">
-                <div>
-                    <label style="font-size: 1.2rem;" [innerHTML]="ad.description"></label>
-                </div>
-                <div>
-                    <label>ad.advertiser.id:{{ad.advertiser.id}}</label>
-                </div>
-                <div>
-                    <label>ad.id:{{ad.id}}</label>
+                <div style="margin-left: 10px;">
+                    <label style="font-size: 1.2rem; "  [innerHTML]="ad.description"></label>
                 </div>
             </div>
         </div>
@@ -99,7 +101,7 @@
                     </a>
                 </div>
                 <div>
-                    <label class="goldColor">{{ad.visiteduser.length}} Visits</label>
+                    <label class="goldColor">{{ad.visitscount}} Visits</label>
                 </div>
             </div>
 
@@ -119,31 +121,41 @@
     </div>
 
     <!-- Comments Section -->
-    <div class="grid col-12">
-        <div *ngIf="currentOpenId == ad.id">
+    <div class="grid " style="padding: 15px;" >
+        <div class="col-12" *ngIf="currentOpenId == ad.id">
                 <div *ngFor="let comment of comments">
                     <div class="grid">
                         <div class="col-6">
-                            <h4>{{comment.comment}}</h4>
+                            <span style="font-family: Arial, Helvetica, sans-serif; font-size: 1.5rem;">{{comment.comment}}</span>
                         </div>
                         <div class="col-6">
-                            <h4>{{comment.lastupdate | date:'yyyy-MM-dd HH:mm:ss'}}</h4>
+                            <h6 style="font-family: Arial, Helvetica, sans-serif; font-size: 1rem;">{{comment.lastupdate | date:'yyyy-MM-dd HH:mm:ss'}}</h6>
                         </div>
                     </div>
                 </div>
                 <form #loginform="ngForm" (ngSubmit)="comment(ad.id)">
                     <div class="grid">
-                        <div class="col-12">
+                        <div class="col-12" >
                             <div class="p-inputgroup">
-                                <input pInputText id="commenttext" name="commentbox" placeholder="Enter comment here"
-                                    [(ngModel)]="commentobj.comment" class="form-control" required />
+                                <input 
+                                    pInputText 
+                                    id="commentbox" 
+                                    name="commentbox" 
+                                    placeholder="Enter comment here" 
+                                    [(ngModel)]="commentobj.comment" 
+                                    class="form-control" 
+                                    required 
+                                />
                                 <span class="p-inputgroup-addon">
-                                    <a type="submit"><i class="pi pi-angle-right"></i></a>
+                                    <button type="submit" class="btn-comment-box"
+                                     pButton icon="pi pi-angle-right"
+                                     [disabled]="!commentobj.comment || commentobj.comment.trim() === ''"></button>
                                 </span>
                             </div>
                         </div>
                     </div>
                 </form>
+                
             </div>
     </div>
 
@@ -151,10 +163,8 @@
     <p-dialog header="Report" [(visible)]="showReportDialog" [breakpoints]="{ '960px': '75vw' }"
         [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
         <ng-template pTemplate="header">
-            <label class="modal-title" id="reportModel">Report {{advertisementId}}</label>
-            <p-button type="button" class="close btn btn-secondary" data-dism:coliss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </p-button>
+            <label class="modal-title" id="reportModel">Report</label>
+            
         </ng-template>
         <ng-template pTemplate="body">
             <h4 style="color: rgb(255, 35, 35);">{{reportmessage}}</h4>
@@ -203,7 +213,7 @@
             </div><br>
             <div>
                 <p-button (click)="editAdvertisement(ad.id)">
-                    {{ ad.id == userId ? 'Edit' : 'Just visit' }}
+                    {{ ad.advertiser.id == userId ? 'Edit' : 'Just visit' }}
                 </p-button>
             </div>
         </ng-template>
@@ -211,8 +221,8 @@
     <p-overlayPanel #location>
         <ng-template pTemplate="content">
             <textarea  pInputTextarea rows="5" disabled="true" [value]="ad.location"
-                 type="text" style="font-weight: 30px;"
-                ></textarea><br>
+                 type="text" style="font-weight: 30px; color: black; size: 12.5rem; height: 120px;" 
+            ></textarea><br>
         </ng-template>
     </p-overlayPanel>
 </div>

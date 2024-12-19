@@ -3,14 +3,36 @@
     <form [formGroup]="profileForm">
         <p-fieldset legend="Brand information" formGroupName="brandInformation">
             <div class="grid">
-                <div class="col-12 md:col-6 sm:col-12">
-                    <img src="../../../assets/images/pai_square_with_name.jpg" width="250" height="250">
-                </div>
+                
+                <div class="col-12 md:col-6 sm:col-12 flex justify-content-center align-items-center">
+                    <div class="profile-container" 
+                    (mouseover)="showPencil = true" (mouseout)="showPencil = false">
+                      <ng-container *ngIf="profileImage; else noImage">
+                        <img [src]="profileImageUrl" alt="Profile Image" style="cursor: pointer;"
+                         width="250" height="250" (click)="onPencilClick()"  style="border-radius: 50%; border: 2px solid rgb(1, 48, 255);"/>
+                        <i *ngIf="showPencil"  class="pi pi-pencil hover-pencil large-pencil"
+                        style="cursor: pointer;"
+                         (click)="onPencilClick()"></i>
+                      </ng-container>
+                      <ng-template #noImage>
+                        <i class="pi pi-pencil large-pencil" (click)="onPencilClick()" ></i>
+                      </ng-template>
+                    </div>
+                    <input 
+                      type="file" 
+                      id="fileInput" 
+                      (change)="onFileSelected($event)" 
+                      style="display: none" 
+                    />
+                  </div>
+                  
+                  
+                  
                 <div class="col-12 md:col-6 sm:col-12">
                     <div class="pairs">
                         <label for="brandName">Brand name</label>
                         <div>
-                            <input pInputText id="brandName" formControlName="brandName" name="brandName"
+                            <input pInputText class="inputtext" id="brandName" formControlName="brandName" name="brandName"
                              placeholder="Enter your brand name"
                              [style]="{'width':'250px'}">
                         </div>
@@ -18,19 +40,21 @@
                     <div class="pairs">
                         <label for="">Brand Description</label>
                         <div>
-                            <input pInputText id="brandDescription" formControlName="brandDescription" name="brandDescription" placeholder="About your brand">
+                            <textarea  pInputTextarea [style]="{'width':'250px'}" rows="5"
+                            style="height: 80px;"  id="brandDescription" 
+                            formControlName="brandDescription" name="brandDescription" placeholder="About your brand"></textarea>
                         </div>
                     </div><br>
                     <div class="pairs">
                         <label for="brandTagLine">Brand Tagline</label>
                         <div>
-                            <input pInputText id="brandTagLine" formControlName="brandTagLine"  name="brandTagLine" placeholder="About your brand tagline">
+                            <input pInputText class="inputtext" id="brandTagLine" formControlName="brandTagLine"  name="brandTagLine" placeholder="About your brand tagline">
                         </div>
                     </div><br>
                     <div class="pairs">
                         <label for="">Website</label>
                         <div>
-                            <input pInputText id="website" formControlName="website" name="website" placeholder="Enter offical brand website">
+                            <input pInputText class="inputtext" id="website" formControlName="website" name="website" placeholder="Enter offical brand website">
                         </div>
                     </div>
                     
@@ -38,20 +62,22 @@
                     
             </div>
             <div class="grid">
-                <div class="col-10">
-                    <div *ngIf="profileForm.get('brandInformation.website')?.errors?.['invalidUrl']?.invalidResponse">
-                        <label class="validator">YouTube URL is not reachable.</label>
-                      </div>
-                    @if (profileForm.get('brandInformation.website')?.errors?.['invalidUrl']) {
-                        
-                        <label class="validator">Enter valid url for youtube</label>
-                    } 
-                    @if (showMessageFor=='brandInformation') {
-                        <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                    }
-                </div>
-                <div class="col-2">
-                    <p-button label="Update" (onClick)="onSubmitbrandInformationUpdate()" [disabled]="!profileForm.get('brandInformation')?.valid || updatingInformation"></p-button>
+                <div class="col-12">
+                    <div class="flex justify-content-start">
+                        <div *ngIf="profileForm.get('brandInformation.website')?.errors?.['invalidUrl']?.invalidResponse">
+                            <label class="validator">YouTube URL is not reachable.</label>
+                          </div>
+                        @if (profileForm.get('brandInformation.website')?.errors?.['invalidUrl']) {
+                            
+                            <label class="validator">Enter valid url for youtube</label>
+                        } 
+                        @if (showMessageFor=='brandInformation') {
+                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                        }
+                    </div>
+                    <div class="flex justify-content-end">
+                        <p-button label="Update" (onClick)="onSubmitbrandInformationUpdate()" [disabled]="!profileForm.get('brandInformation')?.valid || updatingInformation"></p-button>
+                    </div>
                 </div>
             </div>
         </p-fieldset><br>
@@ -61,7 +87,7 @@
                     <div class="pairs">
                         <label for="advertiserName">Advertiser name</label>
                         <div>
-                            <input pInputText id="advertiserName" formControlName="advertiserName" name="advertiserName" placeholder="Enter your name">
+                            <input pInputText class="inputtext" id="advertiserName" formControlName="advertiserName" name="advertiserName" placeholder="Enter your name">
                         </div>
                     </div>
                 </div>
@@ -69,7 +95,7 @@
                     <div class="pairs">
                         <label for="email">Email</label>
                         <div>
-                            <input pInputText id="email" formControlName="email" name="email" placeholder="Enter Email">
+                            <input pInputText class="inputtext" id="email" formControlName="email" name="email" placeholder="Enter Email">
                         </div>
                     </div>
                 </div>
@@ -77,33 +103,35 @@
                     <div class="pairs">
                         <label for="mobileNumber">Number</label>
                         <div>
-                            <input pInputText id="mobileNumber" pKeyFilter="int" formControlName="mobileNumber"  name="mobileNumber" placeholder="Enter number">
+                            <input pInputText class="inputtext" id="mobileNumber" pKeyFilter="int" formControlName="mobileNumber"  name="mobileNumber" placeholder="Enter number">
                         </div>
                     </div>
                 </div>
-                
                 <div class="col-12 md:col-6 sm:col-12">
                     <div class="pairs">
                         <label for="brandLocation">Primary Location</label>
                         <div>
-                            <textarea  pInputTextarea id="brandLocation" formControlName="brandLocation"
-                             name="brandLocation" style="width: 100px;" placeholder="Brand located at"
+                            <textarea  pInputTextarea [style]="{'width':'250px'}" rows="5"
+                            style="height: 80px;" id="brandLocation" formControlName="brandLocation"
+                             name="brandLocation"  placeholder="Brand located at"
                              [style]="{'width':'250px'}"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="grid">
-                <div class="col-10">
-                    <div *ngIf="profileForm.get('personalInformation.mobileNumber')?.errors?.['invalidMobileNumber']">
-                        <label style="color: red;">Enter a valid 10-digit mobile number.</label> 
+            <div class="grid ">
+                <div class="col-12">
+                    <div class="flex justify-content-start">
+                        <div *ngIf="profileForm.get('personalInformation.mobileNumber')?.errors?.['invalidMobileNumber']">
+                            <label style="color: red;">Enter a valid 10-digit mobile number.</label> 
+                        </div>
+                        @if (showMessageFor=='personalInformation') {
+                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                        }
                     </div>
-                    @if (showMessageFor=='personalInformation') {
-                        <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                    }
-                </div>
-                <div class="col-2">
-                    <p-button label="Update" (onClick)="onSubmitpersonalInformationUpdate()" [disabled]="!profileForm.get('personalInformation')?.valid || updatingInformation"></p-button>
+                    <div class="flex justify-content-end ">
+                        <p-button label="Update" (onClick)="onSubmitpersonalInformationUpdate()" [disabled]="!profileForm.get('personalInformation')?.valid || updatingInformation"></p-button>
+                    </div>
                 </div>
             </div>
         </p-fieldset><br>
@@ -113,7 +141,7 @@
                     <div class="pairs">
                         <label for="password">Password</label>
                         <div>
-                            <input pInputText id="password" formControlName="password"  name="password" placeholder="Enter password">
+                            <input pInputText class="inputtext" id="password" formControlName="password"  name="password" placeholder="Enter password">
                         </div>
                     </div>
                 </div>
@@ -122,20 +150,22 @@
                     <div class="pairs">
                         <label for="password">Confirm Password</label>
                         <div>
-                            <input pInputText id="password" formControlName="password" name="ConfirmPassword" placeholder="Confirm password">
+                            <input pInputText class="inputtext" id="password" formControlName="password" name="ConfirmPassword" placeholder="Confirm password">
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="grid">
-                <div class="col-10">
-                    @if (showMessageFor=='password') {
-                        <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                    }
-                </div>
-                <div class="col-2">
-                    <p-button label="Update" (onClick)="onSubmitpasswordUpdate()" [disabled]="updatingInformation"></p-button>
+                <div class="col-12">
+                    <div class="flex justify-content-start">
+                        @if (showMessageFor=='password') {
+                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                        }
+                    </div>
+                    <div class="flex justify-content-end ">
+                        <p-button label="Update" (onClick)="onSubmitpasswordUpdate()" [disabled]="updatingInformation"></p-button>
+                    </div>
                 </div>
             </div>
         </p-fieldset><br>
@@ -145,7 +175,7 @@
                     <div class="pairs">
                         <label for="brandCategory">category</label>
                         <div>
-                            <p-dropdown id="brandCategory" [options]="categories" formControlName="brandCategory"
+                            <p-dropdown [style]="{'width':'250px'}" id="brandCategory" [options]="categories" formControlName="brandCategory"
                              name="brandCategory" placeholder="Enter brand category"></p-dropdown>
                         </div>
                     </div>
@@ -173,18 +203,17 @@
                     <div class="pairs">
                         <label for="brandEstablishedIn">Established in</label>
                         <div>
-                            <p-calendar id="brandEstablishedIn" formControlName="brandEstablishedIn"
+                            <p-calendar [style]="{'width':'250px'}" id="brandEstablishedIn" formControlName="brandEstablishedIn"
                             dateFormat="yy" view="year" [showIcon]="true" placeholder="Your brand established in"></p-calendar>
                         </div>
-                        <span>ssss->{{ profileForm.get('brandRecommendation.brandEstablishedIn')?.value | date: 'dd/MM/yyyy'}}</span>
-    
+                        
                     </div>
                 </div>
                 <div class="col-12 md:col-6 sm:col-12">
                     <div class="pairs">
                         <label for="brandCompanyEmployeeSize">Company size</label>
                         <div>
-                            <input pInputText id="brandCompanyEmployeeSize" formControlName="brandCompanyEmployeeSize"  pKeyFilter="int" name="brandCompanyEmployeeSize" placeholder="Number of employees working in">
+                            <input pInputText class="inputtext" id="brandCompanyEmployeeSize" formControlName="brandCompanyEmployeeSize"  pKeyFilter="int" name="brandCompanyEmployeeSize" placeholder="Number of employees working in">
                         </div>
                     </div>
                 </div>
@@ -193,7 +222,7 @@
                     <div class="pairs">
                         <label for="country">Country</label>
                         <div>
-                            <p-dropdown id="country" [options]="country" formControlName="country" name="country" placeholder="Select country"></p-dropdown>
+                            <p-dropdown [style]="{'width':'250px'}" id="country" [options]="country" formControlName="country" name="country" placeholder="Select country"></p-dropdown>
                         </div>
                     </div>
                 </div>
@@ -230,7 +259,7 @@
                             <label for="brandTargetAges" >Target age</label>
                         </div>
                         <div class="col-6">
-                            <input type="text" pInputText id="brandTargetAges" formControlName="brandTargetAges" name="brandTargetAges" class="w-full"/>
+                            <input type="text" pInputText class="inputtext" id="brandTargetAges" formControlName="brandTargetAges" name="brandTargetAges" class="w-full"/>
                         </div>
                     </div>
                     {{agerange}}
@@ -238,26 +267,28 @@
                 </div>-->
             </div>
             
-            <div class="grid">
-                <div class="col-10">
-                    @if (invalidPinCodesList) {
-                        <span class="validator">Invalid Pin Codes: {{ invalidPinCodesList }}</span>
-                    }
-                        
-                    @if (profileForm.get('socialMedia.youtube')?.errors?.['invalidPinCode']) {
-                        <label class="validator"> enter valid 8-digit numeric pin codes separated by commas.</label>
-                    }
-                    <div *ngIf="profileForm.get('brandRecommendation.pinCodes')?.invalid && (profileForm.get('brandRecommendation.pinCodes')?.dirty || profileForm.get('brandRecommendation.pinCodes')?.touched)">
-                        <div *ngIf="profileForm.get('brandRecommendation.pinCodes')?.hasError('invalidPinCode')">
-                            <span class="validator"> enter valid 8-digit numeric pin codes separated by commas.</span>
+            <div class="grid col-12">
+                <div class="col-12 ">
+                    <div class="flex justify-content-start">
+                        @if (invalidPinCodesList) {
+                            <span class="validator">Invalid Pin Codes: {{ invalidPinCodesList }}</span>
+                        }
+                            
+                        @if (profileForm.get('socialMedia.youtube')?.errors?.['invalidPinCode']) {
+                            <label class="validator"> enter valid 8-digit numeric pin codes separated by commas.</label>
+                        }
+                        <div *ngIf="profileForm.get('brandRecommendation.pinCodes')?.invalid && (profileForm.get('brandRecommendation.pinCodes')?.dirty || profileForm.get('brandRecommendation.pinCodes')?.touched)">
+                            <div *ngIf="profileForm.get('brandRecommendation.pinCodes')?.hasError('invalidPinCode')">
+                                <span class="validator"> enter valid 8-digit numeric pin codes separated by commas.</span>
+                            </div>
                         </div>
+                        @if (showMessageFor=='BrandRecommendation') {
+                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                        }
                     </div>
-                    @if (showMessageFor=='BrandRecommendation') {
-                        <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                    }
-                </div>
-                <div class="col-2">
-                    <p-button label="Update" (onClick)="onSubmitBrandRecommendationUpdate()" [disabled]="!profileForm.get('brandRecommendation')?.valid || updatingInformation"></p-button>
+                    <div class="flex justify-content-end">
+                        <p-button label="Update" (onClick)="onSubmitBrandRecommendationUpdate()" [disabled]="!profileForm.get('brandRecommendation')?.valid || updatingInformation"></p-button>
+                    </div>
                 </div>
             </div>
         </p-fieldset><br>
@@ -267,7 +298,7 @@
                     <div class="pairs">
                         <label for="youtube">Youtube</label>
                         <div>
-                            <input pInputText id="youtube" formControlName="youtube" name="youtube" placeholder="Enter youtube url">
+                            <input pInputText class="inputtext" id="youtube" formControlName="youtube" name="youtube" placeholder="Enter youtube url">
                         </div>
                     </div>
                 </div>
@@ -275,7 +306,7 @@
                     <div class="pairs">
                         <label for="facebook">Facebook</label>
                         <div>
-                            <input pInputText id="facebook" formControlName="facebook" name="facebook" placeholder="Enter facebook url">
+                            <input pInputText class="inputtext" id="facebook" formControlName="facebook" name="facebook" placeholder="Enter facebook url">
                         </div>
                     </div>
                 </div>
@@ -283,7 +314,7 @@
                     <div class="pairs">
                         <label for="instagram">Instagram</label>
                         <div>
-                            <input pInputText id="instagram" formControlName="instagram" name="instagram" placeholder="Enter instagram url">
+                            <input pInputText class="inputtext" id="instagram" formControlName="instagram" name="instagram" placeholder="Enter instagram url">
                         </div>
                     </div>
                 </div>
@@ -291,7 +322,7 @@
                     <div class="pairs">
                         <label for="twitter">Twitter</label>
                         <div>
-                            <input pInputText id="twitter" formControlName="twitter"  name="twitter" placeholder="Enter twitter url">
+                            <input pInputText class="inputtext" id="twitter" formControlName="twitter"  name="twitter" placeholder="Enter twitter url">
                         </div>
                     </div>
                 </div>
@@ -299,38 +330,40 @@
                     <div class="pairs">
                         <label for="pinterest">Pinterest</label>
                         <div>
-                            <input pInputText id="pinterest" formControlName="pinterest" name="pinterest" placeholder="Enter printerest url">
+                            <input pInputText class="inputtext" id="pinterest" formControlName="pinterest" name="pinterest" placeholder="Enter printerest url">
                         </div>
                     </div>
                 </div> 
             </div>
             <div class="grid">
-                <div class="col-10">
-                    <div *ngIf="profileForm.get('socialMedia.youtube')?.errors?.['invalidUrl']?.invalidResponse">
-                        
-                        <label class="validator">YouTube URL is not reachable.</label>
-                      </div>
-                    @if (profileForm.get('socialMedia.youtube')?.errors?.['invalidUrl']) {
-                        
-                        <label class="validator">Enter valid url for youtube</label>
-                    } @else if (profileForm.get('socialMedia.facebook')?.errors?.['invalidUrl']) {
-                        <label class="validator">Enter valid url for facebook</label>
-                    } @else if (profileForm.get('socialMedia.instagram')?.errors?.['invalidUrl']) {
-                        <label class="validator">Enter valid url for instagram</label>
-                    } @else if (profileForm.get('socialMedia.twitter')?.errors?.['invalidUrl']) {
-                        <label class="validator">Enter valid url for twitter</label>
-                    } @else if (profileForm.get('socialMedia.pinterest')?.errors?.['invalidUrl']) {
-                        <label class="validator">Enter valid url for printerest</label>
-                    }
-                    <div *ngIf="">
-                        <label style="color: #ff0000;">Enter a valid 10-digit mobile number.</label> 
+                <div class="col-12">
+                    <div class="flex justify-content-start">
+                        <div *ngIf="profileForm.get('socialMedia.youtube')?.errors?.['invalidUrl']?.invalidResponse">
+                            
+                            <label class="validator">YouTube URL is not reachable.</label>
+                          </div>
+                        @if (profileForm.get('socialMedia.youtube')?.errors?.['invalidUrl']) {
+                            
+                            <label class="validator">Enter valid url for youtube</label>
+                        } @else if (profileForm.get('socialMedia.facebook')?.errors?.['invalidUrl']) {
+                            <label class="validator">Enter valid url for facebook</label>
+                        } @else if (profileForm.get('socialMedia.instagram')?.errors?.['invalidUrl']) {
+                            <label class="validator">Enter valid url for instagram</label>
+                        } @else if (profileForm.get('socialMedia.twitter')?.errors?.['invalidUrl']) {
+                            <label class="validator">Enter valid url for twitter</label>
+                        } @else if (profileForm.get('socialMedia.pinterest')?.errors?.['invalidUrl']) {
+                            <label class="validator">Enter valid url for printerest</label>
+                        }
+                        <div *ngIf="">
+                            <label style="color: #ff0000;">Enter a valid 10-digit mobile number.</label> 
+                        </div>
+                        @if (showMessageFor=='SocialMedia') {
+                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                        }
                     </div>
-                    @if (showMessageFor=='SocialMedia') {
-                        <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                    }
-                </div>
-                <div class="col-2">
-                    <p-button label="Update" (onClick)="onSubmitSocialMediaUpdate()" [disabled]="!profileForm.get('socialMedia')?.valid || updatingInformation"></p-button>
+                    <div class="flex justify-content-end">
+                        <p-button label="Update" (onClick)="onSubmitSocialMediaUpdate()" [disabled]="!profileForm.get('socialMedia')?.valid || updatingInformation"></p-button>
+                    </div>
                 </div>
             </div>
         </p-fieldset><br>

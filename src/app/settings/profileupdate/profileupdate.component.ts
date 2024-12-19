@@ -7,12 +7,16 @@ import { ValidationErrors,Validator,FormGroup,FormControl, Validators,ValidatorF
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 @Component({
   selector: 'app-profileupdate',
   templateUrl: './profileupdate.component.html',
   styleUrls: ['./profileupdate.component.css']
 })
 export class ProfileupdateComponent implements OnInit {
+  profileImage: boolean=false; // Replace with your actual image path or null
+  showPencil: boolean = false;
+
   messages: Message={ severity: 'success', summary: 'Success', detail: 'Message Content' };
   showMessageFor=''
   updatingInformation:boolean=false;
@@ -34,6 +38,7 @@ export class ProfileupdateComponent implements OnInit {
   ];
  ngOnInit(){
     this.profileForm = this.createFormGroup();
+    this.getProfileImage();
     // loading profile data
     console.log("Oninit profile update page for ",this._service.userId);
     this._service.getProfileList(this._service.userId).subscribe(
@@ -157,6 +162,62 @@ export class ProfileupdateComponent implements OnInit {
       this.messageService.add({ severity: 'info', summary: 'Info', detail: 'please enter details correctly' });
     console.log("this.messageService",this.messageService)
   }
+  
+  profileImageUrl: string ="";
+
+  getProfileImage(): void {
+    this._service.fetchAndProcessProfileImage(this.userId).subscribe(
+      (url: string) => {
+        this.profileImageUrl = url;
+        this.profileImage = !!url; // Set flag if URL is valid
+      },
+      (error) => {
+        console.error('Failed to load profile image:', error);
+        // Show error message or fallback logic here
+      }
+    );
+  }
+  
+  selectedFile: File | null = null;
+
+  onPencilClick(): void {
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    fileInput.click(); // Open file dialog
+  }
+  
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+    console.log('File selected:', this.selectedFile);
+    const file: File = event.target.files[0];
+    if (file.size > 5 * 1024 * 1024) { // 5 MB limit
+      alert('File size exceeds the maximum limit of 5 MB.');
+      return;
+    }
+    this.uploadImage();
+  }
+  uploadImage(): void {
+    console.log("In uploadImage");
+    
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('image', this.selectedFile);
+  
+      this._service.uploadProfileImage(formData).subscribe({
+        next: (response) => {
+          console.log(response); // Log success message
+          alert(response); // Display the response
+          this.getProfileImage(); // Refresh profile image
+        },
+        error: (err) => {
+          console.error("Error uploading image:", err);
+          alert("Failed to upload image. Please try again.");
+        },
+      });
+    } else {
+      alert("Select an image to upload.");
+    }
+  }
+  
   onSubmitpersonalInformationUpdate(){
     this.updatingInformation=true;
     const personalInformationControl = this.profileForm.get('personalInformation');
@@ -270,7 +331,7 @@ export class ProfileupdateComponent implements OnInit {
       if(pinCodes.length==0){
         return null;
       }
-      const invalidPinCodes = pinCodes.filter(pin => !/^\d{8}$/.test(pin.trim()));
+      const invalidPinCodes = pinCodes.filter(pin => !/^\d{6}$/.test(pin.trim()));
       this.invalidPinCodesList=invalidPinCodes.join(', ');
       return invalidPinCodes.length > 0 ? { invalidPinCode: true } : null;
     };

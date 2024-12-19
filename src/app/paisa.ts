@@ -21,11 +21,14 @@ export class Advertise{
     paisa!:Number;
     paisaperclick!:Number;
     country!:string;
+    advertisement_type!:string;
     state!:string;
     district!:string;
     hashtags!: string;
     status!:string;
     pincodes!:string;
+    commenteduser!:Number[];
+    visiteduser!:Number[];
     constructor(){}
 }
 export class Contactus{
@@ -44,6 +47,8 @@ export class Contactus{
 export class Profile{
     username!:string;
     userId!:number;
+    paisa!:number;
+    pai!:number;
     brandName!:string;
     brandDescription!:string;
     brandTagLine!:string;
@@ -61,8 +66,12 @@ export class Profile{
     brandHashTags!: string[];
     pinCodes!:number[];
     brandTargetAge!:string;
-    followers!:Number;
-    ads!:Number;
+    followers!:Number[];
+    following!:Number[];
+    ads!:Number[];
+    accountType!:String;
+    rating!:number;
+    noOfRating!:number;
     youtube!:string;
     facebook!:string;
     instagram!:string;
@@ -95,6 +104,12 @@ export class Like{
     advertisementid!:Number;
     userid!:string;
     visited!:boolean;
+}
+
+export class Rating{
+    advertiser!:Number;
+    user!:Number;
+    rating!:Number;
 }
 
 export class Block{

@@ -1,3 +1,44 @@
 .validator{
     color: red;
 }
+.profile-container {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* Optional: background for the no-image case */
+  border-radius: 50%; /* Optional: makes it circular */
+  overflow: hidden;
+}
+  
+img {
+  border-radius: 50%; /* Makes the image circular */
+}
+
+.large-pencil {
+  font-size: 48px;
+  color: gray;
+  cursor: pointer;
+}
+
+.hover-pencil {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: gray;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden; /* Initially hidden */
+}
+
+:host ::ng-deep .p-fieldset .p-fieldset-legend {
+  padding: .5rem;
+}

@@ -1,4 +1,4 @@
-import { Component , OnInit, ViewChild } from '@angular/core';
+import { Component , OnInit, ViewChild, HostListener  } from '@angular/core';
 import { PaiService} from '../paisa.service';
 import { Router } from '@angular/router';
 import { Sidebar } from 'primeng/sidebar';
@@ -16,6 +16,8 @@ import { AuthService } from '../service/auth-service.service';
 })
 export class NavbarComponent  implements OnInit{
   nodes!: TreeNode[];
+  isMobileView: boolean = false;
+  isSidebarVisible: boolean = false;
   constructor(private _service: PaiService,private http: HttpClient, private authService: AuthService,private _router: Router,private _route: ActivatedRoute) {
        
   }
@@ -25,6 +27,7 @@ export class NavbarComponent  implements OnInit{
   sidebarVisible1:boolean=true;
   userName=' ';
     ngOnInit() {
+      this.checkViewport();
       const token = localStorage.getItem('token');
       console.log("token in navbar-->",token)
       if (token && this.authService.isAuthenticated()) {
@@ -41,16 +44,18 @@ export class NavbarComponent  implements OnInit{
       this.nodes = [
           {
               key: '0',
+              expanded: true,
               label: 'User',
               children: [
                   { key: '0-0', label: 'Dashboard', data: 'user/userdashboard', type: 'url',icon:'pi pi-home'},
                   { key: '0-1', label: 'Your activities', data: 'user/useractivities', type: 'url',icon:'pi pi-chart-line'},
-                  { key: '0-3', label: 'Withdraw', data: 'user/withdraw', type: 'url',icon:'pi-cart-plus'},
-                  { key: '0-4', label: 'Chat', data: 'user/chat', type: 'url',icon:'pi-cart-plus'}
+                  { key: '0-3', label: 'Withdraw', data: 'user/withdraw', type: 'url',icon:'pi pi-credit-card'},
+                  { key: '0-4', label: 'Chat', data: 'user/chat', type: 'url',icon:'pi pi-id-card'}
               ]
           },
           {
               key: '1',
+              expanded: true,
               label: 'Advertiser',
               children: [
                   { key: '1-0', label: 'Dashboard', data: 'advertiser/advertiserdashboard', type: 'url',icon:'pi pi-home' },
@@ -62,6 +67,7 @@ export class NavbarComponent  implements OnInit{
           },
           {
             key: '2',
+            expanded: true,
             label: 'Settings',
             children: [
                 { key: '2-0', label: 'Profile', data: 'home/profile/:userId', type: 'url',icon:'pi pi-home'},
@@ -71,15 +77,26 @@ export class NavbarComponent  implements OnInit{
           },
       ];
     }
+    selectedNode: any;
+  onNodeClick(node: TreeNode) {
+    console.log("onNodeClick -->",this.selectedNode)
+    this.selectedNode = node;  // Set the clicked node as selected
+    console.log('Selected node: ', node);
+  }
   componentViewMethod(val:String){
     console.log(val)
+    this.selectedNode = val;
+    console.log('Selected node: ', val);
     if (val.includes('myadvertisement')) {
       //this._router.navigate([val.replace(':userId', this.userId)]);
-      //this._router.navigate(['/advertiser/myadvertisement'], { queryParams: { userId: this.userId } });
+      console.log('Navigating to myadvertisement with userId:', this.userId);
       this._router.navigate(['/advertiser/myadvertisement'], {
-        state: { userId: this.userId },
+        queryParams: { userId: this.userId },
       });
-    }else if (val.includes('home/profile/')) {
+      console.log('Navigating to myadvertisement with userId:', this.userId);
+
+      //this._router.navigate(['/advertiser/myadvertisement'], {state: { userId: this.userId },});
+    } else if (val.includes('home/profile/')) {
       this._router.navigate([val.replace(':userId', this.userId)]);
     } else if (val.includes('logout')) {
       this.authService.logout();
@@ -88,12 +105,15 @@ export class NavbarComponent  implements OnInit{
      else {
       this._router.navigate([val]);
     }
+    this.checkViewport();
+    this.isSidebarVisible = !this.isMobileView; 
   }
   ngAfterViewInit() {
     if (this.tree) {
       this.expandAllNodes(this.tree.value);
     }
   }
+  
 
   expandAllNodes(nodes: TreeNode[]) {
     nodes.forEach(node => {
@@ -123,5 +143,31 @@ export class NavbarComponent  implements OnInit{
       },
         error=>{console.log("error occurred while retrieving the data for query -",query)
     });
+    this.showSearchBox=false
+  }
+  checkViewport() {
+    this.isMobileView = window.innerWidth <= 768;
+    console.log("this.isMobileView ",this.isMobileView,window.innerWidth)
+    
+    if(this.isMobileView){
+      this.showSearchBox=false;
+    } else{
+      this.isSidebarVisible = !this.isMobileView; // Sidebar hidden by default on mobile
+      console.log("this.isSidebarVisible ->",this.isSidebarVisible )
+    }
+  }
+
+  @HostListener('window:resize', [])
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+      this.checkViewport();
+  }
+  toggleSidebar() {
+    this.isSidebarVisible = !this.isSidebarVisible;
+    console.log("isSidebarVisible ",this.isSidebarVisible)
+  }
+  showSearchBox:boolean=false;
+  toggleSearchBox(){
+    this.showSearchBox=!this.showSearchBox
   }
 }

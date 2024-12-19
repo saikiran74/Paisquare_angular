@@ -3,6 +3,8 @@ import { Advertise, User,Contactus,Comments, Follower, Visited, Like, Profile,Fa
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { Observable } from 'rxjs';
 import {HttpClient } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -40,11 +42,20 @@ export class PaiService {
   public getAllCommentList(){
     return this._http.get<any>("http://localhost:3300/commentslist");
   }
+  public getlikeFromRemote(){
+    return this._http.get<any>(`http://localhost:3300/likelist/${this.userId}`);
+  }
+  public getVisitedFromRemote(){
+    return this._http.get<any>(`http://localhost:3300/vistlist/${this.userId}`);
+  }
   public CommentsListFromRemote(advertisementid: Number){
     return this._http.get<any>(`http://localhost:3300/commentslist/${advertisementid}`);
   }
   public FollowerFromRemote(follower:Follower,advertiserid: Number,userId:Number):Observable<any>{
     return this._http.post<any>(`http://localhost:3300/follow/${userId}/${advertiserid}`,follower)
+  }
+  public saveRatingFromRemote(rating:any,advertiserid:Number):Observable<any>{
+    return this._http.post<any>(`http://localhost:3300/rating/${this.userId}/${advertiserid}`,rating)
   }
   public VisitedFromRemote(visited:Visited,userid:Number,advertiserid: Number):Observable<any>{
     return this._http.post<any>(`http://localhost:3300/visit/${userid}/${advertiserid}`,visited)
@@ -74,11 +85,50 @@ export class PaiService {
   public ProfilebrandInformationUpdate(profile:Profile,userId:Number):Observable<any>{
     return this._http.post<any>(`http://localhost:3300/updateProfile/brandInformation/${userId}`,profile)
   }
+  public uploadProfileImage(formData: FormData): Observable<string> {
+    return this._http.post<string>(
+      `http://localhost:3300/updateProfile/upload-image/${this.userId}`,
+      formData,
+      { responseType: 'text' as 'json' } // Specify that the response is plain text
+    );
+  }
+  
+  public getProfileImage(): Observable<Blob> {
+    return this._http.get<ArrayBuffer>(`http://localhost:3300/updateProfile/profile-image/${this.userId}`, {
+      responseType: 'arraybuffer' as 'json' // Ensure you receive it as an ArrayBuffer
+    }).pipe(
+      map((response: ArrayBuffer) => {
+        // Convert the ArrayBuffer to a Blob
+        return new Blob([response], { type: 'image/png' }); // Adjust the MIME type accordingly
+      })
+    );
+  }
+  public fetchAndProcessProfileImage(userId: string): Observable<string> {
+    return this._http.get<ArrayBuffer>(
+      `http://localhost:3300/updateProfile/profile-image/${this.userId}`, 
+      {
+        responseType: 'arraybuffer' as 'json', // Explicitly fetch as ArrayBuffer
+      }
+    ).pipe(
+      map((response: ArrayBuffer) => {
+        // Convert ArrayBuffer to Blob
+        const blob = new Blob([response], { type: 'image/png' }); // Adjust MIME type
+        return URL.createObjectURL(blob); // Return Object URL
+      }),
+      catchError((error) => {
+        console.error("Error fetching profile image:", error);
+        throw error; // Re-throw the error for the component to handle
+      })
+    );
+  }
+  
+  
+  
   //-----------------------
-  public getIDAdvertisements(advertisementid:Number){
+  public getIDAdvertisements(advertisementid:number){
     return this._http.get<any>(`http://localhost:3300/idadvertisements/${advertisementid}`);
   }
-  public getUserAdvertisements(userId:Number){
+  public getUserAdvertisements(userId:number){
     return this._http.get<any>(`http://localhost:3300/useradvertisements/${userId}`);
   }
   public getUserFollowingProfiles(userId:number){
@@ -161,5 +211,22 @@ export class PaiService {
     return this._http.post(`http://localhost:3300/chat/initialize-chat`, chat);
   }
 
+  sellCoins(coins: number, price: number) {
+    const payload = {
+      coins,
+      price,
+    };
+    return this._http.post(`http://localhost:3300/sell-coins`, payload);
+  }
+  addFunds(userId: number, amount: number): Observable<any> {
+    const url = `/api/addFunds`; // Replace with your backend API endpoint
+    return this._http.post(url, { userId, amount });
+  }
+
+  // Withdraw Funds method
+  withdrawFunds(userId: number, amount: number): Observable<any> {
+    const url = `/api/withdrawFunds`; // Replace with your backend API endpoint
+    return this._http.post(url, { userId, amount });
+  }
 }
 

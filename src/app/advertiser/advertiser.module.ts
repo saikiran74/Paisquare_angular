@@ -10,7 +10,8 @@ import { HomepageComponent } from './Ad/advertisements/homepage.component';
 import { UseractivitiesComponent } from '../user/useractivities/useractivities.component';
 import { ProfileComponent } from '../settings/profile/profile.component';
 import { NavbarComponent } from '../navbar/navbar.component';
-
+import { ChipsModule } from 'primeng/chips';
+import { PaiSquareRightSideAdvertisementComponent } from '../../app/advertiser/pai-square-right-side-advertisement/pai-square-right-side-advertisement.component';
 @NgModule({
   declarations: [
     AdvertisementformComponent,
@@ -21,11 +22,13 @@ import { NavbarComponent } from '../navbar/navbar.component';
     UseractivitiesComponent,
     NavbarComponent,
     ProfileComponent,
+    PaiSquareRightSideAdvertisementComponent  ,
   ],
   imports: [
     RouterModule.forChild([]),
     AdvertiserRoutingModule,
-    PrimengModule
+    PrimengModule,
+    ChipsModule
   ]
 })
 export class AdvertiserModule { }

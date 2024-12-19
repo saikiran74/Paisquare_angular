@@ -1,0 +1,5 @@
+@media (max-width: 768px) {
+    :host ::ng-deep .p-card{
+        margin-left: 40px;
+    }
+}
