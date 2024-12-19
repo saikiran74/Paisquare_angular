@@ -7,22 +7,22 @@
         <div class="grid">
             <div class="col-12 md:col-6 sm:col-12 flex justify-content-center align-items-center">
                 <img [src]="profileImageUrl" alt="Profile Image"
-                width="250" height="250"/>    
+                width="250" height="250" style="border-radius: 50%; border: 2px solid rgb(1, 48, 255);"/>    
             </div>
-            <div class="col-12 md:col-6 sm:col-12">
-                <div class="brandName">
-                    <span class="goldColor">{{profile.brandName}}</span>
+            <div class="col-12 md:col-6 sm:col-12" style="padding-left: 20px;">
+                <div class="brandName" >
+                    <span class="goldColor" >{{profile.brandName}}</span>
                 </div>
                 <div class="brandTagLine" *ngIf="profile.brandTagLine">
-                    <span>{{profile.brandTagLine}}</span>
+                    Tagline: <p-tag severity="secondary"  value="{{profile.brandTagLine}}"></p-tag>
                 </div>
-                <div class="brandDescription" *ngIf="profile.brandDescription">
-                    <span>{{profile.brandDescription}}</span>
+                <div class="brandDescription" *ngIf="profile.brandDescription" style="padding-top: 8px;">
+                    <span  >{{profile.brandDescription}}</span>
                 </div>
-                <div class="pairs" *ngIf="profile.website">
+                <div class="pairs" *ngIf="profile.website"  style="padding-top: 8px;">
                     <a href="{{profile.website}}">{{profile.website}}</a>
                 </div>
-                <div class="pairs flex align-items-center" style="padding-top: 10px;">
+                <div class="pairs flex align-items-center" style="padding-top: 8px;">
                     <div class="flex gap-3">
                         <label>Rating</label>
                         <div class="justify-content-between">
@@ -34,7 +34,7 @@
                         <span style="font-size: 0.7rem; font-family: Arial, Helvetica, sans-serif;" class="flex justify-content-center align-items-end">{{profile.noOfRating}} Ratings</span>
                     </div>
                 </div>
-                <div class="flex gap-2 justify-content-start "  >
+                <div class="flex gap-2 justify-content-start "  style="padding-top: 8px;" >
                     @if(profile.userId==+userId){
                         <p-button label="Insights" [outlined]="true" (onClick)="navigateToAdvertiserReports()" ></p-button>
                     } @else{
@@ -53,7 +53,7 @@
                 </div>
                 
                 <br>
-                <div class="flex gap-3">
+                <div class="flex gap-3"  style="padding-top: 8px;">
                     <div *ngIf="profile.youtube">
                         <a href="{{profile.youtube}}" target="_blank">
                             <i class="pi pi-youtube" style="font-size: 2rem; color: red;"></i>
@@ -106,7 +106,7 @@
             </div>
         </p-dialog>
         <br><br>
-        <div class="surface-ground md:px-4 lg:px-4">
+        <div class="surface-ground md:px-4 lg:px-4" style="padding: 8px;">
             <div class="grid">
                 <div class="col-6 md:col-6 lg:col-3">
                     <div class="surface-card shadow-2 3 border-round">

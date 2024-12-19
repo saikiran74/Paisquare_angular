@@ -28,7 +28,8 @@ textarea{
 }
 
 .goldColor{
-    color: #F8CF40
+    color: #F8CF40;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .active-chip {
     background-color: lightgray !important;
@@ -69,7 +70,7 @@ textarea{
   .p-calendar-w-btn .p-datepicker-trigger {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-      height: 30px;
+      height: 35px;
   }
 @media (max-width: 768px) {
     .p-inputtext, .p-dropdown, .p-textarea, .p-calendar {

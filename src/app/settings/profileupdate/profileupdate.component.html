@@ -9,7 +9,7 @@
                     (mouseover)="showPencil = true" (mouseout)="showPencil = false">
                       <ng-container *ngIf="profileImage; else noImage">
                         <img [src]="profileImageUrl" alt="Profile Image" style="cursor: pointer;"
-                         width="250" height="250" (click)="onPencilClick()"/>
+                         width="250" height="250" (click)="onPencilClick()"  style="border-radius: 50%; border: 2px solid rgb(1, 48, 255);"/>
                         <i *ngIf="showPencil"  class="pi pi-pencil hover-pencil large-pencil"
                         style="cursor: pointer;"
                          (click)="onPencilClick()"></i>
