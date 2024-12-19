@@ -146,13 +146,36 @@
                         </div>
                     </div>
                 </div>
+                
+                
                 <div class="grid">
                     <div class="col-12 col-12 md:col-6 sm:col-6">
+                        
                         <label for="adhead">Enter hashtags</label>
+                        
                         <div>
-                           <p-chips [(ngModel)]="hashtags" separator="," placeholder="Maximum 5 items" name="hashtags"></p-chips>
+                          <p-chips 
+                              [(ngModel)]="hashtags" 
+                              separator="," 
+                              placeholder="Enter up to 5 hashtags" 
+                              (onAdd)="onAddChip($event)"  name="hashtagInput"
+                              (onRemove)="onRemoveChip($event)">
+                          </p-chips>
+                          <p *ngIf="hashtags.length >= 5" class="text-danger" style="font-size: 1rem;">
+                            You can only add up to 5 hashtags.
+                          </p>
                         </div>
-                    </div>
+                        <div style="display: flex; padding: 5px; padding-left: 0px;" class="gap-2 justify-content-start align-items-center">
+                            <p-chip 
+                                *ngFor="let chip of hashtags | slice:0:5; let i = index" 
+                                [style]="{'display':'flex', 'margin-right': '5px', 'margin-bottom': '5px'}" 
+                                [label]="chip" 
+                                [removable]="true" 
+                                (onRemove)="removeChip(i)">
+                            </p-chip>
+                           
+                        </div>
+                      </div>
                     <div class="col-12 col-12 md:col-6 sm:col-6">
                         <label for="adcategory">Category</label>
                         <div>
@@ -182,7 +205,17 @@
                     <div class="col-12 md:col-6 sm:col-6">
                         <label for="adhead">Enter Location PinCodes</label>
                         <div>
-                           <p-chips [(ngModel)]="pincodes" separator="," placeholder="Enter location pincode where your wants to publish" name="pincodes"></p-chips>
+                           <p-chips [(ngModel)]="pincodes" separator="," name="hashtagInput"
+                            placeholder="Enter location pincode where your wants to publish" name="pincodes"></p-chips>
+                        </div>
+                        <div style="display: flex; padding: 5px; padding-left: 0px;" class="gap-2 justify-content-start align-items-center">
+                            <p-chip 
+                                *ngFor="let chip of pincodes | slice:0:5; let i = index" 
+                                [style]="{'display':'flex', 'margin-right': '5px', 'margin-bottom': '5px'}" 
+                                [label]="chip" 
+                                [removable]="true" 
+                                (onRemove)="removeChip(i)">
+                            </p-chip>
                         </div>
                     </div>
                 </div>
@@ -203,15 +236,20 @@
                 @if(!isEditAdvertisement){
                     <div class="grid">
                         <label for="adhead" class="col-12 md:col-4 sm:col-4 col-form-label">Advertisement Type</label>
-                        <div class="col-12 md:col-3 sm:col-4">
-                            <input type="checkbox" id="paiCheckbox" [(ngModel)]="paiChecked" (change)="paiCheckbox()" name="paiChecked"> Pai's
+                        <div class="col-12 md:col-8 sm:col-8 ">
+                            <div class="grid">
+                                <div class="col-3 md:col-3 sm:col-3">
+                                    <input type="checkbox" id="paiCheckbox" [(ngModel)]="paiChecked" (change)="paiCheckbox()" name="paiChecked"> Pai's
+                                </div>
+                                <div class="col-3 md:col-3 sm:col-3">
+                                    <input type="checkbox" id="paisaCheckbox" [(ngModel)]="paisaChecked" (change)="paisaCheckbox()" name="paisaChecked"> Paisa
+                                </div>
+                                <div class="col-3 md:col-3 sm:col-3">
+                                    <input type="checkbox" id="freeTypeCheckbox" [(ngModel)]="freeTypeChecked" (change)="freeTypeCheckbox()" name="paisaChecked"> Free
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-12 md:col-3 sm:col-4">
-                            <input type="checkbox" id="paisaCheckbox" [(ngModel)]="paisaChecked" (change)="paisaCheckbox()" name="paisaChecked"> Paisa(Money)
-                        </div>
-                        <div class="col-12 md:col-3 sm:col-4">
-                            <input type="checkbox" id="freeTypeCheckbox" [(ngModel)]="freeTypeChecked" (change)="freeTypeCheckbox()" name="paisaChecked"> Free
-                        </div>
+                        
                     </div>
                     <div *ngIf="paiChecked" class="grid">
                         <div class="col-12 md:col-6 sm:col-6">

@@ -1,6 +1,6 @@
 <div class="grid">
     <div class="flex col-12">
-        <div style="display: flex; padding: 5px; padding-left: 0px;" class="gap-2 justify-content-start align-items-center">
+        <div style="display: flex; margin-top: -5px; margin-bottom: -5px; padding-left: 0px;" class="gap-2 justify-content-start align-items-center">
             <p-chip
                 *ngFor="let chip of chips| slice:0:5; let i = index"
                 [label]="chip.label"
@@ -15,7 +15,7 @@
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input style="height: 35px;"
-                        pInputText 
+                        pInputText style="padding-left: 30px;"
                         placeholder="Filter by pincodes"
                         (keyup.enter)="onSearch($event)" 
                     />
@@ -27,7 +27,6 @@
             }
         </div>
     </div>
-    <div class="col-12">
         @if (showSearchBox) {
             <div class="grid">
                 <div class="col-12">
@@ -41,7 +40,6 @@
                 </div>
             </div>
         }
-    </div>
 </div>
 
 

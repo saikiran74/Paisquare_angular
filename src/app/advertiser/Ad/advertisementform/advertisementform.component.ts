@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { PaiService } from '../../../paisa.service';
 import { ValidationErrors,Validator,FormGroup,FormControl, Validators,ValidatorFn, AbstractControl } from '@angular/forms';
-
+import { ChipsModule } from 'primeng/chips';
 import { Router } from '@angular/router';
 import { Advertise } from '../../../paisa';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AdvertisementformComponent implements OnInit{
   adId: string | null = null;
-  constructor(private _service: PaiService, private _router: Router,private route: ActivatedRoute){};
+  constructor(private _service: PaiService, private _router: Router,private route: ActivatedRoute,private cdr: ChangeDetectorRef){};
   isEditAdvertisement:boolean=false;
   urlTypes = [
     { name: 'Web URL', value: 'web', icon: 'pi pi-globe' },
@@ -20,6 +20,8 @@ export class AdvertisementformComponent implements OnInit{
   ];
   selectedUrlType = this.urlTypes[0].value;
   ngOnInit(): void {
+    this.hashtags = ['saikira']; // Set initial value
+    this.cdr.detectChanges();
     this.adId = this.route.snapshot.paramMap.get('id');
     if (this.adId) {
       this.isEditAdvertisement=true;
@@ -36,8 +38,6 @@ export class AdvertisementformComponent implements OnInit{
       }
     );
   }
-  /* todo included p-clips add respective code for hastages 
-  add hashTagSeparatorExp in html*/
   advertise= new Advertise();
   hashtags: string[] = [];  // Assume these are arrays
   pincodes: string[] = []; 
@@ -64,10 +64,7 @@ export class AdvertisementformComponent implements OnInit{
       this.adBackground = val;
       this.adBackgroundSelected=this.backgroundMap[val] || '';
   }
-  editorContent="Hi"
   message=''
-  text="www";
-  value='wwwwwwwwwwwwwwwwwwwwwww'
   public editorData: string = '';
   
   hashTagSeparatorExp: RegExp = /,| /;
@@ -147,7 +144,7 @@ export class AdvertisementformComponent implements OnInit{
     else if(!(this.paiChecked || this.paisaChecked) && !this.isEditAdvertisement && !this.freeTypeChecked){
       this.message="Please select advertisement type";
     } else if(this.pinCodeValidator(this.pincodes)){
-      this.message="Enter 8 digit pin codes only"
+      this.message="Enter 6 digit pin codes only"
     }
     else if(!this.isEditAdvertisement && ((this.paiChecked && this.validPai()) || (this.paisaChecked && this.validPaisa()))){
       //Correcting
@@ -264,7 +261,15 @@ export class AdvertisementformComponent implements OnInit{
     this._service.getIDAdvertisements(+adId).subscribe(
       data => {
         this.advertise = data;
-        console.log("Advertisement ",this.advertise,this.advertise.brandname);
+        console.log("Advertisement ",this.advertise.hashtags.split(','));
+        this.hashtags = this.advertise.hashtags && this.advertise.hashtags.trim() 
+          ? this.advertise.hashtags.split(',').map(pincode => pincode.trim()).filter(pincode => pincode) 
+          : [];
+        this.pincodes = this.advertise.pincodes && this.advertise.pincodes.trim() 
+          ? this.advertise.pincodes.split(',').map(pincode => pincode.trim()).filter(pincode => pincode) 
+          : [];
+
+        console.log("this.advertise.pincodes",this.advertise.pincodes.length,this.pincodes)
       },
         error=>{console.log("error occure while retrieving the data for ID -",adId)
     });
@@ -275,5 +280,21 @@ export class AdvertisementformComponent implements OnInit{
       console.log("isValid", isValid);
       console.log("number", number.replace('https://wa.me/', ''));
       return isValid;
+  }
+  onAddChip(event: any): void {
+    if (this.hashtags.length > 5) {
+        this.hashtags.pop(); // Prevent adding more than 5 items
+        alert('You can only add up to 5 hashtags.');
+    }
+    this.cdr.detectChanges();
+
+  }
+
+  onRemoveChip(event: any): void {
+      // Optionally handle any logic when a chip is removed
+      console.log('Removed:', event);
+  }
+  removeChip(index: number): void {
+    this.hashtags.splice(index, 1);
   }
 }

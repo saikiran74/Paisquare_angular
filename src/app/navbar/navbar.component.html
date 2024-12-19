@@ -1,84 +1,89 @@
-<div class="grid header">
-    <p-toolbar class="col-12">
-        <div class="p-toolbar-group-start">
-            <button *ngIf="isMobileView" class="btn"  (click)="toggleSidebar()" class="menu-button">
-                <i class="pi pi-bars" style="font-size: 2rem;"></i>
-            </button>
-        </div>
-        <div class="p-toolbar-group-center">
-            <a style="color: #85B6FF;" routerLink="/advertiser">{{userName}}</a>
-        </div>
-        <div class="p-toolbar-group-end">
-            <!-- Search Box on larger screens -->
-            <span class="p-input-icon-left search-box" *ngIf="!isMobileView">
-                <i class="pi pi-search"></i>
-                <input 
-                    pInputText 
-                    placeholder="Search"
-                    (keyup.enter)="onSearch($event)" 
-                />
-            </span>
-            <!-- Search Icon on smaller screens -->
-            <span class="search-icon" *ngIf="isMobileView">
-                <i class="pi pi-search" style="font-size: 1.5rem; padding: 5px;"  (click)="toggleSearchBox()"></i>
-            </span>
-        </div>
-        @if (showSearchBox) {
-            <div class="grid">
-                <div class="col-12" style="width: 100%;">
-                    <span class="search-box">
-                        <input style="width: 100%;"
-                            pInputText 
-                            placeholder="Search"
-                            (keyup.enter)="onSearch($event)" 
-                        />
-                    </span>
+<div style="margin: -10px; margin-top: 10px;">
+    <div class="grid header">
+        <p-toolbar class="col-12">
+            <div class="p-toolbar-group-start">
+                <button *ngIf="isMobileView" class="btn"  (click)="toggleSidebar()" class="menu-button">
+                    <i class="pi pi-bars" style="font-size: 2rem;"></i>
+                </button>
+            </div>
+            <div class="p-toolbar-group-center">
+                <a style="color: #85B6FF;" routerLink="/advertiser">{{userName}}</a>
+            </div>
+            <div class="p-toolbar-group-end">
+                <!-- Search Box on larger screens -->
+                <span class="p-input-icon-left search-box flex" *ngIf="!isMobileView">
+                    <i class="pi pi-search"></i>
+                    <input 
+                        pInputText style="padding-left: 30px;"
+                        placeholder="Search"
+                        (keyup.enter)="onSearch($event)" 
+                    />
+                </span>
+                <!-- Search Icon on smaller screens -->
+                <span class="search-icon" *ngIf="isMobileView">
+                    <i class="pi pi-search" style="font-size: 1.5rem; padding: 5px;"  (click)="toggleSearchBox()"></i>
+                </span>
+            </div>
+            @if (showSearchBox) {
+                <div class="grid">
+                    <div class="col-12" style="width: 100%;">
+                        <span class="search-box">
+                            <input style="width: 100%;"
+                                pInputText style="padding-left: 30px;"
+                                placeholder="Search"
+                                (keyup.enter)="onSearch($event)" 
+                            />
+                        </span>
+                    </div>
                 </div>
-            </div>
-        }
-    </p-toolbar>
-</div>
-<div class="grid body">
-    @if (isSidebarVisible) {
-        <div class="col-12 md:col-2 sm:col-0 left-content">
-            <p-tree (onNodeClick)="onNodeClick($event)" [value]="nodes" [style]="{'border': 'none'}" #tree class="w-full md:w-30rem">
-                <ng-template let-node pTemplate="url">
-                    <a (click)="componentViewMethod(node.data)" rel="noopener noreferrer" 
-                    class="treechildren"
-                     [ngClass]="{'highlight': selectedNode === node.data}">{{ node.label }}</a>
-                </ng-template>
-                <ng-template let-node pTemplate="default">
-                    <b [ngClass]="{'highlight': selectedNode === node.label}">{{ node.label }}</b>
-                  </ng-template>
-            </p-tree>
-        </div>
-    } @else {
-        <div class="col-12 md:col-2 sm:col-0">
-            
-        </div>
-    }
-    <div class="col-12 md:col-7 sm:col-12 middle-content" style="background-color: rgba(239, 242, 245, 0.877); margin-top: 5px;">
-         @if (querySearch) {
-            @if (advertisements.length > 0) {
-                <app-homepage
-                *ngFor="let ad of advertisements"
-                [ad]="ad"
-            ></app-homepage>
-            } @else {
-                <p>No advertisements found for your query.</p>
             }
-
-        } @else {
-            <router-outlet></router-outlet>
-        }
+        </p-toolbar>
     </div>
-    <br><br><br><br>
-    <div class="col-12 md:col-3 sm:col-0 right-content" id="content" *ngIf="!isMobileView">
-            <img src="../../assets/images/rightad.jpg" width="300px"/>
-            <div style="margin-top: -8px;">
-                <a routerLink="/advertiser/paisquaread" style="text-decoration: underline; " >Click here advertise</a>
+    <div class="grid body">
+        @if (isSidebarVisible) {
+            <div class="col-12 md:col-2 left-content">
+                <p-tree (onNodeClick)="onNodeClick($event)" [value]="nodes" [style]="{'border': 'none'}" #tree class="w-full md:w-30rem">
+                    <ng-template let-node pTemplate="url">
+                        <a (click)="componentViewMethod(node.data)" rel="noopener noreferrer" 
+                        class="treechildren"
+                         [ngClass]="{'highlight': selectedNode === node.data}">{{ node.label }}</a>
+                    </ng-template>
+                    <ng-template let-node pTemplate="default">
+                        <b [ngClass]="{'highlight': selectedNode === node.label}">{{ node.label }}</b>
+                      </ng-template>
+                </p-tree>
             </div>
-    </div>
-</div>
+        } @else {
+            <div class="col-12 md:col-2 ">
+                
+            </div>
+        }
+        
+        <div class="col-12 md:col-7 sm:col-12 middle-content" style="background-color: rgba(239, 242, 245, 0.877); 
+        margin-top: 10px;">
+             @if (querySearch) {
+                @if (advertisements.length > 0) {
+                    <app-homepage
+                    *ngFor="let ad of advertisements"
+                    [ad]="ad"
+                ></app-homepage>
+                } @else {
+                    <p>No advertisements found for your query.</p>
+                }
     
-<br><br>
+            } @else {
+                <router-outlet></router-outlet>
+            }
+        </div>
+        <br><br><br><br>
+        <div class="col-12 md:col-3 sm:col-0 right-content" id="content" *ngIf="!isMobileView">
+                <img src="../../assets/images/rightad.jpg" width="300px"/>
+                <div style="margin-top: -8px;">
+                    <a routerLink="/advertiser/paisquaread" style="text-decoration: underline; " >Click here advertise</a>
+                </div>
+        </div>
+    </div>
+        
+    <br><br>
+    
+</div>

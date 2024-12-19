@@ -37,10 +37,12 @@ a{
 :host ::ng-deep .treechildren:hover .pi {
   color: rgb(236, 126, 218);
 }
-:host ::ng-deep .p-toolbar {
+:host ::ng-deep .p-toolbar{
   background: #035493;
   border: 1px solid #035493;
-  padding: 0.1rem;
+  padding: 0rem;
+  margin-top: -8px;
+  margin-bottom: -8px;
   border-radius: 3px;
   gap: 0.5rem;
 }

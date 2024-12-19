@@ -82,9 +82,8 @@ export class HomepageComponent implements OnInit {
     this._service.getProfileList(+this.userId).subscribe(
       data =>{
         this.userData=data;
-        console.log("this.userData--",this.userData)
-          this.followerslist=data.following;
-          this.blockedlist=data.blocked;
+        this.followerslist=data.following;
+        this.blockedlist=data.blocked;
       },
       error=>{
         console.log("error occured in followerslist")

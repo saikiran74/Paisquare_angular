@@ -61,8 +61,8 @@ textarea{
     
   }
   .p-chip {
-    width: 100% !important;
-    height: 35px;
+    width: 90% !important;
+    height: 25px;
     font-size:1rem;
     justify-content: center;
   }

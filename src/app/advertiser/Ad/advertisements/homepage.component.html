@@ -32,8 +32,8 @@
     <div class="grid" style="padding-left: 5px;">
         <div class="col-12 flex">
             <div class="card-body">
-                <div>
-                    <label style="font-size: 1.2rem;" [innerHTML]="ad.description"></label>
+                <div style="margin-left: 10px;">
+                    <label style="font-size: 1.2rem; "  [innerHTML]="ad.description"></label>
                 </div>
             </div>
         </div>
@@ -203,7 +203,7 @@
             </div><br>
             <div>
                 <p-button (click)="editAdvertisement(ad.id)">
-                    {{ ad.id == userId ? 'Edit' : 'Just visit' }}
+                    {{ ad.advertiser.id == userId ? 'Edit' : 'Just visit' }}
                 </p-button>
             </div>
         </ng-template>
@@ -211,7 +211,7 @@
     <p-overlayPanel #location>
         <ng-template pTemplate="content">
             <textarea  pInputTextarea rows="5" disabled="true" [value]="ad.location"
-                 type="text" style="font-weight: 30px; color: black; size: 12.5rem;"
+                 type="text" style="font-weight: 30px; color: black; size: 12.5rem; height: 120px;" 
             ></textarea><br>
         </ng-template>
     </p-overlayPanel>
