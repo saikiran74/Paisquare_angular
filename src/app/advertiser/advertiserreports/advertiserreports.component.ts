@@ -155,7 +155,6 @@ getLikeGraphFromRemote(period:any){
 getVisitorGraphFromRemote(period:any){
     this._service.getVisitorGraphFromRemote(this._service.userId,period).subscribe(
         data=>{
-            console.log("---------->visitor",data)
             this.VisitorsLabels=[]
             this.VisitorsData=[]
             if(data.length==0){
@@ -194,14 +193,11 @@ getFollowersGraphFromRemote(period:any){
                 this.noDataFollowers=true
             }
             else{
-                console.log("followers data------>",data);
                 data.forEach((obj: any) => {
                     this.followersLabels.push(obj[0])
                     this.followersData.push(obj[1])
                     });
             }
-            console.log(this.followersLabels)
-            console.log(this.followersData)
             this.followers = {
                 labels: this.followersLabels,
                 datasets: [

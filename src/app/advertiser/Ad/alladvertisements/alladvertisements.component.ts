@@ -76,13 +76,10 @@ ngOnInit(){
   }*/
   this._route.queryParams.subscribe(params => {
     this.userId = params['userId'];
-    console.log('Query Params userId:', this.userId);
 
     if (this.userId) {
-      console.log('Fetching advertisements for userId:', this.userId);
       this.fetchUserAdvertisements(this.userId);
     } else {
-      console.log('Fetching all advertisements');
       this.fetchadvertisement();
     }
   });
@@ -125,7 +122,6 @@ fetchUserAdvertisements(userId:string){
   this._service.getUserAdvertisements(+this.userId).subscribe(
     data => {
       this.advertisements = data;
-      console.log("advertisment list for userId: ",userId,this.advertisements)
     },
       error=>{console.log("error occurred while retrieving the data for userId -",this.userId)
   });
@@ -135,7 +131,6 @@ fetchadvertisement(){
       data => {
       this.userId=this._service.userId;
       this.advertisements = data;
-      console.log("Ads in all ads ",this.advertisements)
     },
       error=>{console.log("error occur while retrieving the data!")
     });
@@ -143,13 +138,11 @@ fetchadvertisement(){
   fetchDistinctHashtags() {
     this._service.getHashTags().subscribe(data => {
       this.chips = [{ label: 'All' }, ...data.map((hashtag:string) => ({ label: hashtag }))];
-      console.log("this.chips-->",this.chips)
     });
   }
   onChipClick(index: number) {
     this.activeChipIndex = index;
     const selectedHashtag = this.chips[index].label;
-    console.log("selectedHashtag",selectedHashtag)
     if (selectedHashtag === 'All') {
       this.fetchadvertisement();  // Fetch all advertisements
     } else {
@@ -163,19 +156,16 @@ fetchadvertisement(){
   }
   querySearch:boolean=false;
   onSearch(queryEvent: Event): void {
-    console.log('In query search',queryEvent);
     const inputElement = queryEvent.target as HTMLInputElement;
     const query = inputElement.value?.trim();
     this.querySearch=true;
     if (!query.trim()) {
         this.querySearch = false;
-        console.log('Search query is empty');
     }
     this._service.getPincodesAdvertisement(query).subscribe(
       data => {
         this.userId=this._service.userId;
         this.advertisements = data;
-        console.log("advertisment list for userId: ",this.advertisements)
       },
         error=>{console.log("error occurred while retrieving the data for query -",query)
     });
@@ -188,7 +178,6 @@ fetchadvertisement(){
   }
   checkViewport() {
     this.isMobileView = window.innerWidth <= 768;
-    console.log("this.isMobileView ",this.isMobileView,window.innerWidth)
     if(this.isMobileView){
       this.showSearchBox=false;
     }

@@ -40,10 +40,8 @@ export class ProfileupdateComponent implements OnInit {
     this.profileForm = this.createFormGroup();
     this.getProfileImage();
     // loading profile data
-    console.log("Oninit profile update page for ",this._service.userId);
     this._service.getProfileList(this._service.userId).subscribe(
       data =>{
-        console.log("user profile data-->",data)
         this.profileData=data;
         this.profileForm.get('brandInformation.brandName')?.setValue(data.brandName);
         this.profileForm.get('brandInformation.brandDescription')?.setValue(data.brandDescription);
@@ -76,8 +74,6 @@ export class ProfileupdateComponent implements OnInit {
         this.profileForm.get('brandRecommendation.brandTargetAges')?.setValue(data.brandTargetAges);
         this.profileForm.get('brandRecommendation.country')?.setValue(data.country);
         //this.profileForm.patchValue(data);
-        console.log("profile data is:",this.profileData);
-        console.log("this.profileForm-->",this.profileForm)
         },
       error=>{
         console.log("error occured in followerslist")
@@ -128,27 +124,22 @@ export class ProfileupdateComponent implements OnInit {
  
   onSubmitbrandInformationUpdate(){
     this.updatingInformation=true;
-    console.log(this.updatingInformation)
     const brandInformationControl = this.profileForm.get('brandInformation');
     if (brandInformationControl && brandInformationControl.valid) {
       const personalInfoData = brandInformationControl.value;
-      console.log('Update Personal Info:', personalInfoData);
       this._service.ProfilebrandInformationUpdate(personalInfoData,this._service.userId).subscribe(
         data=>{
-          console.log("Response received",data);
           this.messagesUpdate('success');
           this.showMessageFor='brandInformation';
           this._router.navigate(['home/profileupdate'])
         },
         error=>{
-          console.log("profile not saved");
           this.messagesUpdate('error');
       })
     } else {
       this.messagesUpdate('info');
     }
     this.updatingInformation=false;
-    console.log("this.updatingInformation",this.updatingInformation)
   }
   messagesUpdate(value:String){
     this.messageService.clear
@@ -160,7 +151,6 @@ export class ProfileupdateComponent implements OnInit {
       this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'Message Content' });
     else
       this.messageService.add({ severity: 'info', summary: 'Info', detail: 'please enter details correctly' });
-    console.log("this.messageService",this.messageService)
   }
   
   profileImageUrl: string ="";
@@ -187,7 +177,6 @@ export class ProfileupdateComponent implements OnInit {
   
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
-    console.log('File selected:', this.selectedFile);
     const file: File = event.target.files[0];
     if (file.size > 5 * 1024 * 1024) { // 5 MB limit
       alert('File size exceeds the maximum limit of 5 MB.');
@@ -196,15 +185,11 @@ export class ProfileupdateComponent implements OnInit {
     this.uploadImage();
   }
   uploadImage(): void {
-    console.log("In uploadImage");
-    
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('image', this.selectedFile);
-  
       this._service.uploadProfileImage(formData).subscribe({
         next: (response) => {
-          console.log(response); // Log success message
           alert(response); // Display the response
           this.getProfileImage(); // Refresh profile image
         },
@@ -224,15 +209,12 @@ export class ProfileupdateComponent implements OnInit {
     this.showMessageFor='personalInformation';
     if (personalInformationControl && personalInformationControl.valid) {
       const personalInfoData = personalInformationControl.value;
-      console.log('Update Personal Info:', personalInfoData);
       this._service.ProfilepersonalInformationUpdate(personalInfoData,this._service.userId).subscribe(
         data=>{
-          console.log("Response received");
           this.messagesUpdate('success');
           this._router.navigate(['home/profileupdate',this._service.userId])
       },
         error=>{
-          console.log("profile not saved");
         this.messagesUpdate('error');
       })
     } else {
@@ -244,14 +226,11 @@ export class ProfileupdateComponent implements OnInit {
   onSubmitBrandRecommendationUpdate(){
     this.updatingInformation=true;
     const brandRecommendationControl = this.profileForm.get('brandRecommendation');
-    console.log("this.profileForm.get('brandRecommendation')",this.profileForm.get('brandRecommendation')?.value)
     this.showMessageFor='BrandRecommendation';
     if (brandRecommendationControl && brandRecommendationControl.valid) {
       const brandRecommendationData = brandRecommendationControl.value;
-      console.log('Update Personal Info:', brandRecommendationData);
       this._service.ProfileBrandRecommendationUpdate(brandRecommendationData,this._service.userId).subscribe(
         data=>{
-          console.log("Response received");
           this.messagesUpdate('success');
           this._router.navigate(['home/profileupdate'])
       },
@@ -270,10 +249,8 @@ export class ProfileupdateComponent implements OnInit {
     this.showMessageFor='SocialMedia';
     if (socialMediaControl && socialMediaControl.valid) {
       const socialMediaData = socialMediaControl.value;
-      console.log('Update Personal Info:', socialMediaData);
       this._service.ProfileSocialMediaUpdate(socialMediaData,this._service.userId).subscribe(
         data=>{
-          console.log("Response received");
           this.messagesUpdate('success');
           this._router.navigate(['home/profileupdate'])
       },
@@ -292,10 +269,8 @@ export class ProfileupdateComponent implements OnInit {
     this.showMessageFor='password';
     if (passwordUpdateControl && passwordUpdateControl.valid) {
       const passwordUpdateData = passwordUpdateControl.value;
-      console.log('Update Personal Info:', passwordUpdateData);
       this._service.ProfilepasswordUpdate(passwordUpdateData,this._service.userId).subscribe(
         data=>{
-          console.log("Response received");
           this.messagesUpdate('success');
           this._router.navigate(['home/profileupdate',this._service.userId])
       },

@@ -29,16 +29,13 @@ export class NavbarComponent  implements OnInit{
     ngOnInit() {
       this.checkViewport();
       const token = localStorage.getItem('token');
-      console.log("token in navbar-->",token)
       if (token && this.authService.isAuthenticated()) {
         const userdetails=this.authService.getUserDetails()
-        console.log("userdetails-->",userdetails)
         this.userId=userdetails.id;
         this._service.userId=userdetails.id;
         this._service.userName=userdetails.username;
         this.userName=userdetails.username;
       } else {
-        console.log("Token is not authencated in navbar")
         this._router.navigate(['/login']);
       }
       this.nodes = [
@@ -79,21 +76,15 @@ export class NavbarComponent  implements OnInit{
     }
     selectedNode: any;
   onNodeClick(node: TreeNode) {
-    console.log("onNodeClick -->",this.selectedNode)
     this.selectedNode = node;  // Set the clicked node as selected
-    console.log('Selected node: ', node);
   }
   componentViewMethod(val:String){
-    console.log(val)
     this.selectedNode = val;
-    console.log('Selected node: ', val);
     if (val.includes('myadvertisement')) {
       //this._router.navigate([val.replace(':userId', this.userId)]);
-      console.log('Navigating to myadvertisement with userId:', this.userId);
       this._router.navigate(['/advertiser/myadvertisement'], {
         queryParams: { userId: this.userId },
       });
-      console.log('Navigating to myadvertisement with userId:', this.userId);
 
       //this._router.navigate(['/advertiser/myadvertisement'], {state: { userId: this.userId },});
     } else if (val.includes('home/profile/')) {
@@ -127,19 +118,16 @@ export class NavbarComponent  implements OnInit{
   querySearch:boolean=false;
 
   onSearch(queryEvent: Event): void {
-    console.log('In query search',queryEvent);
     const inputElement = queryEvent.target as HTMLInputElement;
     const query = inputElement.value?.trim();
     this.querySearch=true;
     if (!query.trim()) {
         this.querySearch = false;
-        console.log('Search query is empty');
     }
     this._service.getGlobalSearchresult(query).subscribe(
       data => {
         this.userId=this._service.userId;
         this.advertisements = data;
-        console.log("advertisment list for userId: ",this.advertisements)
       },
         error=>{console.log("error occurred while retrieving the data for query -",query)
     });
@@ -147,13 +135,11 @@ export class NavbarComponent  implements OnInit{
   }
   checkViewport() {
     this.isMobileView = window.innerWidth <= 768;
-    console.log("this.isMobileView ",this.isMobileView,window.innerWidth)
     
     if(this.isMobileView){
       this.showSearchBox=false;
     } else{
       this.isSidebarVisible = !this.isMobileView; // Sidebar hidden by default on mobile
-      console.log("this.isSidebarVisible ->",this.isSidebarVisible )
     }
   }
 
@@ -164,7 +150,6 @@ export class NavbarComponent  implements OnInit{
   }
   toggleSidebar() {
     this.isSidebarVisible = !this.isSidebarVisible;
-    console.log("isSidebarVisible ",this.isSidebarVisible)
   }
   showSearchBox:boolean=false;
   toggleSearchBox(){

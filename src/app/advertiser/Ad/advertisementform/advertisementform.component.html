@@ -159,7 +159,7 @@
                               separator="," 
                               placeholder="Enter up to 5 hashtags" 
                               (onAdd)="onAddChip($event)"  name="hashtagInput"
-                              (onRemove)="onRemoveChip($event)">
+                              >
                           </p-chips>
                           <p *ngIf="hashtags.length >= 5" class="text-danger" style="font-size: 1rem;">
                             You can only add up to 5 hashtags.

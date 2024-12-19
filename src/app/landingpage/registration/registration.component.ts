@@ -10,7 +10,7 @@ import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent implements OnInit, OnChanges{
+export class RegistrationComponent implements OnInit {
   user= new User();
   message=''
   
@@ -79,16 +79,11 @@ export class RegistrationComponent implements OnInit, OnChanges{
     });
   }
 
-  ngOnChanges(registrationForm:any) {
-    console.log('Component changes:', registrationForm);
-  }
-
   registerUser() {
     this.message=''
     if (this.registrationForm.valid) {
       
       this.email = this.registrationForm.get('email')?.value;
-      console.log('Form submitted', this.registrationForm.value);
       this._service.registerUserFromRemote(this.registrationForm.value).subscribe(
         response => {
           this.message= response.message;
@@ -96,20 +91,16 @@ export class RegistrationComponent implements OnInit, OnChanges{
             this.successMessage=true;
           }
           if(response.code.includes("emailExists")){
-            console.log("email already exist emailExistsemailExists")
             this.registrationForm.enable();
             this.showEmailOTPBox=false;
           } else if (response.code.includes("emailAddressNotFound")) {
-            console.log("email address not found")
             this.showEmailOTPBox=false;
             this.registrationForm.enable();
           } else{
-              console.log("else part in register")
               this.registrationForm.disable();
               this.showEmailOTPBox=true;
               this.registrationForm.get('emailOTP')?.enable();
           }
-          console.log('Registration successful', response);
         },
         error => {
           console.error('Registration failed', error);
@@ -123,8 +114,6 @@ export class RegistrationComponent implements OnInit, OnChanges{
   disableverifyOTPButton:boolean=false;
   verifyOTP(){
     if (this.registrationForm.valid) {
-      console.log("email and otp",this.email,this.otp) 
-      console.log("this.registrationForm.value",this.registrationForm.value)
       this.user.email=this.email;
       this.user.emailOTP=this.registrationForm.get('emailOTP')?.value
       
@@ -135,14 +124,11 @@ export class RegistrationComponent implements OnInit, OnChanges{
             this.successMessage=true;
           }
           if(response.code.includes("invalidOTP")){
-            console.log("invalidOTP")
             this.successMessage=false;
             this.registrationForm.get('emailOTP')?.enable();
           } else if (response.code.includes("OTPVerified")) {
-            console.log('OTP verified successful', response);
             this._router.navigate(['/login']);
           } else{
-              console.log("else part in register")
               this.registrationForm.disable();
               this.showEmailOTPBox=true;
               this.registrationForm.get('emailOTP')?.enable();

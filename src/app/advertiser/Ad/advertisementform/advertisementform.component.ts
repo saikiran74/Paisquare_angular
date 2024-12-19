@@ -29,7 +29,6 @@ export class AdvertisementformComponent implements OnInit{
     }
     this._service.getUserdata(this._service.userId).subscribe(
       data=>{
-        console.log(data)
         this.paisa=data.paisa
         this.pai=data.pai
       },
@@ -84,10 +83,8 @@ export class AdvertisementformComponent implements OnInit{
       this.paiChecked = false;
       this.advertise.pai=0;
       this.advertise.paiperclick=0;
-    console.log("this.paiChecked+",this.paiChecked)
   }
   paisaCheckbox(){
-    console.log("this.paisaChecked-",this.paisaChecked)
     this.paisaChecked=!this.paisaChecked
     if(!this.paisaChecked){
       this.paisaChecked = true;
@@ -97,10 +94,8 @@ export class AdvertisementformComponent implements OnInit{
       this.paisaChecked = false;
       this.advertise.paisa=0;
       this.advertise.paisaperclick=0;
-    console.log("this.paisaChecked+",this.paisaChecked)
   }
   freeTypeCheckbox(){
-    console.log("this.paisaChecked-",this.freeTypeChecked)
     this.freeTypeChecked=!this.freeTypeChecked
     if(!this.freeTypeChecked){
       this.freeTypeChecked = true;
@@ -108,20 +103,15 @@ export class AdvertisementformComponent implements OnInit{
     }
     else
       this.freeTypeChecked = false;
-    console.log("this.paisaChecked+",this.freeTypeChecked)
   }
   onUrlTypeChange(event: any) {
-    console.log("Selected URL Type:", event.value);
     this.selectedUrlType = event.value;
   }
   advertisementForm(){
-    console.log(this.advertise.url.startsWith("https://wa.me/"))
     if(this.selectedUrlType=='whatsapp' && !this.advertise.url.startsWith("https://wa.me/")){
       this.advertise.url="https://wa.me/"+this.advertise.url
     }
-    console.log("this.advertise.url",this.advertise.url)
     this.message=''
-    console.log("selectedUrlType",this.selectedUrlType)
     this.advertise.backGroundColor = this.adBackgroundSelected;
     this.advertise.status='Active';
     if(this.advertise.brandname==null || this.advertise.brandname==''){
@@ -130,7 +120,6 @@ export class AdvertisementformComponent implements OnInit{
     else if(this.advertise.description==null || this.advertise.description==''){
       this.message="Please enter brand description"
     } else if(this.advertise.description.length>1000) {
-      console.log("Please enter description less than 1000 Characters");
       this.message = "Please enter description less than 1000 Characters";
     }
     else if(this.advertise.url==null || this.advertise.url==''){
@@ -156,16 +145,13 @@ export class AdvertisementformComponent implements OnInit{
       if(this.selectedUrlType=='whatsapp'){
         this.advertise.url="https:wa.me/"+this.advertise.url
       }
-      console.log("this.advertise.url",this.advertise.url)
       this.advertise.hashtags = this.hashtags.join(', ');
       this.advertise.pincodes = this.pincodes.join(', '); 
       this._service.advertiseFromRemote(this.advertise,this._service.userId).subscribe(
         data=>{
-          console.log("Response received--------------->",data);
           this._router.navigate(['advertiser'])
       },
-        error=>{console.log(this.advertise);
-          console.log("not saved");
+        error=>{
         this.message="Invalid details";
       });
     }
@@ -240,15 +226,10 @@ export class AdvertisementformComponent implements OnInit{
   
   locationEnabled: boolean = false;
   onLocationToggle(event: any) {
-    console.log('Toggled:', event.checked);
     this.locationEnabled = event.checked;
-    console.log('locationEnabled:', this.locationEnabled);
   }
   pinCodeValidator(pincodes:string[]) {
-    console.log(pincodes);
-      console.log("pincodes")
       const invalidPinCodes = pincodes.filter(pin => !/^\d{6}$/.test(pin.trim()));
-      console.log("invalidPinCodes->",invalidPinCodes);
       const invalidPinCodesList=invalidPinCodes.join(', ');
       if(invalidPinCodesList.length>0){
         return true;
@@ -261,7 +242,6 @@ export class AdvertisementformComponent implements OnInit{
     this._service.getIDAdvertisements(+adId).subscribe(
       data => {
         this.advertise = data;
-        console.log("Advertisement ",this.advertise.hashtags.split(','));
         this.hashtags = this.advertise.hashtags && this.advertise.hashtags.trim() 
           ? this.advertise.hashtags.split(',').map(pincode => pincode.trim()).filter(pincode => pincode) 
           : [];
@@ -269,16 +249,12 @@ export class AdvertisementformComponent implements OnInit{
           ? this.advertise.pincodes.split(',').map(pincode => pincode.trim()).filter(pincode => pincode) 
           : [];
 
-        console.log("this.advertise.pincodes",this.advertise.pincodes.length,this.pincodes)
       },
         error=>{console.log("error occure while retrieving the data for ID -",adId)
     });
-    console.log(`Editing ad with ID: ${adId}`);
   }
   mobileNumberValidator(number:any) {
       const isValid = /^\d{10}$/.test(number.replace('https://wa.me/', ''));
-      console.log("isValid", isValid);
-      console.log("number", number.replace('https://wa.me/', ''));
       return isValid;
   }
   onAddChip(event: any): void {
@@ -288,11 +264,6 @@ export class AdvertisementformComponent implements OnInit{
     }
     this.cdr.detectChanges();
 
-  }
-
-  onRemoveChip(event: any): void {
-      // Optionally handle any logic when a chip is removed
-      console.log('Removed:', event);
   }
   removeChip(index: number): void {
     this.hashtags.splice(index, 1);
