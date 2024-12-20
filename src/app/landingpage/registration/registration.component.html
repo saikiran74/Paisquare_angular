@@ -60,10 +60,10 @@
                     <p-radioButton value="generalUser" inputId="generalUser" formControlName="accountType"></p-radioButton>
                     <label for="generalUser" class="ml-2">General User</label>
                   </div>
-                  <div class="flex">
+                  <!--<div class="flex">
                     <p-radioButton value="both" inputId="both" formControlName="accountType"></p-radioButton>
                     <label for="both" class="ml-2">Both</label>
-                  </div>
+                  </div>-->
                 </div>
                 <div *ngIf="registrationForm.get('accountType')?.invalid && registrationForm.get('accountType')?.touched" class="text-danger">
                   <div *ngIf="registrationForm.get('accountType')?.errors?.['required']">
@@ -128,9 +128,9 @@
               </div>
             }
             @if(successMessage){
-              <h3 class="text-success text-green-500">{{message}}</h3>
+              <h6 class="text-success text-green-500">{{message}}</h6>
             } @else {
-              <h3 class="text-danger">{{message}}</h3>
+              <h6 class="text-danger">{{message}}</h6>
             }
             @if (!showEmailOTPBox) {
               <div class="col-12 text-center">

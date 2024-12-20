@@ -142,7 +142,7 @@ export class ProfileupdateComponent implements OnInit {
     this.updatingInformation=false;
   }
   messagesUpdate(value:String){
-    this.messageService.clear
+    this.messageService.clear();
     if(value=='success')
       this.messageService.add({ severity:'success', summary:'Success', detail:'Successfully Updated'});
     else if(value=='error')
@@ -151,6 +151,7 @@ export class ProfileupdateComponent implements OnInit {
       this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'Message Content' });
     else
       this.messageService.add({ severity: 'info', summary: 'Info', detail: 'please enter details correctly' });
+    console.log("this.messageService",this.messageService)
   }
   
   profileImageUrl: string ="";
