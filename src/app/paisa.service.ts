@@ -4,6 +4,7 @@ import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { Observable } from 'rxjs';
 import {HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,89 +13,91 @@ export class PaiService {
   userId: any;
   userName: any;
   constructor( private _http : HttpClient) { }
-
+  private apiUrl = environment.apiUrl;
+  
   public loginUserFromRemote(user: User ):Observable<any>{
-     return this._http.post<any>("http://localhost:3300/login",user)
+    console.log("this.apiUrl",this.apiUrl);
+     return this._http.post<any>(`${this.apiUrl}/login`,user)
   }
   //OTP call
   /*
   public verifyOTPCallFromRemote(email: string, otp: string):Observable<any>{
-    return this._http.post<any>("http://localhost:3300/verifyOTP",{ email, otp })
+    return this._http.post<any>(`${this.apiUrl}/verifyOTP`,{ email, otp })
  }*/
   public verifyOTPCallFromRemote(user: User): Observable<any> {
-    return this._http.post<any>("http://localhost:3300/verifyOTP", user);
+    return this._http.post<any>(`${this.apiUrl}/verifyOTP`, user);
 }
   public registerUserFromRemote(user: User ):Observable<any>{
-    return this._http.post<any>("http://localhost:3300/registeruser",user)
+    return this._http.post<any>(`${this.apiUrl}/registeruser`,user)
  }
   public advertiseFromRemote(advertise: Advertise,userid:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/advertise/${userid}`,advertise)
+    return this._http.post<any>(`${this.apiUrl}/advertise/${userid}`,advertise)
   }
   public ContactusFromRemote(contactus: Contactus):Observable<any>{
-    return this._http.post<any>("http://localhost:3300/contactus",contactus)
+    return this._http.post<any>(`${this.apiUrl}/contactus`,contactus)
   }
   public CommentsFromRemote(comments: Comments,advertisementid: Number,userid:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/comments/${userid}/${advertisementid}`,comments)
+    return this._http.post<any>(`${this.apiUrl}/comments/${userid}/${advertisementid}`,comments)
   }
   public getAllAdvertisements() {
-    return this._http.get<any>(`http://localhost:3300/advertisements`);
+    return this._http.get<any>(`${this.apiUrl}/advertisements`);
   }
   public getAllCommentList(){
-    return this._http.get<any>("http://localhost:3300/commentslist");
+    return this._http.get<any>(`${this.apiUrl}/commentslist`);
   }
   public getlikeFromRemote(){
-    return this._http.get<any>(`http://localhost:3300/likelist/${this.userId}`);
+    return this._http.get<any>(`${this.apiUrl}/likelist/${this.userId}`);
   }
   public getVisitedFromRemote(){
-    return this._http.get<any>(`http://localhost:3300/vistlist/${this.userId}`);
+    return this._http.get<any>(`${this.apiUrl}/vistlist/${this.userId}`);
   }
   public CommentsListFromRemote(advertisementid: Number){
-    return this._http.get<any>(`http://localhost:3300/commentslist/${advertisementid}`);
+    return this._http.get<any>(`${this.apiUrl}/commentslist/${advertisementid}`);
   }
   public FollowerFromRemote(follower:Follower,advertiserid: Number,userId:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/follow/${userId}/${advertiserid}`,follower)
+    return this._http.post<any>(`${this.apiUrl}/follow/${userId}/${advertiserid}`,follower)
   }
   public saveRatingFromRemote(rating:any,advertiserid:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/rating/${this.userId}/${advertiserid}`,rating)
+    return this._http.post<any>(`${this.apiUrl}/rating/${this.userId}/${advertiserid}`,rating)
   }
   public VisitedFromRemote(visited:Visited,userid:Number,advertiserid: Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/visit/${userid}/${advertiserid}`,visited)
+    return this._http.post<any>(`${this.apiUrl}/visit/${userid}/${advertiserid}`,visited)
   }
   public LikeFromRemote(like:Like,userid:Number,advertisementid:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/like/${userid}/${advertisementid}`,like)
+    return this._http.post<any>(`${this.apiUrl}/like/${userid}/${advertisementid}`,like)
   }
   //Updating profiles
   public getProfileList(userId:Number) {
-    return this._http.get<any>(`http://localhost:3300/profile/${userId}`);
+    return this._http.get<any>(`${this.apiUrl}/profile/${userId}`);
   }
   public getUserdata(userId:Number){
-    return this._http.get<any>(`http://localhost:3300/userdata/${userId}`);
+    return this._http.get<any>(`${this.apiUrl}/userdata/${userId}`);
   }
   public ProfileSocialMediaUpdate(profile:Profile,userId:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/updateProfile/socialMediaLinks/${userId}`,profile)
+    return this._http.post<any>(`${this.apiUrl}/updateProfile/socialMediaLinks/${userId}`,profile)
   }
   public ProfileBrandRecommendationUpdate(profile:Profile,userId:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/updateProfile/BrandRecommendation/${userId}`,profile)
+    return this._http.post<any>(`${this.apiUrl}/updateProfile/BrandRecommendation/${userId}`,profile)
   }
   public ProfilepasswordUpdate(profile:Profile,userId:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/updateProfile/password/${userId}`,profile)
+    return this._http.post<any>(`${this.apiUrl}/updateProfile/password/${userId}`,profile)
   }
   public ProfilepersonalInformationUpdate(profile:Profile,userId:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/updateProfile/personalInformation/${userId}`,profile)
+    return this._http.post<any>(`${this.apiUrl}/updateProfile/personalInformation/${userId}`,profile)
   }
   public ProfilebrandInformationUpdate(profile:Profile,userId:Number):Observable<any>{
-    return this._http.post<any>(`http://localhost:3300/updateProfile/brandInformation/${userId}`,profile)
+    return this._http.post<any>(`${this.apiUrl}/updateProfile/brandInformation/${userId}`,profile)
   }
   public uploadProfileImage(formData: FormData): Observable<string> {
     return this._http.post<string>(
-      `http://localhost:3300/updateProfile/upload-image/${this.userId}`,
+      `${this.apiUrl}/updateProfile/upload-image/${this.userId}`,
       formData,
       { responseType: 'text' as 'json' } // Specify that the response is plain text
     );
   }
   
   public getProfileImage(): Observable<Blob> {
-    return this._http.get<ArrayBuffer>(`http://localhost:3300/updateProfile/profile-image/${this.userId}`, {
+    return this._http.get<ArrayBuffer>(`${this.apiUrl}/updateProfile/profile-image/${this.userId}`, {
       responseType: 'arraybuffer' as 'json' // Ensure you receive it as an ArrayBuffer
     }).pipe(
       map((response: ArrayBuffer) => {
@@ -105,7 +108,7 @@ export class PaiService {
   }
   public fetchAndProcessProfileImage(userId: string): Observable<string> {
     return this._http.get<ArrayBuffer>(
-      `http://localhost:3300/updateProfile/profile-image/${this.userId}`, 
+      `${this.apiUrl}/updateProfile/profile-image/${this.userId}`, 
       {
         responseType: 'arraybuffer' as 'json', // Explicitly fetch as ArrayBuffer
       }
@@ -116,7 +119,7 @@ export class PaiService {
         return URL.createObjectURL(blob); // Return Object URL
       }),
       catchError((error) => {
-        console.error("Error fetching profile image:", error);
+        console.error(`Error fetching profile image:`, error);
         throw error; // Re-throw the error for the component to handle
       })
     );
@@ -126,89 +129,89 @@ export class PaiService {
   
   //-----------------------
   public getIDAdvertisements(advertisementid:number){
-    return this._http.get<any>(`http://localhost:3300/idadvertisements/${advertisementid}`);
+    return this._http.get<any>(`${this.apiUrl}/idadvertisements/${advertisementid}`);
   }
   public getUserAdvertisements(userId:number){
-    return this._http.get<any>(`http://localhost:3300/useradvertisements/${userId}`);
+    return this._http.get<any>(`${this.apiUrl}/useradvertisements/${userId}`);
   }
   public getUserFollowingProfiles(userId:number){
-    return this._http.get<any>(`http://localhost:3300/UserFollowingProfiles/${userId}`);
+    return this._http.get<any>(`${this.apiUrl}/UserFollowingProfiles/${userId}`);
   }
   public getUserBlockedProfiles(userId:number){
-    return this._http.get<any>(`http://localhost:3300/UserBlockedProfiles/${userId}`);
+    return this._http.get<any>(`${this.apiUrl}/UserBlockedProfiles/${userId}`);
   }
   public postBlockAdvertiser(block:Block,userid:Number,advertiserId:Number){
-    return this._http.post<any>(`http://localhost:3300/blockadvertiser/${userid}/${advertiserId}`,block);
+    return this._http.post<any>(`${this.apiUrl}/blockadvertiser/${userid}/${advertiserId}`,block);
   }
   public postReportadvertisement(report:Report){
-    return this._http.post<any>(`http://localhost:3300/reportadvertisement`,report);
+    return this._http.post<any>(`${this.apiUrl}/reportadvertisement`,report);
   }
   public postfavouriteAdvertisement(favourite:Favourite,userid:Number,advertisementid:Number){
-    return this._http.post<any>(`http://localhost:3300/addAdvetisementToFavourite/${userid}/${advertisementid}`,favourite);
+    return this._http.post<any>(`${this.apiUrl}/addAdvetisementToFavourite/${userid}/${advertisementid}`,favourite);
   }
   //Data for graphs
   public getVisitorGraphFromRemote(userId:Number,reportperiod:String){
-    return this._http.get<any>(`http://localhost:3300/visitorgraph/${userId}/${reportperiod}`);
+    return this._http.get<any>(`${this.apiUrl}/visitorgraph/${userId}/${reportperiod}`);
   }
   public getFollowersGraphFromRemote(userId:Number,reportperiod:String){
-    return this._http.get<any>(`http://localhost:3300/followersgraph/${userId}/${reportperiod}`);
+    return this._http.get<any>(`${this.apiUrl}/followersgraph/${userId}/${reportperiod}`);
   }
   public getLikeGraphFromRemote(userId:Number,reportperiod:String){
-    return this._http.get<any>(`http://localhost:3300/likesgraph/${userId}/${reportperiod}`);
+    return this._http.get<any>(`${this.apiUrl}/likesgraph/${userId}/${reportperiod}`);
   }
   public getFavouriteGraphFromRemote(userId:Number,reportperiod:String){
-    return this._http.get<any>(`http://localhost:3300/favouritegraph/${userId}/${reportperiod}`);
+    return this._http.get<any>(`${this.apiUrl}/favouritegraph/${userId}/${reportperiod}`);
   }
   //------------------For userdashboard----------------
   public getFavouriteAdvertisements(){
-    return this._http.get<any>(`http://localhost:3300/getfavouriteadvertisementslist/${this.userId}`);
+    return this._http.get<any>(`${this.apiUrl}/getfavouriteadvertisementslist/${this.userId}`);
   }
   public getLikedAdvertisements(){
-    return this._http.get<any>(`http://localhost:3300/getlikedadvertisementslist/${this.userId}`);
+    return this._http.get<any>(`${this.apiUrl}/getlikedadvertisementslist/${this.userId}`);
   }
   public getFollowingAdvertisements(){
-    return this._http.get<any>(`http://localhost:3300/getfollowingadvertisementslist/${this.userId}`);
+    return this._http.get<any>(`${this.apiUrl}/getfollowingadvertisementslist/${this.userId}`);
   }
   public getBlockedAdvertisements(){
-    return this._http.get<any>(`http://localhost:3300/getUserBlockedAdvertisementsList/${this.userId}`);
+    return this._http.get<any>(`${this.apiUrl}/getUserBlockedAdvertisementsList/${this.userId}`);
   }
   public getVisitedAdvertisements(){
-    return this._http.get<any>(`http://localhost:3300/getvisitedadvertisementslist/${this.userId}`);
+    return this._http.get<any>(`${this.apiUrl}/getvisitedadvertisementslist/${this.userId}`);
   }
 
 
   public getAdvertisementTransactionData(){
-    return this._http.get<any>(`http://localhost:3300/getadvertisementtransactiondata/${this.userId}`);
+    return this._http.get<any>(`${this.apiUrl}/getadvertisementtransactiondata/${this.userId}`);
   }
 
   //Search functionally
   public getGlobalSearchresult(query:string){
-    return this._http.get<any>(`http://localhost:3300/search?query=${query}`);
+    return this._http.get<any>(`${this.apiUrl}/search?query=${query}`);
   }
   public getHashTags(){
-    return this._http.get<any>(`http://localhost:3300/getHashTags`);
+    return this._http.get<any>(`${this.apiUrl}/getHashTags`);
   }
   public getHashTagsAdvertisement(query:string){
-    return this._http.get<any>(`http://localhost:3300/getHashTagsAdvertisement/${query}`);
+    return this._http.get<any>(`${this.apiUrl}/getHashTagsAdvertisement/${query}`);
   }
   public getPincodesAdvertisement(query:string){
-    return this._http.get<any>(`http://localhost:3300/getpincodesadvertisement/${query}`);
+    return this._http.get<any>(`${this.apiUrl}/getpincodesadvertisement/${query}`);
   }
 
   /* Chat */
   sendMessage(chat: any): Observable<any> {
-    return this._http.post(`http://localhost:3300/chat/send`, chat);
+    return this._http.post(`${this.apiUrl}/chat/send`, chat);
   }
 
   getMessages(senderId: number, receiverId: number): Observable<any> {
-    return this._http.get(`http://localhost:3300/chat/getmessages/${senderId}/${receiverId}`);
+    return this._http.get(`${this.apiUrl}/chat/getmessages/${senderId}/${receiverId}`);
   }
 
   getChatHistoryUsers(userId: number): Observable<any> {
-    return this._http.get(`http://localhost:3300/chat/getchathistoryusers/${userId}`);
+    return this._http.get(`${this.apiUrl}/chat/getchathistoryusers/${userId}`);
   }
   initializeChat(chat: any): Observable<any> {
-    return this._http.post(`http://localhost:3300/chat/initialize-chat`, chat);
+    return this._http.post(`${this.apiUrl}/chat/initialize-chat`, chat);
   }
 
   sellCoins(coins: number, price: number) {
@@ -216,7 +219,7 @@ export class PaiService {
       coins,
       price,
     };
-    return this._http.post(`http://localhost:3300/sell-coins`, payload);
+    return this._http.post(`${this.apiUrl}/sell-coins`, payload);
   }
   addFunds(userId: number, amount: number): Observable<any> {
     const url = `/api/addFunds`; // Replace with your backend API endpoint

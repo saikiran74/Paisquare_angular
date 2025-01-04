@@ -98,6 +98,7 @@ export class UseractivitiesComponent implements OnInit{
     this._service.getBlockedAdvertisements().subscribe(
       data => {
         this.advertisementsOnClick = data;
+        console.log("this.advertisementsOnClick-",this.advertisementsOnClick)
     },
       error=>{console.log("error occure while retrieving the data!")
     });
@@ -144,7 +145,7 @@ export class UseractivitiesComponent implements OnInit{
   block(advertiserid: number){
     this.blockobj.userid=this._service.userId;
     this.blockobj.advertiserid=advertiserid;
-    this.blockobj.Blocked=true;
+    this.blockobj.blocked=true;
     this._service.postBlockAdvertiser(this.blockobj,this._service.userId,advertiserid).subscribe(
       data=>{
         this.Blockedprofile()

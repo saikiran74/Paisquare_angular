@@ -3,3 +3,7 @@
         margin-left: 40px;
     }
 }
+:host ::ng-deep .col-12{
+    padding-top: 0rem !important;
+    padding-bottom: 0rem !important;
+}

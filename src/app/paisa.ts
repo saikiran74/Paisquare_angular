@@ -13,11 +13,11 @@ export class Advertise{
     brandname:string='';
     description:string='';
     url:string='';
-    location:string='Ramula Banda ';
+    location:string=' ';
     backGroundColor:string='';
     gender!:string;
-    pai:Number=2000;
-    paiperclick:Number=20;
+    pai:Number=0;
+    paiperclick:Number=0;
     paisa!:Number;
     paisaperclick!:Number;
     country!:string;
@@ -71,6 +71,7 @@ export class Profile{
     ads!:Number[];
     accountType!:String;
     rating!:number;
+    profileImage!:string;
     noOfRating!:number;
     youtube!:string;
     facebook!:string;
@@ -115,7 +116,7 @@ export class Rating{
 export class Block{
     advertiserid!:Number;
     userid!:string;
-    Blocked!:boolean;
+    blocked!:boolean;
 }
 
 export class Report{

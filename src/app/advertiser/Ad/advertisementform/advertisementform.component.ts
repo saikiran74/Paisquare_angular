@@ -147,6 +147,7 @@ export class AdvertisementformComponent implements OnInit{
       }
       this.advertise.hashtags = this.hashtags.join(', ');
       this.advertise.pincodes = this.pincodes.join(', '); 
+      console.log("advertise-->",this.advertise)
       this._service.advertiseFromRemote(this.advertise,this._service.userId).subscribe(
         data=>{
           this._router.navigate(['advertiser'])

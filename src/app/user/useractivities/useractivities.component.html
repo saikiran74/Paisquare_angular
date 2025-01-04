@@ -70,13 +70,20 @@
                                         style="width: 50px; height: 50px;" class="logo">
                                     </div>
                                     <ng-template #placeholder>
-                                        <div class="logo-placeholder">
-                                        £
+                                        <div class="logo-placeholder flex justify-content-center algin-content-center" style="width: 50px; height: 50px;">
+                                        NA
                                         </div>
                                     </ng-template>
                                 </div>
-                                <div class="flex justify-content-center algin-content-center">
-                                    <label style="font-size: 2rem;">{{profile.brandName}}</label>
+                                <div class="flex justify-content-center algin-content-center" >
+                                    @if (profile.brandName && profile.brandName.length>1) {
+                                        <label style="font-size: 2rem;">
+                                            {{ profile.username.length > 20 ? profile.brandName.substring(0, 20) + '...' : profile.brandName }}
+                                        </label>
+                                    } @else {
+                                        <label style="font-size: 2rem;">
+                                            {{ profile.username.length > 20 ? profile.username.substring(0, 20) + '...' : profile.username }}
+                                        </label>}
                                 </div>
                             </div>
                         </ng-template>

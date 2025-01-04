@@ -112,10 +112,12 @@ export class HomepageComponent implements OnInit {
       this.reportobj.reportedtext=this.selectOptionText;
     else
       this.reportobj.reportedtext=this.selectedOption;
+    console.log("this.reportobj ",this.reportobj)
     if(this.reportobj.reportedtext!==''){
       this._service.postReportadvertisement(this.reportobj).subscribe(
         data=>{
           this.fetchUserData()
+          this.showReportDialog=false;
         },
         error=>{
           console.log("error occured while reporting");
@@ -160,10 +162,11 @@ export class HomepageComponent implements OnInit {
   block(advertiserid: number){
     this.blockobj.userid=this._service.userId;
     this.blockobj.advertiserid=advertiserid;
-    this.blockobj.Blocked=true;
+    this.blockobj.blocked=true;
     this._service.postBlockAdvertiser(this.blockobj,this._service.userId,advertiserid).subscribe(
       data=>{
         this.fetchUserData()
+        this.fetchData.emit();
       },
       error=>{
         console.log("error occured while blocking advertiser")
@@ -185,8 +188,8 @@ export class HomepageComponent implements OnInit {
     this.followerobj.following=true;
     this._service.FollowerFromRemote(this.followerobj,advertiserid,+this.userId).subscribe(
       data=>{
-        this.fetchData.emit();
         this.fetchUserData()
+        this.fetchData.emit();
         //this._router.navigate(['homepage'])
       },
       error=>{

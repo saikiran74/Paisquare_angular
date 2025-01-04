@@ -11,9 +11,6 @@
                         style="width: 35px; height: 30px; padding-left: 5px; margin-top: -10px;" class="logo">
                     </div>
                     <ng-template #placeholder>
-                      <div class="logo-placeholder">
-                        {{ ad.brandName.charAt(0).toUpperCase() }}
-                      </div>
                     </ng-template>
                   </div>
                   
@@ -114,7 +111,8 @@
                     </a>
                 </div>
                 <div>
-                    <label class="goldColor">{{ad.commenteduser.length}} Comment</label>
+                    <!--{{ad.commenteduser.length}}-->
+                    <label class="goldColor"> Comment</label>
                 </div>
             </div>
         </div>
@@ -147,7 +145,7 @@
                                     required 
                                 />
                                 <span class="p-inputgroup-addon">
-                                    <button type="submit" class="btn-comment-box"
+                                    <button type="submit" class="btn-comment-box" style="height: 30px;"
                                      pButton icon="pi pi-angle-right"
                                      [disabled]="!commentobj.comment || commentobj.comment.trim() === ''"></button>
                                 </span>
@@ -211,11 +209,11 @@
                     {{ ad.favourites.includes(userId) ? 'Remove from favourites' : 'Add to favourites' }}
                 </p-button>
             </div><br>
-            <div>
+            @if(ad.advertiser.id == userId){
                 <p-button (click)="editAdvertisement(ad.id)">
-                    {{ ad.advertiser.id == userId ? 'Edit' : 'Just visit' }}
+                    Edit
                 </p-button>
-            </div>
+            }
         </ng-template>
     </p-overlayPanel>
     <p-overlayPanel #location>

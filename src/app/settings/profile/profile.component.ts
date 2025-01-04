@@ -74,6 +74,7 @@ export class ProfileComponent  implements OnInit{
     this._service.getProfileList(advertiserId).subscribe(
       data =>{
         this.profile=data;
+        console.log("this.profile0",this.profile)
         this.followersCount=this.getFollowersCount();
         if (this.profile && Object.keys(this.profile).length > 0) {
           this.profileFound = true;
