@@ -26,7 +26,7 @@ export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
   registrationFormGroup(): FormGroup {
     return new FormGroup({
-      username: new FormControl('', Validators.required),
+      username: new FormControl('', [Validators.required,Validators.maxLength(15)]),
       email: new FormControl('', [Validators.required,Validators.email]),
       pincode: new FormControl('', Validators.required),
       accountType: new FormControl('', Validators.required),
@@ -78,9 +78,10 @@ export class RegistrationComponent implements OnInit {
       console.log('Form status changes:', status);
     });
   }
-
+  createaccoutButtonClicked:boolean=false
   registerUser() {
     this.message=''
+    this.createaccoutButtonClicked=true;
     if (this.registrationForm.valid) {
       
       this.email = this.registrationForm.get('email')?.value;
@@ -90,6 +91,7 @@ export class RegistrationComponent implements OnInit {
           if(response.status=='success'){
             this.successMessage=true;
           }
+          this.createaccoutButtonClicked=true;
           if(response.code.includes("emailExists")){
             this.registrationForm.enable();
             this.showEmailOTPBox=false;
@@ -111,6 +113,8 @@ export class RegistrationComponent implements OnInit {
       this.message = 'Please fill out the form correctly.';
     }
   }
+  
+
   disableverifyOTPButton:boolean=false;
   verifyOTP(){
     if (this.registrationForm.valid) {

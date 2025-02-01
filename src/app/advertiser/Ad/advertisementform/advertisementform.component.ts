@@ -19,7 +19,10 @@ export class AdvertisementformComponent implements OnInit{
     { name: 'WhatsApp', value: 'whatsapp', icon: 'pi pi-whatsapp' }
   ];
   selectedUrlType = this.urlTypes[0].value;
+  isMobileView:boolean=false;
   ngOnInit(): void {
+    this.isMobileView=this._service.isMobileView;
+    console.log("isMobileView",this.isMobileView)
     this.hashtags = []; // Set initial value
     this.cdr.detectChanges();
     this.adId = this.route.snapshot.paramMap.get('id');
@@ -27,6 +30,7 @@ export class AdvertisementformComponent implements OnInit{
       this.isEditAdvertisement=true;
       this.loadAdDetails(this.adId);
     }
+    
     this._service.getUserdata(this._service.userId).subscribe(
       data=>{
         this.paisa=data.paisa
@@ -106,6 +110,7 @@ export class AdvertisementformComponent implements OnInit{
   }
   onUrlTypeChange(event: any) {
     this.selectedUrlType = event.value;
+    this.advertise.url=''
   }
   advertisementForm(){
     if(this.selectedUrlType=='whatsapp' && !this.advertise.url.startsWith("https://wa.me/")){
@@ -116,6 +121,8 @@ export class AdvertisementformComponent implements OnInit{
     this.advertise.status='Active';
     if(this.advertise.brandname==null || this.advertise.brandname==''){
       this.message="Please enter Brandname"
+    } else if(this.advertise.brandname.length>50) {
+      this.message="Please enter brand name less than 50 Characters"
     }
     else if(this.advertise.description==null || this.advertise.description==''){
       this.message="Please enter brand description"
@@ -142,9 +149,7 @@ export class AdvertisementformComponent implements OnInit{
       return;
     } 
     else{
-      if(this.selectedUrlType=='whatsapp'){
-        this.advertise.url="https:wa.me/"+this.advertise.url
-      }
+      console.log("advertisement ",this.advertise)
       this.advertise.hashtags = this.hashtags.join(', ');
       this.advertise.pincodes = this.pincodes.join(', '); 
       console.log("advertise-->",this.advertise)
@@ -249,7 +254,19 @@ export class AdvertisementformComponent implements OnInit{
         this.pincodes = this.advertise.pincodes && this.advertise.pincodes.trim() 
           ? this.advertise.pincodes.split(',').map(pincode => pincode.trim()).filter(pincode => pincode) 
           : [];
-
+        if (this.advertise.url) {
+          if (this.advertise.url.startsWith("https://wa.me/")) {
+            this.advertise.url = this.advertise.url.replace("https://wa.me/", "");
+            this.selectedUrlType = "whatsapp";
+          } else {
+            this.selectedUrlType = "web";
+          }
+          console.log("this.advertise.url",this.advertise.url)
+          console.log("this.selectedUrlType",this.selectedUrlType)
+        }
+        if (this.advertise.gender) {
+          this.advertise.gender = this.advertise.gender; // Preselect gender
+        }
       },
         error=>{console.log("error occure while retrieving the data for ID -",adId)
     });

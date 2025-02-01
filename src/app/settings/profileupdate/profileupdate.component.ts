@@ -83,7 +83,7 @@ export class ProfileupdateComponent implements OnInit {
   createFormGroup(): FormGroup {
     return new FormGroup({
       brandInformation: new FormGroup({
-        brandName: new FormControl(''),
+        brandName: new FormControl('',Validators.maxLength(20)),
         brandDescription: new FormControl(''),
         brandTagLine: new FormControl(''),
         website: new FormControl('',[this.urlValidator()])

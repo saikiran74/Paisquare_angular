@@ -17,7 +17,7 @@
                     <input style="height: 35px;"
                         pInputText style="padding-left: 30px;"
                         placeholder="Filter by pincodes"
-                        (keyup.enter)="onSearch($event)" 
+                        (keydown.enter)="onSearch($event)" 
                     />
                 </span>
             } @else {
@@ -34,7 +34,7 @@
                         <input 
                             pInputText style="margin-left: 18px;"
                             placeholder="Filter by pincodes"
-                            (keyup.enter)="onSearch($event)" 
+                            (keydown.enter)="onSearch($event)" 
                         />
                     </span>
                 </div>

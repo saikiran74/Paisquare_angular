@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable,HostListener } from '@angular/core';
 import { Advertise, User,Contactus,Comments, Follower, Visited, Like, Profile,Favourite, Block, Report } from './paisa';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { Observable } from 'rxjs';
@@ -15,6 +15,15 @@ export class PaiService {
   constructor( private _http : HttpClient) { }
   private apiUrl = environment.apiUrl;
   
+  isMobileView:boolean=false;
+  @HostListener('window:resize', ['$event'])
+    onResize(event: Event): void {
+        this.checkViewport();
+    }
+    checkViewport() {
+      this.isMobileView = window.innerWidth <= 768;
+      console.log("this.isMobileView",this.isMobileView)
+    }
   public loginUserFromRemote(user: User ):Observable<any>{
     console.log("this.apiUrl",this.apiUrl);
      return this._http.post<any>(`${this.apiUrl}/login`,user)

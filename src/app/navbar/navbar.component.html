@@ -3,7 +3,7 @@
         <p-toolbar class="col-12">
             <div class="p-toolbar-group-start">
                 <button *ngIf="isMobileView" class="btn"  (click)="toggleSidebar()" class="menu-button">
-                    <i class="pi pi-bars" style="font-size: 2rem;"></i>
+                    <i class="pi pi-bars" style="font-size: 2rem; color: white;"></i>
                 </button>
             </div>
             <div class="p-toolbar-group-center">
@@ -42,7 +42,7 @@
     <div class="grid body">
         @if (isSidebarVisible) {
             <div class="col-12 md:col-2 left-content">
-                <p-tree (onNodeClick)="onNodeClick($event)" [value]="nodes" [style]="{'border': 'none'}" #tree class="w-full md:w-30rem">
+                <p-tree (onNodeClick)="onNodeClick($event)" [value]="nodes" [style]="{'border': 'none','padding-top':'10px','padding-left':'5px'}" #tree class="w-full md:w-30rem">
                     <ng-template let-node pTemplate="url">
                         <a (click)="componentViewMethod(node.data)" rel="noopener noreferrer" 
                         class="treechildren"

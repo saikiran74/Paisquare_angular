@@ -28,6 +28,7 @@ export class NavbarComponent  implements OnInit{
   sidebarVisible1:boolean=true;
   userName=' ';
     ngOnInit() {
+      this._service.checkViewport()
       this.checkViewport();
       const token = localStorage.getItem('token');
       if (token && this.authService.isAuthenticated()) {
@@ -39,12 +40,7 @@ export class NavbarComponent  implements OnInit{
       } else {
         this._router.navigate(['/login']);
       }
-      this.nodes = [
-        {
-            key: '0',
-            expanded: true,
-            label: 'Pai Square',
-            children: [
+      this.nodes =  [
               { key: '0-0', label: 'Home page', data: '/advertiser', type: 'url',icon:'pi pi-home'},
               { key: '0-1', label: 'Advertise', data: 'advertiser/advertise', type: 'url',icon:'pi pi-plus' },
               { key: '0-2', label: 'Your activities', data: 'user/useractivities', type: 'url',icon:'pi pi-chart-line'},
@@ -55,9 +51,7 @@ export class NavbarComponent  implements OnInit{
               { key: '0-7', label: 'Update profile', data: 'home/profileupdate', type: 'url',icon:'pi pi-chart-line'},
               { key: '0-8', label: 'Chat', data: 'user/chat', type: 'url',icon:'pi pi-id-card'},
               { key: '0-9', label: 'logout', data: 'logout', type: 'url',icon:'pi pi-sign-out'},
-          ]
-        },
-    ];
+          ];
     /* Not using now for future purpose*/
       this.nodes_which_is_not_in_use = [
           {
@@ -101,7 +95,6 @@ export class NavbarComponent  implements OnInit{
   }
   componentViewMethod(val:String){
     this.selectedNode = val;
-    console.log("this.selectedNode->",this.selectedNode,"val-->",val)
     if (val.includes('myadvertisement')) {
       //this._router.navigate([val.replace(':userId', this.userId)]);
       this._router.navigate(['/advertiser/myadvertisement'], {

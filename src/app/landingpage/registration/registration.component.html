@@ -15,9 +15,13 @@
                     <div *ngIf="registrationForm.get('username')?.errors?.['required']">
                       Username is required.
                     </div>
+                    @if (registrationForm.get('username')?.value?.length>15) {
+                      <div>
+                        Please enter username less than 15 characters
+                      </div>
+                    }
                 </div>
               </div>
-              
             </div>
             <br>
             <div class="grid">
@@ -84,7 +88,6 @@
                     autocomplete="new-password"  class="form-control" formControlName="confirmPassword" placeholder="Re-enter password" required><br>
                 </div>
             </div>
-            <br>
             <div class="grid">
               <div class="col-12 md:col-8 md:col-offset-4">
                 <div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched" class="text-danger">
@@ -127,13 +130,16 @@
               </div>
             }
             @if(successMessage){
-              <h6 class="text-success text-green-500">{{message}}</h6>
+              <span class="text-success text-green-500">{{message}}</span>
             } @else {
-              <h6 class="text-danger">{{message}}</h6>
+              <span class="text-danger">{{message}}</span>
             }
             @if (!showEmailOTPBox) {
               <div class="col-12 text-center">
-                <p-button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid">Create Account</p-button>
+                <p-button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid || createaccoutButtonClicked">Create Account</p-button>
+                @if(createaccoutButtonClicked && !successMessage){
+                  Sending OTP...
+                } 
               </div>
             } @else{
               <div class="col-12 text-center">

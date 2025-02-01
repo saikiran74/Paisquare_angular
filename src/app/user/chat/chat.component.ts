@@ -87,5 +87,9 @@ export class ChatComponent implements OnInit {
     this._service.initializeChat(chat).subscribe();
   }
   
-  
+  closeOpenedChatWindow(){
+    console.log("userSelected",this.userSelected)
+    this.userSelected=!this.userSelected
+    console.log("userSelected",this.userSelected)
+  }
 }
