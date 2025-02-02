@@ -79,7 +79,7 @@ export class HomepageComponent implements OnInit {
     this.fetchUserData();
   }
   fetchUserData(){
-    this._service.getProfileList(+this.userId).subscribe(
+    this._service.getUserdata(+this.userId).subscribe(
       data =>{
         this.userData=data;
         this.followerslist=data.following;
@@ -112,7 +112,6 @@ export class HomepageComponent implements OnInit {
       this.reportobj.reportedtext=this.selectOptionText;
     else
       this.reportobj.reportedtext=this.selectedOption;
-    console.log("this.reportobj ",this.reportobj)
     if(this.reportobj.reportedtext!==''){
       this._service.postReportadvertisement(this.reportobj).subscribe(
         data=>{

@@ -22,8 +22,7 @@
           <div class="welcome" style="color: #0000FF; margin-top: 0px;
            font-weight: 400; font-size: 30px;
           margin-bottom: 0px;">Welcome to</div>
-          <div style="color: #F8CF40; margin-top: 0px; padding-top: 0px;  
-            font-weight: 600; font-size: 80px;">Pai Square</div>
+          <div class="paiSquareCSS">Pai Square</div>
           <div style="color: #827397; margin-top: 0px; padding-top: 0px;  
             font-weight: 600; font-size: 20px; " >
             Explore & Earn
@@ -40,7 +39,7 @@
           </div>
         }
         <div class="col-12">
-          <button pButton type="button" routerLink="/createaccount" label="Get Started" class="p-button-raised p-button-primary"></button>
+          <button pButton type="button" routerLink="/login" label="Get Started" class="p-button-raised p-button-primary"></button>
         </div>
       </div>
     </div>
@@ -106,17 +105,17 @@
   </div>
   
   <div class="services">
-    <div class="grid flex flex-wrap col-gap-3 row-gap-3">
+    <div class="grid flex flex-wrap col-gap-3 row-gap-3 sm:col-offset-2">
       <div class="col-12">
         <div class="flex justify-content-center">
           <h1 class="tab-header" style="padding-top: 10px;">Who can Advertise</h1>
         </div>
       </div>
-      <div class="grid">
-        <div class="sm:col-4 sm:col-offset-2">
-          <p-card class="flex border-round justify-content-center ">
+      <div class="grid flex  justify-content-center ">
+        <div class="col-12 sm:col-6 ">
+          <p-card class="flex border-round">
             <ng-template pTemplate="header">
-              <div class="flex gap-1">
+              <div class="flex gap-1 align-items-center">
                 <img src="../../../assets/images/landingPage/businessIcon.png" alt="Business Icon" class="servicesIcons" />
                 <h2>Business</h2>
               </div>
@@ -133,10 +132,10 @@
             </div>
           </p-card>
         </div>
-        <div class="sm:col-4" >
+        <div class="col-12 sm:col-6" >
           <p-card class="flex border-round ">
             <ng-template pTemplate="header">
-              <div class="flex gap-1">
+              <div class="flex gap-1 align-items-center">
                 <img src="../../../assets/images/landingPage/ServicespageEvents.jpg" alt="Events Icon" class="servicesIcons"/>
                 <h2>Events</h2>
               </div>
@@ -152,10 +151,10 @@
             </div>
           </p-card>
         </div>
-        <div class="sm:col-4 sm:col-offset-2">
-          <p-card class="flex border-round justify-content-center ">
+        <div class="col-12 sm:col-6 ">
+          <p-card class="flex border-round">
             <ng-template pTemplate="header">
-              <div class="flex gap-1">
+              <div class="flex gap-1 align-items-center">
                 <img src="../../../assets/images/landingPage/ServicespageAgriculture.png" alt="Agriculture Icon" class="servicesIcons" />
                 <h2>Agricultural</h2>
               </div>
@@ -170,10 +169,10 @@
             </div>
           </p-card>
         </div>
-        <div class="sm:col-4">
+        <div class="col-12 sm:col-6">
           <p-card class="flex border-round ">
             <ng-template pTemplate="header">
-              <div class="flex gap-1">
+              <div class="flex gap-1 align-items-center">
                 <img src="../../../assets/images/landingPage/ServicespageEducationtraining.jpg" alt="Educationtraining Icon" class="servicesIcons"/>
                 <h2>Education & Training</h2>
               </div>
@@ -188,10 +187,10 @@
             </div>
           </p-card>
         </div>
-        <div class="sm:col-4 sm:col-offset-2">
-          <p-card class="flex border-round justify-content-center ">
+        <div class="col-12 sm:col-6 ">
+          <p-card class="flex border-round ">
             <ng-template pTemplate="header">
-              <div class="flex gap-1">
+              <div class="flex gap-1 align-items-center">
                 <img src="../../../assets/images/landingPage/ServicespageHealandwealth.png" alt="Health & wealth Icon" class="servicesIcons" />
                 <h2>Health & Wealth</h2>
               </div>
@@ -205,10 +204,10 @@
             </div>
           </p-card>
         </div>
-        <div class="sm:col-4">
+        <div class="col-12 sm:col-6">
           <p-card class="flex border-round ">
             <ng-template pTemplate="header">
-              <div class="flex gap-1">
+              <div class="flex gap-1 align-items-center">
                 <img src="../../../assets/images/landingPage/ServicespageTravelling.jpg" alt="Travelling Icon" class="servicesIcons"/>
                 <h2>Travelling</h2>
               </div>
@@ -222,10 +221,10 @@
             </div>
           </p-card>
         </div>
-        <div class="sm:col-4 sm:col-offset-2">
-          <p-card class="flex border-round justify-content-center ">
+        <div class="col-12 sm:col-6 ">
+          <p-card class="flex border-round ">
             <ng-template pTemplate="header">
-              <div class="flex gap-1">
+              <div class="flex gap-1 align-items-center">
                 <img src="../../../assets/images/landingPage/ServicespageContentcreators.jpg" alt="Content creators Icon" class="servicesIcons" />
                 <h2>Content creators</h2>
               </div>
@@ -239,10 +238,10 @@
             </div>
           </p-card>
         </div>
-        <div class="sm:col-4">
+        <div class="col-12 sm:col-6">
           <p-card class="flex border-round ">
             <ng-template pTemplate="header">
-              <div class="flex gap-1">
+              <div class="flex gap-1 align-items-center">
                 <img src="../../../assets/images/landingPage/ServicespageNonprofitorganization.jpg" alt="Nonprofitorganization Icon" class="servicesIcons"/>
                 <h2>Non-profit Organization</h2>
               </div>

@@ -24,7 +24,6 @@ export class AppComponent implements OnInit {
 
   shouldShowFooter(): boolean {
     const currentRoute = this.router.url;
-    console.log(currentRoute)
     // List of routes where footer should be visible
     return currentRoute === '/' || currentRoute === '/createaccount' || currentRoute === '/login'|| currentRoute === '/termsandconditions' || currentRoute === '/privacyandpolicy';
   }

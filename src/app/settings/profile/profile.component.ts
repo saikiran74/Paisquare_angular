@@ -21,7 +21,6 @@ export class ProfileComponent  implements OnInit{
   advertiserId!:number;
   constructor(private _service: PaiService,private _router: Router,private _route: ActivatedRoute) {}
   ngOnInit(){
-    
     this.username=this._service.userName
     this.userId=this._service.userId;
     this.getProfileImage()
@@ -74,7 +73,7 @@ export class ProfileComponent  implements OnInit{
     this._service.getProfileList(advertiserId).subscribe(
       data =>{
         this.profile=data;
-        console.log("this.profile0",this.profile)
+        console.log("this.profile+",advertiserId,this.profile)
         this.followersCount=this.getFollowersCount();
         if (this.profile && Object.keys(this.profile).length > 0) {
           this.profileFound = true;
@@ -86,7 +85,7 @@ export class ProfileComponent  implements OnInit{
     );
   }
   getUserProfile(userId:Number){
-    this._service.getProfileList(userId).subscribe(
+    this._service.getUserdata(userId).subscribe(
       data =>{
         this.followerslist=data.following;
         this.blockedlist=data.blockadvertiser;

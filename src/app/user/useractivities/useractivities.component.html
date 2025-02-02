@@ -1,4 +1,4 @@
-<div class="flex gap-2">
+<div class=" flex flex-wrap gap-2 ">
     <a (click)="fetchAdvertisementsOnClick('Liked')">
         <p-chip label="Liked" [styleClass]="activeButton === 'Liked' ? 'active-chip' : 'inactive-chip'">
         </p-chip>
@@ -59,7 +59,7 @@
     @if (profile==true) {
         <div class="grid" style="padding-top: 5px;">
             @for (profile of profileList; track $index) {
-                <div class="lg:col-4 md:col-3 sm:col-2">
+                <div class="col-12 lg:col-4 sm:col-2 flex flex-wrap justify-content-center md:justify-content-start" >
                     <p-card [style]="{'width':'220px'}">
                         <ng-template pTemplate="body">
                             <div >
@@ -77,11 +77,11 @@
                                 </div>
                                 <div class="flex justify-content-center algin-content-center" >
                                     @if (profile.brandName && profile.brandName.length>1) {
-                                        <label style="font-size: 2rem;">
+                                        <label style="font-size: 1rem;">
                                             {{ profile.username.length > 20 ? profile.brandName.substring(0, 20) + '...' : profile.brandName }}
                                         </label>
                                     } @else {
-                                        <label style="font-size: 2rem;">
+                                        <label style="font-size: 1rem;">
                                             {{ profile.username.length > 20 ? profile.username.substring(0, 20) + '...' : profile.username }}
                                         </label>}
                                 </div>
@@ -98,11 +98,14 @@
                             </div>
                         </ng-template>
                     </p-card>
-                </div>
+                </div> <br>
             }
         </div>
     } @else {
-        <app-homepage *ngFor="let ad of advertisementsOnClick" [ad]="ad"></app-homepage>
+        <div  class="">
+            <app-homepage *ngFor="let ad of advertisementsOnClick" [ad]="ad"></app-homepage>
+        </div>
+        
     }
 </div><br>
 

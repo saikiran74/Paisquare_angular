@@ -22,7 +22,6 @@ export class AdvertisementformComponent implements OnInit{
   isMobileView:boolean=false;
   ngOnInit(): void {
     this.isMobileView=this._service.isMobileView;
-    console.log("isMobileView",this.isMobileView)
     this.hashtags = []; // Set initial value
     this.cdr.detectChanges();
     this.adId = this.route.snapshot.paramMap.get('id');
@@ -149,10 +148,8 @@ export class AdvertisementformComponent implements OnInit{
       return;
     } 
     else{
-      console.log("advertisement ",this.advertise)
       this.advertise.hashtags = this.hashtags.join(', ');
       this.advertise.pincodes = this.pincodes.join(', '); 
-      console.log("advertise-->",this.advertise)
       this._service.advertiseFromRemote(this.advertise,this._service.userId).subscribe(
         data=>{
           this._router.navigate(['advertiser'])
@@ -261,8 +258,6 @@ export class AdvertisementformComponent implements OnInit{
           } else {
             this.selectedUrlType = "web";
           }
-          console.log("this.advertise.url",this.advertise.url)
-          console.log("this.selectedUrlType",this.selectedUrlType)
         }
         if (this.advertise.gender) {
           this.advertise.gender = this.advertise.gender; // Preselect gender

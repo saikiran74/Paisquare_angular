@@ -40,7 +40,7 @@ export class ProfileupdateComponent implements OnInit {
     this.profileForm = this.createFormGroup();
     this.getProfileImage();
     // loading profile data
-    this._service.getProfileList(this._service.userId).subscribe(
+    this._service.getUserdata(this._service.userId).subscribe(
       data =>{
         this.profileData=data;
         this.profileForm.get('brandInformation.brandName')?.setValue(data.brandName);
