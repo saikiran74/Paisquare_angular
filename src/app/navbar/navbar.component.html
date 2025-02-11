@@ -77,7 +77,14 @@
         </div>
         <br><br><br><br>
         <div class="col-12 md:col-3 sm:col-0 right-content" id="content" *ngIf="!isMobileView">
-                <img src="../../assets/images/rightad.jpg" width="300px"/>
+                <!--<img src="../../assets/images/shortcuttkey.PNG" width="300px"/>-->
+                <a href="https:shortcuttkey.blogspot.com" target="_blank">
+                    <div class="pills-container">
+                        <div class="category" style="font-size: 2rem; font-family: Arial, Helvetica, sans-serif;">ShortCuttkey</div>
+                        <div class="pill"  *ngFor="let app of ShortCuttkey">{{ app }}</div>
+                    </div>
+                </a>
+                
                 <div style="margin-top: -8px;">
                     <a routerLink="/advertiser/paisquaread" style="text-decoration: underline; " >Click here advertise</a>
                 </div>

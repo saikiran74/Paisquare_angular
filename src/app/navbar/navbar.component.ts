@@ -27,6 +27,17 @@ export class NavbarComponent  implements OnInit{
   sidebarVisible: boolean = false;
   sidebarVisible1:boolean=true;
   userName=' ';
+  
+  ShortCuttkey = [
+    'Calendar', 'Edge', 'Excel', 'Game Bar', 'Groove', 'Mail', 'Map',
+    'Movies & TV', 'OneNote', 'Outlook', 'Paint', 'Chat', 'Paint 3D', 'Photos', 'Voice Recorder',
+    'PowerPoint', 'Skype', 'App Maker', 'Teams', 'Windows', 'Internet Explorer', 'Word', 'Workpad',
+     'Web Designer',
+    'AdWords','Cisco Webex', 'Analytics', 'Calendar', 'Chrome','IntelliJ IDEA', 'Contacts',
+    'Docs', 'Drawing', 'Drive', 'Earth', 'Forms', 'YouTube',
+    'Brave', 'Google Meet', 'Gmail', 'Groups', 'Hangout',
+    'Keep', 'Meet', 'Photos', 'Sheets', 'Sites', 'Slides', 'WhatsApp', 'Edge', 'Firefox', 'Opera'
+    , 'VS Code', 'Teams', 'Zoom','Twitter'];
     ngOnInit() {
       this._service.checkViewport()
       this.checkViewport();

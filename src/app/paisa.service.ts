@@ -4,7 +4,7 @@ import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { Observable } from 'rxjs';
 import {HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +22,8 @@ export class PaiService {
     }
     checkViewport() {
       this.isMobileView = window.innerWidth <= 768;
-      console.log("this.isMobileView",this.isMobileView)
     }
   public loginUserFromRemote(user: User ):Observable<any>{
-    console.log("this.apiUrl",this.apiUrl);
      return this._http.post<any>(`${this.apiUrl}/login`,user)
   }
   //OTP call

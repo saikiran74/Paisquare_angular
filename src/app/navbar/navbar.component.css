@@ -69,6 +69,39 @@ a{
 .pi-bars {
   color: white;
 }
+.pills-container {
+    width: 300px;
+    height: 600px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-content: flex-start;
+    overflow-y: auto;
+  }
+  
+  .category {
+    width: 100%;
+    font-weight: bold;
+    color: #333;
+    margin-top: 8px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 4px;
+    text-align: center;
+  }
+  
+  .pill {
+    background-color: #449eff;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+    display: inline-block;
+  }
 
 @media (max-width: 768px) {
   .body {
@@ -94,3 +127,5 @@ a{
   }
 
 }
+
+
