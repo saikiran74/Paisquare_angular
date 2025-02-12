@@ -4,7 +4,7 @@ import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { Observable } from 'rxjs';
 import {HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
