@@ -3,9 +3,13 @@
       <img src="../../../assets/images/landingPage/PaisquarewithLogo.jpg" routerLink="" alt="Logo" class="logo">
     </div>
     <div class="col-10 flex justify-content-end flex-wrap gap-3" style="padding-right: 40px;">
-      <button pButton type="button"  routerLink="/createaccount" label="Create Account" class="p-button-raised p-button-primary custom-button"
-      ></button>
-      <button pButton type="button" routerLink="/login" label="Sign in" class="p-button-raised p-button-primary custom-button"
-      ></button>
+      @if(currentRoute === '/createaccount'){
+        <button pButton type="button" routerLink="/login" label="Sign in" class="p-button-raised p-button-primary custom-button"
+        ></button>
+      } @else {
+        <button pButton type="button"  routerLink="/createaccount" label="Create Account" class="p-button-raised p-button-primary custom-button"
+        ></button>
+      }
+      
     </div>
   </div>

@@ -21,14 +21,12 @@ export class ProfileComponent  implements OnInit{
   advertiserId!:number;
   constructor(private _service: PaiService,private _router: Router,private _route: ActivatedRoute) {}
   ngOnInit(){
-    
     this.username=this._service.userName
     this.userId=this._service.userId;
     this.getProfileImage()
     this._route.params.subscribe(params => {
       this.advertiserId = params['id']; 
       if (this.advertiserId) {
-        console.log("advertiserId from profile",this.advertiserId)
         this.getProfile(this.advertiserId)
       }
     });
@@ -36,13 +34,10 @@ export class ProfileComponent  implements OnInit{
     this._service.getUserAdvertisements(this.advertiserId).subscribe(
       data => {
         this.advertisements = data;
-        console.log("advertisements",this.advertisements)
       },
         error=>{
           console.log("error occurred while retrieving the data for userId -")
     });
-    console.log("getTotalLikes()",this.getTotalLikes())
-    this.likes()
   }
   followerslist: any[] = [];
   userData: any[] = [];
@@ -53,27 +48,19 @@ export class ProfileComponent  implements OnInit{
     this.followerobj.following=true;
     this._service.FollowerFromRemote(this.followerobj,advertiserid,+this.userId).subscribe(
       data=>{
-        console.log("follower updated");
-        console.log("fetching user data");
         this.getUserProfile(+this.userId);
         this.getProfile(+advertiserid);
-        console.log(" this.followersCount -", this.followersCount)
         //this._router.navigate(['homepage'])
       },
       error=>{
-        console.log("error occured for following");
       }
     )
   }
   saveRating(advertiserId:any): any {
-    console.log("this.profile.rating-->",this.profile.rating)
     //this.rating.advertiser=+advertiserId;
     //this.rating.user=+this.userId;
     this.rating.rating=this.profile.rating;
-    console.log("this.rating-->",this.rating)
     this._service.saveRatingFromRemote(this.rating,advertiserId).subscribe(response => {
-      
-      console.log('Rating saved successfully:', response);
       this.profile.noOfRating=this.profile.noOfRating+1;
     }, error => {
       console.error('Error saving rating:', error);
@@ -86,41 +73,32 @@ export class ProfileComponent  implements OnInit{
     this._service.getProfileList(advertiserId).subscribe(
       data =>{
         this.profile=data;
+        console.log("this.profile+",advertiserId,this.profile)
         this.followersCount=this.getFollowersCount();
-        console.log("this.followersCount",this.followersCount)
-        console.log("searched profile details",this.profile);
         if (this.profile && Object.keys(this.profile).length > 0) {
           this.profileFound = true;
         }
-        console.log("profile data is:",this.profile);
       },
       error=>{
         console.log("error occured in followerslist")
       }
     );
-    console.log("this.profileFound ",this.profileFound)
   }
   getUserProfile(userId:Number){
-    this._service.getProfileList(userId).subscribe(
+    this._service.getUserdata(userId).subscribe(
       data =>{
-        console.log("this is user profile",this.profile);
         this.followerslist=data.following;
         this.blockedlist=data.blockadvertiser;
-        console.log("this.followerslist -> ",this.followerslist)
-        console.log("this.blockedlist -> ",this.blockedlist)
       },
       error=>{
         console.log("error occured in followerslist")
       }
     );
-    console.log("this.profileFound ",this.profileFound)
   }
   getProfileImage(): void {
-    console.log("profileImageUrl")
     this._service.fetchAndProcessProfileImage(this.userId).subscribe(
       (url: string) => {
         this.profileImageUrl = url;
-        console.log("Profile Image URL:", this.profileImageUrl);
       },
       (error) => {
         console.error("Error fetching profile image:", error);
@@ -139,7 +117,6 @@ export class ProfileComponent  implements OnInit{
 
 
   openChat(Id: number, Name: string): void {
-    console.log("number",Id,"advertiserName",Name)
     this._router.navigate(['/user/chat'], { 
       queryParams: { userId: Id, name: Name }
     });
@@ -182,25 +159,5 @@ export class ProfileComponent  implements OnInit{
       return this.profile.following?.length || 0;  // Safely access length
     }
 
-    likes(){
-      this._service.getlikeFromRemote().subscribe(
-        data=>{
-          console.log("Likes recieved -->",data)
-        },
-        error=>{
-          console.log("like error occured")
-        }
-      )
-    }
-    visited(){
-      this._service.getVisitedFromRemote().subscribe(
-        data=>{
-          console.log("visited received",data)
-        },
-        error=>{
-          console.log("visited error occured")
-        }
-      )
-    }
     
 }

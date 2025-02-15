@@ -1,2 +1,10 @@
+<!--<router-outlet></router-outlet>
+<app-footer></app-footer>-->
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+
+<!-- Footer will only display on the specified pages -->
+
+<app-footer *ngIf="showFooter">
+    <p>Footer Content Goes Here</p>
+  </app-footer>
+

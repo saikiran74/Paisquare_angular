@@ -25,36 +25,20 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Initial log for chat history users (empty initially)
-    console.log("Before calling getChatHistoryUsers ->", this.chatHistoryUsers);
-  
-    // Fetch chat history users from the service
     this.getChatHistoryUsers();
-  
-    // Handle query parameters once the component is initialized
     this._route.queryParams.subscribe((params) => {
       const advertiserId = +params['userId'];
       const advertiserName = params['name'];
-      console.log("advertiserId ->", advertiserId, "advertiserName", advertiserName);
-  
       if (advertiserId && advertiserName) {
-        // Check if the advertiser already exists in the chat history
         const alreadyExists = this.chatHistoryUsers.some((user) => user.id === advertiserId);
         if (!alreadyExists) {
-          // Add the new advertiser to the chat history list
           this.chatHistoryUsers.push({ id: advertiserId, username: advertiserName });
-          console.log("Updated chatHistoryUsers:", this.chatHistoryUsers);
         }
-  
-        // Fetch messages between the current user and the selected advertiser
         this._service.getMessages(this.currentUserId, advertiserId).subscribe((data) => {
           this.messages = data;
-          console.log("Messages loaded:", this.messages);
         });
       }
     });
-    console.log("final getChatHistoryUsers ->", this.chatHistoryUsers);
-
   }
   
   getChatHistoryUsers(): void {
@@ -62,7 +46,6 @@ export class ChatComponent implements OnInit {
     this._service.getChatHistoryUsers(this._service.userId).subscribe({
       next: (data) => {
         this.chatHistoryUsers.push(...data); 
-        console.log("Fetched chatHistoryUsers:", this.chatHistoryUsers);
       },
       error: (error) => {
         console.error("Error occurred while retrieving chat history:", error);
@@ -76,10 +59,8 @@ export class ChatComponent implements OnInit {
 
   selectUser(user: any): void {
     this.selectedUserId = user.id;
-    console.log("currentUserId-->"+this.currentUserId,"selectedUserId", this.selectedUserId)
     this._service.getMessages(this.currentUserId, this.selectedUserId).subscribe((data) => {
       this.messages = data;
-      console.log("this.messages",this.messages)
       this.selectedUserName=user.username;
       this.chatHistoryUsers = [];
       this.getChatHistoryUsers()
@@ -106,5 +87,9 @@ export class ChatComponent implements OnInit {
     this._service.initializeChat(chat).subscribe();
   }
   
-  
+  closeOpenedChatWindow(){
+    console.log("userSelected",this.userSelected)
+    this.userSelected=!this.userSelected
+    console.log("userSelected",this.userSelected)
+  }
 }

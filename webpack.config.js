@@ -12,12 +12,12 @@ module.exports = {
   },
   plugins: [
     new DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-      global: 'window'  // Define `global` as `window` for browser environments
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+      'global': 'globalThis' // More reliable cross-platform definition
     }),
     new ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
-      process: 'process/browser',
+      process: ['process'],
     })
   ]
 };

@@ -36,6 +36,11 @@
                              placeholder="Enter your brand name"
                              [style]="{'width':'250px'}">
                         </div>
+                        @if (profileForm.get('brandInformation.brandName')?.value?.length>20) {
+                            <div>
+                                Please enter brandname is less than 20
+                            </div>
+                        }
                     </div><br>
                     <div class="pairs">
                         <label for="">Brand Description</label>

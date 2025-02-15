@@ -1,54 +1,56 @@
 <div class="grid h-screen">
   <!-- User List (Right Sidebar) -->
-  <div class="col-12 lg:col-3 border-right-1 surface-border flex-shrink-0">
+   @if(!userSelected){
     
-    <h3 class="text-center lg:text-left" style="padding-left: 3px;">Chat List</h3>
-    <ul class="list-none p-0">
-      <li
-        *ngFor="let user of chatHistoryUsers"
-        (click)="selectUser(user)"
-        class="p-3 cursor-pointer hover:surface-hover"
-        [class.surface-200]="user.id === selectedUserId"
-      >
-        {{ user.username }}
-      </li>
-    </ul>
-  </div>
+    <div class="col-12 lg:col-12 border-right-1 surface-border flex-shrink-0">
+      
+      <h3 class="text-center lg:text-left pl-1" style="color: #035493; ; font-family: Arial, Helvetica, sans-serif; font-size: 1.5rem;">Continue chatting with...</h3>
+      <ul class="list-none p-0">
+        <li
+          *ngFor="let user of chatHistoryUsers"
+          (click)="selectUser(user)"
+          class="p-3 cursor-pointer hover:surface-hover"
+          [class.surface-200]="user.id === selectedUserId"
+        >
+          {{ user.username }}
+        </li>
+      </ul>
+    </div>
+  }
   
   <!-- Chat Window -->
-  <div class="col-12 lg:col-9 flex flex-column">
+  <div class="col-12 lg:col-12 flex flex-column">
 
     @if (userSelected) {
     <!-- Chat Header -->
-    <div class="p-3 shadow-2  surface-100 border-bottom-1 surface-border 
+    <div class="p-2 shadow-2  surface-100 border-bottom-1 surface-border 
     flex justify-content-between align-items-center" style="margin-left: -8px;margin-right: -8px;">
-      <label class="text-center lg:text-left flex-grow-1">{{ selectedUserName }}</label>
+      <button pButton icon="pi pi-arrow-left" style="border-radius: 50%; margin-right: 5px;" (click)="closeOpenedChatWindow()"></button>
+      <label class="text-center lg:text-left flex-grow-1" style="font-size: 1.5rem;">{{ selectedUserName }}</label>
     </div>
     <!-- Chat Messages -->
 
     <div class="flex-1 p-3 overflow-y-auto" style="max-height: calc(100vh - 120px);">
-      <div *ngFor="let message of messages" class="mb-3">
+      <div *ngFor="let message of messages" class="mb-1">
         <!-- Username and Timestamp container -->
         <div
           [class.ml-auto]="message.senderId === currentUserId"
           [class.mr-auto]="message.senderId !== currentUserId"
-          [class.text-right]="message.senderId === currentUserId"
           [class.text-left]="message.senderId !== currentUserId"
-          class="flex justify-between p-2 border-round text-black max-w-75 sm:max-w-50 md:max-w-40 lg:max-w-30"
+          class="flex justify-between  border-round text-black max-w-75 sm:max-w-50 md:max-w-40 lg:max-w-30"
         >
           <!-- Username aligned to the left -->
           <small *ngIf="message.senderId === currentUserId" class="text-xs">{{currentUserName}}</small>
           <small *ngIf="message.senderId !== currentUserId" class="text-xs">{{selectedUserName}}</small>
 
           <!-- Timestamp aligned to the right -->
-          <small class="text-xs">{{ message.timestamp | date:'short' }}</small>
+          <small class="text-xs" style="padding-left: 10px;">{{ message.timestamp | date:'short' }}</small>
         </div>
 
         <!-- Message content container -->
         <div
           [class.ml-auto]="message.senderId === currentUserId"
           [class.mr-auto]="message.senderId !== currentUserId"
-          [class.text-right]="message.senderId === currentUserId"
           [class.text-left]="message.senderId !== currentUserId"
           [class.bg-primary]="message.senderId === currentUserId"
           [class.bg-secondary]="message.senderId !== currentUserId"

@@ -51,3 +51,6 @@
   width: 70px !important;
   height: 35px !important;
 }
+:host ::ng-deep .BrandNameCSS{
+  width: 100% !important;
+}

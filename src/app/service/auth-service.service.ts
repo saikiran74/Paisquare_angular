@@ -35,7 +35,6 @@ export class AuthService {
       const decodedToken: DecodedToken = jwtDecode(token);
 
       //const decodedToken: any = jwt.verify(token, this.secretKey); // Verify the token
-      console.log("decodedToken-->",decodedToken)
       const currentTime = Math.floor(Date.now() / 1000); // Get current time in seconds
       return decodedToken.exp < currentTime; // Compare expiration time
     } catch (error) {

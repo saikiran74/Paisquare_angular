@@ -79,7 +79,7 @@ export class HomepageComponent implements OnInit {
     this.fetchUserData();
   }
   fetchUserData(){
-    this._service.getProfileList(+this.userId).subscribe(
+    this._service.getUserdata(+this.userId).subscribe(
       data =>{
         this.userData=data;
         this.followerslist=data.following;
@@ -106,8 +106,6 @@ export class HomepageComponent implements OnInit {
   reportobj=new Report();
   reportmessage='';
   Reportadvertisement(advertisementId:Number) {
-    console.log('Selected option:', this.selectedOption);
-    console.log('Selected option:', this.selectOptionText);
     this.reportobj.advertisementid=advertisementId;
     this.reportobj.userid=this.userId;
     if(this.selectedOption==='none')
@@ -115,11 +113,10 @@ export class HomepageComponent implements OnInit {
     else
       this.reportobj.reportedtext=this.selectedOption;
     if(this.reportobj.reportedtext!==''){
-      console.log("reportedText",this.reportobj.reportedtext)
       this._service.postReportadvertisement(this.reportobj).subscribe(
         data=>{
-          console.log("reported successfully",data);
           this.fetchUserData()
+          this.showReportDialog=false;
         },
         error=>{
           console.log("error occured while reporting");
@@ -140,8 +137,6 @@ export class HomepageComponent implements OnInit {
     this.likeobj.visited=false;
     this._service.LikeFromRemote(this.likeobj,+this.userId,advertisementid).subscribe(
       data=>{
-        console.log("Like recieved")
-        console.log("fetching user data");
         this.fetchData.emit();
         this.fetchadvertisement()
       },
@@ -155,7 +150,6 @@ export class HomepageComponent implements OnInit {
     this.visitobj.visited=true;
     this._service.VisitedFromRemote(this.visitobj,+this.userId,advertisementid).subscribe(
       data=>{
-        console.log("visited received")
         this.fetchData.emit();
         //this._router.navigate(['alladvertisements'])
       },
@@ -167,11 +161,11 @@ export class HomepageComponent implements OnInit {
   block(advertiserid: number){
     this.blockobj.userid=this._service.userId;
     this.blockobj.advertiserid=advertiserid;
-    this.blockobj.Blocked=true;
+    this.blockobj.blocked=true;
     this._service.postBlockAdvertiser(this.blockobj,this._service.userId,advertiserid).subscribe(
       data=>{
-        console.log("blocked successfully")
         this.fetchUserData()
+        this.fetchData.emit();
       },
       error=>{
         console.log("error occured while blocking advertiser")
@@ -181,8 +175,6 @@ export class HomepageComponent implements OnInit {
   favourite(advertisementid: number){
     this._service.postfavouriteAdvertisement(this.favouriteobj,this._service.userId,advertisementid).subscribe(
       data=>{
-        console.log("advertisement added favourites successfully")
-        
         this.fetchData.emit();
       },
       error=>{
@@ -195,10 +187,8 @@ export class HomepageComponent implements OnInit {
     this.followerobj.following=true;
     this._service.FollowerFromRemote(this.followerobj,advertiserid,+this.userId).subscribe(
       data=>{
-        console.log("follower updated");
-        console.log("fetching user data");
-        this.fetchData.emit();
         this.fetchUserData()
+        this.fetchData.emit();
         //this._router.navigate(['homepage'])
       },
       error=>{
@@ -213,7 +203,6 @@ export class HomepageComponent implements OnInit {
     if(this.commentobj.comment.length<1){
         const commentErrorMessage="Please enter comment"
     }
-    console.log("--comment--",this.commentobj);
     this._service.CommentsFromRemote(this.commentobj,val,+this.userId).subscribe(
       data=>{
       //console.log("Response received");
@@ -237,7 +226,6 @@ export class HomepageComponent implements OnInit {
     this._service.CommentsListFromRemote(advertisementid).subscribe(
       data=>{
         this.comments=data;
-        console.log("comments",this.comments)
         //this._router.navigate(['alladvertisements'])
     },
       error=>{console.log("Error occured");
@@ -263,7 +251,6 @@ export class HomepageComponent implements OnInit {
     try {
       if (navigator.share) {
         await navigator.share({ title, text, url });
-        console.log('Shared successfully');
       } else {
         console.log('Web Share API not supported');
       }
@@ -277,7 +264,6 @@ export class HomepageComponent implements OnInit {
   }
 
   editAdvertisement(advertisementid:Number){
-    console.log("in editAdvertisement",advertisementid)
     this._router.navigate([`/advertiser/edit/${advertisementid}`]);
   }
   showReportDialog:boolean=false;

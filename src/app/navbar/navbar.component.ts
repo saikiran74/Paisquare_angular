@@ -16,6 +16,7 @@ import { AuthService } from '../service/auth-service.service';
 })
 export class NavbarComponent  implements OnInit{
   nodes!: TreeNode[];
+  nodes_which_is_not_in_use!: TreeNode[];
   isMobileView: boolean = false;
   isSidebarVisible: boolean = false;
   constructor(private _service: PaiService,private http: HttpClient, private authService: AuthService,private _router: Router,private _route: ActivatedRoute) {
@@ -26,22 +27,44 @@ export class NavbarComponent  implements OnInit{
   sidebarVisible: boolean = false;
   sidebarVisible1:boolean=true;
   userName=' ';
+  
+  ShortCuttkey = [
+    'Calendar', 'Edge', 'Excel', 'Game Bar', 'Groove', 'Mail', 'Map',
+    'Movies & TV', 'OneNote', 'Outlook', 'Paint', 'Chat', 'Paint 3D', 'Photos', 'Voice Recorder',
+    'PowerPoint', 'Skype', 'App Maker', 'Teams', 'Windows', 'Internet Explorer', 'Word', 'Workpad',
+     'Web Designer',
+    'AdWords','Cisco Webex', 'Analytics', 'Calendar', 'Chrome','IntelliJ IDEA', 'Contacts',
+    'Docs', 'Drawing', 'Drive', 'Earth', 'Forms', 'YouTube',
+    'Brave', 'Google Meet', 'Gmail', 'Groups', 'Hangout',
+    'Keep', 'Meet', 'Photos', 'Sheets', 'Sites', 'Slides', 'WhatsApp', 'Edge', 'Firefox', 'Opera'
+    , 'VS Code', 'Teams', 'Zoom','Twitter'];
     ngOnInit() {
+      this._service.checkViewport()
       this.checkViewport();
       const token = localStorage.getItem('token');
-      console.log("token in navbar-->",token)
       if (token && this.authService.isAuthenticated()) {
         const userdetails=this.authService.getUserDetails()
-        console.log("userdetails-->",userdetails)
         this.userId=userdetails.id;
         this._service.userId=userdetails.id;
         this._service.userName=userdetails.username;
         this.userName=userdetails.username;
       } else {
-        console.log("Token is not authencated in navbar")
         this._router.navigate(['/login']);
       }
-      this.nodes = [
+      this.nodes =  [
+              { key: '0-0', label: 'Home page', data: '/advertiser', type: 'url',icon:'pi pi-home'},
+              { key: '0-1', label: 'Advertise', data: 'advertiser/advertise', type: 'url',icon:'pi pi-plus' },
+              { key: '0-2', label: 'Your activities', data: 'user/useractivities', type: 'url',icon:'pi pi-chart-line'},
+              { key: '0-3', label: 'Dashboard', data: 'advertiser/advertiserdashboard', type: 'url',icon:'pi pi-home' },
+              { key: '0-4', label: 'Report', data: 'advertiser/advertiserreport', type: 'url' ,icon:'pi pi-chart-bar'},
+              { key: '0-5', label: 'My Advertisment', data: '/myadvertisement', type: 'url',icon:'pi pi-folder' },
+              { key: '0-6', label: 'Profile', data: 'home/profile/:userId', type: 'url',icon:'pi pi-home'},
+              { key: '0-7', label: 'Update profile', data: 'home/profileupdate', type: 'url',icon:'pi pi-chart-line'},
+              { key: '0-8', label: 'Chat', data: 'user/chat', type: 'url',icon:'pi pi-id-card'},
+              { key: '0-9', label: 'logout', data: 'logout', type: 'url',icon:'pi pi-sign-out'},
+          ];
+    /* Not using now for future purpose*/
+      this.nodes_which_is_not_in_use = [
           {
               key: '0',
               expanded: true,
@@ -79,21 +102,15 @@ export class NavbarComponent  implements OnInit{
     }
     selectedNode: any;
   onNodeClick(node: TreeNode) {
-    console.log("onNodeClick -->",this.selectedNode)
     this.selectedNode = node;  // Set the clicked node as selected
-    console.log('Selected node: ', node);
   }
   componentViewMethod(val:String){
-    console.log(val)
     this.selectedNode = val;
-    console.log('Selected node: ', val);
     if (val.includes('myadvertisement')) {
       //this._router.navigate([val.replace(':userId', this.userId)]);
-      console.log('Navigating to myadvertisement with userId:', this.userId);
       this._router.navigate(['/advertiser/myadvertisement'], {
         queryParams: { userId: this.userId },
       });
-      console.log('Navigating to myadvertisement with userId:', this.userId);
 
       //this._router.navigate(['/advertiser/myadvertisement'], {state: { userId: this.userId },});
     } else if (val.includes('home/profile/')) {
@@ -127,19 +144,16 @@ export class NavbarComponent  implements OnInit{
   querySearch:boolean=false;
 
   onSearch(queryEvent: Event): void {
-    console.log('In query search',queryEvent);
     const inputElement = queryEvent.target as HTMLInputElement;
     const query = inputElement.value?.trim();
     this.querySearch=true;
     if (!query.trim()) {
         this.querySearch = false;
-        console.log('Search query is empty');
     }
     this._service.getGlobalSearchresult(query).subscribe(
       data => {
         this.userId=this._service.userId;
         this.advertisements = data;
-        console.log("advertisment list for userId: ",this.advertisements)
       },
         error=>{console.log("error occurred while retrieving the data for query -",query)
     });
@@ -147,13 +161,11 @@ export class NavbarComponent  implements OnInit{
   }
   checkViewport() {
     this.isMobileView = window.innerWidth <= 768;
-    console.log("this.isMobileView ",this.isMobileView,window.innerWidth)
     
     if(this.isMobileView){
       this.showSearchBox=false;
     } else{
       this.isSidebarVisible = !this.isMobileView; // Sidebar hidden by default on mobile
-      console.log("this.isSidebarVisible ->",this.isSidebarVisible )
     }
   }
 
@@ -164,7 +176,6 @@ export class NavbarComponent  implements OnInit{
   }
   toggleSidebar() {
     this.isSidebarVisible = !this.isSidebarVisible;
-    console.log("isSidebarVisible ",this.isSidebarVisible)
   }
   showSearchBox:boolean=false;
   toggleSearchBox(){

@@ -18,7 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { startingLetterPipe } from './static/startingLetterPipe.pipe';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './service/jwt-interceptor.service';
-
+import {SitemapComponent} from './general/sitemap/sitemap.component'
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import { JwtInterceptor } from './service/jwt-interceptor.service';
     LandingcontentComponent,
     TermsandConditionsComponent,
     PrivacyPolicyComponent,
+    SitemapComponent,
   ],
   imports: [
     BrowserModule, 

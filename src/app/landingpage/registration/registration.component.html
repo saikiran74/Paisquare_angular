@@ -1,7 +1,7 @@
 <app-landingnavbar></app-landingnavbar>
 <br>
-<div class="grid">
-  <div class="md:col-8 md:col-offset-2">
+<div class="grid flex  justify-content-center ">
+  <div class="md:col-8">
     <p-card header="Create account">
       <div class="card-body">
         <form [formGroup]="registrationForm" (ngSubmit)="registerUser()">
@@ -15,15 +15,19 @@
                     <div *ngIf="registrationForm.get('username')?.errors?.['required']">
                       Username is required.
                     </div>
+                    @if (registrationForm.get('username')?.value?.length>15) {
+                      <div>
+                        Please enter username less than 15 characters
+                      </div>
+                    }
                 </div>
+              </div>
             </div>
-              
-            </div>
-
+            <br>
             <div class="grid">
               <label for="email" class="col-12 sm:col-4 col-form-label">Email</label>
               <div class="col-12 sm:col-8">
-                <input pInputText type="email" class="form-control" formControlName="email" placeholder="Required" required><br>
+                <input pInputText type="email" class="form-control" formControlName="email" placeholder="Enter email" required><br>
                 <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="text-danger">
                     <div *ngIf="registrationForm.get('email')?.errors?.['required']">
                       Email is required.
@@ -34,7 +38,7 @@
                     </div>
                 </div>
             </div>
-
+            <br>
             <div class="grid">
               <label for="pincode" class="col-12 md:col-4 col-form-label">pincode</label>
               <div class="col-12 md:col-8">
@@ -47,7 +51,7 @@
                 </div>
               </div>
             </div>
-
+            <br>
             <div class="grid">
               <label for="accountType" class="col-12 md:col-4 col-form-label">Account Type</label>
               <div class="col-12 md:col-8">
@@ -60,10 +64,10 @@
                     <p-radioButton value="generalUser" inputId="generalUser" formControlName="accountType"></p-radioButton>
                     <label for="generalUser" class="ml-2">General User</label>
                   </div>
-                  <div class="flex">
+                  <!--<div class="flex">
                     <p-radioButton value="both" inputId="both" formControlName="accountType"></p-radioButton>
                     <label for="both" class="ml-2">Both</label>
-                  </div>
+                  </div>-->
                 </div>
                 <div *ngIf="registrationForm.get('accountType')?.invalid && registrationForm.get('accountType')?.touched" class="text-danger">
                   <div *ngIf="registrationForm.get('accountType')?.errors?.['required']">
@@ -72,20 +76,17 @@
                 </div>
               </div>
             </div>
-
+            <br>
             <div class="grid">
                 <label for="password" class="col-12 sm:col-4 col-form-label">Password</label>
                 <div class="col-12 sm:col-4">
                   <input pInputText type="password" id="password" formControlName="password" placeholder="Enter password" required>
                   
-                </div>
+                </div><br><br>
                 <div class="col-12 sm:col-4">
                     <input pInputText type="password" 
                     autocomplete="new-password"  class="form-control" formControlName="confirmPassword" placeholder="Re-enter password" required><br>
-                    
-                    
                 </div>
-                
             </div>
             <div class="grid">
               <div class="col-12 md:col-8 md:col-offset-4">
@@ -117,6 +118,7 @@
                 </div>
               </div>
             </div>
+            <br>
             @if (showEmailOTPBox) {
               <div class="grid">
                 <div class="col-12 md:col-4 col-form-label">
@@ -128,13 +130,16 @@
               </div>
             }
             @if(successMessage){
-              <h3 class="text-success text-green-500">{{message}}</h3>
+              <span class="text-success text-green-500">{{message}}</span>
             } @else {
-              <h3 class="text-danger">{{message}}</h3>
+              <span class="text-danger">{{message}}</span>
             }
             @if (!showEmailOTPBox) {
               <div class="col-12 text-center">
-                <p-button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid">Create Account</p-button>
+                <p-button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid || createaccoutButtonClicked">Create Account</p-button>
+                @if(createaccoutButtonClicked && !successMessage){
+                  Sending OTP...
+                } 
               </div>
             } @else{
               <div class="col-12 text-center">

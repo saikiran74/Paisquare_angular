@@ -24,7 +24,6 @@ border: any;
   }
   checkViewport() {
     this.isMobileView = window.innerWidth <= 768;
-    console.log("this.isMobileView ",this.isMobileView,window.innerWidth)
     if(this.isMobileView){
       this.showSearchBox=false;
     }

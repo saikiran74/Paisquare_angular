@@ -1,4 +1,6 @@
-<div [ngStyle]="{'background': ad.backGroundColor, 'color': 'white','margin-top':'20px'}">
+<div [ngStyle]="{'background': ad.backGroundColor, 'color': 'white','margin-top':'20px'}" 
+    class="p-2 shadow-2  surface-100 border-bottom-1 surface-border 
+    ">
     <!-- Header Section with Brand Info -->
     <div>
         <div class="grid">
@@ -11,9 +13,6 @@
                         style="width: 35px; height: 30px; padding-left: 5px; margin-top: -10px;" class="logo">
                     </div>
                     <ng-template #placeholder>
-                      <div class="logo-placeholder">
-                        {{ ad.brandName.charAt(0).toUpperCase() }}
-                      </div>
                     </ng-template>
                   </div>
                   
@@ -41,11 +40,7 @@
     <!-- Card Body with Advertisement Info -->
     <div class="grid" style="padding-left: 5px;">
         <div class="col-12 flex">
-            <div class="card-body">
-                <div style="margin-left: 10px;">
-                    <label style="font-size: 1.2rem; "  [innerHTML]="ad.description"></label>
-                </div>
-            </div>
+            <label style="font-size: 1.2rem; "  [innerHTML]="ad.description"></label>
         </div>
         
     </div>
@@ -114,49 +109,53 @@
                     </a>
                 </div>
                 <div>
-                    <label class="goldColor">{{ad.commenteduser.length}} Comment</label>
+                    <!--{{ad.commenteduser.length}}-->
+                    <label class="goldColor"> Comments</label>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Comments Section -->
-    <div class="grid " style="padding: 15px;" >
-        <div class="col-12" *ngIf="currentOpenId == ad.id">
+    <div class="grid ">
+        <div class="col-12" *ngIf="currentOpenId == ad.id" style="padding-bottom: 0px;">
+            @if (comments.length>0) {
                 <div *ngFor="let comment of comments">
                     <div class="grid">
                         <div class="col-6">
-                            <span style="font-family: Arial, Helvetica, sans-serif; font-size: 1.5rem;">{{comment.comment}}</span>
+                            <span style="font-family: Arial, Helvetica, sans-serif; font-size: 1.2rem;">{{comment.comment}}</span>
                         </div>
                         <div class="col-6">
-                            <h6 style="font-family: Arial, Helvetica, sans-serif; font-size: 1rem;">{{comment.lastupdate | date:'yyyy-MM-dd HH:mm:ss'}}</h6>
+                            <span style="font-family: Arial, Helvetica, sans-serif; margin-top: 10px;" class="text-xs">{{comment.lastupdate | date:'yyyy-MM-dd HH:mm:ss'}}</span>
                         </div>
                     </div>
                 </div>
-                <form #loginform="ngForm" (ngSubmit)="comment(ad.id)">
-                    <div class="grid">
-                        <div class="col-12" >
-                            <div class="p-inputgroup">
-                                <input 
-                                    pInputText 
-                                    id="commentbox" 
-                                    name="commentbox" 
-                                    placeholder="Enter comment here" 
-                                    [(ngModel)]="commentobj.comment" 
-                                    class="form-control" 
-                                    required 
-                                />
-                                <span class="p-inputgroup-addon">
-                                    <button type="submit" class="btn-comment-box"
-                                     pButton icon="pi pi-angle-right"
-                                     [disabled]="!commentobj.comment || commentobj.comment.trim() === ''"></button>
-                                </span>
-                            </div>
+            } @else {
+                <label> No Comments found...</label>
+            }
+            <form #loginform="ngForm" (ngSubmit)="comment(ad.id)">
+                <div class="grid">
+                    <div class="col-12" style="padding-bottom: 0px;">
+                        <div class="p-inputgroup">
+                            <input 
+                                pInputText 
+                                id="commentbox" 
+                                name="commentbox" 
+                                placeholder="Enter comment here" 
+                                [(ngModel)]="commentobj.comment" 
+                                class="form-control" 
+                                required 
+                            />
+                            <span class="p-inputgroup-addon">
+                                <button type="submit" class="btn-comment-box" style="height: 30px;"
+                                    pButton icon="pi pi-angle-right"
+                                    [disabled]="!commentobj.comment || commentobj.comment.trim() === ''"></button>
+                            </span>
                         </div>
                     </div>
-                </form>
-                
-            </div>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- Modal for Reporting Advertisement -->
@@ -211,11 +210,11 @@
                     {{ ad.favourites.includes(userId) ? 'Remove from favourites' : 'Add to favourites' }}
                 </p-button>
             </div><br>
-            <div>
+            @if(ad.advertiser.id == userId){
                 <p-button (click)="editAdvertisement(ad.id)">
-                    {{ ad.advertiser.id == userId ? 'Edit' : 'Just visit' }}
+                    Edit
                 </p-button>
-            </div>
+            }
         </ng-template>
     </p-overlayPanel>
     <p-overlayPanel #location>

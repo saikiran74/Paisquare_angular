@@ -1,14 +1,14 @@
 <div class="grid">
     <div class="flex col-12">
-        <div style="display: flex; margin-top: -5px; margin-bottom: -5px; padding-left: 0px;" class="gap-2 justify-content-start align-items-center">
-            <p-chip
-                *ngFor="let chip of chips| slice:0:5; let i = index"
-                [label]="chip.label"
-                [styleClass]="activeChipIndex === i ? 'active-chip' : 'inactive-chip'"
-                (click)="onChipClick(i)"
-                >
-            </p-chip>
-           
+        <div style="display: flex; flex-wrap: wrap; margin-top: -5px; margin-bottom: -5px; padding-left: 0px;" class="gap-2 justify-content-start align-items-center">
+            <ng-container *ngFor="let chip of chips | slice:0:5; let i = index">
+                <p-chip
+                  *ngIf="chip.label && chip.label.trim().length > 0"
+                  [label]="chip.label"
+                  [styleClass]="activeChipIndex === i ? 'active-chip' : 'inactive-chip'"
+                  (click)="onChipClick(i)">
+                </p-chip>
+            </ng-container>
         </div>
         <div class="flex justify-content-end align-items-center" style="flex-grow: 1; text-align: right;">
             @if(!isMobileView){
@@ -17,7 +17,7 @@
                     <input style="height: 35px;"
                         pInputText style="padding-left: 30px;"
                         placeholder="Filter by pincodes"
-                        (keyup.enter)="onSearch($event)" 
+                        (keydown.enter)="onSearch($event)" 
                     />
                 </span>
             } @else {
@@ -32,9 +32,9 @@
                 <div class="col-12">
                     <span class="search-box">
                         <input 
-                            pInputText 
+                            pInputText style="margin-left: 18px;"
                             placeholder="Filter by pincodes"
-                            (keyup.enter)="onSearch($event)" 
+                            (keydown.enter)="onSearch($event)" 
                         />
                     </span>
                 </div>
@@ -43,7 +43,7 @@
 </div>
 
 
-<div class="container" style="margin-top: -10px;">
+<div class="container" style="margin-top: -10px;margin-left: 10px;">
     @if (querySearch) {
         @if (advertisements.length > 0) {
             <app-homepage

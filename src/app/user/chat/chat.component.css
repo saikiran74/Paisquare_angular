@@ -15,10 +15,9 @@
   text-align: right;
 }
 
-.text-left {
-  text-align: left;
-}
-
 .cursor-pointer {
   cursor: pointer;
+}
+.col-12{
+  padding-top: 0px;
 }

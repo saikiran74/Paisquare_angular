@@ -34,7 +34,6 @@ export class ContactusComponent {
       this.message="please enter your query";
     }
     else{
-      console.log("--contactus--",this.contactus)
       this._service.ContactusFromRemote(this.contactus).subscribe(
         data=>{console.log("Response received");
         this.message="Thank you for contacting us. Will get back to you soon!";
@@ -45,7 +44,6 @@ export class ContactusComponent {
           this._router.navigate([''])
       },
         error=>{console.log(this.contactus);
-          console.log("not saved");
         this.message="Invalid details";
       }
       )

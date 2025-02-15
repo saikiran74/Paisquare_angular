@@ -44,7 +44,6 @@ export class AdvertiserdashboardComponent implements OnInit {
     this._service.getUserdata(this._service.userId).subscribe(
       (data) => {
         this.userData = data;
-        console.log('User data:', this.userData);
       },
       (error) => {
         console.error('Error occurred while retrieving user data!', error);
@@ -55,7 +54,6 @@ export class AdvertiserdashboardComponent implements OnInit {
     this._service.getUserAdvertisements(this._service.userId).subscribe(
       (data) => {
         this.advertisement = data.slice().reverse();
-        console.log('User advertisements:', this.advertisement);
       },
       (error) => {
         console.error('Error occurred while retrieving advertisements!', error);
@@ -95,7 +93,6 @@ export class AdvertiserdashboardComponent implements OnInit {
       (response) => {
         alert(`₹${this.addAmount} added successfully!`);
         this.userData.paisa += this.addAmount;
-        console.log("first error", this.userData) // Update local balance
         this.addFundsDialogVisible = false; // Close dialog
       },
       (error) => {

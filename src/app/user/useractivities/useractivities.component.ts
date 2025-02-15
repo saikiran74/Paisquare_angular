@@ -24,8 +24,7 @@ export class UseractivitiesComponent implements OnInit{
     this.likedAdvertisements()
     this._service.getUserFollowingProfiles(+this.userId).subscribe(
       data => {
-        console.log("userdata",data)
-    },
+      },
       error=>{console.log("error occure while retrieving the data!")
     });
     
@@ -67,7 +66,6 @@ export class UseractivitiesComponent implements OnInit{
     this._service.getFavouriteAdvertisements().subscribe(
       data => {
         this.advertisementsOnClick = data;
-        console.log("favourite list",data)
     },
       error=>{console.log("error occure while retrieving the data!")
     });
@@ -76,7 +74,6 @@ export class UseractivitiesComponent implements OnInit{
     this._service.getLikedAdvertisements().subscribe(
       data => {
         this.advertisementsOnClick = data;
-        console.log("liked list",data)
     },
       error=>{console.log("error occure while retrieving the data!")
     });
@@ -85,7 +82,6 @@ export class UseractivitiesComponent implements OnInit{
     this._service.getFollowingAdvertisements().subscribe(
       data => {
         this.advertisementsOnClick = data;
-        console.log("following advertisement",data)
     },
       error=>{console.log("error occure while retrieving the data!")
     });
@@ -94,7 +90,6 @@ export class UseractivitiesComponent implements OnInit{
     this._service.getVisitedAdvertisements().subscribe(
       data => {
         this.advertisementsOnClick = data;
-        console.log("visited list",data)
     },
       error=>{console.log("error occure while retrieving the data!")
     });
@@ -103,7 +98,7 @@ export class UseractivitiesComponent implements OnInit{
     this._service.getBlockedAdvertisements().subscribe(
       data => {
         this.advertisementsOnClick = data;
-        console.log("getBlockedAdvertisements list",data)
+        console.log("this.advertisementsOnClick-",this.advertisementsOnClick)
     },
       error=>{console.log("error occure while retrieving the data!")
     });
@@ -131,7 +126,6 @@ export class UseractivitiesComponent implements OnInit{
     this._service.getUserBlockedProfiles(+this.userId).subscribe(
       data => {
         this.profileList = data;
-        console.log("getUserBlockedProfiles list",data)
     },
       error=>{console.log("error occure while retrieving the data!")
     });
@@ -140,7 +134,7 @@ export class UseractivitiesComponent implements OnInit{
     this._service.getUserFollowingProfiles(+this.userId).subscribe(
       data => {
         this.profileList = data;
-        console.log("followingprofile list",data)
+        console.log(this.profileList)
     },
       error=>{console.log("error occure while retrieving the data!")
     });
@@ -151,10 +145,9 @@ export class UseractivitiesComponent implements OnInit{
   block(advertiserid: number){
     this.blockobj.userid=this._service.userId;
     this.blockobj.advertiserid=advertiserid;
-    this.blockobj.Blocked=true;
+    this.blockobj.blocked=true;
     this._service.postBlockAdvertiser(this.blockobj,this._service.userId,advertiserid).subscribe(
       data=>{
-        console.log("blocked successfully")
         this.Blockedprofile()
       },
       error=>{

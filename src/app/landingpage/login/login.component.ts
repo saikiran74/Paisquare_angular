@@ -19,19 +19,12 @@ export class LoginComponent implements OnInit {
   successMessage:boolean=false;
   loginFormGroup(): FormGroup {
     return new FormGroup({
-      email: new FormControl('bobbilisaikiran1999@gmail.com', [Validators.required,Validators.email]),
-      password: new FormControl('Bobbili@123', Validators.required),
+      email: new FormControl('', [Validators.required,Validators.email]),
+      password: new FormControl('', Validators.required),
     });
   }
   ngOnInit() {
     this.loginForm = this.loginFormGroup();
-    this.loginForm.valueChanges.subscribe(value => {
-      console.log(value.email);
-      console.log(value.password);
-    });
-    this.loginForm.statusChanges.subscribe(status => {
-      console.log('Form status changes:', status);
-    });
   }
   loginButtonDisable:boolean=false;
   userLogin(){
@@ -41,20 +34,15 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.valid){
       this._service.loginUserFromRemote(this.loginForm.value).subscribe(
         response=>{
-          console.log("Response received",response);
           this.message= response.apiMessage.message;
           if(response.apiMessage.status=='success'){
             this.successMessage=true;
           }
           if(response.apiMessage.code.includes("validUser")){
-            console.log("Valid user");
             // Store the JWT token in AuthServsice
             this.authService.login(response.token);
-            console.log("response.token.token"+response.token);
             this._service.userId=response.user.id;
-            console.log("this._service.userId->",this._service.userId)
             this._service.userName=response.user.username;
-            console.log("this._service.userName->",this._service.userName)
             this._router.navigate(['advertiser'])
             //this._router.navigate(['home/profile/1'])
           } else if (response.apiMessage.code.includes("OTPNotVerified")) {

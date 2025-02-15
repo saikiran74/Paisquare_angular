@@ -1,14 +1,14 @@
 <app-landingnavbar></app-landingnavbar>
 <br><br><br>
-<div class="grid">
-    <div class="md:col-5 md:col-offset-3">
+<div class="grid flex  justify-content-center ">
+    <div class="md:col-5 ">
         <p-card header="Sign in">
             <form [formGroup]="loginForm" (ngSubmit)="userLogin()">
                 <div class="">
                     <div class="grid">
                         <label for="email" class="col-12 sm:col-4 col-form-label">Email</label>
                         <div class="col-12 sm:col-8">
-                            <input pInputText type="email" class="form-control" formControlName="email" placeholder="Required" required><br>
+                            <input pInputText type="email" autocomplete="email" name="email"  class="form-control" formControlName="email" placeholder="Enter email" required><br>
                             <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
                                 <div *ngIf="loginForm.get('email')?.errors?.['required']">
                                 Email is required.
@@ -18,12 +18,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div><br>
                     <div class="grid">
                         <label for="password" class="col-12 sm:col-4 col-form-label">Password</label>
                         <div class="col-12 sm:col-4">
-                            <input pInputText type="password" 
-                            autocomplete="new-password"  class="form-control" formControlName="password" placeholder="Enter password" required><br>
+                            <input pInputText type="password" name="password" 
+                            autocomplete="current-password"  class="form-control" formControlName="password" placeholder="Enter password" required><br>
                         
                             <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
                                 <div *ngIf="loginForm.get('password')?.errors?.['required']">

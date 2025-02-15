@@ -7,7 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./landingnavbar.component.css']
 })
 export class LandingnavbarComponent {
-  constructor(private _router: Router) {}
+  currentRoute: string = '';
+  constructor(private _router: Router) {
+    this._router.events.subscribe(() => {
+      this.currentRoute = this._router.url;
+    });
+  }
   @Output() valueEvent = new EventEmitter<string>();
 
   

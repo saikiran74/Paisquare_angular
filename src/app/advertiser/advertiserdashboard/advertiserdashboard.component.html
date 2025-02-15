@@ -1,72 +1,69 @@
-<div class="container">
+<div class="container" style="padding: 8px;">
   <span style="font-size: 2rem;">Balance</span>
-  </div>
-  <div class="">
-    <div class="grid justify-content-center">
-      
-      <!-- Your Funds Section -->
-      <div class="col-6 md:col-3 lg:col-3">
-        <div class="surface-card shadow-2  border-round">
-          <div class="flex justify-content-between mb-3">
-            <div>
-              <span class="block text-500 font-medium mb-3">Your Funds</span>
-              <div class="block text-900 font-medium text-xl">{{ userData.paisa }}</div>
-            </div>
-            <div class="flex align-items-center justify-content-center bg-purple-100 border-round" style="width:2.5rem;height:2.5rem">
-                <i class="pi pi-money-bill text-purple-500 text-xl"></i>
-            </div>
+
+  <div class="grid justify-content-center">
+    <!-- Your Funds Section -->
+    <div class="col-6 md:col-3 lg:col-3">
+      <div class="surface-card shadow-2  border-round">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3">Your Funds</span>
+            <div class="block text-900 font-medium text-xl">{{ userData.paisa }}</div>
           </div>
-          <div class="flex mt-1 justify-content-center" style="padding-bottom: 5px;">
-            <button
-              *ngIf="userData.accountType === 'generalUser'"
-              pButton
-              type="button"
-              label="Withdraw"
-              class="p-button-warning l"
-              (click)="showWithdrawDialog()"
-            ></button>
-            <button
+          <div class="flex align-items-center justify-content-center bg-purple-100 border-round" style="width:2.5rem;height:2.5rem">
+              <i class="pi pi-money-bill text-purple-500 text-xl"></i>
+          </div>
+        </div>
+        <div class="flex mt-1 justify-content-center" style="padding-bottom: 5px;">
+          <button
+            *ngIf="userData.accountType === 'generalUser'"
+            pButton
+            type="button"
+            label="Withdraw"
+            class="p-button-warning l"
+            (click)="showWithdrawDialog()"
+          ></button>
+          <button
+            *ngIf="userData.accountType === 'advertiser'"
+            pButton
+            type="button"
+            label="Add Funds"
+            class="p-button-success l"
+            (click)="showAddFundsDialog()"
+          ></button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pai's Left Section -->
+    <div class="col-6 md:col-6 lg:col-3">
+      <div class="surface-card shadow-2  border-round">
+        <div class="flex justify-content-between mb-3">
+          <div>
+            <span class="block text-500 font-medium mb-3">Pai's Left</span>
+            <div class="block text-900 font-medium text-xl">{{ userData.pai }}</div>
+          </div>
+          <div class="flex align-items-center justify-content-center border-round" style="width: 2.5rem; height: 2.5rem">
+            <img src="../../../assets/images/pai_square_without_name.jpg" 
+             style="width: 90%; height: 90%; object-fit: cover;" />
+          </div>
+        </div>
+        <div class="flex gap-1 justify-content-center" style="padding-bottom: 5px;">
+          <button
               *ngIf="userData.accountType === 'advertiser'"
               pButton
               type="button"
-              label="Add Funds"
-              class="p-button-success l"
-              (click)="showAddFundsDialog()"
-            ></button>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Pai's Left Section -->
-      <div class="col-6 md:col-6 lg:col-3">
-        <div class="surface-card shadow-2  border-round">
-          <div class="flex justify-content-between mb-3">
-            <div>
-              <span class="block text-500 font-medium mb-3">Pai's Left</span>
-              <div class="block text-900 font-medium text-xl">{{ userData.pai }}</div>
-            </div>
-            <div class="flex align-items-center justify-content-center border-round" style="width: 2.5rem; height: 2.5rem">
-              <img src="../../../assets/images/pai_square_without_name.jpg" 
-               style="width: 90%; height: 90%; object-fit: cover;" />
-            </div>
-          </div>
-          <div class="flex gap-1 justify-content-center" style="padding-bottom: 5px;">
-            <button
-                *ngIf="userData.accountType === 'advertiser'"
-                pButton
-                type="button"
-                label="Buy"  disabled="true"
-                class="p-button-primary l"
-                (click)="onBuyCoins()"
-                ></button>
-            <button
-              pButton
-              type="button"
-              label="Sell"
-              class="p-button-success l"
-              (click)="showSellDialog()"
-            ></button>
-          </div>
+              label="Buy"  disabled="true"
+              class="p-button-primary l"
+              (click)="onBuyCoins()"
+              ></button>
+          <button
+            pButton
+            type="button"
+            label="Sell"
+            class="p-button-success l"
+            (click)="showSellDialog()"
+          ></button>
         </div>
       </div>
     </div>
@@ -126,7 +123,7 @@
 
   <br><br>
   <!-- Advertisement Table -->
-  <span style="font-size: 2rem;">Transactional history</span>
+  <span style="font-size: 2rem; font:bold;">Transactional history</span>
   <div *ngIf="userData.accountType === 'advertiser'">
       <p-table [value]="advertisement" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '90rem' }">
           <ng-template pTemplate="header">
@@ -163,3 +160,4 @@
           </ng-template>
       </p-table>
   </div>
+</div>
