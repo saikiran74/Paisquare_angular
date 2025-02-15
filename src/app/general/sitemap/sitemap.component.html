@@ -1,0 +1,9 @@
+<div class="sitemap-container">
+    <h2>Website Sitemap</h2>
+    <ul>
+      <li *ngFor="let url of sitemapUrls">
+        <a [href]="url" target="_blank">{{ url }}</a>
+      </li>
+    </ul>
+  </div>
+  

@@ -79,7 +79,35 @@ ngOnInit(){
 
     if (this.userId) {
       this.fetchUserAdvertisements(this.userId);
+    } 
+    /*else {
+      this.fetchadvertisement();
+    }*/
+  });
+
+   // Fetch adId from URL params and load specific advertisement
+   this._route.params.subscribe(params => {
+    this.adId = params['id']; // Extract ad ID from URL
+
+    if (this.adId) {
+      console.log('Fetching advertisement for adId:', this.adId);
+      this._service.getIDAdvertisements(+this.adId).subscribe(
+        data => {
+          console.log(data.id)
+          if (data && typeof data === 'object' && 'id' in data) {
+            this.advertisements = data; // Update with single advertisement
+            console.log("Advertisement updated:", this.advertisements);
+          } else {
+            console.log("Loading all Advertisement list:");
+            this.fetchadvertisement();
+          }
+        },
+        error => {
+          console.log("Error occurred while retrieving the advertisement for ID:", this.adId);
+        }
+      );
     } else {
+      console.log('Fetching all advertisements');
       this.fetchadvertisement();
     }
   });

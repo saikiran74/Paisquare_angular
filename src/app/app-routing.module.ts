@@ -9,6 +9,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ContactusComponent } from './general/contactus/contactus.component';
 import { AboutUSComponent } from './general/about-us/about-us.component';
 import { ProfileComponent } from './settings/profile/profile.component';
+import { SitemapComponent } from './general/sitemap/sitemap.component';
+import { AlladvertisementsComponent } from './advertiser/Ad/alladvertisements/alladvertisements.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,7 @@ const routes: Routes = [
       { path:'contactUs',component:ContactusComponent},
       { path:'aboutUs',component:AboutUSComponent},
       { path: 'profile/:id', component: ProfileComponent},
+      
     ]
   },
   {
@@ -46,6 +49,9 @@ const routes: Routes = [
   { path:'privacyandpolicy',component:PrivacyPolicyComponent},
   { path: 'login', component: LoginComponent },
   { path: 'createaccount', component: RegistrationComponent },
+  { path: 'sitemap.xml',component:SitemapComponent},
+  { path: 'advertisements/:id/:slug', component: AlladvertisementsComponent },
+
   { path: '', component: LandingcontentComponent },
 ];
 

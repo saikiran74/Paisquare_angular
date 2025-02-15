@@ -238,5 +238,9 @@ export class PaiService {
     const url = `/api/withdrawFunds`; // Replace with your backend API endpoint
     return this._http.post(url, { userId, amount });
   }
+
+  getSitemap(): Observable<string> {
+    return this._http.get(`${this.apiUrl}/sitemap.xml`, { responseType: 'text' });
+  }
 }
 
