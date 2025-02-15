@@ -4,13 +4,13 @@
             <form #loginform="ngForm" (ngSubmit)="advertisementForm()" class="form container">
                 <div class="grid">
                     <div class="col-12 md:col-6 sm:col-6">
-                        <label for="adhead">Brand name</label>
+                        <label for="adhead">Brand name <span class="asterisk">*</span></label>
                         <div>
                             <input pInputText type="text" class="form-control BrandNameCSS"  id="adhead" name="header" placeholder="Enter brand or website name" [(ngModel)]="advertise.brandname" required><br>
                         </div>
                     </div>
                     <div  class="col-12 md:col-6 sm:col-6">
-                        <label for="adhead">Url</label>
+                        <label for="adhead">Url <span class="asterisk">*</span></label>
                         <div class="p-inputgroup">
                             <!-- Dropdown on the left -->
                             <span class="p-inputgroup-addon">
@@ -58,7 +58,7 @@
                     
                 </div><br>
                 <div class="grid">
-                    <label for="adhead" class="col-12">Description</label>
+                    <label for="adhead" class="col-12">Description <span class="asterisk">*</span></label>
                     <div class="col-12">
                         <p-editor [style]="{'height':'320px','font-size': '1rem'}" placeholder="Add description" name="description" [(ngModel)]="advertise.description"></p-editor><br><br>
                     </div>

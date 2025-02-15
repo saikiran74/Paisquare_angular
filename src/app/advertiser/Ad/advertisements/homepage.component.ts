@@ -138,7 +138,7 @@ export class HomepageComponent implements OnInit {
     this._service.LikeFromRemote(this.likeobj,+this.userId,advertisementid).subscribe(
       data=>{
         this.fetchData.emit();
-        this.fetchadvertisement()
+        //this.fetchadvertisement()
       },
       error=>{
         console.log("like error occured")
@@ -184,11 +184,17 @@ export class HomepageComponent implements OnInit {
   }
  
   follower(advertiserid: number){
+    if (this.followerslist.includes(advertiserid)) {
+      this.followerslist = this.followerslist.filter(id => id !== advertiserid);
+    } else {
+        this.followerslist = [...this.followerslist, advertiserid];
+    }
     this.followerobj.following=true;
     this._service.FollowerFromRemote(this.followerobj,advertiserid,+this.userId).subscribe(
       data=>{
-        this.fetchUserData()
-        this.fetchData.emit();
+        // removed below code to avoid glitch while clicking like and follow button
+        //this.fetchUserData()
+        //this.fetchData.emit();
         //this._router.navigate(['homepage'])
       },
       error=>{

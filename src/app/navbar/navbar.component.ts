@@ -41,6 +41,7 @@ export class NavbarComponent  implements OnInit{
     ngOnInit() {
       this._service.checkViewport()
       this.checkViewport();
+      console.log("userId",this.userId)
       const token = localStorage.getItem('token');
       if (token && this.authService.isAuthenticated()) {
         const userdetails=this.authService.getUserDetails()
@@ -49,7 +50,10 @@ export class NavbarComponent  implements OnInit{
         this._service.userName=userdetails.username;
         this.userName=userdetails.username;
       } else {
-        this._router.navigate(['/login']);
+
+        console.log("Guest user - loading public advertisements");
+        this.userId = ''; 
+        //this._router.navigate(['/login']);
       }
       this.nodes =  [
               { key: '0-0', label: 'Home page', data: '/advertiser', type: 'url',icon:'pi pi-home'},

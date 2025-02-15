@@ -41,18 +41,32 @@
     </div>
     <div class="grid body">
         @if (isSidebarVisible) {
-            <div class="col-12 md:col-2 left-content">
-                <p-tree (onNodeClick)="onNodeClick($event)" [value]="nodes" [style]="{'border': 'none','padding-top':'10px','padding-left':'5px'}" #tree class="w-full md:w-30rem">
-                    <ng-template let-node pTemplate="url">
-                        <a (click)="componentViewMethod(node.data)" rel="noopener noreferrer" 
-                        class="treechildren"
-                         [ngClass]="{'highlight': selectedNode === node.data}">{{ node.label}}</a>
-                    </ng-template>
-                    <ng-template let-node pTemplate="default">
-                        <b [ngClass]="{'highlight': selectedNode === node.label}">{{ node.label }}</b>
-                      </ng-template>
-                </p-tree>
-            </div>
+            
+                <div class="col-12 md:col-2 left-content">
+                    @if(userId!==''){
+                    <p-tree (onNodeClick)="onNodeClick($event)" [value]="nodes" [style]="{'border': 'none','padding-top':'10px','padding-left':'5px'}" #tree class="w-full md:w-30rem">
+                        <ng-template let-node pTemplate="url">
+                            <a (click)="componentViewMethod(node.data)" rel="noopener noreferrer" 
+                            class="treechildren"
+                             [ngClass]="{'highlight': selectedNode === node.data}">{{ node.label}}</a>
+                        </ng-template>
+                        <ng-template let-node pTemplate="default">
+                            <b [ngClass]="{'highlight': selectedNode === node.label}">{{ node.label }}</b>
+                          </ng-template>
+                    </p-tree>
+                } @else {
+                    <div class="flex flex-column align-items-center text-start">
+                        <p style="padding: 8px;">
+                            Please create an account or sign in to earn amazing reward points for every click!
+                        </p>
+                        <button pButton type="button" 
+                        routerLink="/login" label="Sign in" class="p-button-raised p-button-primary custom-button"
+                        ></button>
+                    </div>
+                    
+                }
+                </div>
+            
         } @else {
             <div class="col-12 md:col-2 ">
                 

@@ -45,13 +45,18 @@ const routes: Routes = [
       { path: 'profile/:id', component: ProfileComponent},
     ]
   },
+  {
+    path:'advertisements',
+    component:NavbarComponent,
+    children:[
+      { path: 'advertisements/:id/:slug', component: AlladvertisementsComponent },
+    ]
+  },
   { path:'termsandconditions',component: TermsandConditionsComponent},
   { path:'privacyandpolicy',component:PrivacyPolicyComponent},
   { path: 'login', component: LoginComponent },
   { path: 'createaccount', component: RegistrationComponent },
   { path: 'sitemap.xml',component:SitemapComponent},
-  { path: 'advertisements/:id/:slug', component: AlladvertisementsComponent },
-
   { path: '', component: LandingcontentComponent },
 ];
 

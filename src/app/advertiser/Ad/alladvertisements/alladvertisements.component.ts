@@ -51,6 +51,42 @@ ngOnInit(){
   this.advertisements=[];
   this.fetchDistinctHashtags();
   const token = this.authService.getToken();
+  this._route.queryParams.subscribe(params => {
+    this.userId = params['userId'];
+  
+    if (this.userId) {
+      console.log("this.userId", this.userId);
+      this.fetchUserAdvertisements(this.userId);
+    } else {
+      this._route.params.subscribe(params => {
+        this.adId = params['id'];
+        console.log("this.adId", this.adId);
+        if (this.adId) {
+          console.log('Fetching advertisement for adId:', this.adId);
+          this._service.getIDAdvertisements(+this.adId).subscribe(
+            data => {
+              console.log("data",data)
+              console.log("data.length",data.length)
+              if (data.length>0) {
+                this.advertisements = data;
+                console.log("Advertisement updated:", this.advertisements);
+              } else {
+                console.log("Loading all Advertisement list:");
+                this.fetchadvertisement();
+              }
+            },
+            error => {
+              console.log("Error occurred while retrieving the advertisement for ID:", this.adId);
+            }
+          );
+        } else {
+          console.log('Fetching all advertisements');
+          this.fetchadvertisement();
+        }
+      });
+    }
+  });
+  
   /*const navigation = this._router.getCurrentNavigation();
   console.log('Navigation object:', navigation); // Debugging
   const state = navigation?.extras.state as { userId?: string; adId?: string };
@@ -74,44 +110,7 @@ ngOnInit(){
     console.log('Fetching all advertisement', this.adId);
     this.fetchadvertisement();
   }*/
-  this._route.queryParams.subscribe(params => {
-    this.userId = params['userId'];
-
-    if (this.userId) {
-      this.fetchUserAdvertisements(this.userId);
-    } 
-    /*else {
-      this.fetchadvertisement();
-    }*/
-  });
-
-   // Fetch adId from URL params and load specific advertisement
-   this._route.params.subscribe(params => {
-    this.adId = params['id']; // Extract ad ID from URL
-
-    if (this.adId) {
-      console.log('Fetching advertisement for adId:', this.adId);
-      this._service.getIDAdvertisements(+this.adId).subscribe(
-        data => {
-          console.log(data.id)
-          if (data && typeof data === 'object' && 'id' in data) {
-            this.advertisements = data; // Update with single advertisement
-            console.log("Advertisement updated:", this.advertisements);
-          } else {
-            console.log("Loading all Advertisement list:");
-            this.fetchadvertisement();
-          }
-        },
-        error => {
-          console.log("Error occurred while retrieving the advertisement for ID:", this.adId);
-        }
-      );
-    } else {
-      console.log('Fetching all advertisements');
-      this.fetchadvertisement();
-    }
-  });
-
+  
   /*this._route.params.subscribe(params => {
     const adId = params['id']; // Access ad ID from URL if provided
     const userId = params['userId']; // Access user ID from URL if provided
@@ -185,10 +184,13 @@ fetchadvertisement(){
   querySearch:boolean=false;
   onSearch(queryEvent: Event): void {
     const inputElement = queryEvent.target as HTMLInputElement;
-    const query = inputElement.value?.trim();
+    let query = inputElement.value?.trim();
     this.querySearch=true;
     if (!query.trim()) {
         this.querySearch = false;
+    }
+    if(query==''){
+      query='all'
     }
     this._service.getPincodesAdvertisement(query).subscribe(
       data => {
