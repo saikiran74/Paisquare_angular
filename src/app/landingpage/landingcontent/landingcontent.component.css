@@ -129,7 +129,7 @@ label{
 }
 :host ::ng-deep .p-card{
     width: 400px;
-    height: 500px;
+    height: 450px;
 }
 :host ::ng-deep .p-card .p-field {
     margin-bottom: 1.5rem;
@@ -161,12 +161,6 @@ label{
         height: 87vh;
         object-fit: cover;
     }
-    :host ::ng-deep .p-card{
-        margin-top: 10px;
-        width: 360px;
-        height: 500px;
-        margin-left: 40px;
-    }
     .tab-header{
         margin-top: -15px;
         margin-bottom: 0px;
@@ -187,7 +181,9 @@ label{
         color: #F8CF40;
     }
     :host ::ng-deep .p-card{
-        width: 300px;
-        height: 500px;
+        margin-top: 10px;
+        width: 360px;
+        height: 450px;
+        margin-left: 40px;
     }
 }

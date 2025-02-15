@@ -4,7 +4,7 @@ import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { Observable } from 'rxjs';
 import {HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -237,6 +237,10 @@ export class PaiService {
   withdrawFunds(userId: number, amount: number): Observable<any> {
     const url = `/api/withdrawFunds`; // Replace with your backend API endpoint
     return this._http.post(url, { userId, amount });
+  }
+
+  getSitemap(): Observable<string> {
+    return this._http.get(`${this.apiUrl}/sitemap.xml`, { responseType: 'text' });
   }
 }
 
