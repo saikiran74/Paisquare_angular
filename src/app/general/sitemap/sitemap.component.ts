@@ -12,14 +12,23 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SitemapComponent {
   sitemapUrls: string[] = [];
+  sitemapXml: string = '';
 
   constructor(private _service: PaiService, private _router: Router,private route: ActivatedRoute){};
     
 
   ngOnInit() {
-    this._service.getSitemap().subscribe(xmlString => {
-      this.parseSitemap(xmlString);
-    });
+    this._service.getSitemap().subscribe(
+      
+      xmlString => {
+        console.log("xmlString",xmlString)
+        this.parseSitemap(xmlString);
+        },
+      error => {
+        console.error('Error fetching sitemap:', error);
+      }
+      
+    );
   }
 
   parseSitemap(xmlString: string) {
@@ -28,5 +37,24 @@ export class SitemapComponent {
     const urlElements = xmlDoc.getElementsByTagName('loc');
 
     this.sitemapUrls = Array.from(urlElements).map(el => el.textContent || '');
+  }
+  serveSitemap(xmlContent: string) {
+    const blob = new Blob([xmlContent], { type: 'application/xml' });
+    const url = window.URL.createObjectURL(blob);
+
+    // Redirect browser to download the sitemap.xml file
+    window.location.href = url;
+  }
+  downloadSitemap() {
+    const blob = new Blob([this.sitemapXml], { type: 'application/xml' });
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sitemap.xml'; // Download file as sitemap.xml
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a); // Clean up
+    window.URL.revokeObjectURL(url); // Free memory
   }
 }

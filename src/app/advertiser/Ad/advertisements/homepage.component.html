@@ -9,7 +9,7 @@
                     <div
                       *ngIf="ad.advertiser.profileImage; else placeholder"
                       class="logo-container">
-                        <img [src]="'data:image/png;base64,' + ad.advertiser.profileImage" routerLink="" alt="Logo"
+                        <img loading="lazy" [src]="'data:image/png;base64,' + ad.advertiser.profileImage" routerLink="" alt="Logo"
                         style="width: 35px; height: 30px; padding-left: 5px; margin-top: -10px;" class="logo">
                     </div>
                     <ng-template #placeholder>
@@ -40,7 +40,7 @@
     <!-- Card Body with Advertisement Info -->
     <div class="grid" style="padding-left: 5px;">
         <div class="col-12 flex">
-            <label style="font-size: 1.2rem; "  [innerHTML]="ad.description"></label>
+           <label style="font-size: 1.2rem; "  [innerHTML]="ad.description"></label>
         </div>
         
     </div>

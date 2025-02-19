@@ -59,6 +59,7 @@ export class HomepageComponent implements OnInit {
           data => {
             this.userId=this._service.userId;
             this.advertisements = data;
+            
           },
             error=>{console.log("error occure while retrieving the data for ID -",adId)
         });

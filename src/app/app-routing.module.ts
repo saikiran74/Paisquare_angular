@@ -49,7 +49,7 @@ const routes: Routes = [
     path:'advertisements',
     component:NavbarComponent,
     children:[
-      { path: 'advertisements/:id/:slug', component: AlladvertisementsComponent },
+      { path: ':id/:slug', component: AlladvertisementsComponent },
     ]
   },
   { path:'termsandconditions',component: TermsandConditionsComponent},
