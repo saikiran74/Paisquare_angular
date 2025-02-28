@@ -242,9 +242,11 @@ export class AdvertisementformComponent implements OnInit{
       }
   }
   loadAdDetails(adId: string) {
-    this._service.getIDAdvertisements(+adId).subscribe(
+    this._service.getAdvertisementInfoForEditing(+adId).subscribe(
       data => {
         this.advertise = data;
+        console.log("this.advertise",this.advertise.brandname)
+        console.log("this.advertise",this.advertise)
         this.hashtags = this.advertise.hashtags && this.advertise.hashtags.trim() 
           ? this.advertise.hashtags.split(',').map(pincode => pincode.trim()).filter(pincode => pincode) 
           : [];
@@ -263,7 +265,7 @@ export class AdvertisementformComponent implements OnInit{
           this.advertise.gender = this.advertise.gender; // Preselect gender
         }
       },
-        error=>{console.log("error occure while retrieving the data for ID -",adId)
+        error=>{console.log("error occure while retrieving the data for ID -",adId,error)
     });
   }
   mobileNumberValidator(number:any) {

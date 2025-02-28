@@ -6,6 +6,8 @@ import {HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -135,8 +137,13 @@ export class PaiService {
   
   
   //-----------------------
+  /* We will get list of advertisement to display on home screen*/
   public getIDAdvertisements(advertisementid:number){
     return this._http.get<any>(`${this.apiUrl}/idadvertisements/${advertisementid}`);
+  }
+  /* We will get only one advertisement for editing ad*/
+  public getAdvertisementInfoForEditing(advertisementid:number){
+    return this._http.get<any>(`${this.apiUrl}/advertisementsEditing/${advertisementid}`);
   }
   public getUserAdvertisements(userId:number){
     return this._http.get<any>(`${this.apiUrl}/useradvertisements/${userId}`);

@@ -80,6 +80,9 @@ textarea{
       font-size:1rem;
       
     }
+    .p-card .p-card-content {
+        padding: 0rem 0;
+    }
     .p-calendar-w-btn .p-datepicker-trigger {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
