@@ -1,145 +1,150 @@
 
 <div class="container">
     <form [formGroup]="profileForm">
-        <p-fieldset legend="Brand information" formGroupName="brandInformation">
-            <div class="grid">
-                
-                <div class="col-12 md:col-6 sm:col-12 flex justify-content-center align-items-center">
-                    <div class="profile-container" 
-                    (mouseover)="showPencil = true" (mouseout)="showPencil = false">
-                      <ng-container *ngIf="profileImage; else noImage">
-                        <img [src]="profileImageUrl" alt="Profile Image" style="cursor: pointer;"
-                         width="250" height="250" (click)="onPencilClick()"  style="border-radius: 50%; border: 2px solid rgb(1, 48, 255);"/>
-                        <i *ngIf="showPencil"  class="pi pi-pencil hover-pencil large-pencil"
-                        style="cursor: pointer;"
-                         (click)="onPencilClick()"></i>
-                      </ng-container>
-                      <ng-template #noImage>
-                        <i class="pi pi-pencil large-pencil" (click)="onPencilClick()" ></i>
-                      </ng-template>
-                    </div>
-                    <input 
-                      type="file" 
-                      id="fileInput" 
-                      (change)="onFileSelected($event)" 
-                      style="display: none" 
-                    />
-                  </div>
-                  
-                  
-                  
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="brandName">Brand name</label>
-                        <div>
-                            <input pInputText class="inputtext" id="brandName" formControlName="brandName" name="brandName"
-                             placeholder="Enter your brand name"
-                             [style]="{'width':'250px'}">
+        @if(isAdvertiser){
+            <p-fieldset legend="Brand information" formGroupName="brandInformation">
+                <div class="grid">
+                    
+                    <div class="col-12 md:col-6 sm:col-12 flex justify-content-center align-items-center">
+                        <div class="profile-container" 
+                        (mouseover)="showPencil = true" (mouseout)="showPencil = false">
+                          <ng-container *ngIf="profileImage; else noImage">
+                            <img [src]="profileImageUrl" alt="Profile Image" style="cursor: pointer;"
+                             width="250" height="250" (click)="onPencilClick()"  style="border-radius: 50%; border: 2px solid rgb(1, 48, 255);"/>
+                            <i *ngIf="showPencil"  class="pi pi-pencil hover-pencil large-pencil"
+                            style="cursor: pointer;"
+                             (click)="onPencilClick()"></i>
+                          </ng-container>
+                          <ng-template #noImage>
+                            <i class="pi pi-pencil large-pencil" (click)="onPencilClick()" ></i>
+                          </ng-template>
                         </div>
-                        @if (profileForm.get('brandInformation.brandName')?.value?.length>20) {
+                        <input 
+                          type="file" 
+                          id="fileInput" 
+                          (change)="onFileSelected($event)" 
+                          style="display: none" 
+                        />
+                      </div>
+                      
+                      
+                      
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="brandName">Brand name</label>
                             <div>
-                                Please enter brandname is less than 20
+                                <input pInputText class="inputtext" id="brandName" formControlName="brandName" name="brandName"
+                                 placeholder="Enter your brand name"
+                                 [style]="{'width':'250px'}">
                             </div>
-                        }
-                    </div><br>
-                    <div class="pairs">
-                        <label for="">Brand Description</label>
-                        <div>
-                            <textarea  pInputTextarea [style]="{'width':'250px'}" rows="5"
-                            style="height: 80px;"  id="brandDescription" 
-                            formControlName="brandDescription" name="brandDescription" placeholder="About your brand"></textarea>
+                            @if (profileForm.get('brandInformation.brandName')?.value?.length>20) {
+                                <div>
+                                    Please enter brandname is less than 20
+                                </div>
+                            }
+                        </div><br>
+                        <div class="pairs">
+                            <label for="">Brand Description</label>
+                            <div>
+                                <textarea  pInputTextarea [style]="{'width':'250px'}" rows="5"
+                                style="height: 80px;"  id="brandDescription" 
+                                formControlName="brandDescription" name="brandDescription" placeholder="About your brand"></textarea>
+                            </div>
+                        </div><br>
+                        <div class="pairs">
+                            <label for="brandTagLine">Brand Tagline</label>
+                            <div>
+                                <input pInputText class="inputtext" id="brandTagLine" formControlName="brandTagLine"  name="brandTagLine" placeholder="About your brand tagline">
+                            </div>
+                        </div><br>
+                        <div class="pairs">
+                            <label for="">Website</label>
+                            <div>
+                                <input pInputText class="inputtext" id="website" formControlName="website" name="website" placeholder="Enter offical brand website">
+                            </div>
                         </div>
-                    </div><br>
-                    <div class="pairs">
-                        <label for="brandTagLine">Brand Tagline</label>
-                        <div>
-                            <input pInputText class="inputtext" id="brandTagLine" formControlName="brandTagLine"  name="brandTagLine" placeholder="About your brand tagline">
-                        </div>
-                    </div><br>
-                    <div class="pairs">
-                        <label for="">Website</label>
-                        <div>
-                            <input pInputText class="inputtext" id="website" formControlName="website" name="website" placeholder="Enter offical brand website">
-                        </div>
+                        
                     </div>
-                    
+                        
                 </div>
-                    
-            </div>
-            <div class="grid">
-                <div class="col-12">
-                    <div class="flex justify-content-start">
-                        <div *ngIf="profileForm.get('brandInformation.website')?.errors?.['invalidUrl']?.invalidResponse">
-                            <label class="validator">YouTube URL is not reachable.</label>
-                          </div>
-                        @if (profileForm.get('brandInformation.website')?.errors?.['invalidUrl']) {
-                            
-                            <label class="validator">Enter valid url for youtube</label>
-                        } 
-                        @if (showMessageFor=='brandInformation') {
-                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                        }
-                    </div>
-                    <div class="flex justify-content-end">
-                        <p-button label="Update" (onClick)="onSubmitbrandInformationUpdate()" [disabled]="!profileForm.get('brandInformation')?.valid || updatingInformation"></p-button>
-                    </div>
-                </div>
-            </div>
-        </p-fieldset><br>
-        <p-fieldset legend="Personal information" formGroupName="personalInformation">
-            <div class="grid">
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="advertiserName">Advertiser name</label>
-                        <div>
-                            <input pInputText class="inputtext" id="advertiserName" formControlName="advertiserName" name="advertiserName" placeholder="Enter your name">
+                <div class="grid">
+                    <div class="col-12">
+                        <div class="flex justify-content-start">
+                            <div *ngIf="profileForm.get('brandInformation.website')?.errors?.['invalidUrl']?.invalidResponse">
+                                <label class="validator">YouTube URL is not reachable.</label>
+                              </div>
+                            @if (profileForm.get('brandInformation.website')?.errors?.['invalidUrl']) {
+                                
+                                <label class="validator">Enter valid url for youtube</label>
+                            } 
+                            @if (showMessageFor=='brandInformation') {
+                                <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                            }
+                        </div>
+                        <div class="flex justify-content-end">
+                            <p-button label="Update" (onClick)="onSubmitbrandInformationUpdate()" [disabled]="!profileForm.get('brandInformation')?.valid || updatingInformation"></p-button>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="email">Email</label>
-                        <div>
-                            <input pInputText class="inputtext" id="email" formControlName="email" name="email" placeholder="Enter Email">
+            </p-fieldset><br>
+        }
+        @if (isAdvertiser) {
+        
+            <p-fieldset legend="Personal information" formGroupName="personalInformation">
+                <div class="grid">
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="advertiserName">Advertiser name</label>
+                            <div>
+                                <input pInputText class="inputtext" id="advertiserName" formControlName="advertiserName" name="advertiserName" placeholder="Enter your name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="email">Email</label>
+                            <div>
+                                <input pInputText class="inputtext" id="email" formControlName="email" name="email" placeholder="Enter Email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="mobileNumber">Number</label>
+                            <div>
+                                <input pInputText class="inputtext" id="mobileNumber" pKeyFilter="int" formControlName="mobileNumber"  name="mobileNumber" placeholder="Enter number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="brandLocation">Primary Location</label>
+                            <div>
+                                <textarea  pInputTextarea [style]="{'width':'250px'}" rows="5"
+                                style="height: 80px;" id="brandLocation" formControlName="brandLocation"
+                                name="brandLocation"  placeholder="Brand located at"
+                                [style]="{'width':'250px'}"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="mobileNumber">Number</label>
-                        <div>
-                            <input pInputText class="inputtext" id="mobileNumber" pKeyFilter="int" formControlName="mobileNumber"  name="mobileNumber" placeholder="Enter number">
+                <div class="grid ">
+                    <div class="col-12">
+                        <div class="flex justify-content-start">
+                            <div *ngIf="profileForm.get('personalInformation.mobileNumber')?.errors?.['invalidMobileNumber']">
+                                <label style="color: red;">Enter a valid 10-digit mobile number.</label> 
+                            </div>
+                            @if (showMessageFor=='personalInformation') {
+                                <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                            }
+                        </div>
+                        <div class="flex justify-content-end ">
+                            <p-button label="Update" (onClick)="onSubmitpersonalInformationUpdate()" [disabled]="!profileForm.get('personalInformation')?.valid || updatingInformation"></p-button>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="brandLocation">Primary Location</label>
-                        <div>
-                            <textarea  pInputTextarea [style]="{'width':'250px'}" rows="5"
-                            style="height: 80px;" id="brandLocation" formControlName="brandLocation"
-                             name="brandLocation"  placeholder="Brand located at"
-                             [style]="{'width':'250px'}"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="grid ">
-                <div class="col-12">
-                    <div class="flex justify-content-start">
-                        <div *ngIf="profileForm.get('personalInformation.mobileNumber')?.errors?.['invalidMobileNumber']">
-                            <label style="color: red;">Enter a valid 10-digit mobile number.</label> 
-                        </div>
-                        @if (showMessageFor=='personalInformation') {
-                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                        }
-                    </div>
-                    <div class="flex justify-content-end ">
-                        <p-button label="Update" (onClick)="onSubmitpersonalInformationUpdate()" [disabled]="!profileForm.get('personalInformation')?.valid || updatingInformation"></p-button>
-                    </div>
-                </div>
-            </div>
-        </p-fieldset><br>
+            </p-fieldset><br>    
+        }
         <p-fieldset legend="Update password">
             <div class="grid">
                 <div class="col-12 sm:col-12 md:col-6">
@@ -174,129 +179,132 @@
                 </div>
             </div>
         </p-fieldset><br>
-        <p-fieldset legend="Brand recommendation" formGroupName="brandRecommendation">
-            <div class="grid">
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="brandCategory">category</label>
-                        <div>
-                            <p-dropdown [style]="{'width':'250px'}" id="brandCategory" [options]="categories" formControlName="brandCategory"
-                             name="brandCategory" placeholder="Enter brand category"></p-dropdown>
+        @if (isAdvertiser) {
+            <p-fieldset legend="Brand recommendation" formGroupName="brandRecommendation">
+                <div class="grid">
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="brandCategory">category</label>
+                            <div>
+                                <p-dropdown [style]="{'width':'250px'}" id="brandCategory" [options]="categories" formControlName="brandCategory"
+                                 name="brandCategory" placeholder="Enter brand category"></p-dropdown>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="GenderType">Gender</label>
-                        <div class="flex">
-                            <div class="flex" id="GenderType">
-                                <p-radioButton name="brandTargetGender" value="Male" inputId="MaleGenderType" formControlName="brandTargetGender"></p-radioButton>
-                                <label  for="MaleGenderType" class="ml-2">Male</label>
-                            </div>
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="GenderType">Gender</label>
                             <div class="flex">
-                                <p-radioButton name="brandTargetGender" value="Female" inputId="FemaleGenderType" formControlName="brandTargetGender"></p-radioButton>
-                                <label for="" for="FemaleGenderType" class="ml-2">Female</label>
+                                <div class="flex" id="GenderType">
+                                    <p-radioButton name="brandTargetGender" value="Male" inputId="MaleGenderType" formControlName="brandTargetGender"></p-radioButton>
+                                    <label  for="MaleGenderType" class="ml-2">Male</label>
+                                </div>
+                                <div class="flex">
+                                    <p-radioButton name="brandTargetGender" value="Female" inputId="FemaleGenderType" formControlName="brandTargetGender"></p-radioButton>
+                                    <label for="" for="FemaleGenderType" class="ml-2">Female</label>
+                                </div>
+                                <div class="flex">
+                                    <p-radioButton name="brandTargetGender" value="Both" inputId="AllGenderType" formControlName="brandTargetGender"></p-radioButton>
+                                    <label for="" for="AllGenderType" class="ml-2">All Gender types</label>
+                                </div>
                             </div>
-                            <div class="flex">
-                                <p-radioButton name="brandTargetGender" value="Both" inputId="AllGenderType" formControlName="brandTargetGender"></p-radioButton>
-                                <label for="" for="AllGenderType" class="ml-2">All Gender types</label>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="brandEstablishedIn">Established in</label>
+                            <div>
+                                <p-calendar [style]="{'width':'250px'}" id="brandEstablishedIn" formControlName="brandEstablishedIn"
+                                dateFormat="yy" view="year" [showIcon]="true" placeholder="Your brand established in"></p-calendar>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="brandEstablishedIn">Established in</label>
-                        <div>
-                            <p-calendar [style]="{'width':'250px'}" id="brandEstablishedIn" formControlName="brandEstablishedIn"
-                            dateFormat="yy" view="year" [showIcon]="true" placeholder="Your brand established in"></p-calendar>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="brandCompanyEmployeeSize">Company size</label>
-                        <div>
-                            <input pInputText class="inputtext" id="brandCompanyEmployeeSize" formControlName="brandCompanyEmployeeSize"  pKeyFilter="int" name="brandCompanyEmployeeSize" placeholder="Number of employees working in">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="country">Country</label>
-                        <div>
-                            <p-dropdown [style]="{'width':'250px'}" id="country" [options]="country" formControlName="country" name="country" placeholder="Select country"></p-dropdown>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="brandHashTags">Hashtags</label>
-                        <div>
-                            <p-chips id="brandHashTags" formControlName="brandHashTags" separator="," name="brandHashTags" placeholder="Enter hashtags"></p-chips>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="pinCodes">Pin codes</label>
-                        <div>
-                            <p-chips id="pinCodes" formControlName="pinCodes" separator="," name="pinCodes" placeholder="Brand location pin codes with , seperated"></p-chips>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="pairs">
-                        <label for="brandTargetAges">Age range</label>
-                        <div>
-                            <p-inputMask mask="99-99" id="brandTargetAges" formControlName="brandTargetAges" name="brandTargetAges" placeholder="Enter age range i.e 18-99"></p-inputMask>
-                        </div>
-                    </div>
-                </div>
-                <!--
-                <div class="col-12 md:col-6 sm:col-12">
-                    <div class="grid">
-                        <div class="col-6">
-                            <label for="brandTargetAges" >Target age</label>
-                        </div>
-                        <div class="col-6">
-                            <input type="text" pInputText class="inputtext" id="brandTargetAges" formControlName="brandTargetAges" name="brandTargetAges" class="w-full"/>
-                        </div>
-                    </div>
-                    {{agerange}}
-                    <p-slider [range]="true" styleClass="w-full mt-3"></p-slider>
-                </div>-->
-            </div>
-            
-            <div class="grid col-12">
-                <div class="col-12 ">
-                    <div class="flex justify-content-start">
-                        @if (invalidPinCodesList) {
-                            <span class="validator">Invalid Pin Codes: {{ invalidPinCodesList }}</span>
-                        }
                             
-                        @if (profileForm.get('socialMedia.youtube')?.errors?.['invalidPinCode']) {
-                            <label class="validator"> enter valid 8-digit numeric pin codes separated by commas.</label>
-                        }
-                        <div *ngIf="profileForm.get('brandRecommendation.pinCodes')?.invalid && (profileForm.get('brandRecommendation.pinCodes')?.dirty || profileForm.get('brandRecommendation.pinCodes')?.touched)">
-                            <div *ngIf="profileForm.get('brandRecommendation.pinCodes')?.hasError('invalidPinCode')">
-                                <span class="validator"> enter valid 8-digit numeric pin codes separated by commas.</span>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="brandCompanyEmployeeSize">Company size</label>
+                            <div>
+                                <input pInputText class="inputtext" id="brandCompanyEmployeeSize" formControlName="brandCompanyEmployeeSize"  pKeyFilter="int" name="brandCompanyEmployeeSize" placeholder="Number of employees working in">
                             </div>
                         </div>
-                        @if (showMessageFor=='BrandRecommendation') {
-                            <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                        }
                     </div>
-                    <div class="flex justify-content-end">
-                        <p-button label="Update" (onClick)="onSubmitBrandRecommendationUpdate()" [disabled]="!profileForm.get('brandRecommendation')?.valid || updatingInformation"></p-button>
+                    
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="country">Country</label>
+                            <div>
+                                <p-dropdown [style]="{'width':'250px'}" id="country" [options]="country" formControlName="country" name="country" placeholder="Select country"></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="brandHashTags">Hashtags</label>
+                            <div>
+                                <p-chips id="brandHashTags" formControlName="brandHashTags" separator="," name="brandHashTags" placeholder="Enter hashtags"></p-chips>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="pinCodes">Pin codes</label>
+                            <div>
+                                <p-chips id="pinCodes" formControlName="pinCodes" separator="," name="pinCodes" placeholder="Brand location pin codes with , seperated"></p-chips>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="brandTargetAges">Age range</label>
+                            <div>
+                                <p-inputMask mask="99-99" id="brandTargetAges" formControlName="brandTargetAges" name="brandTargetAges" placeholder="Enter age range i.e 18-99"></p-inputMask>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="col-12 md:col-6 sm:col-12">
+                        <div class="grid">
+                            <div class="col-6">
+                                <label for="brandTargetAges" >Target age</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText class="inputtext" id="brandTargetAges" formControlName="brandTargetAges" name="brandTargetAges" class="w-full"/>
+                            </div>
+                        </div>
+                        {{agerange}}
+                        <p-slider [range]="true" styleClass="w-full mt-3"></p-slider>
+                    </div>-->
+                </div>
+                
+                <div class="grid col-12">
+                    <div class="col-12 ">
+                        <div class="flex justify-content-start">
+                            @if (invalidPinCodesList) {
+                                <span class="validator">Invalid Pin Codes: {{ invalidPinCodesList }}</span>
+                            }
+                                
+                            @if (profileForm.get('socialMedia.youtube')?.errors?.['invalidPinCode']) {
+                                <label class="validator"> enter valid 8-digit numeric pin codes separated by commas.</label>
+                            }
+                            <div *ngIf="profileForm.get('brandRecommendation.pinCodes')?.invalid && (profileForm.get('brandRecommendation.pinCodes')?.dirty || profileForm.get('brandRecommendation.pinCodes')?.touched)">
+                                <div *ngIf="profileForm.get('brandRecommendation.pinCodes')?.hasError('invalidPinCode')">
+                                    <span class="validator"> enter valid 8-digit numeric pin codes separated by commas.</span>
+                                </div>
+                            </div>
+                            @if (showMessageFor=='BrandRecommendation') {
+                                <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
+                            }
+                        </div>
+                        <div class="flex justify-content-end">
+                            <p-button label="Update" (onClick)="onSubmitBrandRecommendationUpdate()" [disabled]="!profileForm.get('brandRecommendation')?.valid || updatingInformation"></p-button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </p-fieldset><br>
+            </p-fieldset><br>
+        }
+        
         <p-fieldset legend="Social Media" formGroupName="socialMedia">
             <div class="grid">
                 <div class="col-12 md:col-6 sm:col-12">

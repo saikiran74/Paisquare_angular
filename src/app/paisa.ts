@@ -36,7 +36,7 @@ export class Contactus{
     email!:string;
     username!:string;
     userid!:number;
-    mobileNumber!:string;
+    mobilenumber!:string;
     issue!:string;
     opendate!:string;
     closedate!:string;

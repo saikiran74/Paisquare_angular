@@ -45,7 +45,6 @@ ngOnInit(){
   this.fetchDistinctHashtags();
   this.advertisements=[];
   this.fetchDistinctHashtags();
-  const token = this.authService.getToken();
   this._route.queryParams.subscribe(params => {
     this.userId = params['userId'];
   

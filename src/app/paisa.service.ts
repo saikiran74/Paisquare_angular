@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 export class PaiService {
   userId: any;
   userName: any;
+  accountType:any;
   constructor( private _http : HttpClient) { }
   private apiUrl = environment.apiUrl;
   
@@ -142,8 +143,8 @@ export class PaiService {
     return this._http.get<any>(`${this.apiUrl}/idadvertisements/${advertisementid}`);
   }
   /* We will get only one advertisement for editing ad*/
-  public getAdvertisementInfoForEditing(advertisementid:number){
-    return this._http.get<any>(`${this.apiUrl}/advertisementsEditing/${advertisementid}`);
+  public getSingleAdvertisement(advertisementid:number){
+    return this._http.get<any>(`${this.apiUrl}/singleadvertisement/${advertisementid}`);
   }
   public getUserAdvertisements(userId:number){
     return this._http.get<any>(`${this.apiUrl}/useradvertisements/${userId}`);

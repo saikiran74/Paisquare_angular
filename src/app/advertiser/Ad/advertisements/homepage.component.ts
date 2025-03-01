@@ -3,6 +3,7 @@ import { PaiService } from '../../../paisa.service';
 import {HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../../service/auth-service.service';
 import { Comments,Follower,Visited,Like, Block, Report,Favourite } from '../../../paisa';
 
 @Component({
@@ -38,17 +39,18 @@ export class HomepageComponent implements OnInit {
   currentOpenId: any;
   following:any;
   advertisementid:any=0;
-  constructor(private cdr: ChangeDetectorRef,private _service: PaiService,private http: HttpClient,private _router: Router,private _route: ActivatedRoute) {
+  constructor(private cdr: ChangeDetectorRef,private authService: AuthService,private _service: PaiService,private http: HttpClient,private _router: Router,private _route: ActivatedRoute) {
        
   }
   userId=' ';
   displayDialog: boolean = false;
-
+  isAuthenticated: boolean = false;
   showDialog() {
     this.displayDialog = true;
   }
   @Output() fetchData = new EventEmitter<void>();
   ngOnInit(){
+    const isAuthenticated = this.authService.isAuthenticated();
     this._route.params.subscribe(params => {
       const adId = params['id']; // Access ad ID from URL if provided
       const userId = params['userId']; // Access user ID from URL if provided
@@ -239,15 +241,17 @@ export class HomepageComponent implements OnInit {
     }
     )
   }
-  Shareadvertisement(advertisementid:Number){
-    this._service.getAllAdvertisements().subscribe(
+  Shareadvertisement(advertisementid:number){
+    this._service.getSingleAdvertisement(advertisementid).subscribe(
       data=>{
-        data.forEach((advertisement: any) => {
-          const title = advertisement.brandname;
-          const text = advertisement.description;
-          const url = advertisement.url;
+        if (data) {
+          const title = data.brandname;
+          const text = this.stripHtmlTags(data.description); // Remove HTML tags
+          const url = data.url;
           this.share(title, text, url);
-        });
+        } else {
+          console.log("Advertisement not found");
+        }
       },
       error=>{
         console.log("Error occured");
@@ -265,7 +269,12 @@ export class HomepageComponent implements OnInit {
       console.error('Error sharing:', error);
     }
   }
-
+  // Function to remove HTML tags
+  stripHtmlTags(html: string): string {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = html;
+    return tempDiv.textContent || tempDiv.innerText || "";
+  }
   profile(advertiserid:Number){
     this._router.navigate(['profile',this._service.userId])
   }

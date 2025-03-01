@@ -119,7 +119,10 @@ export class AdvertisementformComponent implements OnInit{
     this.advertise.status='Active';
     if(this.advertise.brandname==null || this.advertise.brandname==''){
       this.message="Please enter Brandname"
-    } else if(this.advertise.brandname.length>50) {
+    } 
+    else if(this.advertise.brandname.length>15){
+      this.message="Please enter Brandname less than 15 characters"
+    }else if(this.advertise.brandname.length>50) {
       this.message="Please enter brand name less than 50 Characters"
     }
     else if(this.advertise.description==null || this.advertise.description==''){
@@ -241,11 +244,9 @@ export class AdvertisementformComponent implements OnInit{
       }
   }
   loadAdDetails(adId: string) {
-    this._service.getAdvertisementInfoForEditing(+adId).subscribe(
+    this._service.getSingleAdvertisement(+adId).subscribe(
       data => {
         this.advertise = data;
-        console.log("this.advertise",this.advertise.brandname)
-        console.log("this.advertise",this.advertise)
         this.hashtags = this.advertise.hashtags && this.advertise.hashtags.trim() 
           ? this.advertise.hashtags.split(',').map(pincode => pincode.trim()).filter(pincode => pincode) 
           : [];

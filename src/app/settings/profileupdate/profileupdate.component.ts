@@ -21,6 +21,7 @@ export class ProfileupdateComponent implements OnInit {
   showMessageFor=''
   updatingInformation:boolean=false;
   userId=''
+  isAdvertiser:boolean=false;
   agerange:number=18;
   ageRangeValues: number[] = [10, 100];
   constructor(private _service: PaiService,private _router: Router,private messageService: MessageService
@@ -38,6 +39,10 @@ export class ProfileupdateComponent implements OnInit {
   ];
  ngOnInit(){
     this.profileForm = this.createFormGroup();
+    if(this._service.accountType.toLowerCase==='advertiser'){
+      this.isAdvertiser=true;
+    }
+    
     this.getProfileImage();
     // loading profile data
     this._service.getUserdata(this._service.userId).subscribe(

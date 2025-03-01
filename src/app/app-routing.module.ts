@@ -56,7 +56,7 @@ const routes: Routes = [
   { path:'privacyandpolicy',component:PrivacyPolicyComponent},
   { path: 'login', component: LoginComponent },
   { path: 'createaccount', component: RegistrationComponent },
-  { path: 'sitemap.xml',component:SitemapComponent},
+  /*{ path: 'sitemap.xml',component:SitemapComponent},*/
   { path: '', component: LandingcontentComponent },
 ];
 

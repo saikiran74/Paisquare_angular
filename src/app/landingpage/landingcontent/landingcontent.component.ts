@@ -64,7 +64,7 @@ border: any;
           this.message="Thank you for contacting us.";
           this.contactus.name='';
           this.contactus.email='';
-          this.contactus.mobileNumber='';
+          this.contactus.mobilenumber='';
           this.contactus.issue='';
           this._router.navigate([''])
         },

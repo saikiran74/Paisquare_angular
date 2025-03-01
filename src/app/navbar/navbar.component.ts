@@ -16,6 +16,9 @@ import { AuthService } from '../service/auth-service.service';
 })
 export class NavbarComponent  implements OnInit{
   nodes!: TreeNode[];
+  allNodes !: TreeNode[];
+  userNodes !: TreeNode[];
+  advertiserNodes !: TreeNode[];
   nodes_which_is_not_in_use!: TreeNode[];
   isMobileView: boolean = false;
   isSidebarVisible: boolean = false;
@@ -27,7 +30,7 @@ export class NavbarComponent  implements OnInit{
   sidebarVisible: boolean = false;
   sidebarVisible1:boolean=true;
   userName=' ';
-  
+  accountType='';
   ShortCuttkey = [
     'Calendar', 'Edge', 'Excel', 'Game Bar', 'Groove', 'Mail', 'Map',
     'Movies & TV', 'OneNote', 'Outlook', 'Paint', 'Chat', 'Paint 3D', 'Photos', 'Voice Recorder',
@@ -41,32 +44,44 @@ export class NavbarComponent  implements OnInit{
     ngOnInit() {
       this._service.checkViewport()
       this.checkViewport();
-      console.log("userId",this.userId)
       const token = localStorage.getItem('token');
       if (token && this.authService.isAuthenticated()) {
         const userdetails=this.authService.getUserDetails()
+        this.accountType=userdetails.accountType;
         this.userId=userdetails.id;
         this._service.userId=userdetails.id;
         this._service.userName=userdetails.username;
+        this._service.accountType=userdetails.accountType;
         this.userName=userdetails.username;
       } else {
 
-        console.log("Guest user - loading public advertisements");
         this.userId = ''; 
         //this._router.navigate(['/login']);
       }
-      this.nodes =  [
+      this.allNodes  =  [
               { key: '0-0', label: 'Home page', data: '/advertiser', type: 'url',icon:'pi pi-home'},
               { key: '0-1', label: 'Advertise', data: 'advertiser/advertise', type: 'url',icon:'pi pi-plus' },
               { key: '0-2', label: 'Your activities', data: 'user/useractivities', type: 'url',icon:'pi pi-chart-line'},
               { key: '0-3', label: 'Dashboard', data: 'advertiser/advertiserdashboard', type: 'url',icon:'pi pi-home' },
               { key: '0-4', label: 'Report', data: 'advertiser/advertiserreport', type: 'url' ,icon:'pi pi-chart-bar'},
-              { key: '0-5', label: 'My Advertisment', data: '/myadvertisement', type: 'url',icon:'pi pi-folder' },
+              { key: '0-5', label: 'My Advertisments', data: '/myadvertisement', type: 'url',icon:'pi pi-folder' },
               { key: '0-6', label: 'Profile', data: 'home/profile/:userId', type: 'url',icon:'pi pi-home'},
               { key: '0-7', label: 'Update profile', data: 'home/profileupdate', type: 'url',icon:'pi pi-chart-line'},
               { key: '0-8', label: 'Chat', data: 'user/chat', type: 'url',icon:'pi pi-id-card'},
               { key: '0-9', label: 'logout', data: 'logout', type: 'url',icon:'pi pi-sign-out'},
           ];
+                // Define menu items for regular users
+      this.userNodes = this.allNodes.filter(node =>
+        node.key && ['0-0', '0-2','0-3', '0-6', '0-7', '0-8', '0-9'].includes(node.key)
+      );
+
+      // Define menu items for advertisers
+      this.advertiserNodes = this.allNodes; // Advertisers get full access
+      if (this.accountType.toLowerCase() === "advertiser") {
+        this.nodes=this.advertiserNodes;
+      } else {
+        this.nodes=this.userNodes;
+      }
     /* Not using now for future purpose*/
       this.nodes_which_is_not_in_use = [
           {
@@ -103,6 +118,7 @@ export class NavbarComponent  implements OnInit{
             ]
           },
       ];
+      console.log("userName",this.userName.length)
     }
     selectedNode: any;
   onNodeClick(node: TreeNode) {
