@@ -29,7 +29,6 @@ export class AdvertisementformComponent implements OnInit{
       this.isEditAdvertisement=true;
       this.loadAdDetails(this.adId);
     }
-    
     this._service.getUserdata(this._service.userId).subscribe(
       data=>{
         this.paisa=data.paisa

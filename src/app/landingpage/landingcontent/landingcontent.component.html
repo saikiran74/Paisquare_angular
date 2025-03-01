@@ -278,26 +278,29 @@
         }
         <div class="sm:col-6 flex justify-content-center align-items-center">
           <p-card>
-            <form class="flex justify-content-center">
+            <form class="flex justify-content-center" (ngSubmit)="contactusForm()">
               <div class="p-fluid " >
                 <div class="p-field">
-                  <label for="name" style="color: black;">Your Name*</label>
-                  <input id="name" type="text" pInputText placeholder="Your Name" />
+                  <label for="name" style="color: black;">Your Name <span class="text-danger">*</span></label>
+                  <input id="name" type="text" name="name" pInputText placeholder="Your Name" [(ngModel)]="contactus.name" />
                 </div>
                 <div class="p-field">
-                  <label for="email">Email*</label>
-                  <input id="email" type="email" pInputText placeholder="Enter your email id" />
+                  <label for="email">Email<span class="text-danger">*</span></label>
+                  <input id="email" type="email" name="email" pInputText placeholder="Enter your email id" [(ngModel)]="contactus.email"/>
                 </div>
                 <div class="p-field">
-                  <label for="mobile">Mobile Number*</label>
-                  <input id="mobile" type="text" pInputText placeholder="Enter your Mobile number" />
+                  <label for="mobile">Mobile Number</label>
+                  <input id="mobile" type="text" name="mobileNumber" pInputText placeholder="Enter your Mobile number" [(ngModel)]="contactus.mobileNumber"/>
                 </div>
                 <div class="p-field">
-                  <label for="issue">Issue*</label>
-                  <input id="issue" type="text" pInputText placeholder="Enter your issue" />
+                  <label for="issue">Issue<span class="text-danger">*</span></label>
+                  <input id="issue" name="issue" type="text" pInputText placeholder="Enter your issue" [(ngModel)]="contactus.issue"/>
                 </div>
                 <div class="p-field flex justify-content-center mr-7">
-                  <button pButton type="button" label="send my query" class="p-button-raised p-button-primary" style="width: 200px;"></button>
+                  <button pButton type="submit" label="send my query" class="p-button-raised p-button-primary" style="width: 200px;"></button>
+                </div>
+                <div class="p-field" *ngIf="message">
+                  <p [style]="{'color': errorMessage ? 'red':'green', 'text-align': 'center'}">{{ message }}</p>
                 </div>
               </div>
             </form>
