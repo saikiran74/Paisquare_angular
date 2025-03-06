@@ -85,6 +85,7 @@ fetchUserAdvertisements(userId:string){
   this._service.getUserAdvertisements(+this.userId).subscribe(
     data => {
       this.advertisements = data;
+      console.log("this.advertisements",this.advertisements)
       if (this.advertisements.length > 0) {
         this.insertJsonLdScript(); 
       }

@@ -50,7 +50,7 @@ export class HomepageComponent implements OnInit {
   }
   @Output() fetchData = new EventEmitter<void>();
   ngOnInit(){
-    const isAuthenticated = this.authService.isAuthenticated();
+    this.isAuthenticated = this.authService.isAuthenticated();
     this._route.params.subscribe(params => {
       const adId = params['id']; // Access ad ID from URL if provided
       const userId = params['userId']; // Access user ID from URL if provided
@@ -151,15 +151,18 @@ export class HomepageComponent implements OnInit {
   visited(advertisementid:Number,advertisementurl:String){
     this.visitobj.userid=this.userId;
     this.visitobj.visited=true;
-    this._service.VisitedFromRemote(this.visitobj,+this.userId,advertisementid).subscribe(
-      data=>{
-        this.fetchData.emit();
-        //this._router.navigate(['alladvertisements'])
-      },
-      error=>{
-        console.log("visited error occured")
-      }
-    )
+    if(this.isAuthenticated){
+      this._service.VisitedFromRemote(this.visitobj,+this.userId,advertisementid).subscribe(
+        data=>{
+          this.fetchData.emit();
+          //this._router.navigate(['alladvertisements'])
+        },
+        error=>{
+          console.log("visited error occured")
+        }
+      )
+    }
+    
   }
   block(advertiserid: number){
     this.blockobj.userid=this._service.userId;

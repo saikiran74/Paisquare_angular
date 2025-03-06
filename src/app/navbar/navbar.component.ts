@@ -118,7 +118,6 @@ export class NavbarComponent  implements OnInit{
             ]
           },
       ];
-      console.log("userName",this.userName.length)
     }
     selectedNode: any;
   onNodeClick(node: TreeNode) {
