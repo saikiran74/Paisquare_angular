@@ -98,7 +98,6 @@ export class UseractivitiesComponent implements OnInit{
     this._service.getBlockedAdvertisements().subscribe(
       data => {
         this.advertisementsOnClick = data;
-        console.log("this.advertisementsOnClick-",this.advertisementsOnClick)
     },
       error=>{console.log("error occure while retrieving the data!")
     });

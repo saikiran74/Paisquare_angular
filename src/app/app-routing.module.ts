@@ -14,11 +14,11 @@ import { AlladvertisementsComponent } from './advertiser/Ad/alladvertisements/al
 
 const routes: Routes = [
   {
-    path: 'advertiser',
+    path: 'home',
     loadChildren: () => import('./advertiser/advertiser.module').then(m => m.AdvertiserModule)
   },
   {
-    path: 'home',
+    path: 'profile',
     loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
   },
   {
@@ -58,6 +58,7 @@ const routes: Routes = [
   { path: 'createaccount', component: RegistrationComponent },
   /*{ path: 'sitemap.xml',component:SitemapComponent},*/
   { path: '', component: LandingcontentComponent },
+  { path: '**', component: LandingcontentComponent },
 ];
 
 @NgModule({

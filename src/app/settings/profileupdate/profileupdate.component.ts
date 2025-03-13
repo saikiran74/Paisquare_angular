@@ -37,9 +37,24 @@ export class ProfileupdateComponent implements OnInit {
     { label: 'India', value: 'IN' },
     { label: 'Other', value: 'O' }
   ];
+  updatePasswordForm!: FormGroup;
+  registrationFormGroup(): FormGroup {
+    return new FormGroup({
+      password: new FormControl('', [Validators.required, this.passwordStrengthValidator()]),
+      confirmPassword: new FormControl('', [Validators.required])
+    }, { validators: this.passwordMatchValidator });
+  }
  ngOnInit(){
+    this.updatePasswordForm = this.registrationFormGroup();
+      /*this.updatePasswordForm.valueChanges.subscribe(value => {
+        console.log(value.confirmPassword);
+        console.log(value.password);
+      });
+      this.updatePasswordForm.statusChanges.subscribe(status => {
+        console.log('Form status changes:', status);
+      });*/
     this.profileForm = this.createFormGroup();
-    if(this._service.accountType.toLowerCase==='advertiser'){
+    if(this._service.accountType.toLowerCase()==='advertiser'){
       this.isAdvertiser=true;
     }
     
@@ -136,7 +151,7 @@ export class ProfileupdateComponent implements OnInit {
         data=>{
           this.messagesUpdate('success');
           this.showMessageFor='brandInformation';
-          this._router.navigate(['home/profileupdate'])
+          this._router.navigate(['profile/profileupdate'])
         },
         error=>{
           this.messagesUpdate('error');
@@ -218,7 +233,7 @@ export class ProfileupdateComponent implements OnInit {
       this._service.ProfilepersonalInformationUpdate(personalInfoData,this._service.userId).subscribe(
         data=>{
           this.messagesUpdate('success');
-          this._router.navigate(['home/profileupdate',this._service.userId])
+          this._router.navigate(['profile/profileupdate',this._service.userId])
       },
         error=>{
         this.messagesUpdate('error');
@@ -238,7 +253,7 @@ export class ProfileupdateComponent implements OnInit {
       this._service.ProfileBrandRecommendationUpdate(brandRecommendationData,this._service.userId).subscribe(
         data=>{
           this.messagesUpdate('success');
-          this._router.navigate(['home/profileupdate'])
+          this._router.navigate(['profile/profileupdate'])
       },
         error=>{
           console.log("profile not saved");
@@ -258,7 +273,7 @@ export class ProfileupdateComponent implements OnInit {
       this._service.ProfileSocialMediaUpdate(socialMediaData,this._service.userId).subscribe(
         data=>{
           this.messagesUpdate('success');
-          this._router.navigate(['home/profileupdate'])
+          this._router.navigate(['profile/profileupdate'])
       },
         error=>{
           console.log("profile not saved");
@@ -269,22 +284,24 @@ export class ProfileupdateComponent implements OnInit {
     }
     this.updatingInformation=false;
   }
+  
   onSubmitpasswordUpdate(){
     //todo
     const passwordUpdateControl = this.profileForm.get('passwordUpdate');
     this.showMessageFor='password';
-    if (passwordUpdateControl && passwordUpdateControl.valid) {
-      const passwordUpdateData = passwordUpdateControl.value;
-      this._service.ProfilepasswordUpdate(passwordUpdateData,this._service.userId).subscribe(
+    if (this.updatePasswordForm && this.updatePasswordForm.valid) {
+      console.log("this.updatePasswordForm.value",this.updatePasswordForm.value)
+      this._service.ProfilepasswordUpdate(this.updatePasswordForm.value,this._service.userId).subscribe(
         data=>{
           this.messagesUpdate('success');
-          this._router.navigate(['home/profileupdate',this._service.userId])
-      },
+          this._router.navigate(['profile/profileupdate'])
+        },
         error=>{
-          console.log("profile not saved");
-        this.messagesUpdate('error');
+          this.messagesUpdate('error');
       })
     } else {
+    console.log("ELCSE",passwordUpdateControl)
+
       this.messagesUpdate('info');
     }
   }
@@ -319,5 +336,39 @@ export class ProfileupdateComponent implements OnInit {
   }
 
   
+  passwordMatchValidator(formGroup: AbstractControl): any {
+    const passwordControl = formGroup.get('password');
+    const confirmPasswordControl = formGroup.get('confirmPassword');
+    if (!passwordControl || !confirmPasswordControl) {
+      return { mismatch: true }; 
+    }
+    const password = passwordControl.value;
+    const confirmPassword = confirmPasswordControl.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+  passwordStrengthValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+      const value = control.value || '';
+      const errors: { [key: string]: boolean } = {};
+
+      if (!/[A-Z]/.test(value)) {
+        errors['missingUpperCase'] = true;
+      }
+      if (!/[a-z]/.test(value)) {
+        errors['missingLowerCase'] = true;
+      }
+      if (!/\d/.test(value)) {
+        errors['missingNumber'] = true;
+      }
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+        errors['missingSpecialChar'] = true;
+      }
+      if (value.length < 8) {
+        errors['tooShort'] = true;
+      }
+
+      return Object.keys(errors).length > 0 ? errors : null;
+    };
+  }
   
 }

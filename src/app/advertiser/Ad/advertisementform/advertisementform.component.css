@@ -18,7 +18,10 @@
     width:100px;
     height:100px;
   }
-
+  :host ::ng-deep  .p-card .p-card-title {
+    margin: -10px;
+    margin-bottom: 0.5rem;
+}
 :host ::ng-deep .p-dialog .p-dialog-header {
   /* border-bottom: 0 none; */
   background: #ffffff;

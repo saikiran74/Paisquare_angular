@@ -40,13 +40,13 @@
             </div>
             <br>
             <div class="grid">
-              <label for="pincode" class="col-12 md:col-4 col-form-label">pincode</label>
+              <label for="pincode" class="col-12 md:col-4 col-form-label">Pin code</label>
               <div class="col-12 md:col-8">
                 <p-inputMask mask="999999" class="form-control" formControlName="pincode" placeholder="Enter your location pincode"/><br>
               
                 <div *ngIf="registrationForm.get('pincode')?.invalid && registrationForm.get('pincode')?.touched" class="text-danger">
                     <div *ngIf="registrationForm.get('pincode')?.errors?.['required']">
-                      pincode is required.
+                      Pin code is required.
                     </div>
                 </div>
               </div>
@@ -87,7 +87,7 @@
                     <input pInputText type="password" 
                     autocomplete="new-password"  class="form-control" formControlName="confirmPassword" placeholder="Re-enter password" required><br>
                 </div>
-            </div>
+            </div><br>
             <div class="grid">
               <div class="col-12 md:col-8 md:col-offset-4">
                 <div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched" class="text-danger">
@@ -118,7 +118,6 @@
                 </div>
               </div>
             </div>
-            <br>
             @if (showEmailOTPBox) {
               <div class="grid">
                 <div class="col-12 md:col-4 col-form-label">
@@ -128,7 +127,7 @@
                   <p-inputMask mask="999999" type="text" class="form-control" formControlName="emailOTP" placeholder="Enter OTP"/><br>
                 </div>
               </div>
-            }
+            } 
             @if(successMessage){
               <span class="text-success text-green-500">{{message}}</span>
             } @else {
@@ -137,7 +136,7 @@
             @if (!showEmailOTPBox) {
               <div class="col-12 text-center">
                 <p-button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid || createaccoutButtonClicked">Create Account</p-button>
-                @if(createaccoutButtonClicked && !successMessage){
+                @if(createaccoutButtonClicked && !successMessage && !isInvalid){
                   Sending OTP...
                 } 
               </div>

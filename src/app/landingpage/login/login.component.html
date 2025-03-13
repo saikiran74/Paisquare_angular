@@ -33,9 +33,9 @@
                         </div>
                     </div>
                     @if(successMessage){
-                        <h3 class="text-success text-green-500">{{message}}</h3>
+                        <p class="text-success text-green-500">{{message}}</p>
                         } @else {
-                        <h3 class="text-danger">{{message}}</h3>
+                        <p class="text-danger">{{message}}</p>
                         }
                     <div class="col-12 text-center">
                         <p-button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid || loginButtonDisable">Login</p-button>

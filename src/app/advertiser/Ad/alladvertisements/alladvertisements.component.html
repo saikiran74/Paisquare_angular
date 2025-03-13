@@ -1,6 +1,6 @@
-<div class="grid">
+<div class="grid" style="background-color: rgba(239, 242, 245, 0.877); padding: 8px;">
     <div class="flex col-12">
-        <div style="display: flex; flex-wrap: wrap; margin-top: -5px; margin-bottom: -5px; padding-left: 0px;" class="gap-2 justify-content-start align-items-center">
+        <div style="display: flex; flex-wrap: wrap;  " class="gap-2 justify-content-start align-items-center">
             <ng-container *ngFor="let chip of chips | slice:0:5; let i = index">
                 <p-chip
                   *ngIf="chip.label && chip.label.trim().length > 0"
@@ -43,7 +43,7 @@
 </div>
 
 
-<div class="container" style="margin-top: -10px;margin-left: 10px;">
+<div class="container" >
     @if (querySearch) {
         @if (advertisements.length > 0) {
             <app-homepage

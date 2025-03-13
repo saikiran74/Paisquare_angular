@@ -32,15 +32,15 @@ export class Advertise{
     constructor(){}
 }
 export class Contactus{
-    name!:string; 
-    email!:string;
-    username!:string;
-    userid!:number;
-    mobilenumber!:string;
-    issue!:string;
-    opendate!:string;
-    closedate!:string;
-    remarks!:string;
+    name:string=''; 
+    email:string='';
+    username:string='';
+    userid:number=0;
+    mobilenumber:string='';
+    issue:string='';
+    opendate:string='';
+    closedate:string='';
+    remarks:string='';
     constructor(){}
 }
 

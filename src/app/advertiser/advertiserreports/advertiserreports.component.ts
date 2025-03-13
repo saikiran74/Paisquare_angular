@@ -37,16 +37,16 @@ period:any;
 selectedPeriod:any;
 ngOnInit() {
     this.period = [
-        { name: 'weekly', value: 'weekly' },
+        { name: 'Weekly', value: 'weekly' },
         { name: 'Today', value: 'Today' },
         { name: 'This month', value: 'thismonth' },
         { name: 'Last month', value: 'lastmonth' },
-        { name: 'Yearly', value: 'yearly' }
+        { name: 'This year', value: 'yearly' }
     ];
-    this.getFavouriteGraphFromRemote('weekly')
-    this.getLikeGraphFromRemote('weekly')
-    this.getVisitorGraphFromRemote('weekly')
-    this.getFollowersGraphFromRemote('weekly')
+    this.getFavouriteGraphFromRemote('yearly')
+    this.getLikeGraphFromRemote('yearly')
+    this.getVisitorGraphFromRemote('yearly')
+    this.getFollowersGraphFromRemote('yearly')
     
     this.options = {
         maintainAspectRatio: false,

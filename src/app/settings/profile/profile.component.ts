@@ -111,7 +111,7 @@ export class ProfileComponent  implements OnInit{
   }
   navigateToAdvertiserReports(){
     
-    this._router.navigate(['advertiser/advertiserreport'])
+    this._router.navigate(['home/advertiserreport'])
   }
 
 

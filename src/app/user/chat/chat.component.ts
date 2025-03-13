@@ -51,7 +51,7 @@ export class ChatComponent implements OnInit {
         console.error("Error occurred while retrieving chat history:", error);
       },
       complete: () => {
-        console.log("Chat history retrieval completed");
+        console.log("");
       }
     });
     
@@ -88,8 +88,6 @@ export class ChatComponent implements OnInit {
   }
   
   closeOpenedChatWindow(){
-    console.log("userSelected",this.userSelected)
     this.userSelected=!this.userSelected
-    console.log("userSelected",this.userSelected)
   }
 }

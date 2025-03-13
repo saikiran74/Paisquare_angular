@@ -74,11 +74,12 @@ export class RegistrationComponent implements OnInit {
     this.registrationForm.valueChanges.subscribe(value => {
       this.otp=value.emailOTP;
     });
-    this.registrationForm.statusChanges.subscribe(status => {
+    /*this.registrationForm.statusChanges.subscribe(status => {
       console.log('Form status changes:', status);
-    });
+    });*/
   }
   createaccoutButtonClicked:boolean=false
+  isInvalid:boolean=false;
   registerUser() {
     this.message=''
     this.createaccoutButtonClicked=true;
@@ -94,8 +95,10 @@ export class RegistrationComponent implements OnInit {
           this.createaccoutButtonClicked=true;
           if(response.code.includes("emailExists")){
             this.registrationForm.enable();
+            this.isInvalid=true;
             this.showEmailOTPBox=false;
           } else if (response.code.includes("emailAddressNotFound")) {
+            this.isInvalid=true;
             this.showEmailOTPBox=false;
             this.registrationForm.enable();
           } else{
@@ -129,6 +132,7 @@ export class RegistrationComponent implements OnInit {
           }
           if(response.code.includes("invalidOTP")){
             this.successMessage=false;
+            this.isInvalid=true;
             this.registrationForm.get('emailOTP')?.enable();
           } else if (response.code.includes("OTPVerified")) {
             this._router.navigate(['/login']);
@@ -140,7 +144,6 @@ export class RegistrationComponent implements OnInit {
           
         },
         error => {
-          console.error('Registration failed', error);
           this.message = 'Registration failed. Please try again.';
         }
       );

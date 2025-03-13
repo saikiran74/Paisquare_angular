@@ -157,7 +157,7 @@
                             </div>
                             <div class="col-3 p-field-radiobutton ml-3" style="margin-right: 0px;">
                               <p-radioButton name="gender" value="All" [(ngModel)]="advertise.gender" inputId="gender3"></p-radioButton>
-                              <label for="gender3">Every one</label>
+                              <label for="gender3">All</label>
                             </div>
                         </div>
                     </div>
@@ -267,7 +267,7 @@
                             </div>
                         </div>
                         
-                    </div>
+                    </div><br>
                     <div *ngIf="paiChecked" class="grid">
                         <div class="col-12 md:col-6 sm:col-6">
                             <label for="adhead">Pai</label>
@@ -281,12 +281,12 @@
                                 <input pInputText type="number" class="form-control" id="adsilver" name="silverclick" placeholder="Enter Pai's per click" [(ngModel)]="advertise.paiperclick"><br>
                             </div>
                         </div> 
-                    </div>   
+                    </div> <br>  
                     <div *ngIf="paisaChecked" class="grid">
                         <div class="col-12 md:col-6 sm:col-6">
                             <label for="adhead">Paisa</label>
                             <div>
-                                <input pInputText type="number" class="form-control" id="admoney" name="money" placeholder="Enter money" [(ngModel)]="advertise.paisa"><br><br>
+                                <input pInputText type="number" class="form-control" id="admoney" name="money" placeholder="Enter money" [(ngModel)]="advertise.paisa"><br>
                             </div>
                         </div>
                         <div  class="col-12 md:col-6 sm:col-6">

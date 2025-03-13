@@ -107,11 +107,11 @@
     <div class="grid flex flex-wrap col-gap-3 row-gap-3">
       <div class="col-12">
         <div class="flex justify-content-center">
-          <h1 class="tab-header " style="padding-top: 30px; ">Who can Advertise</h1>
+          <h1 class="tab-header " style="padding-top: 30px; ">Who can Advertise ?</h1>
         </div>
       </div>
       <div class="flex justify-content-center">
-        <div class="grid justify-content-center">
+        <div class="grid justify-content-center ">
           <div class="col-12 md:col-4 sm:col-6 flex justify-content-center">
             <p-card class="border-round">
               <ng-template pTemplate="header">
@@ -261,7 +261,7 @@
     <br><br>
   </div>
   <div class="contactUs" style=" margin:-6px;">
-    <img src="../../../assets/images/landingPage/ContactusBackground.png" alt="contact us image" class="responsive-image-Contactus"  width="100%" height="100%" loading="lazy">
+    <img src="../../../assets/images/landingPage/ContactusBackground.png" alt="contact us image" class="responsive-image-Contactus"  width="100%"  loading="lazy">
     <div class="contentOverImage">
       <div class="grid">
         <div class="col-12">
@@ -276,11 +276,11 @@
             <img src="../../../assets/images/landingPage/ContactusleftSide.png" alt="Left Image" width="100%" height="100%" class="contactUsLeftImage" loading="lazy">
           </div>
         }
-        <div class="sm:col-6 flex justify-content-center align-items-center">
+        <div class="col-12 sm:col-6 flex justify-content-center align-items-center">
           <p-card>
             <form class="flex justify-content-center" (ngSubmit)="contactusForm()">
               <div class="p-fluid " >
-                <div class="p-field">
+                <div class="p-field"><br>
                   <label for="name" style="color: black;">Your Name <span class="text-danger">*</span></label>
                   <input id="name" type="text" name="name" pInputText placeholder="Your Name" [(ngModel)]="contactus.name" />
                 </div>
@@ -290,14 +290,14 @@
                 </div>
                 <div class="p-field">
                   <label for="mobile">Mobile Number</label>
-                  <input id="mobile" type="text" name="mobileNumber" pInputText placeholder="Enter your Mobile number" [(ngModel)]="contactus.mobilenumber"/>
+                  <input id="mobile" type="number" name="mobileNumber" pInputText placeholder="Enter your Mobile number" [(ngModel)]="contactus.mobilenumber"/>
                 </div>
                 <div class="p-field">
                   <label for="issue">Issue<span class="text-danger">*</span></label>
                   <input id="issue" name="issue" type="text" pInputText placeholder="Enter your issue" [(ngModel)]="contactus.issue"/>
                 </div>
-                <div class="p-field flex justify-content-center mr-7">
-                  <button pButton type="submit" label="send my query" class="p-button-raised p-button-primary" style="width: 200px;"></button>
+                <div style="width: 100%;" class="p-field flex justify-content-center" >
+                  <button pButton type="submit" label="send my query" class="p-button-raised p-button-primary" ></button>
                 </div>
                 <div class="p-field" *ngIf="message">
                   <p [style]="{'color': errorMessage ? 'red':'green', 'text-align': 'center'}">{{ message }}</p>
