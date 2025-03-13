@@ -1,9 +1,29 @@
 h4{
     font-family: Arial, Helvetica, sans-serif;
 }
+button{
+  border: none;
+  cursor: pointer !important;
+}
 #id{
     font-size: x-small;
 }
+
+:host ::ng-deep .p-button {
+  border: none !important;
+  background: transparent !important;
+  margin: -10px;
+  box-shadow: none !important; /* Removes any shadow */
+}
+:host ::ng-deep .p-inputgroup-addon {
+  background: #227ad1;
+  padding: 0px;
+}
+:host ::ng-deep .p-button:focus {
+  outline: none !important; /* Removes the focus outline */
+  box-shadow: none !important;
+}
+
 .btn-primary{
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
@@ -43,9 +63,6 @@ h4{
 :host ::ng-deep .p-card .p-card-footer {
   padding: 0px 0 0 0;
   margin-bottom: 0px;
-}
-:host ::ng-deep .p-inputgroup-addon {
-  padding: 0px;
 }
 @media (max-width: 768px) {
   :host ::ng-deep .btn-comment-box {

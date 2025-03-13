@@ -1,6 +1,6 @@
-<div style="margin: -10px;">
-  <div class="main">
-    <img src="../../../assets/images/landingPage/MainpageBackground.jpg" class="responsive-image">
+<div>
+  <div class="main"  style=" margin:-6px;">
+    <img src="assets/images/landingPage/MainpageBackground2.jpg" alt="paisquare image" class="responsive-image" loading="lazy">
     <div class="contentOverImage"  >
       <div class="grid flex align-items-center" style="padding-top: 10px;">
         <div class="col-4">
@@ -35,7 +35,7 @@
         </div>
         @if(!isMobileView){
           <div class="col-12 sm:col-4  flex justify-content-end align-items-end">
-              <img src="assets/images/landingPage/mainpageRightside.jpg" alt="Right Image" width="100%" height="100%" class="rightimage1">
+              <img src="assets/images/landingPage/mainpageRightside.jpg" alt="Right Image" width="100%" height="100%" class="rightimage1" loading="lazy">
           </div>
         }
         <div class="col-12">
@@ -44,8 +44,8 @@
       </div>
     </div>
   </div>
-  <div class="advertiser">
-    <img src="../../../assets/images/landingPage/AdvertiserBackground.jpg" class="responsive-image" width="100%" height="100%">
+  <div class="advertiser" style=" margin:-6px;" >
+    <img src="../../../assets/images/landingPage/AdvertiserBackground.jpg" alt="paisquare image backgroud" class="responsive-image" width="100%" height="100%" loading="lazy">
     <div class="contentOverImage">
       <div class="flex justify-content-center">
         <h1 class="tab-header"  style=" color: yellow;">Advertiser</h1>
@@ -66,15 +66,15 @@
         </div>
         @if(!isMobileView){
           <div class="col-12 md:col-6 sm:col-6 relative flex justify-content-center align-items-center">
-            <img src="../../../assets/images/landingPage/AdvertiserRightside.png" alt="Right Image 2" width="100%" height="100%" class="advertiserImage">
+            <img src="../../../assets/images/landingPage/AdvertiserRightside.png" alt="paisquare Right Image 2" width="100%" height="100%" class="advertiserImage" loading="lazy">
           </div>
         }
       </div>
     </div>
   </div>
   
-  <div class="user">
-    <img src="../../../assets/images/landingPage/UsersBackground.jpg" class="responsive-image" width="100%" height="100%">
+  <div class="user"  style=" margin:-6px;">
+    <img src="../../../assets/images/landingPage/UsersBackground.jpg" alt="paisquare  user image" class="responsive-image" width="100%" height="100%" loading="lazy">
     <div class="contentOverImage">
       <div class="flex justify-content-center">
         <h1 class="tab-header" style="color: rgb(38, 20, 237); ">Users</h1>
@@ -82,7 +82,7 @@
       <div class="grid">
         @if(!isMobileView){
           <div class="flex md:col-6 sm:col-6 justify-content-between align-items-center">
-            <img src="../../../assets/images/landingPage/UsersLeftside.jpg" alt="left Image 3" width="60%" height="60%" class="leftImage3">
+            <img src="../../../assets/images/landingPage/UsersLeftside.jpg" alt="left Image 3" width="60%" height="60%" class="leftImage3" loading="lazy">
           </div>
         }
         <div class="md:col-6 sm:col-6">
@@ -97,168 +97,171 @@
             <li><p class="infoText">Enjoy a Seamless and Personalized Ad Viewing Experience.</p></li>
             <li><p class="infoText">Access Ads That Help You Discover Opportunities and Deals Nearby.</p></li>
             <li><p class="infoText">Take Control of Your Ad Experience by Following or Blocking Advertisers.</p></li>
-                
           </ul>
         </div>
       </div>
     </div>
   </div>
   
-  <div class="services">
-    <div class="grid flex flex-wrap col-gap-3 row-gap-3 sm:col-offset-2">
+  <div class="services"  style=" margin:-6px;" >
+    <div class="grid flex flex-wrap col-gap-3 row-gap-3">
       <div class="col-12">
         <div class="flex justify-content-center">
-          <h1 class="tab-header" style="padding-top: 10px;">Who can Advertise</h1>
+          <h1 class="tab-header " style="padding-top: 30px; ">Who can Advertise</h1>
         </div>
       </div>
-      <div class="grid flex  justify-content-center ">
-        <div class="col-12 sm:col-6 ">
-          <p-card class="flex border-round">
-            <ng-template pTemplate="header">
-              <div class="flex gap-1 align-items-center">
-                <img src="../../../assets/images/landingPage/businessIcon.png" alt="Business Icon" class="servicesIcons" />
-                <h2>Business</h2>
+      <div class="flex justify-content-center">
+        <div class="grid justify-content-center">
+          <div class="col-12 md:col-4 sm:col-6 flex justify-content-center">
+            <p-card class="border-round">
+              <ng-template pTemplate="header">
+                <div class="flex align-items-center">
+                  <img src="../../../assets/images/landingPage/businessIcon.png" alt="paisquare image Business Icon" class="servicesIcons" />
+                  <h2>Business</h2>
+                </div>
+              </ng-template>
+              <div>
+                <ul class="m-0">
+                  <li>Local shops and stores</li><br>
+                  <li>Restaurants and cafes</li><br>
+                  <li>Freelancers & Consultants</li><br>
+                  <li>E-commerce</li><br>
+                  <li>Start-ups & tech companies</li><br>
+                </ul>
               </div>
-            </ng-template>
-            <div>
-              <ul>
-                <li>Local shops and stores</li><br>
-                <li>Restaurants and cafes</li><br>
-                <li>Freelancers & Consultants</li><br>
-                <li>E-commerce</li><br>
-                <li>Start-ups & tech companies</li><br>
-              </ul>
-            </div>
-          </p-card>
-        </div>
-        <div class="col-12 sm:col-6" >
-          <p-card class="flex border-round ">
-            <ng-template pTemplate="header">
-              <div class="flex gap-1 align-items-center">
-                <img src="../../../assets/images/landingPage/ServicespageEvents.jpg" alt="Events Icon" class="servicesIcons"/>
-                <h2>Events</h2>
+            </p-card>
+          </div>
+          <div class="col-12 md:col-4 sm:col-6 flex justify-content-center" >
+            <p-card class="border-round">
+              <ng-template pTemplate="header">
+                <div class="flex align-items-center">
+                  <img src="../../../assets/images/landingPage/ServicespageEvents.jpg" alt="Events Icon" class="servicesIcons"/>
+                  <h2>Events</h2>
+                </div>
+              </ng-template>
+              <div>
+                <ul>
+                  <li>Organisational events</li><br>
+                  <li>Festivals</li><br>
+                  <li>Concerts</li><br>
+                  <li>Live & Local events</li><br>
+                  <li>Conferences & Exhibitions</li>
+                </ul>
               </div>
-            </ng-template>
-            <div>
-              <ul>
-                <li>Organisational events</li><br>
-                <li>Festivals</li><br>
-                <li>Concerts</li><br>
-                <li>Live & Local events</li><br>
-                <li>Conferences & Exhibitions</li>
-              </ul>
-            </div>
-          </p-card>
-        </div>
-        <div class="col-12 sm:col-6 ">
-          <p-card class="flex border-round">
-            <ng-template pTemplate="header">
-              <div class="flex gap-1 align-items-center">
-                <img src="../../../assets/images/landingPage/ServicespageAgriculture.png" alt="Agriculture Icon" class="servicesIcons" />
-                <h2>Agricultural</h2>
+            </p-card>
+          </div>
+          <div class="col-12 md:col-4 sm:col-6 flex justify-content-center">
+            <p-card class="flex border-round">
+              <ng-template pTemplate="header">
+                <div class="flex align-items-center">
+                  <img src="../../../assets/images/landingPage/ServicespageAgriculture.png" alt="Agriculture Icon" class="servicesIcons" />
+                  <h2>Agricultural</h2>
+                </div>
+              </ng-template>
+              <div>
+                <ul>
+                  <li>Farm to industries</li><br>
+                  <li>Fertilizers Companies</li><br>
+                  <li>Seed</li><br>
+                  <li>Machineries</li><br>
+                </ul>
               </div>
-            </ng-template>
-            <div>
-              <ul>
-                <li>Farm to industries</li><br>
-                <li>Fertilizers Companies</li><br>
-                <li>Seed</li><br>
-                <li>Machineries</li><br>
-              </ul>
-            </div>
-          </p-card>
-        </div>
-        <div class="col-12 sm:col-6">
-          <p-card class="flex border-round ">
-            <ng-template pTemplate="header">
-              <div class="flex gap-1 align-items-center">
-                <img src="../../../assets/images/landingPage/ServicespageEducationtraining.jpg" alt="Educationtraining Icon" class="servicesIcons"/>
-                <h2>Education & Training</h2>
+            </p-card>
+          </div>
+          <div class="col-12 md:col-4 sm:col-6 flex justify-content-center">
+            <p-card class="border-round">
+              <ng-template pTemplate="header">
+                <div class="flex align-items-center">
+                  <img src="../../../assets/images/landingPage/ServicespageEducationtraining.jpg" alt="Educationtraining Icon" class="servicesIcons"/>
+                  <h2>Education & Training</h2>
+                </div>
+              </ng-template>
+              <div>
+                <ul>
+                  <li>Schools & educational institutions</li>
+                  <li>Online learning platforms</li><br>
+                  <li>Training & certification</li><br>
+                  <li>programs</li><br>
+                </ul>
               </div>
-            </ng-template>
-            <div>
-              <ul>
-                <li>Schools & educational institutions</li><br>
-                <li>Online learning platforms</li><br>
-                <li>Training & certification</li><br>
-                <li>programs</li><br>
-              </ul>
-            </div>
-          </p-card>
-        </div>
-        <div class="col-12 sm:col-6 ">
-          <p-card class="flex border-round ">
-            <ng-template pTemplate="header">
-              <div class="flex gap-1 align-items-center">
-                <img src="../../../assets/images/landingPage/ServicespageHealandwealth.png" alt="Health & wealth Icon" class="servicesIcons" />
-                <h2>Health & Wealth</h2>
+            </p-card>
+          </div>
+          <div class="col-12 md:col-4 sm:col-6 flex justify-content-center">
+            <p-card class="border-round">
+              <ng-template pTemplate="header">
+                <div class="flex align-items-center">
+                  <img src="../../../assets/images/landingPage/ServicespageHealandwealth.png" alt="Health & wealth Icon" class="servicesIcons" />
+                  <h2>Health & Wealth</h2>
+                </div>
+              </ng-template>
+              <div>
+                <ul>
+                  <li>Fitness centres and gyms</li><br>
+                  <li>Health clinics and practitioners</li><br>
+                  <li>Wellness products and supplements</li><br>
+                </ul>
               </div>
-            </ng-template>
-            <div>
-              <ul>
-                <li>Fitness centres and gyms</li><br>
-                <li>Health clinics and practitioners</li><br>
-                <li>Wellness products and supplements</li><br>
-              </ul>
-            </div>
-          </p-card>
-        </div>
-        <div class="col-12 sm:col-6">
-          <p-card class="flex border-round ">
-            <ng-template pTemplate="header">
-              <div class="flex gap-1 align-items-center">
-                <img src="../../../assets/images/landingPage/ServicespageTravelling.jpg" alt="Travelling Icon" class="servicesIcons"/>
-                <h2>Travelling</h2>
+            </p-card>
+          </div>
+          <div class="col-12 md:col-4 sm:col-6 flex justify-content-center">
+            <p-card class="border-round">
+              <ng-template pTemplate="header">
+                <div class="flex align-items-center">
+                  <img src="../../../assets/images/landingPage/ServicespageTravelling.jpg" alt="Travelling Icon" class="servicesIcons"/>
+                  <h2>Travelling</h2>
+                </div>
+              </ng-template>
+              <div>
+                <ul>                                                                          
+                  <li> Airlines & travel agencies</li><br>
+                  <li> Hotels and resorts</li><br>
+                  <li>Tour operators & travel packages</li><br>
+                </ul>
               </div>
-            </ng-template>
-            <div>
-              <ul>                                                                          
-                <li> Airlines & travel agencies</li><br>
-                <li> Hotels and resorts</li><br>
-                <li>Tour operators & travel packages</li><br>
-              </ul>
-            </div>
-          </p-card>
-        </div>
-        <div class="col-12 sm:col-6 ">
-          <p-card class="flex border-round ">
-            <ng-template pTemplate="header">
-              <div class="flex gap-1 align-items-center">
-                <img src="../../../assets/images/landingPage/ServicespageContentcreators.jpg" alt="Content creators Icon" class="servicesIcons" />
-                <h2>Content creators</h2>
+            </p-card>
+          </div>
+          <div class="col-12 md:col-4 sm:col-6 flex justify-content-center">
+            <p-card class="border-round">
+              <ng-template pTemplate="header">
+                <div class="flex align-items-center">
+                  <img src="../../../assets/images/landingPage/ServicespageContentcreators.jpg" alt="Content creators Icon" class="servicesIcons" />
+                  <h2>Content creators</h2>
+                </div>
+              </ng-template>
+              <div>
+                <ul>
+                  <li>Blogger</li><br>
+                  <li>Vlogger</li><br>
+                  <li>Influencer</li><br>
+                </ul>
               </div>
-            </ng-template>
-            <div>
-              <ul>
-                <li>Blogger</li><br>
-                <li>Vlogger</li><br>
-                <li>Influencer</li><br>
-              </ul>
-            </div>
-          </p-card>
-        </div>
-        <div class="col-12 sm:col-6">
-          <p-card class="flex border-round ">
-            <ng-template pTemplate="header">
-              <div class="flex gap-1 align-items-center">
-                <img src="../../../assets/images/landingPage/ServicespageNonprofitorganization.jpg" alt="Nonprofitorganization Icon" class="servicesIcons"/>
-                <h2>Non-profit Organization</h2>
+            </p-card>
+          </div>
+          <div class="col-12 md:col-4 sm:col-6 flex justify-content-center">
+            <p-card class="border-round">
+              <ng-template pTemplate="header">
+                <div class="flex align-items-center">
+                  <img src="../../../assets/images/landingPage/ServicespageNonprofitorganization.jpg" alt="Nonprofitorganization Icon" class="servicesIcons ml-3"/>
+                  <h2 class="mr-2">Non-profit Organization</h2>
+                </div>
+              </ng-template>
+              <div>
+                <ul>
+                  <li>Charities & humanitarian organisations</li><br>
+                  <li> Environmental groups</li><br>
+                  <li>Community services</li><br>
+                </ul>
               </div>
-            </ng-template>
-            <div>
-              <ul>
-                <li>Charities & humanitarian organisations</li><br>
-                <li> Environmental groups</li><br>
-                <li>Community services</li><br>
-              </ul>
-            </div>
-          </p-card><br><br>
+            </p-card><br><br>
+          </div>
         </div>
       </div>
+      
     </div>
+    <br><br>
   </div>
-  <div class="contactUs">
-    <img src="../../../assets/images/landingPage/ContactusBackground.png" class="responsive-image-Contactus"  width="100%" height="100%">
+  <div class="contactUs" style=" margin:-6px;">
+    <img src="../../../assets/images/landingPage/ContactusBackground.png" alt="contact us image" class="responsive-image-Contactus"  width="100%" height="100%" loading="lazy">
     <div class="contentOverImage">
       <div class="grid">
         <div class="col-12">
@@ -270,31 +273,34 @@
         </div>
         @if(!isMobileView){
           <div class="sm:col-6 flex justify-content-center">
-            <img src="../../../assets/images/landingPage/ContactusleftSide.png" alt="Left Image" width="100%" height="100%" class="contactUsLeftImage">
+            <img src="../../../assets/images/landingPage/ContactusleftSide.png" alt="Left Image" width="100%" height="100%" class="contactUsLeftImage" loading="lazy">
           </div>
         }
-        <div class="sm:col-6" style="margin-left: -40px;">
-          <p-card >
-            <form>
-              <div class="p-fluid">
+        <div class="sm:col-6 flex justify-content-center align-items-center">
+          <p-card>
+            <form class="flex justify-content-center" (ngSubmit)="contactusForm()">
+              <div class="p-fluid " >
                 <div class="p-field">
-                  <label for="name" style="color: black;">Your Name*</label>
-                  <input id="name" type="text" pInputText placeholder="Your Name" />
+                  <label for="name" style="color: black;">Your Name <span class="text-danger">*</span></label>
+                  <input id="name" type="text" name="name" pInputText placeholder="Your Name" [(ngModel)]="contactus.name" />
                 </div>
                 <div class="p-field">
-                  <label for="email">Email*</label>
-                  <input id="email" type="email" pInputText placeholder="Enter your email id" />
+                  <label for="email">Email<span class="text-danger">*</span></label>
+                  <input id="email" type="email" name="email" pInputText placeholder="Enter your email id" [(ngModel)]="contactus.email"/>
                 </div>
                 <div class="p-field">
-                  <label for="mobile">Mobile Number*</label>
-                  <input id="mobile" type="text" pInputText placeholder="Enter your Mobile number" />
+                  <label for="mobile">Mobile Number</label>
+                  <input id="mobile" type="text" name="mobileNumber" pInputText placeholder="Enter your Mobile number" [(ngModel)]="contactus.mobilenumber"/>
                 </div>
                 <div class="p-field">
-                  <label for="issue">Issue*</label>
-                  <input id="issue" type="text" pInputText placeholder="Enter your issue" />
+                  <label for="issue">Issue<span class="text-danger">*</span></label>
+                  <input id="issue" name="issue" type="text" pInputText placeholder="Enter your issue" [(ngModel)]="contactus.issue"/>
                 </div>
-                <div class="p-field flex justify-content-center">
-                  <button pButton type="button" label="send my query" class="p-button-raised p-button-primary" style="width: 200px;"></button>
+                <div class="p-field flex justify-content-center mr-7">
+                  <button pButton type="submit" label="send my query" class="p-button-raised p-button-primary" style="width: 200px;"></button>
+                </div>
+                <div class="p-field" *ngIf="message">
+                  <p [style]="{'color': errorMessage ? 'red':'green', 'text-align': 'center'}">{{ message }}</p>
                 </div>
               </div>
             </form>

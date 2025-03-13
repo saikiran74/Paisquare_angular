@@ -1,0 +1,10 @@
+{
+    "name": "Pai Square",
+    "short_name": "PaiSquare",
+    "description": "Unlock Your Earning Potential with Pai Square!",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#0000FF"
+  }
+  

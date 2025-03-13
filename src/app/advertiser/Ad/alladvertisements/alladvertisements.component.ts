@@ -1,10 +1,11 @@
-import { Component, OnInit,Input,HostListener } from '@angular/core';
+import { Component, OnInit,Input,HostListener, Renderer2 } from '@angular/core';
 import { PaiService } from '../../../paisa.service';
 import {HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../service/auth-service.service';
-import { Comments,Follower,Visited,Like, Block, Report,Favourite } from '../../../paisa';
+import { Meta, Title } from '@angular/platform-browser';
+import { Comments,Follower,Visited,Like, Block, Report,Favourite, Advertise } from '../../../paisa';
 interface City {
   name: string,
   value: string
@@ -18,10 +19,12 @@ interface City {
 
 export class AlladvertisementsComponent implements OnInit {
 constructor(private _service: PaiService,private http: HttpClient,private _router: Router,
-  private _route: ActivatedRoute,private authService: AuthService) {
+  private _route: ActivatedRoute,private authService: AuthService,
+  private meta: Meta, private title: Title,
+  private renderer: Renderer2) {
        
 }
-advertisements:any[]=[];
+advertisements:Advertise[]=[];
 userAdvertisementslist: any[]=[];
 blockedAdvertisementslist: any[]=[];
 followingAdvertisementslist: any[]=[];
@@ -40,116 +43,52 @@ activeChipIndex = 0;
 ngOnInit(){
   this.checkViewport();
   this.fetchDistinctHashtags();
-  this.cities = [
-    {name: 'New York', value: 'NY'},
-    {name: 'Rome', value: 'RM'},
-    {name: 'London', value: 'LDN'},
-    {name: 'Istanbul', value: 'IST'},
-    {name: 'Paris', value: 'PRS'}
-      
-    ];
   this.advertisements=[];
   this.fetchDistinctHashtags();
-  const token = this.authService.getToken();
-  /*const navigation = this._router.getCurrentNavigation();
-  console.log('Navigation object:', navigation); // Debugging
-  const state = navigation?.extras.state as { userId?: string; adId?: string };
-  console.log('Router state:', state); // Debugging
-  if (state?.userId) {
-    this.userId = state.userId;
-    console.log('Fetching advertisements for userId:', this.userId);
-    
-  } else if (state?.adId) {
-    this.adId = state.adId;
-    console.log('Fetching advertisement for adId:', this.adId);
-    this._service.getIDAdvertisements(this.adId).subscribe(
-      data => {
-        this.userId=this._service.userId;
-        this.advertisements = data;
-        console.log("advertisment list for id: ",this.adId,this.advertisements)
-      },
-        error=>{console.log("error occured while retrieving the data for ID -",this.adId)
-    });
-  } else {
-    console.log('Fetching all advertisement', this.adId);
-    this.fetchadvertisement();
-  }*/
   this._route.queryParams.subscribe(params => {
     this.userId = params['userId'];
-
+  
     if (this.userId) {
       this.fetchUserAdvertisements(this.userId);
-    } 
-    /*else {
-      this.fetchadvertisement();
-    }*/
-  });
-
-   // Fetch adId from URL params and load specific advertisement
-   this._route.params.subscribe(params => {
-    this.adId = params['id']; // Extract ad ID from URL
-
-    if (this.adId) {
-      console.log('Fetching advertisement for adId:', this.adId);
-      this._service.getIDAdvertisements(+this.adId).subscribe(
-        data => {
-          console.log(data.id)
-          if (data && typeof data === 'object' && 'id' in data) {
-            this.advertisements = data; // Update with single advertisement
-            console.log("Advertisement updated:", this.advertisements);
-          } else {
-            console.log("Loading all Advertisement list:");
-            this.fetchadvertisement();
-          }
-        },
-        error => {
-          console.log("Error occurred while retrieving the advertisement for ID:", this.adId);
+    } else {
+      this._route.params.subscribe(params => {
+        this.adId = params['id'];
+        if (this.adId) {
+          this._service.getIDAdvertisements(+this.adId).subscribe(
+            data => {
+              if (data.length>0) {
+                this.advertisements = data;
+                if (data && Array.isArray(data) && data.length > 0) {
+                  const adData = data[0]; // Extract the first object from the array
+                  this.setMetaTags(adData);
+                }
+                if (this.advertisements.length > 0) {
+                  this.insertJsonLdScript(); 
+                }
+              } else {
+                this.fetchadvertisement();
+              }
+            },
+            error => {
+              console.log("Error occurred while retrieving the advertisement for ID:", this.adId);
+            }
+          );
+        } else {
+          this.fetchadvertisement();
         }
-      );
-    } else {
-      console.log('Fetching all advertisements');
-      this.fetchadvertisement();
+      });
     }
   });
-
-  /*this._route.params.subscribe(params => {
-    const adId = params['id']; // Access ad ID from URL if provided
-    const userId = params['userId']; // Access user ID from URL if provided
-    if (this._router.getCurrentNavigation()?.extras.state) {
-      const state = this._router.getCurrentNavigation()?.extras.state as { userId: string };
-      this.userId = state.userId;
-      console.log('User ID:', this.userId);
-      
-      this._service.getUserAdvertisements(userId).subscribe(
-        data => {
-          this.userId=this._service.userId;
-          this.advertisements = data;
-          console.log("advertisment list for userId: ",adId,this.advertisements)
-        },
-          error=>{console.log("error occurred while retrieving the data for userId -",userId)
-      });
-    } else if(this._router.getCurrentNavigation()?.extras.state) {
-      const state = this._router.getCurrentNavigation()?.extras.state as { adId: string };
-      this.adId = state.adId;
-      console.log('adId ID:', this.adId);
-      this._service.getIDAdvertisements(adId).subscribe(
-        data => {
-          this.userId=this._service.userId;
-          this.advertisements = data;
-          console.log("advertisment list for id: ",adId,this.advertisements)
-        },
-          error=>{console.log("error occured while retrieving the data for ID -",adId)
-      });
-    } else {
-      this.fetchadvertisement()
-    }
-  });*/
   this.userId=this._service.userId;
 }
 fetchUserAdvertisements(userId:string){
   this._service.getUserAdvertisements(+this.userId).subscribe(
     data => {
       this.advertisements = data;
+      console.log("this.advertisements",this.advertisements)
+      if (this.advertisements.length > 0) {
+        this.insertJsonLdScript(); 
+      }
     },
       error=>{console.log("error occurred while retrieving the data for userId -",this.userId)
   });
@@ -159,6 +98,9 @@ fetchadvertisement(){
       data => {
       this.userId=this._service.userId;
       this.advertisements = data;
+      if (this.advertisements.length > 0) {
+        this.insertJsonLdScript(); 
+      }
     },
       error=>{console.log("error occur while retrieving the data!")
     });
@@ -185,10 +127,13 @@ fetchadvertisement(){
   querySearch:boolean=false;
   onSearch(queryEvent: Event): void {
     const inputElement = queryEvent.target as HTMLInputElement;
-    const query = inputElement.value?.trim();
+    let query = inputElement.value?.trim();
     this.querySearch=true;
     if (!query.trim()) {
         this.querySearch = false;
+    }
+    if(query==''){
+      query='all'
     }
     this._service.getPincodesAdvertisement(query).subscribe(
       data => {
@@ -213,4 +158,77 @@ fetchadvertisement(){
   toggleSearchBox(){
     this.showSearchBox=!this.showSearchBox
   }
+  setMetaTags(ad:any) {
+    this.title.setTitle(ad.brandname || 'Advertisement'); // Set Page Title
+
+    this.meta.updateTag({ name: 'description', content: this.stripHtml(ad.description) || 'Discover amazing advertisements' });
+
+    this.meta.updateTag({ name: 'keywords', content: ad.hashtags || 'advertisement, online ads' });
+
+    if (ad.url) {
+      this.meta.updateTag({ property: 'og:url', content: ad.url }); // Open Graph URL
+    }
+
+    this.meta.updateTag({ property: 'og:title', content: ad.brandname || 'Advertisement' });
+
+    this.meta.updateTag({ property: 'og:description', content: this.stripHtml(ad.description) || 'Discover amazing advertisements' });
+
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+
+    this.meta.updateTag({ name: 'author', content: ad.advertiser?.advertiserName || 'Anonymous' });
+
+    if (ad.location) {
+      this.meta.updateTag({ name: 'geo.placename', content: ad.location });
+    }
+
+    if (ad.country) {
+      this.meta.updateTag({ name: 'geo.country', content: ad.country });
+    }
+
+    if (ad.state) {
+      this.meta.updateTag({ name: 'geo.region', content: ad.state });
+    }
+
+    if (ad.pincodes) {
+      this.meta.updateTag({ name: 'geo.postalcode', content: ad.pincodes });
+    }
+  }
+
+  stripHtml(html: string): string {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    return div.textContent || div.innerText || '';
+  }
+  insertJsonLdScript() {
+    if (!this.advertisements || this.advertisements.length === 0) {
+      return;
+    }
+  
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@graph": this.advertisements.map((ad: any) => ({
+        "@type": "Advertisement",
+        "name": ad.title,
+        "description": ad.description,
+        "image": ad.imageUrl || "https://yourwebsite.com/default-image.jpg",
+        "url": `https://yourwebsite.com/ad/${ad.id}`,
+        "datePosted": ad.datePosted || new Date().toISOString(),
+        "author": {
+          "@type": "Person",
+          "name": ad.author || "Anonymous"
+        }
+      }))
+    };
+    const existingScript = document.getElementById('json-ld-script');
+    if (existingScript) {
+      existingScript.remove();
+    }
+    const script = this.renderer.createElement('script');
+    script.id = "json-ld-script";
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(jsonLd);
+  
+    this.renderer.appendChild(document.head, script);
+  }
+  
 }

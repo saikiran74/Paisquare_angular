@@ -29,7 +29,6 @@ export class AdvertisementformComponent implements OnInit{
       this.isEditAdvertisement=true;
       this.loadAdDetails(this.adId);
     }
-    
     this._service.getUserdata(this._service.userId).subscribe(
       data=>{
         this.paisa=data.paisa
@@ -120,7 +119,10 @@ export class AdvertisementformComponent implements OnInit{
     this.advertise.status='Active';
     if(this.advertise.brandname==null || this.advertise.brandname==''){
       this.message="Please enter Brandname"
-    } else if(this.advertise.brandname.length>50) {
+    } 
+    else if(this.advertise.brandname.length>15){
+      this.message="Please enter Brandname less than 15 characters"
+    }else if(this.advertise.brandname.length>50) {
       this.message="Please enter brand name less than 50 Characters"
     }
     else if(this.advertise.description==null || this.advertise.description==''){
@@ -242,7 +244,7 @@ export class AdvertisementformComponent implements OnInit{
       }
   }
   loadAdDetails(adId: string) {
-    this._service.getIDAdvertisements(+adId).subscribe(
+    this._service.getSingleAdvertisement(+adId).subscribe(
       data => {
         this.advertise = data;
         this.hashtags = this.advertise.hashtags && this.advertise.hashtags.trim() 
@@ -263,7 +265,7 @@ export class AdvertisementformComponent implements OnInit{
           this.advertise.gender = this.advertise.gender; // Preselect gender
         }
       },
-        error=>{console.log("error occure while retrieving the data for ID -",adId)
+        error=>{console.log("error occure while retrieving the data for ID -",adId,error)
     });
   }
   mobileNumberValidator(number:any) {

@@ -54,3 +54,6 @@
 :host ::ng-deep .BrandNameCSS{
   width: 100% !important;
 }
+.asterisk{
+  color: red;
+}

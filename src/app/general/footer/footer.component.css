@@ -1,9 +1,8 @@
 
-.footer{
-    background-color: rgb(69, 134, 255);
-}
-.contentOverImage{
-    padding-left: 5%;
+.footer {
+  background-color: rgb(69, 134, 255); /* Blue background color */
+  padding: 20px; /* Add some padding */
+  width: 100%;
 }
 
 .logo {
