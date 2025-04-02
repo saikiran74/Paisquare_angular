@@ -126,7 +126,5 @@ a{
   .left-content.visible {
     transform: translateX(100%) /* Slide in to view */
   }
-
 }
-
 

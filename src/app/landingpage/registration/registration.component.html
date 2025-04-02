@@ -50,6 +50,19 @@
                     </div>
                 </div>
               </div>
+              
+            </div><br>
+            <div class="grid">
+              <label for="pincode" class="col-12 md:col-4 col-form-label">Location</label>
+              <div class="col-12 md:col-8">
+                <p-dropdown 
+                [options]="locationDropdownList"
+                class="small-dropdown"  optionLabel="name"
+                placeholder="Select Type" name="name" 
+                [style]="{'width': '70px'}"></p-dropdown>
+                
+              </div>
+              
             </div>
             <br>
             <div class="grid">

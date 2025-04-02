@@ -8,11 +8,13 @@ import { ActivatedRoute } from '@angular/router';
 import { TreeNode } from 'primeng/api';
 import { Tree } from 'primeng/tree';
 import { AuthService } from '../service/auth-service.service';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  providers: [ConfirmationService]
 })
 export class NavbarComponent  implements OnInit{
   nodes!: TreeNode[];
@@ -22,7 +24,11 @@ export class NavbarComponent  implements OnInit{
   nodes_which_is_not_in_use!: TreeNode[];
   isMobileView: boolean = false;
   isSidebarVisible: boolean = false;
-  constructor(private _service: PaiService,private http: HttpClient, private authService: AuthService,private _router: Router,private _route: ActivatedRoute) {
+  constructor(
+    private _service: PaiService,private http: HttpClient, 
+    private authService: AuthService,private _router: Router,
+    private _route: ActivatedRoute,
+    private confirmationService: ConfirmationService ) {
        
   }
   userId='';
@@ -135,8 +141,7 @@ export class NavbarComponent  implements OnInit{
     } else if (val.includes('profile/profile/')) {
       this._router.navigate([val.replace(':userId', this.userId)]);
     } else if (val.includes('logout')) {
-      this.authService.logout();
-      this._router.navigate(['/login']);
+      this.confirmLogout()
     } 
      else {
       this._router.navigate([val]);
@@ -204,5 +209,19 @@ export class NavbarComponent  implements OnInit{
   homeButton(){
     console.log("Chat history retrieval completed")
     this._router.navigate(['home'])
+  }
+
+  confirmLogout() {
+    this.confirmationService.confirm({
+      message: 'Do you want to log out from Pai square ?',
+      header: 'Confirm Logout',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Logout',
+      rejectLabel: 'Cancel',
+      accept: () => {
+        this.authService.logout();
+        this._router.navigate(['/login']);
+      }
+    });
   }
 }

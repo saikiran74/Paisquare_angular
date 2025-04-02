@@ -1,10 +1,10 @@
 import { Injectable,HostListener } from '@angular/core';
-import { Advertise, User,Contactus,Comments, Follower, Visited, Like, Profile,Favourite, Block, Report } from './paisa';
+import { Advertise, User,Contactus,Comments, Follower, Visited, Like, Profile,Favourite, Block, Report,Payment } from './paisa';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { Observable } from 'rxjs';
 import {HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 
 
 
@@ -196,7 +196,7 @@ export class PaiService {
 
 
   public getAdvertisementTransactionData(){
-    return this._http.get<any>(`${this.apiUrl}/getadvertisementtransactiondata/${this.userId}`);
+    return this._http.get<any>(`${this.apiUrl}/payments/getadvertisementtransactiondata/${this.userId}`);
   }
 
   //Search functionally
@@ -236,9 +236,8 @@ export class PaiService {
     };
     return this._http.post(`${this.apiUrl}/sell-coins`, payload);
   }
-  addFunds(userId: number, amount: number): Observable<any> {
-    const url = `/api/addFunds`; // Replace with your backend API endpoint
-    return this._http.post(url, { userId, amount });
+  addFunds(paymentData:Payment): Observable<any> {
+    return this._http.post(`${this.apiUrl}/payments/addfunds`, paymentData, { responseType: 'text' });
   }
 
   // Withdraw Funds method
@@ -247,8 +246,11 @@ export class PaiService {
     return this._http.post(url, { userId, amount });
   }
 
+
   getSitemap(): Observable<string> {
     return this._http.get(`${this.apiUrl}/sitemap.xml`, { responseType: 'text' });
   }
+
+
 }
 

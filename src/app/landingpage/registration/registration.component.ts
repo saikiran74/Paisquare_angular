@@ -24,51 +24,10 @@ export class RegistrationComponent implements OnInit {
     
   }
   registrationForm!: FormGroup;
-  registrationFormGroup(): FormGroup {
-    return new FormGroup({
-      username: new FormControl('', [Validators.required,Validators.maxLength(15)]),
-      email: new FormControl('', [Validators.required,Validators.email]),
-      pincode: new FormControl('', Validators.required),
-      accountType: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, this.passwordStrengthValidator()]),
-      emailOTP: new FormControl(''),
-      confirmPassword: new FormControl('', [Validators.required])
-    }, { validators: this.passwordMatchValidator });
-  }
-  passwordStrengthValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: boolean } | null => {
-      const value = control.value || '';
-      const errors: { [key: string]: boolean } = {};
-
-      if (!/[A-Z]/.test(value)) {
-        errors['missingUpperCase'] = true;
-      }
-      if (!/[a-z]/.test(value)) {
-        errors['missingLowerCase'] = true;
-      }
-      if (!/\d/.test(value)) {
-        errors['missingNumber'] = true;
-      }
-      if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
-        errors['missingSpecialChar'] = true;
-      }
-      if (value.length < 8) {
-        errors['tooShort'] = true;
-      }
-
-      return Object.keys(errors).length > 0 ? errors : null;
-    };
-  }
-  passwordMatchValidator(formGroup: AbstractControl): any {
-    const passwordControl = formGroup.get('password');
-    const confirmPasswordControl = formGroup.get('confirmPassword');
-    if (!passwordControl || !confirmPasswordControl) {
-      return { mismatch: true }; 
-    }
-    const password = passwordControl.value;
-    const confirmPassword = confirmPasswordControl.value;
-    return password === confirmPassword ? null : { mismatch: true };
-  }
+  locationDropdownList = [
+    { name: 'India', value: 'India' }
+  ];
+  
   ngOnInit() {
     this.registrationForm = this.registrationFormGroup();
     this.registrationForm.valueChanges.subscribe(value => {
@@ -150,5 +109,50 @@ export class RegistrationComponent implements OnInit {
     } else {
       this.message = 'Please fill out the form correctly.';
     }
+  }
+  registrationFormGroup(): FormGroup {
+    return new FormGroup({
+      username: new FormControl('', [Validators.required,Validators.maxLength(15)]),
+      email: new FormControl('', [Validators.required,Validators.email]),
+      pincode: new FormControl('', Validators.required),
+      accountType: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required, this.passwordStrengthValidator()]),
+      emailOTP: new FormControl(''),
+      confirmPassword: new FormControl('', [Validators.required])
+    }, { validators: this.passwordMatchValidator });
+  }
+  passwordStrengthValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+      const value = control.value || '';
+      const errors: { [key: string]: boolean } = {};
+
+      if (!/[A-Z]/.test(value)) {
+        errors['missingUpperCase'] = true;
+      }
+      if (!/[a-z]/.test(value)) {
+        errors['missingLowerCase'] = true;
+      }
+      if (!/\d/.test(value)) {
+        errors['missingNumber'] = true;
+      }
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+        errors['missingSpecialChar'] = true;
+      }
+      if (value.length < 8) {
+        errors['tooShort'] = true;
+      }
+
+      return Object.keys(errors).length > 0 ? errors : null;
+    };
+  }
+  passwordMatchValidator(formGroup: AbstractControl): any {
+    const passwordControl = formGroup.get('password');
+    const confirmPasswordControl = formGroup.get('confirmPassword');
+    if (!passwordControl || !confirmPasswordControl) {
+      return { mismatch: true }; 
+    }
+    const password = passwordControl.value;
+    const confirmPassword = confirmPasswordControl.value;
+    return password === confirmPassword ? null : { mismatch: true };
   }
 }

@@ -154,7 +154,7 @@ export class AdvertisementformComponent implements OnInit{
       this.advertise.pincodes = this.pincodes.join(', '); 
       this._service.advertiseFromRemote(this.advertise,this._service.userId).subscribe(
         data=>{
-          this._router.navigate(['advertiser'])
+          this._router.navigate(['home'])
       },
         error=>{
         this.message="Invalid details";

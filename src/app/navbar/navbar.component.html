@@ -34,10 +34,10 @@
         </div>
         @if (showSearchBox) {
             <div class="grid">
-                <div class="col-12" style="width: 100%;">
-                    <span class="search-box">
-                        <input style="width: 100%;"
-                            pInputText style="padding-left: 10px; margin-left: 8px;"
+                <div class="col-12">
+                    <span class="search-box w-full">
+                        <input class="custom-search-box"
+                            pInputText style="padding-left: 10px; margin-left: 20px;"
                             placeholder="Search"
                             (keyup.enter)="onSearch($event)" 
                         />
@@ -112,3 +112,4 @@
     </div>
     }
 </div>
+<p-confirmDialog></p-confirmDialog>

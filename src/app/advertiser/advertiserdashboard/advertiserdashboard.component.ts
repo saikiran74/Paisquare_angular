@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PaiService } from '../../paisa.service';
 import { Profile } from 'src/app/paisa';
-
+import { HttpClient } from '@angular/common/http';
+import { Payment, PaymentStatus, PaymentMethod } from '../../paisa';
 @Component({
   selector: 'app-advertiserdashboard',
   templateUrl: './advertiserdashboard.component.html',
@@ -9,15 +10,14 @@ import { Profile } from 'src/app/paisa';
 })
 export class AdvertiserdashboardComponent implements OnInit {
   // Dialog visibility flags
+  
+  paymentData= new Payment();
   addFundsDialogVisible: boolean = false;
   withdrawDialogVisible: boolean = false;
   sellDialogVisible: boolean = false;
-  
-
-  // Input amounts
   addAmount: number = 0;
   withdrawAmount: number = 0;
-
+  payerUpiId: string = "";
   // Sell Coins functionality
   coinCount: number = 1; // Initial coin count
   pricePerCoin: number = 0.90; // Price per coin in rupees
@@ -37,8 +37,7 @@ export class AdvertiserdashboardComponent implements OnInit {
   priceOption: string = 'fixed'; // 'fixed' or 'custom'
   totalSellPrice: number = 0;
 
-  constructor(private _service: PaiService) {}
-
+  constructor(private _service: PaiService,private http: HttpClient) {}
   ngOnInit() {
     // Fetch user data
     this._service.getUserdata(this._service.userId).subscribe(
@@ -59,6 +58,14 @@ export class AdvertiserdashboardComponent implements OnInit {
         console.error('Error occurred while retrieving advertisements!', error);
       }
     );
+    const urlParams = new URLSearchParams(window.location.search);
+    const txnId = urlParams.get("txnId");
+    const responseCode = urlParams.get("responseCode");
+    const txnRef = urlParams.get("txnRef");
+
+    if (txnId && responseCode && txnRef) {
+      this.verifyPayment(txnId, responseCode, txnRef);
+    }
   }
 
   // Show Add Funds Dialog
@@ -80,28 +87,98 @@ export class AdvertiserdashboardComponent implements OnInit {
   hideWithdrawDialog() {
     this.withdrawDialogVisible = false;
   }
+  isProcessing = false;
 
-  // Add Funds logic
-  onAddFunds() {
-    if (this.addAmount <= 0) {
-      alert('Please enter a valid amount to add.');
+  addFunds() {
+    const addAmount = Number(this.addAmount);
+    if (!this.addAmount || this.addAmount <= 0) {
+      alert('Please enter a valid amount to add.'+this.addAmount);
       return;
     }
 
-    // Backend call to add funds
-    this._service.addFunds(this.userData.userId, this.addAmount).subscribe(
-      (response) => {
-        alert(`₹${this.addAmount} added successfully!`);
-        this.userData.paisa += this.addAmount;
-        this.addFundsDialogVisible = false; // Close dialog
-      },
-      (error) => {
-        console.error('Error adding funds:', error);
-        alert('Failed to add funds. Please try again.');
-      }
-    );
-  }
+    // Disable button to prevent multiple submissions
+    this.isProcessing = true;
+    const upiID = "bobbilisaikiran1999@okhdfcbank"; // Replace with your UPI ID
+    const payeeName = "PaiSquare";
+    const amount = this.addAmount; // Amount entered by the user
+    const transactionNote = "Adding Funds";
+    const currency = "INR";
+  
+    /*const upaiUrl = `upi://pay?pa=${upiID}&pn=${payeeName}&mc=&tid=&tr=&tn=${encodeURIComponent(transactionNote)}&am=${amount}&cu=${currency}`;
+    const upiUrl = `upi://pay?pa=${upiID}&pn=${payeeName}&tn=Adding%20Funds&am=${amount}&cu=INR`;
+     // Wait for UPI response (simulate delay as UPI does not give callbacks)
+    setTimeout(() => {
+      this.captureUPIResponse();
+    }, 5000);
+    const upiUrl = `upi://pay?pa=${this.userUpiId}&pn=${payeeName}&tn=${encodeURIComponent(transactionNote)}&am=${amount}&cu=${currency}`;
 
+    window.open(upiUrl, "_blank"); // Open in UPI App*/
+    const payerUpiId = encodeURIComponent(this.payerUpiId); // ✅ Your Brother's UPI ID
+    const payeeUpiId = encodeURIComponent(upiID);
+    
+  const paytmLink = `paytm://upi/pay?pa=${payeeUpiId}&pn=${payeeName}&am=${amount}&tn=${transactionNote}&cu=INR`;
+
+  // Copy link to clipboard (optional)
+  navigator.clipboard.writeText(paytmLink);
+
+    alert(`Share this link with ${this.payerUpiId}. Ask them to open it in Paytm and complete the payment.`);
+  }
+  // Function to Extract Transaction Details from URL
+  captureUPIResponse() {
+    console.log("captureUPIResponse saivng")
+    const params = new URLSearchParams(window.location.search);
+    const transactionId = params.get("txnId");
+    const status = params.get("status");
+    if (transactionId && status == "SUCCESS") {
+      this.saveTransaction(transactionId);
+    } else {
+      alert("Payment Failed or Cancelled.");
+    }
+  }
+  // Send Transaction to Backend
+  saveTransaction(transactionId: string) {
+    this.paymentData.transactionId=transactionId
+    this.paymentData.amount= this.addAmount,
+    this.paymentData.userId=this._service.userId 
+
+    const payment: Payment = {
+      userId: this._service.userId,
+      orderId: "ORD-" + new Date().getTime(),
+      upiId: "bobbilisaikiran1999@okhdfcbank",
+      amount: this.addAmount,
+      currency: "INR",
+      paymentStatus: PaymentStatus.SUCCESS,
+      transactionId: transactionId,
+      paymentMethod: PaymentMethod.UPI,
+    };
+    
+    this._service.addFunds(payment).subscribe(
+      data=>{
+        console.log(data)
+        alert('Payment successful!'+data);
+
+    },
+      error=>{
+        console.log("error",error)
+        if (error.status === 400 && error.error === 'Payment already exists.') {
+          console.warn('Duplicate payment detected:', error.error);
+          alert('Payment already exists. Please check your transaction details.');
+        } else {
+          console.error('Error adding payment:', error);
+        }
+    });
+    this.isProcessing = false;
+  }
+  verifyPayment(txnId: string, responseCode: string, txnRef: string) {
+    this.http.get(`api/payments/verify?txnId=${txnId}&responseCode=${responseCode}&txnRef=${txnRef}`)
+      .subscribe(response => {
+        console.log("Payment Verified:", response);
+        alert("Payment successful!");
+      }, error => {
+        console.log("Payment Verification Failed:", error);
+        alert("Payment failed!");
+      });
+  }
   // Withdraw Funds logic
   onWithdrawFunds() {
     if (this.withdrawAmount > Number(this.userData.paisa)) {
@@ -181,5 +258,11 @@ export class AdvertiserdashboardComponent implements OnInit {
       this.sellPrice = 0.9; // Fixed price
     }
     this.totalSellPrice = this.sellAmount * this.sellPrice;
+  }
+  validateNumberInput(event: KeyboardEvent) {
+    const charCode = event.which ? event.which : event.keyCode;
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault(); // Prevent non-numeric characters
+    }
   }
 }
