@@ -54,6 +54,7 @@ export class RegistrationComponent implements OnInit {
           this.createaccoutButtonClicked=true;
           if(response.code.includes("emailExists")){
             this.registrationForm.enable();
+            this.createaccoutButtonClicked=false;
             this.isInvalid=true;
             this.showEmailOTPBox=false;
           } else if (response.code.includes("emailAddressNotFound")) {
@@ -118,33 +119,46 @@ export class RegistrationComponent implements OnInit {
       accountType: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, this.passwordStrengthValidator()]),
       emailOTP: new FormControl(''),
-      confirmPassword: new FormControl('', [Validators.required])
+      acceptTerms: new FormControl(false, Validators.requiredTrue),
+      confirmPassword: new FormControl('', [Validators.required],)
     }, { validators: this.passwordMatchValidator });
   }
+  passwordStrengthChecker:Boolean=false;
   passwordStrengthValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: boolean } | null => {
+    return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value || '';
-      const errors: { [key: string]: boolean } = {};
-
+      const errors: ValidationErrors = {};
+      const requirements: string[] = [];
+  
+      if (value.length < 8) {
+        errors['tooShort'] = true;
+        requirements.push('at least 8 characters');
+      }
       if (!/[A-Z]/.test(value)) {
         errors['missingUpperCase'] = true;
+        requirements.push('an uppercase letter');
       }
       if (!/[a-z]/.test(value)) {
         errors['missingLowerCase'] = true;
+        requirements.push('a lowercase letter');
       }
       if (!/\d/.test(value)) {
         errors['missingNumber'] = true;
+        requirements.push('a number');
       }
       if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
         errors['missingSpecialChar'] = true;
+        requirements.push('a special character');
       }
-      if (value.length < 8) {
-        errors['tooShort'] = true;
+  
+      if (requirements.length > 0) {
+        errors['passwordRequirementsMessage'] = `Create a password with ${requirements.join(', ')}.`;
       }
-
+  
       return Object.keys(errors).length > 0 ? errors : null;
     };
   }
+  
   passwordMatchValidator(formGroup: AbstractControl): any {
     const passwordControl = formGroup.get('password');
     const confirmPasswordControl = formGroup.get('confirmPassword');

@@ -296,4 +296,9 @@ export class HomepageComponent implements OnInit {
   visitProfile(id:number){
     this._router.navigate(['visit/profile', id]);
   }
+  openChat(Id: number, Name: string): void {
+    this._router.navigate(['/user/chat'], { 
+      queryParams: { userId: Id, name: Name }
+    });
+  }
 }

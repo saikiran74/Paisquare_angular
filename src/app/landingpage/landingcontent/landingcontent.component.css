@@ -177,12 +177,12 @@ label{
 @media (max-width: 768px) {
     .responsive-image {
         width: 100%;
-        min-height: 50vh;
+        min-height: 65vh;
         object-fit: cover;
     }
     .responsive-image-Contactus {
         width: 100%;
-        min-height: 65vh; 
+        min-height: 80vh; 
         object-fit: cover;
     }
     .responsive-image-top {

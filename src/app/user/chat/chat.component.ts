@@ -25,21 +25,39 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getChatHistoryUsers();
-    this._route.queryParams.subscribe((params) => {
-      const advertiserId = +params['userId'];
-      const advertiserName = params['name'];
-      if (advertiserId && advertiserName) {
-        const alreadyExists = this.chatHistoryUsers.some((user) => user.id === advertiserId);
-        if (!alreadyExists) {
-          this.chatHistoryUsers.push({ id: advertiserId, username: advertiserName });
-        }
-        this._service.getMessages(this.currentUserId, advertiserId).subscribe((data) => {
-          this.messages = data;
+    // First load the chat users
+    this._service.getChatHistoryUsers(this._service.userId).subscribe({
+      next: (data) => {
+        this.chatHistoryUsers.push(...data);
+  
+        // Now check query params AFTER users are loaded
+        this._route.queryParams.subscribe((params) => {
+          const advertiserId = +params['userId'];
+          const advertiserName = params['name'];
+  
+          if (advertiserId && advertiserName) {
+            const alreadyExists = this.chatHistoryUsers.some(user => user.id === advertiserId);
+  
+            if (!alreadyExists) {
+              this.chatHistoryUsers.push({ id: advertiserId, username: advertiserName });
+            }
+  
+            this.selectedUserId = advertiserId;
+            this.selectedUserName = advertiserName;
+            this.userSelected = true;
+  
+            this._service.getMessages(this.currentUserId, advertiserId).subscribe((data) => {
+              this.messages = data;
+            });
+          }
         });
+      },
+      error: (error) => {
+        console.error("Error occurred while retrieving chat history:", error);
       }
     });
   }
+  
   
   getChatHistoryUsers(): void {
     // Fetch chat history users and handle data asynchronously

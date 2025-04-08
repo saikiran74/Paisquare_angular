@@ -223,7 +223,12 @@
                 <p-button (click)="editAdvertisement(ad.id)">
                     Edit
                 </p-button>
+            } @else {
+                <div>
+                    <p-button [disabled]="!isAuthenticated" (click)="openChat(ad.advertiser.id,ad.advertiser.username)" label="Chat"></p-button>
+                </div><br>
             }
+
         </ng-template>
     </p-overlayPanel>
     <p-overlayPanel #location>

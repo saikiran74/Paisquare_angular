@@ -28,27 +28,28 @@
                         <div class="justify-content-between">
                             <!-- Two-way binding to display and update the rating -->
                             <p-rating [(ngModel)]="profile.rating" 
-                                      [cancel]="false" 
+                                      [cancel]="false" [disabled]="profile.userId == +userId"
                                       (onRate)="saveRating(advertiserId)"></p-rating>
                         </div>
                         <span style="font-size: 0.7rem; font-family: Arial, Helvetica, sans-serif;" class="flex justify-content-center align-items-end">{{profile.noOfRating}} Ratings</span>
                     </div>
                 </div>
                 <div class="flex gap-2 justify-content-start "  style="padding-top: 8px;" >
-                    @if(profile.userId==+userId){
-                        <p-button label="Insights" [outlined]="true" (onClick)="navigateToAdvertiserReports()" ></p-button>
-                    } @else{
-                        <p-button  (click)="openChat(profile.userId, profile.username)">
-                            Chat
-                        </p-button>
-                        <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
+                    @defer (when profile.userId !== undefined) {
+                        @if(profile.userId == +userId){
+                          <p-button label="Insights" [outlined]="true" (onClick)="navigateToAdvertiserReports()" ></p-button>
+                        } @else {
+                          <p-button (click)="openChat(profile.userId, profile.username)">Chat</p-button>
+                          <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
                             <p-button (click)="follower(advertiserId)" name="post_id">
-                                <span class="goldColor">
-                                    {{ followerslist.includes(+advertiserId) ? 'Following' : 'Follow' }}
-                                </span>
+                              <span class="goldColor">
+                                {{ followerslist.includes(+advertiserId) ? 'Following' : 'Follow' }}
+                              </span>
                             </p-button>
-                        </div>
-                    }
+                          </div>
+                        }
+                      }
+                      
                     
                 </div>
                 

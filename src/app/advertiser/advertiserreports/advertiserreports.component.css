@@ -39,7 +39,7 @@
     ::ng-deep p-chart canvas {
         box-sizing: border-box;
         display: block;
-        width: 300px !important;
+        width: 400px !important;
         height: 400px !important;
     }
 }

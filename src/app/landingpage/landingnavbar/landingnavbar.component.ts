@@ -11,6 +11,7 @@ export class LandingnavbarComponent {
   constructor(private _router: Router) {
     this._router.events.subscribe(() => {
       this.currentRoute = this._router.url;
+      console.log(this.currentRoute);
     });
   }
   @Output() valueEvent = new EventEmitter<string>();
