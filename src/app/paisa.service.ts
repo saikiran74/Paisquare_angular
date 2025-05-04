@@ -18,6 +18,7 @@ export class PaiService {
   constructor( private _http : HttpClient) { }
   private apiUrl = environment.apiUrl;
   
+  
   isMobileView:boolean=false;
   @HostListener('window:resize', ['$event'])
     onResize(event: Event): void {
@@ -89,6 +90,13 @@ export class PaiService {
   public ProfileBrandRecommendationUpdate(profile:Profile,userId:Number):Observable<any>{
     return this._http.post<any>(`${this.apiUrl}/updateProfile/BrandRecommendation/${userId}`,profile)
   }
+  //public ProfileAccountTypeUpdate(profile:Profile,userId:Number):Observable<any>{
+    // return this._http.post<any>(`${this.apiUrl}/updateProfile/accounttype/${userId}`,profile)
+  // }
+  public ProfileAccountTypeUpdate(profile: Profile, userId: Number): Observable<any> {
+    return this._http.post<any>(`${this.apiUrl}/updateProfile/accounttype/${userId}`, profile);
+  }
+  
   public ProfilepasswordUpdate(profile:Profile,userId:Number):Observable<any>{
     return this._http.post<any>(`${this.apiUrl}/updateProfile/password/${userId}`,profile)
   }
