@@ -1,17 +1,15 @@
 
-<div class="flex justify-content-end">
+<div class="main flex justify-content-end" >
     <p-dropdown [options]="period" [(ngModel)]="selectedPeriod" (click)="selectedtype(selectedPeriod)"
     optionLabel="name" optionValue="value"
-     placeholder="Select Period"></p-dropdown>
-</div>
-
-<br><br>
-<div class="container">
-    <div class="row">
-        <div class="col-12">
+     placeholder="This month"></p-dropdown>
+</div><br>
+<div class="container" style="background-color: rgb(197, 197, 197);">
+    <div class="row" style="padding-top: 3px; padding-bottom: 3px;">
+        <p-card class="col-12" >
             <div class="card">
                 <div class="card-header">
-                    <h2>Visitor graphs</h2>
+                    <p class="graphsTitle">Visitor graphs</p>
                 </div>
                 <div class="card-body" *ngIf="!noDataVisitors; else elseblock">
                     <p-chart type="line" [data]="visitors" [options]="options"></p-chart>
@@ -21,12 +19,12 @@
                         <h2 style="color: rgb(109, 122, 122);">No data available</h2>
                     </div>
                 </ng-template>
-            </div><br>
-        </div><br>
-        <div class="col-12 ">
+            </div>
+        </p-card>
+        <p-card class="col-12 ">
             <div class="card">
                 <div class="card-header">
-                    <h2>Followers Graph</h2>
+                    <p class="graphsTitle">Followers Graph</p>
                 </div>
                 <div class="card-body" *ngIf="!noDataFollowers; else elseblock">
                     <p-chart type="line" [data]="followers" [options]="options"></p-chart>
@@ -37,13 +35,11 @@
                     </div>
                 </ng-template>
             </div>
-        </div>
-    </div><br><br>
-    <div class="row">
-        <div class="col-12">
+        </p-card>
+        <p-card class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>Likes Graph</h2>
+                    <p class="graphsTitle">Likes Graph</p>
                 </div>
                 <div class="card-body" *ngIf="!noDataLikes; else elseblock">
                     <p-chart type="line" [data]="likes" [options]="options"></p-chart>
@@ -54,11 +50,11 @@
                     </div>
                 </ng-template>
             </div>
-        </div><br>
-        <div class="col-12">
+        </p-card>
+        <p-card class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>added to favourites</h2>
+                    <p class="graphsTitle">Favourites</p>
                 </div>
                 <div class="card-body">
                     <p-chart *ngIf="!noDataFavourite; else elseblock" type="line" [data]="favourite" [options]="options"></p-chart>
@@ -69,7 +65,7 @@
                     </div>
                 </ng-template>
             </div>
-        </div>
+        </p-card>
     </div>
 </div>
-<br><br><br>
+<br>

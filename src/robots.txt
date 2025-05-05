@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: https://paisquare.com/sitemap.xml
+Sitemap: https://api.paisquare.com/sitemap.xml

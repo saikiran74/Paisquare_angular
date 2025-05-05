@@ -1,4 +1,4 @@
-<div [ngStyle]="{'background': ad.backGroundColor, 'color': 'white','margin-top':'20px'}" 
+<div [ngStyle]="{'background': ad.backGroundColor, 'color': 'white','margin-top':'20px','margin':'10px'}" 
     class="p-2 shadow-2  surface-100 border-bottom-1 surface-border 
     ">
     <!-- Header Section with Brand Info -->
@@ -17,7 +17,9 @@
                   </div>
                   
                 <div>
-                    <label class="brandname goldColor" style="padding-left: 10px; margin-top: 100px;  padding-bottom: 0px;">{{ad.brandname}}</label>
+                    <label class="brandname goldColor" style="padding-left: 10px; margin-top: 100px;  padding-bottom: 0px;">
+                        {{ad.brandname}}
+                    </label>
                 </div>
             </div>
             <div class="col-2">
@@ -118,8 +120,8 @@
     </div>
 
     <!-- Comments Section -->
-    <div class="grid ">
-        <div class="col-12" *ngIf="currentOpenId == ad.id" style="padding-bottom: 0px;">
+    <div class="grid" style="padding: 8px; margin: 0px;">
+        <div class="col-12" *ngIf="currentOpenId == ad.id" >
             @if (comments.length>0) {
                 <div *ngFor="let comment of comments">
                     <div class="grid">
@@ -132,24 +134,28 @@
                     </div>
                 </div>
             } @else {
-                <label> No Comments found...</label>
+                <div style="margin: 10px;">
+                    <label> No Comments found...</label><br>
+                </div>
             }
             <form #loginform="ngForm" (ngSubmit)="comment(ad.id)">
                 <div class="grid">
-                    <div class="col-12" style="padding-bottom: 0px;">
-                        <div class="p-inputgroup">
+                    <div class="col-12">
+                        
+                        <div class="input-group" style="width: 100%; display: flex; align-items: center;">
                             <input 
                                 pInputText 
                                 id="commentbox" 
+                                class="form-control comment-input"
                                 name="commentbox" 
                                 placeholder="Enter comment here" 
                                 [(ngModel)]="commentobj.comment" 
-                                class="form-control" 
                                 required 
                             />
                             <span>
                                 <button type="submit" class="btn-comment-box" 
-                                    pButton icon="pi pi-angle-right" style="background-color: rgb(0, 0, 0);"
+                                    pButton icon="pi pi-angle-right"
+                                     style="background-color: rgb(0, 0, 0) !important; margin: 0px; margin-left: 0px;"
                                     [disabled]="!commentobj.comment || commentobj.comment.trim() === ''">
                                 </button>
                             </span>
@@ -217,7 +223,12 @@
                 <p-button (click)="editAdvertisement(ad.id)">
                     Edit
                 </p-button>
+            } @else {
+                <div>
+                    <p-button [disabled]="!isAuthenticated" (click)="openChat(ad.advertiser.id,ad.advertiser.username)" label="Chat"></p-button>
+                </div><br>
             }
+
         </ng-template>
     </p-overlayPanel>
     <p-overlayPanel #location>

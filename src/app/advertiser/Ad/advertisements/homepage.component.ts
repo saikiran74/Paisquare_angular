@@ -79,7 +79,9 @@ export class HomepageComponent implements OnInit {
       }
     });
     this.userId=this._service.userId;
-    this.fetchUserData();
+    if(this.authService.isAuthenticated()){
+      this.fetchUserData();
+    }
   }
   fetchUserData(){
     this._service.getUserdata(+this.userId).subscribe(
@@ -283,7 +285,7 @@ export class HomepageComponent implements OnInit {
   }
 
   editAdvertisement(advertisementid:Number){
-    this._router.navigate([`/advertiser/edit/${advertisementid}`]);
+    this._router.navigate([`/home/edit/${advertisementid}`]);
   }
   showReportDialog:boolean=false;
   advertisementId:number=0;
@@ -293,5 +295,10 @@ export class HomepageComponent implements OnInit {
   }
   visitProfile(id:number){
     this._router.navigate(['visit/profile', id]);
+  }
+  openChat(Id: number, Name: string): void {
+    this._router.navigate(['/user/chat'], { 
+      queryParams: { userId: Id, name: Name }
+    });
   }
 }

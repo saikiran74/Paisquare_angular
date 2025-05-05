@@ -43,19 +43,17 @@ border: any;
     console.log("contactusForm")
     this.contactus.userid=this._service.userId;
     this.contactus.username=this._service.userName;
-    if(this.contactus.name==null){
-      this.message="please enter your name";
+    if(this.contactus.name==''){
+      this.message="Please enter your name";
       this.errorMessage=true;
     }
-    else if(this.contactus.email==null){
-      this.message="please enter your email";      
+    else if(this.contactus.email==''){
+      this.message="Please enter your email";      
       this.errorMessage=true;
-
     }
-    else if(this.contactus.issue==null){
-      this.message="please enter your query";      
+    else if(this.contactus.issue==''){
+      this.message="Please enter your query";      
       this.errorMessage=true;
-
     }
     else{
       this._service.ContactusFromRemote(this.contactus).subscribe(

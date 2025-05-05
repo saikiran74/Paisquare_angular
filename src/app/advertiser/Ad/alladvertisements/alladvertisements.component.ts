@@ -85,7 +85,6 @@ fetchUserAdvertisements(userId:string){
   this._service.getUserAdvertisements(+this.userId).subscribe(
     data => {
       this.advertisements = data;
-      console.log("this.advertisements",this.advertisements)
       if (this.advertisements.length > 0) {
         this.insertJsonLdScript(); 
       }
@@ -97,7 +96,7 @@ fetchadvertisement(){
   this._service.getAllAdvertisements().subscribe(
       data => {
       this.userId=this._service.userId;
-      this.advertisements = data;
+      this.advertisements = data.reverse();
       if (this.advertisements.length > 0) {
         this.insertJsonLdScript(); 
       }
@@ -160,27 +159,18 @@ fetchadvertisement(){
   }
   setMetaTags(ad:any) {
     this.title.setTitle(ad.brandname || 'Advertisement'); // Set Page Title
-
     this.meta.updateTag({ name: 'description', content: this.stripHtml(ad.description) || 'Discover amazing advertisements' });
-
     this.meta.updateTag({ name: 'keywords', content: ad.hashtags || 'advertisement, online ads' });
-
     if (ad.url) {
       this.meta.updateTag({ property: 'og:url', content: ad.url }); // Open Graph URL
     }
-
     this.meta.updateTag({ property: 'og:title', content: ad.brandname || 'Advertisement' });
-
     this.meta.updateTag({ property: 'og:description', content: this.stripHtml(ad.description) || 'Discover amazing advertisements' });
-
     this.meta.updateTag({ property: 'og:type', content: 'website' });
-
     this.meta.updateTag({ name: 'author', content: ad.advertiser?.advertiserName || 'Anonymous' });
-
     if (ad.location) {
       this.meta.updateTag({ name: 'geo.placename', content: ad.location });
     }
-
     if (ad.country) {
       this.meta.updateTag({ name: 'geo.country', content: ad.country });
     }

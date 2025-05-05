@@ -21,7 +21,7 @@
                     </div><br>
                     <div class="grid">
                         <label for="password" class="col-12 sm:col-4 col-form-label">Password</label>
-                        <div class="col-12 sm:col-4">
+                        <div class="col-12 sm:col-8">
                             <input pInputText type="password" name="password" 
                             autocomplete="current-password"  class="form-control" formControlName="password" placeholder="Enter password" required><br>
                         
@@ -33,9 +33,9 @@
                         </div>
                     </div>
                     @if(successMessage){
-                        <h3 class="text-success text-green-500">{{message}}</h3>
+                        <p class="text-success text-green-500">{{message}}</p>
                         } @else {
-                        <h3 class="text-danger">{{message}}</h3>
+                        <p class="text-danger">{{message}}</p>
                         }
                     <div class="col-12 text-center">
                         <p-button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid || loginButtonDisable">Login</p-button>

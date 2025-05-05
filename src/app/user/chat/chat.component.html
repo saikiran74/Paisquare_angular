@@ -20,12 +20,11 @@
   
   <!-- Chat Window -->
   <div class="col-12 lg:col-12 flex flex-column">
-
     @if (userSelected) {
     <!-- Chat Header -->
     <div class="p-2 shadow-2  surface-100 border-bottom-1 surface-border 
-    flex justify-content-between align-items-center" style="margin-top: -18px; margin-right: -8px;">
-      <button pButton icon="pi pi-arrow-left" style="border-radius: 50%; margin-right: 5px;" (click)="closeOpenedChatWindow()"></button>
+    flex justify-content-between align-items-center">
+      <button pButton icon="pi pi-arrow-left" style="border-radius: 50%; " (click)="closeOpenedChatWindow()"></button>
       <label class="text-center lg:text-left flex-grow-1" style="font-size: 1.5rem;">{{ selectedUserName }}</label>
     </div>
     <!-- Chat Messages -->

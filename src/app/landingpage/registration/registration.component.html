@@ -15,9 +15,9 @@
                     <div *ngIf="registrationForm.get('username')?.errors?.['required']">
                       Username is required.
                     </div>
-                    @if (registrationForm.get('username')?.value?.length>15) {
+                    @if (registrationForm.get('username')?.value?.length>20) {
                       <div>
-                        Please enter username less than 15 characters
+                        Please enter username less than 20 characters
                       </div>
                     }
                 </div>
@@ -40,16 +40,29 @@
             </div>
             <br>
             <div class="grid">
-              <label for="pincode" class="col-12 md:col-4 col-form-label">pincode</label>
+              <label for="pincode" class="col-12 md:col-4 col-form-label">Pin code</label>
               <div class="col-12 md:col-8">
                 <p-inputMask mask="999999" class="form-control" formControlName="pincode" placeholder="Enter your location pincode"/><br>
               
                 <div *ngIf="registrationForm.get('pincode')?.invalid && registrationForm.get('pincode')?.touched" class="text-danger">
                     <div *ngIf="registrationForm.get('pincode')?.errors?.['required']">
-                      pincode is required.
+                      Pin code is required.
                     </div>
                 </div>
               </div>
+              
+            </div><br>
+            <div class="grid">
+              <label for="pincode" class="col-12 md:col-4 col-form-label">Location</label>
+              <div class="col-12 md:col-8">
+                <p-dropdown 
+                [options]="locationDropdownList"
+                class="small-dropdown"  optionLabel="name"
+                placeholder="Select Type" name="name" 
+                [style]="{'width': '70px'}"></p-dropdown>
+                
+              </div>
+              
             </div>
             <br>
             <div class="grid">
@@ -87,10 +100,38 @@
                     <input pInputText type="password" 
                     autocomplete="new-password"  class="form-control" formControlName="confirmPassword" placeholder="Re-enter password" required><br>
                 </div>
-            </div>
+            </div><br>
             <div class="grid">
               <div class="col-12 md:col-8 md:col-offset-4">
-                <div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched" class="text-danger">
+                <!-- Password Field Validation -->
+                <div *ngIf="registrationForm.get('password')?.touched" class="text-danger">
+                  <div *ngIf="registrationForm.get('password')?.errors?.['required']">
+                    Password is required.
+                  </div>
+                  <div *ngIf="!registrationForm.get('password')?.errors?.['required'] &&
+                              registrationForm.get('password')?.errors?.['passwordRequirementsMessage']">
+                    {{ registrationForm.get('password')?.errors?.['passwordRequirementsMessage'] }}
+                  </div>
+                </div>
+
+                <!-- Confirm Password Field Validation -->
+                <div *ngIf="registrationForm.get('confirmPassword')?.touched" class="text-danger">
+                  <div *ngIf="registrationForm.get('confirmPassword')?.errors?.['required']">
+                    Confirm Password is required.
+                  </div>
+                </div>
+
+                <!-- Password Mismatch (only after both touched and password is valid) -->
+                <div *ngIf="
+                      registrationForm.get('password')?.valid &&
+                      registrationForm.get('confirmPassword')?.touched &&
+                      registrationForm.hasError('mismatch')
+                    " class="text-danger">
+                  <div>Passwords do not match.</div>
+                </div>
+
+
+                <!--<div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched" class="text-danger">
                   <div *ngIf="registrationForm.get('confirmPassword')?.errors?.['required']">
                   Confirm Password is required.
                   </div>
@@ -115,9 +156,29 @@
                   <div *ngIf="registrationForm.get('password')?.errors?.['tooShort']">
                     Password must be at least 8 characters long.
                   </div>
-                </div>
+                </div>-->
               </div>
             </div>
+            
+            <div class="flex justify-content-center">
+              <div>
+                <p-checkbox
+                [binary]="true"
+                formControlName="acceptTerms"
+                inputId="acceptTerms"
+                label="I accept the Terms and Conditions of Pai Square"
+                ></p-checkbox>
+              </div>
+            </div>
+            <div class="flex justify-content-center">
+              <div
+                *ngIf="registrationForm.get('acceptTerms')?.touched && registrationForm.get('acceptTerms')?.invalid"
+                class="text-danger">
+                You must accept the terms and conditions.
+              </div>
+              
+            </div>
+            
             <br>
             @if (showEmailOTPBox) {
               <div class="grid">
@@ -128,7 +189,7 @@
                   <p-inputMask mask="999999" type="text" class="form-control" formControlName="emailOTP" placeholder="Enter OTP"/><br>
                 </div>
               </div>
-            }
+            } 
             @if(successMessage){
               <span class="text-success text-green-500">{{message}}</span>
             } @else {
@@ -137,7 +198,7 @@
             @if (!showEmailOTPBox) {
               <div class="col-12 text-center">
                 <p-button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid || createaccoutButtonClicked">Create Account</p-button>
-                @if(createaccoutButtonClicked && !successMessage){
+                @if(createaccoutButtonClicked && !successMessage && !isInvalid){
                   Sending OTP...
                 } 
               </div>

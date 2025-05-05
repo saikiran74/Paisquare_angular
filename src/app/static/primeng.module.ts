@@ -36,10 +36,15 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TagModule } from 'primeng/tag';
 import { TableModule } from 'primeng/table';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmationService } from 'primeng/api';
+
 const PRIMENG_MODULES:any[]=[
     CommonModule,
     SelectButtonModule,
     ToggleButtonModule,
+    ConfirmDialogModule,
     InputMaskModule,
     RatingModule,
     ReactiveFormsModule,
@@ -48,6 +53,7 @@ const PRIMENG_MODULES:any[]=[
     MessagesModule,
     DialogModule,
     FormsModule,
+    InputTextModule,
     InputTextareaModule,
     InputNumberModule,
     CalendarModule,

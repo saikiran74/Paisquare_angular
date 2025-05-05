@@ -1,0 +1,45 @@
+:host ::ng-deep .p-card{
+    margin: 8px;
+}
+:host ::ng-deep .p-card .p-card-body {
+    padding: 1rem;
+}
+:host ::ng-deep .p-card .p-card-content {
+    padding: 0;
+}
+.graphsTitle{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    margin: 8px 0px;
+}
+.main{
+    margin-top: 0px; 
+    margin-bottom: -10px;
+}
+@media (max-width: 600px) {
+    .main{
+        margin-top: -10px; 
+        margin-bottom: -10px;
+    }
+    :host ::ng-deep .p-card .p-card-body {
+        padding: 0.5rem;
+    }
+    .graphsTitle{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.5rem;
+        margin: 8px 0px;
+    }
+    ::ng-deep p-chart {
+        box-sizing: border-box;
+        display: block;
+        width: 300px !important;
+        height: 400px !important;
+    }
+    
+    ::ng-deep p-chart canvas {
+        box-sizing: border-box;
+        display: block;
+        width: 400px !important;
+        height: 400px !important;
+    }
+}

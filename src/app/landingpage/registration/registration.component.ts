@@ -24,61 +24,21 @@ export class RegistrationComponent implements OnInit {
     
   }
   registrationForm!: FormGroup;
-  registrationFormGroup(): FormGroup {
-    return new FormGroup({
-      username: new FormControl('', [Validators.required,Validators.maxLength(15)]),
-      email: new FormControl('', [Validators.required,Validators.email]),
-      pincode: new FormControl('', Validators.required),
-      accountType: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, this.passwordStrengthValidator()]),
-      emailOTP: new FormControl(''),
-      confirmPassword: new FormControl('', [Validators.required])
-    }, { validators: this.passwordMatchValidator });
-  }
-  passwordStrengthValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: boolean } | null => {
-      const value = control.value || '';
-      const errors: { [key: string]: boolean } = {};
-
-      if (!/[A-Z]/.test(value)) {
-        errors['missingUpperCase'] = true;
-      }
-      if (!/[a-z]/.test(value)) {
-        errors['missingLowerCase'] = true;
-      }
-      if (!/\d/.test(value)) {
-        errors['missingNumber'] = true;
-      }
-      if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
-        errors['missingSpecialChar'] = true;
-      }
-      if (value.length < 8) {
-        errors['tooShort'] = true;
-      }
-
-      return Object.keys(errors).length > 0 ? errors : null;
-    };
-  }
-  passwordMatchValidator(formGroup: AbstractControl): any {
-    const passwordControl = formGroup.get('password');
-    const confirmPasswordControl = formGroup.get('confirmPassword');
-    if (!passwordControl || !confirmPasswordControl) {
-      return { mismatch: true }; 
-    }
-    const password = passwordControl.value;
-    const confirmPassword = confirmPasswordControl.value;
-    return password === confirmPassword ? null : { mismatch: true };
-  }
+  locationDropdownList = [
+    { name: 'India', value: 'India' }
+  ];
+  
   ngOnInit() {
     this.registrationForm = this.registrationFormGroup();
     this.registrationForm.valueChanges.subscribe(value => {
       this.otp=value.emailOTP;
     });
-    this.registrationForm.statusChanges.subscribe(status => {
+    /*this.registrationForm.statusChanges.subscribe(status => {
       console.log('Form status changes:', status);
-    });
+    });*/
   }
   createaccoutButtonClicked:boolean=false
+  isInvalid:boolean=false;
   registerUser() {
     this.message=''
     this.createaccoutButtonClicked=true;
@@ -94,8 +54,11 @@ export class RegistrationComponent implements OnInit {
           this.createaccoutButtonClicked=true;
           if(response.code.includes("emailExists")){
             this.registrationForm.enable();
+            this.createaccoutButtonClicked=false;
+            this.isInvalid=true;
             this.showEmailOTPBox=false;
           } else if (response.code.includes("emailAddressNotFound")) {
+            this.isInvalid=true;
             this.showEmailOTPBox=false;
             this.registrationForm.enable();
           } else{
@@ -129,6 +92,7 @@ export class RegistrationComponent implements OnInit {
           }
           if(response.code.includes("invalidOTP")){
             this.successMessage=false;
+            this.isInvalid=true;
             this.registrationForm.get('emailOTP')?.enable();
           } else if (response.code.includes("OTPVerified")) {
             this._router.navigate(['/login']);
@@ -140,12 +104,69 @@ export class RegistrationComponent implements OnInit {
           
         },
         error => {
-          console.error('Registration failed', error);
           this.message = 'Registration failed. Please try again.';
         }
       );
     } else {
       this.message = 'Please fill out the form correctly.';
     }
+  }
+  registrationFormGroup(): FormGroup {
+    return new FormGroup({
+      username: new FormControl('', [Validators.required,Validators.maxLength(15)]),
+      email: new FormControl('', [Validators.required,Validators.email]),
+      pincode: new FormControl('', Validators.required),
+      accountType: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required, this.passwordStrengthValidator()]),
+      emailOTP: new FormControl(''),
+      acceptTerms: new FormControl(false, Validators.requiredTrue),
+      confirmPassword: new FormControl('', [Validators.required],)
+    }, { validators: this.passwordMatchValidator });
+  }
+  passwordStrengthChecker:Boolean=false;
+  passwordStrengthValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value || '';
+      const errors: ValidationErrors = {};
+      const requirements: string[] = [];
+  
+      if (value.length < 8) {
+        errors['tooShort'] = true;
+        requirements.push('at least 8 characters');
+      }
+      if (!/[A-Z]/.test(value)) {
+        errors['missingUpperCase'] = true;
+        requirements.push('an uppercase letter');
+      }
+      if (!/[a-z]/.test(value)) {
+        errors['missingLowerCase'] = true;
+        requirements.push('a lowercase letter');
+      }
+      if (!/\d/.test(value)) {
+        errors['missingNumber'] = true;
+        requirements.push('a number');
+      }
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+        errors['missingSpecialChar'] = true;
+        requirements.push('a special character');
+      }
+  
+      if (requirements.length > 0) {
+        errors['passwordRequirementsMessage'] = `Create a password with ${requirements.join(', ')}.`;
+      }
+  
+      return Object.keys(errors).length > 0 ? errors : null;
+    };
+  }
+  
+  passwordMatchValidator(formGroup: AbstractControl): any {
+    const passwordControl = formGroup.get('password');
+    const confirmPasswordControl = formGroup.get('confirmPassword');
+    if (!passwordControl || !confirmPasswordControl) {
+      return { mismatch: true }; 
+    }
+    const password = passwordControl.value;
+    const confirmPassword = confirmPasswordControl.value;
+    return password === confirmPassword ? null : { mismatch: true };
   }
 }

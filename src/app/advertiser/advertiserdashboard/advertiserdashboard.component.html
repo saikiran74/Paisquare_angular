@@ -69,15 +69,29 @@
     </div>
   </div>
   <!--Add funds-->
-  <p-dialog header="Add Funds" [(visible)]="addFundsDialogVisible" [breakpoints]="{ '960px': '75vw' }"
-    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-    <div class="flex gap-4 align-items-center">
+  <p-dialog header="Add Funds" [(visible)]="addFundsDialogVisible"
+     [draggable]="false" [resizable]="false">
+    <div class="flex flex-column md:flex-row gap-2 justify-content-start md:items-center">
       <label for="addAmount">Enter Amount to Add (₹)</label>
-      <input pInputText id="addAmount" type="number" [(ngModel)]="addAmount" class="l" placeholder="Enter amount" [min]="1" />
-    </div>
+      <input 
+        pInputText 
+        id="addAmount" 
+        type="text" 
+        [(ngModel)]="addAmount" 
+        placeholder="Enter amount"
+        class="w-full md:w-auto"
+        pattern="\d*" 
+        (keypress)="validateNumberInput($event)" />
+    </div><br>
+    <div class="flex flex-column md:flex-row gap-2 justify-content-start md:items-center">
+      
+      <label for="upiId">Enter Your UPI ID:</label>
+      <input type="text" id="upiId" [(ngModel)]="payerUpiId" placeholder="example@upi" />
+    </div><br>
+
     <div class="grid col-12 justify-content-end">
-      <button pButton label="Add Funds" class="p-button-success l" (click)="onAddFunds()"  disabled="true"></button>
-    </div>
+      <button pButton label="Proceed to Payment" class="p-button-success l" [disabled]="isProcessing" (click)="addFunds()"></button>
+  </div>
   </p-dialog>
   <p-dialog header="Withdraw Funds" [(visible)]="withdrawDialogVisible" [breakpoints]="{ '960px': '75vw' }"
     [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">

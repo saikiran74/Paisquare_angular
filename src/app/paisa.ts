@@ -32,15 +32,15 @@ export class Advertise{
     constructor(){}
 }
 export class Contactus{
-    name!:string; 
-    email!:string;
-    username!:string;
-    userid!:number;
-    mobilenumber!:string;
-    issue!:string;
-    opendate!:string;
-    closedate!:string;
-    remarks!:string;
+    name:string=''; 
+    email:string='';
+    username:string='';
+    userid:number=0;
+    mobilenumber:string='';
+    issue:string='';
+    opendate:string='';
+    closedate:string='';
+    remarks:string='';
     constructor(){}
 }
 
@@ -129,3 +129,27 @@ export class Favourite{
     advertisementid!:Number;
     userid!:string;
 }
+export enum PaymentStatus {
+    PENDING = "PENDING",
+    SUCCESS = "SUCCESS",
+    FAILED = "FAILED"
+  }
+  
+  export enum PaymentMethod {
+    UPI = "UPI",
+    CARD = "CARD",
+    NET_BANKING = "NET_BANKING"
+  }
+  
+export class Payment {
+    id?: number;
+    userId?: number;
+    orderId?: string;
+    upiId?: string;
+    amount?: number;
+    currency?: string;
+    paymentStatus?: PaymentStatus;
+    transactionId?: string;
+    paymentMethod?: PaymentMethod;
+    createdAt?: string;
+  }

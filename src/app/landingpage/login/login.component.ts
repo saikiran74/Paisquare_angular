@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
             this.authService.login(response.token);
             this._service.userId=response.user.id;
             this._service.userName=response.user.username;
-            this._router.navigate(['advertiser'])
+            this._router.navigate(['home'])
             //this._router.navigate(['home/profile/1'])
           } else if (response.apiMessage.code.includes("OTPNotVerified")) {
             console.log('OTPNotVerified', response.apiMessage);

@@ -1,4 +1,7 @@
-
+.main {
+    min-height: 300px; /* Adjust as needed */
+  }
+  
 h5{
     color:arial;
 }
@@ -51,7 +54,7 @@ ul{
 .tab-header{
     margin-top: -15px;
     margin-bottom: 0px;
-    font-size: 3.5em;
+    font-size: 3em;
 }
 
 .logo {
@@ -65,9 +68,14 @@ ul{
     height: auto;
     padding: 0.5rem 1rem;
 }
+.responsive-image-top {
+    width: 100%;
+    min-height: 98vh;
+    object-fit: cover;
+}
 .responsive-image {
     width: 100%;
-    height: 98vh;
+    min-height: 98vh;
     object-fit: cover;
 }
 .whoCanAdvertiserCard{
@@ -149,8 +157,7 @@ label{
     margin-bottom: 0.5rem;
 }
 .infoText{
-    font: bold;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 .paiSquareCSS {
     margin-top: 0px;
@@ -162,15 +169,25 @@ label{
 :host ::ng-deep .p-card .p-card-body {
     padding: 0rem !important;
 }
+.responsive-image-Contactus {
+        width: 100%;
+        min-height: 100vh; 
+        object-fit: cover;
+    }
 @media (max-width: 768px) {
     .responsive-image {
         width: 100%;
-        height: 80vh;
+        min-height: 65vh;
         object-fit: cover;
     }
     .responsive-image-Contactus {
         width: 100%;
-        height: 87vh;
+        min-height: 80vh; 
+        object-fit: cover;
+    }
+    .responsive-image-top {
+        width: 100%;
+        min-height: 70vh; 
         object-fit: cover;
     }
     .tab-header{
@@ -179,7 +196,6 @@ label{
         font-size: 2rem;
     }
     .infoText{
-        font: bold;
         margin-top: 0px;
         margin-bottom: 2px;
         font-size: 1rem;
