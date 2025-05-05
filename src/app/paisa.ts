@@ -6,6 +6,7 @@ export class User {
     lastname!:string;
     password!:string;
     emailOTP!:string;
+    accountType!: String;
     constructor(){}
 }
 
