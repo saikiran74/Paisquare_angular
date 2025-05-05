@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { AuthService } from '../../service/auth-service.service';
 @Component({
   selector: 'app-profileupdate',
   templateUrl: './profileupdate.component.html',
@@ -24,7 +25,7 @@ export class ProfileupdateComponent implements OnInit {
   isAdvertiser:boolean=false;
   agerange:number=18;
   ageRangeValues: number[] = [10, 100];
-  constructor(private _service: PaiService,private _router: Router,private messageService: MessageService
+  constructor(private _service: PaiService,private _router: Router,private authService: AuthService,private messageService: MessageService
     , private http: HttpClient
   ) {}
 
@@ -54,89 +55,85 @@ export class ProfileupdateComponent implements OnInit {
         console.log('Form status changes:', status);
       });*/
     this.profileForm = this.createFormGroup();
-    if(this._service.accountType.toLowerCase()==='advertiser'){
-      this.isAdvertiser=true;
-    }
-    
-    this.getProfileImage();
-    // loading profile data
     this._service.getUserdata(this._service.userId).subscribe(
-      data =>{
-        this.profileData=data;
-        this.profileForm.get('brandInformation.brandName')?.setValue(data.brandName);
-        this.profileForm.get('brandInformation.brandDescription')?.setValue(data.brandDescription);
-        this.profileForm.get('brandInformation.brandTagLine')?.setValue(data.brandTagLine);
-        this.profileForm.get('brandInformation.website')?.setValue(data.website);
-        this.profileForm.get('personalInformation.advertiserName')?.setValue(data.advertiserName);
-        this.profileForm.get('personalInformation.mobileNumber')?.setValue(data.mobileNumber);
-        this.profileForm.get('personalInformation.country')?.setValue(data.country);
-        this.profileForm.get('personalInformation.email')?.setValue(data.email);
-        this.profileForm.get('personalInformation.brandLocation')?.setValue(data.brandLocation);
-        this.profileForm.get('socialMedia.youtube')?.setValue(data.youtube);
-        this.profileForm.get('socialMedia.facebook')?.setValue(data.facebook);
-        this.profileForm.get('socialMedia.instagram')?.setValue(data.instagram);
-        this.profileForm.get('socialMedia.twitter')?.setValue(data.twitter);
-        this.profileForm.get('socialMedia.pinterest')?.setValue(data.pinterest);
-        this.profileForm.get('brandRecommendation.brandCategory')?.setValue(data.brandCategory);
-        this.profileForm.get('brandRecommendation.brandTargetGender')?.setValue(data.brandTargetGender);
-        this.profileForm.get('brandRecommendation.brandEstablishedIn')?.setValue(data.brandEstablishedIn);
-        if(data.pinCodes){
-          this.profileForm.get('brandRecommendation.pinCodes')?.setValue(data.pinCodes);
-        } else{
-          this.profileForm.get('brandRecommendation.pinCodes')?.setValue([]);
-        }
-        this.profileForm.get('brandRecommendation.brandCompanyEmployeeSize')?.setValue(data.brandCompanyEmployeeSize);
-        if (data.brandHashTags) {
-          this.profileForm.get('brandRecommendation.brandHashTags')?.setValue(data.brandHashTags);
-        } else {
-          this.profileForm.get('brandRecommendation.brandHashTags')?.setValue([]);
-        }
-        this.profileForm.get('brandRecommendation.brandTargetAges')?.setValue(data.brandTargetAges);
-        this.profileForm.get('brandRecommendation.country')?.setValue(data.country);
-        //this.profileForm.patchValue(data);
-        },
-      error=>{
-        console.log("error occured in followerslist")
+      data => {
+        this.profileData = data;
+    
+        // ✅ Automatically switch view based on current role
+        this.isAdvertiser = data.accountType?.toLowerCase() === 'advertiser';
+    
+        // ✅ Populate form
+        this.populateProfileForm(data);
+      },
+      error => {
+        console.log("Error loading profile");
       }
     );
+    
+    this.getProfileImage();
   }
+  // Removed duplicate implementation of populateProfileForm
+  populateProfileForm(data: any) {
+    this.profileForm.get('brandInformation.brandName')?.setValue(data.brandName);
+    this.profileForm.get('brandInformation.brandDescription')?.setValue(data.brandDescription);
+    this.profileForm.get('brandInformation.brandTagLine')?.setValue(data.brandTagLine);
+    this.profileForm.get('brandInformation.website')?.setValue(data.website);
+    this.profileForm.get('personalInformation.advertiserName')?.setValue(data.advertiserName);
+    this.profileForm.get('personalInformation.mobileNumber')?.setValue(data.mobileNumber);
+    this.profileForm.get('personalInformation.country')?.setValue(data.country);
+    this.profileForm.get('personalInformation.email')?.setValue(data.email);
+    this.profileForm.get('personalInformation.brandLocation')?.setValue(data.brandLocation);
+    this.profileForm.get('accountType.accountType')?.setValue(data.accountType);
+    this.profileForm.get('socialMedia.youtube')?.setValue(data.youtube);
+    this.profileForm.get('socialMedia.facebook')?.setValue(data.facebook);
+    this.profileForm.get('socialMedia.instagram')?.setValue(data.instagram);
+    this.profileForm.get('socialMedia.twitter')?.setValue(data.twitter);
+    this.profileForm.get('socialMedia.pinterest')?.setValue(data.pinterest);
+    this.profileForm.get('brandRecommendation.brandCategory')?.setValue(data.brandCategory);
+    this.profileForm.get('brandRecommendation.brandTargetGender')?.setValue(data.brandTargetGender);
+    this.profileForm.get('brandRecommendation.brandEstablishedIn')?.setValue(data.brandEstablishedIn);
+    this.profileForm.get('brandRecommendation.brandCompanyEmployeeSize')?.setValue(data.brandCompanyEmployeeSize);
+    this.profileForm.get('brandRecommendation.brandHashTags')?.setValue(data.brandHashTags || []);
+    this.profileForm.get('brandRecommendation.pinCodes')?.setValue(data.pinCodes || []);
+    this.profileForm.get('brandRecommendation.brandTargetAges')?.setValue(data.brandTargetAges);
+    this.profileForm.get('brandRecommendation.country')?.setValue(data.country);
+  }
+
   createFormGroup(): FormGroup {
     return new FormGroup({
       brandInformation: new FormGroup({
-        brandName: new FormControl('',Validators.maxLength(20)),
+        brandName: new FormControl('', Validators.maxLength(20)),
         brandDescription: new FormControl(''),
         brandTagLine: new FormControl(''),
-        website: new FormControl('',[this.urlValidator()])
+        website: new FormControl('', [this.urlValidator()])
+      }),
+      accountType: new FormGroup({
+        accountType: new FormControl(''),
       }),
       personalInformation: new FormGroup({
         advertiserName: new FormControl(''),
-        mobileNumber: new FormControl('',[this.mobileNumberValidator()]),
+        mobileNumber: new FormControl('', [this.mobileNumberValidator()]),
         country: new FormControl(''),
         email: new FormControl(''),
         brandLocation: new FormControl('')
       }),
-      
       socialMedia: new FormGroup({
-        youtube: new FormControl('',[this.urlValidator()]),
-        facebook: new FormControl('', [
-          this.urlValidator()
-        ]),
-        instagram: new FormControl('',[this.urlValidator()]),
-        twitter: new FormControl('',[this.urlValidator()]),
-        pinterest: new FormControl('',[this.urlValidator()])
+        youtube: new FormControl('', [this.urlValidator()]),
+        facebook: new FormControl('', [this.urlValidator()]),
+        instagram: new FormControl('', [this.urlValidator()]),
+        twitter: new FormControl('', [this.urlValidator()]),
+        pinterest: new FormControl('', [this.urlValidator()])
       }),
-      
       brandRecommendation: new FormGroup({
         brandCategory: new FormControl(''),
         brandTargetGender: new FormControl(''),
         brandEstablishedIn: new FormControl(''),
         brandCompanyEmployeeSize: new FormControl(''),
         brandHashTags: new FormControl(''),
-        pinCodes: new FormControl('',[this.pinCodeValidator()]),
+        pinCodes: new FormControl('', [this.pinCodeValidator()]),
         brandTargetAges: new FormControl(''),
         country: new FormControl('')
       })
-
     });
   }
   profileForm!: FormGroup<any>;
@@ -151,7 +148,17 @@ export class ProfileupdateComponent implements OnInit {
         data=>{
           this.messagesUpdate('success');
           this.showMessageFor='brandInformation';
-          this._router.navigate(['profile/profileupdate'])
+          this._service.getUserdata(this._service.userId).subscribe(
+            updatedData => {
+              this.profileData = updatedData;
+              this.isAdvertiser = updatedData.accountType?.toLowerCase() === 'advertiser';
+              this.populateProfileForm(updatedData);
+              this.messagesUpdate('success');
+            },
+            error => {
+              this.messagesUpdate('error');
+            }
+          );
         },
         error=>{
           this.messagesUpdate('error');
@@ -285,6 +292,54 @@ export class ProfileupdateComponent implements OnInit {
     this.updatingInformation=false;
   }
   
+
+  accountTypeDropdownOptions = [
+  { label: 'General User', value: 'generalUser' },
+  { label: 'Advertiser', value: 'advertiser' }
+];
+
+
+// Removed duplicate implementation of populateProfileForm
+onSubmitAccountTypeUpdate() {
+  this.updatingInformation = true;
+  const accountTypeControl = this.profileForm.get('accountType');
+  this.showMessageFor = 'AccountType';
+
+  if (accountTypeControl && accountTypeControl.valid) {
+    const accountTypePayload = accountTypeControl.value;
+
+    this._service.ProfileAccountTypeUpdate(accountTypePayload, this._service.userId).subscribe(
+      data => {
+        console.log("Account type updated successfully:", data.user);
+        console.log("Account type updated token successfully:", data.token);
+        this.authService.login(data.token);
+        this._service.getUserdata(this._service.userId).subscribe(
+          updatedData => {
+            this.profileData = updatedData;
+            this.isAdvertiser = updatedData.accountType?.toLowerCase() === 'advertiser';
+            this.populateProfileForm(updatedData);
+            this.messagesUpdate('success');
+            this.updatingInformation = false;
+          },
+          error => {
+            this.messagesUpdate('error');
+            this.updatingInformation = false;
+          }
+        );
+      },
+      error => {
+        this.messagesUpdate('error');
+        this.updatingInformation = false;
+      }
+    );
+  } else {
+    this.messagesUpdate('info');
+    this.updatingInformation = false;
+  }
+}
+
+
+
   onSubmitpasswordUpdate(){
     //todo
     const passwordUpdateControl = this.profileForm.get('passwordUpdate');
