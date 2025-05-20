@@ -137,8 +137,10 @@
 
   <br><br>
   <!-- Advertisement Table -->
+  @if(advertisement.length>0){
   <span style="font-size: 2rem; font:bold;">Transactional history</span>
-  <div *ngIf="userData.accountType === 'advertiser'">
+
+    <div *ngIf="userData.accountType === 'advertiser'">
       <p-table [value]="advertisement" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '90rem' }">
           <ng-template pTemplate="header">
               <tr>
@@ -174,4 +176,8 @@
           </ng-template>
       </p-table>
   </div>
+  } @else {
+    <p> No Transactional history</p>
+  }
+  
 </div>

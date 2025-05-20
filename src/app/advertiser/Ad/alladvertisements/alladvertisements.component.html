@@ -14,11 +14,14 @@
             @if(!isMobileView){
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input style="height: 35px;"
+                    <!--<input style="height: 35px;"
                         pInputText style="padding-left: 30px;"
                         placeholder="Filter by pincodes"
                         (keydown.enter)="onSearch($event)" 
-                    />
+                    />-->
+                    <p-inputMask mask="999999" class="form-control"
+                     [style]="{'height': '35px','padding-left':'30px'}"
+                    formControlName="pincode" placeholder="Filter by pincodes" (keydown.enter)="onSearch($event)" /><br>
                 </span>
             } @else {
                 <span class="search-icon" *ngIf="isMobileView">

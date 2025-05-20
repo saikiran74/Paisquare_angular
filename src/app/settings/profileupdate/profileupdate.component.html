@@ -98,15 +98,15 @@
                             <div>
                                 <input pInputText class="inputtext" id="advertiserName" formControlName="advertiserName" name="advertiserName" placeholder="Enter your name">
                             </div>
-                        </div>
+                        </div><br>
                     </div>
                     <div class="col-12 md:col-6 sm:col-12">
                         <div class="pairs">
                             <label for="email">Email</label>
                             <div>
-                                <input pInputText class="inputtext" id="email" formControlName="email" name="email" placeholder="Enter Email">
+                                <input pInputText class="inputtext" id="email" formControlName="email" name="email" placeholder="Enter Email" readonly>
                             </div>
-                        </div>
+                        </div><br>
                     </div>
                     <div class="col-12 md:col-6 sm:col-12">
                         <div class="pairs">
@@ -114,7 +114,7 @@
                             <div>
                                 <input pInputText class="inputtext" id="mobileNumber" pKeyFilter="int" formControlName="mobileNumber"  name="mobileNumber" placeholder="Enter number">
                             </div>
-                        </div>
+                        </div><br>
                     </div>
                     <div class="col-12 md:col-6 sm:col-12">
                         <div class="pairs">
@@ -125,7 +125,7 @@
                                 name="brandLocation"  placeholder="Brand located at"
                                 [style]="{'width':'250px'}"></textarea>
                             </div>
-                        </div>
+                        </div><br>
                     </div>
                 </div>
                 <div class="grid ">
@@ -181,11 +181,13 @@
                     <div [formGroup]="profileForm">
                         <div formGroupName="accountType">
                           <label for="AccountType">Account Type</label>
-                          <p-dropdown 
-                            [options]="accountTypeDropdownOptions" 
-                            formControlName="accountType" 
-                            placeholder="Select account type">
-                          </p-dropdown>
+                          <div>
+                            <p-dropdown 
+                                [options]="accountTypeDropdownOptions" 
+                                formControlName="accountType" 
+                                placeholder="Select account type">
+                            </p-dropdown>
+                          </div>
                         </div>
                       </div>
                   </div>
@@ -204,7 +206,7 @@
               </div>
             </form>
           </p-fieldset><br>
-          
+          <p-confirmDialog></p-confirmDialog>
         <p-fieldset legend="Update password">
             <form [formGroup]="updatePasswordForm" (ngSubmit)="onSubmitpasswordUpdate()">
                 <div class="grid">
@@ -213,20 +215,21 @@
                             <label for="password">Password</label>
                             <div>
                                 <input pInputText class="inputtext" id="password" formControlName="password"  
-                                name="password" placeholder="Enter password" >
+                                name="password" type="password" placeholder="Enter password" >
                             </div>
-                        </div>
+                        </div><br>
                     </div>
                     <div class="col-12 sm:col-12 md:col-6">
                         <div class="pairs">
                             <label for="password">Confirm Password</label>
                             <div>
                                 <input pInputText class="inputtext" id="password" formControlName="confirmPassword"
-                                 name="confirmPassword" placeholder="Confirm password">
+                                 name="confirmPassword" type="password" placeholder="Confirm password">
                             </div>
-                        </div>
+                        </div><br>
                     </div>
                 </div>
+                <br>
                 <div class="grid">
                     <div class="col-12 md:col-8 md:col-offset-4">
                       <div *ngIf="updatePasswordForm.get('confirmPassword')?.invalid && updatePasswordForm.get('confirmPassword')?.touched" class="text-danger">
@@ -271,83 +274,25 @@
                 </div>
             </form>
         </p-fieldset><br>
-        <p-fieldset legend="Update password">
-            <form [formGroup]="updatePasswordForm" (ngSubmit)="onSubmitpasswordUpdate()">
-                <div class="grid">
-                    <div class="col-12 sm:col-12 md:col-6">
-                        <div class="pairs">
-                            <label for="password">Password</label>
-                            <div>
-                                <input pInputText class="inputtext" id="password" formControlName="password"  
-                                name="password" placeholder="Enter password" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 sm:col-12 md:col-6">
-                        <div class="pairs">
-                            <label for="password">Confirm Password</label>
-                            <div>
-                                <input pInputText class="inputtext" id="password" formControlName="confirmPassword"
-                                 name="confirmPassword" placeholder="Confirm password">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid">
-                    <div class="col-12 md:col-8 md:col-offset-4">
-                      <div *ngIf="updatePasswordForm.get('confirmPassword')?.invalid && updatePasswordForm.get('confirmPassword')?.touched" class="text-danger">
-                        <div *ngIf="updatePasswordForm.get('confirmPassword')?.errors?.['required']">
-                        Confirm Password is required.
-                        </div>
-                      </div>
-                      <div *ngIf="updatePasswordForm.hasError('mismatch') && updatePasswordForm.get('confirmPassword')?.touched" class="text-danger">
-                        <div>Passwords do not match.</div>
-                      </div>
-                      <div *ngIf="updatePasswordForm.get('password')?.invalid && updatePasswordForm.get('password')?.touched" class="text-danger">
-                        <div *ngIf="updatePasswordForm.get('password')?.errors?.['required']">Password is required.</div>
-                        <div *ngIf="updatePasswordForm.get('password')?.errors?.['missingUpperCase']">
-                          Password must contain at least one uppercase letter.
-                        </div>
-                        <div *ngIf="updatePasswordForm.get('password')?.errors?.['missingLowerCase']">
-                          Password must contain at least one lowercase letter.
-                        </div>
-                        <div *ngIf="updatePasswordForm.get('password')?.errors?.['missingNumber']">
-                          Password must contain at least one number.
-                        </div>
-                        <div *ngIf="updatePasswordForm.get('password')?.errors?.['missingSpecialChar']">
-                          Password must contain at least one special character.
-                        </div>
-                        <div *ngIf="updatePasswordForm.get('password')?.errors?.['tooShort']">
-                          Password must be at least 8 characters long.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <div class="grid">
-                    <div class="col-12">
-                        <div class="flex justify-content-start">
-                            @if (showMessageFor=='password') {
-                                <p-messages [showTransitionOptions]="'50ms'" [hideTransitionOptions]="'50ms'"></p-messages>
-                            }
-                        </div>
-                        <div class="flex justify-content-end ">
-                            <p-button label="Update" type="submit" [disabled]="!updatePasswordForm.valid"></p-button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </p-fieldset><br>
-        @if (isAdvertiser) {
-            <p-fieldset legend="Brand recommendation" formGroupName="brandRecommendation">
+            <p-fieldset legend="Recommendation" formGroupName="brandRecommendation">
                 <div class="grid">
                     <div class="col-12 md:col-6 sm:col-12">
+                        <div class="pairs">
+                            <label for="brandCategory">Category</label>
+                            <div>
+                                <input pInputText class="inputtext" id="brandCategory" formControlName="brandCategory"
+                                 name="brandCategory" placeholder="Enter brand category">
+                            </div>
+                        </div><br>
+                        <!--TODO change this dropdown later
                         <div class="pairs">
                             <label for="brandCategory">category</label>
                             <div>
                                 <p-dropdown [style]="{'width':'250px'}" id="brandCategory" [options]="categories" formControlName="brandCategory"
                                  name="brandCategory" placeholder="Enter brand category"></p-dropdown>
                             </div>
-                        </div>
+                        </div><br>
+                        -->
                     </div>
                     <div class="col-12 md:col-6 sm:col-12">
                         <div class="pairs">
@@ -366,26 +311,29 @@
                                     <label for="" for="AllGenderType" class="ml-2">All Gender types</label>
                                 </div>
                             </div>
-                        </div>
+                        </div><br>
                     </div>
-                    <div class="col-12 md:col-6 sm:col-12">
-                        <div class="pairs">
-                            <label for="brandEstablishedIn">Established in</label>
-                            <div>
-                                <p-calendar [style]="{'width':'250px'}" id="brandEstablishedIn" formControlName="brandEstablishedIn"
-                                dateFormat="yy" view="year" [showIcon]="true" placeholder="Your brand established in"></p-calendar>
-                            </div>
-                            
+                    @if (isAdvertiser) {
+                        <div class="col-12 md:col-6 sm:col-12">
+                            <div class="pairs">
+                                <label for="brandEstablishedIn">Established in</label>
+                                <div>
+                                    <p-calendar [style]="{'width':'250px'}" id="brandEstablishedIn" formControlName="brandEstablishedIn"
+                                    dateFormat="yy" view="year" [showIcon]="true" placeholder="Your brand established in"></p-calendar>
+                                </div>
+                                
+                            </div><br>
                         </div>
-                    </div>
-                    <div class="col-12 md:col-6 sm:col-12">
-                        <div class="pairs">
-                            <label for="brandCompanyEmployeeSize">Company size</label>
-                            <div>
-                                <input pInputText class="inputtext" id="brandCompanyEmployeeSize" formControlName="brandCompanyEmployeeSize"  pKeyFilter="int" name="brandCompanyEmployeeSize" placeholder="Number of employees working in">
-                            </div>
+                        <div class="col-12 md:col-6 sm:col-12">
+                            <div class="pairs">
+                                <label for="brandCompanyEmployeeSize">Company size</label>
+                                <div>
+                                    <input pInputText class="inputtext" id="brandCompanyEmployeeSize" formControlName="brandCompanyEmployeeSize"  pKeyFilter="int" name="brandCompanyEmployeeSize" placeholder="Number of employees working in">
+                                </div>
+                            </div><br>
                         </div>
-                    </div>
+                    }
+                    
                     
                     <div class="col-12 md:col-6 sm:col-12">
                         <div class="pairs">
@@ -393,25 +341,33 @@
                             <div>
                                 <p-dropdown [style]="{'width':'250px'}" id="country" [options]="country" formControlName="country" name="country" placeholder="Select country"></p-dropdown>
                             </div>
-                        </div>
+                        </div><br>
                     </div>
                     
                     <div class="col-12 md:col-6 sm:col-12">
                         <div class="pairs">
                             <label for="brandHashTags">Hashtags</label>
-                            <div>
+                            <!--<div>
                                 <p-chips id="brandHashTags" formControlName="brandHashTags" separator="," name="brandHashTags" placeholder="Enter hashtags"></p-chips>
-                            </div>
-                        </div>
+                            </div>-->
+                            <div>
+                                <input pInputText  type="text" formControlName="brandHashTags"
+                                id="hashtags" name="hashtags" placeholder="Enter comma seperated hashtags"><br>
+                            </div><br>
+                        </div><br>
                     </div>
                     
                     <div class="col-12 md:col-6 sm:col-12">
                         <div class="pairs">
                             <label for="pinCodes">Pin codes</label>
-                            <div>
+                            <!--<div>
                                 <p-chips id="pinCodes" formControlName="pinCodes" separator="," name="pinCodes" placeholder="Brand location pin codes with , seperated"></p-chips>
-                            </div>
-                        </div>
+                            </div>-->
+                            <div>
+                                <input pInputText  type="text" formControlName="pinCodes"
+                                id="pincodes" name="pincodes" placeholder="Enter comma seperated pincodes"><br>
+                            </div><br>
+                        </div><br>
                     </div>
                     <div class="col-12 md:col-6 sm:col-12">
                         <div class="pairs">
@@ -419,7 +375,7 @@
                             <div>
                                 <p-inputMask mask="99-99" id="brandTargetAges" formControlName="brandTargetAges" name="brandTargetAges" placeholder="Enter age range i.e 18-99"></p-inputMask>
                             </div>
-                        </div>
+                        </div><br>
                     </div>
                     <!--
                     <div class="col-12 md:col-6 sm:col-12">
@@ -439,10 +395,7 @@
                 <div class="grid col-12">
                     <div class="col-12 ">
                         <div class="flex justify-content-start">
-                            @if (invalidPinCodesList) {
-                                <span class="validator">Invalid Pin Codes: {{ invalidPinCodesList }}</span>
-                            }
-                                
+                              
                             @if (profileForm.get('socialMedia.youtube')?.errors?.['invalidPinCode']) {
                                 <label class="validator"> enter valid 8-digit numeric pin codes separated by commas.</label>
                             }
@@ -461,8 +414,9 @@
                     </div>
                 </div>
             </p-fieldset><br>
-        }
         
+        @if (isAdvertiser) {
+            
         <p-fieldset legend="Social Media" formGroupName="socialMedia">
             <div class="grid">
                 <div class="col-12 md:col-6 sm:col-12">
@@ -471,7 +425,7 @@
                         <div>
                             <input pInputText class="inputtext" id="youtube" formControlName="youtube" name="youtube" placeholder="Enter youtube url">
                         </div>
-                    </div>
+                    </div><br>
                 </div>
                 <div class="col-12 md:col-6 sm:col-12">
                     <div class="pairs">
@@ -479,7 +433,7 @@
                         <div>
                             <input pInputText class="inputtext" id="facebook" formControlName="facebook" name="facebook" placeholder="Enter facebook url">
                         </div>
-                    </div>
+                    </div><br>
                 </div>
                 <div class="col-12 md:col-6 sm:col-12">
                     <div class="pairs">
@@ -487,7 +441,7 @@
                         <div>
                             <input pInputText class="inputtext" id="instagram" formControlName="instagram" name="instagram" placeholder="Enter instagram url">
                         </div>
-                    </div>
+                    </div><br>
                 </div>
                 <div class="col-12 md:col-6 sm:col-12">
                     <div class="pairs">
@@ -495,7 +449,7 @@
                         <div>
                             <input pInputText class="inputtext" id="twitter" formControlName="twitter"  name="twitter" placeholder="Enter twitter url">
                         </div>
-                    </div>
+                    </div><br>
                 </div>
                 <div class="col-12 md:col-6 sm:col-12">
                     <div class="pairs">
@@ -503,7 +457,7 @@
                         <div>
                             <input pInputText class="inputtext" id="pinterest" formControlName="pinterest" name="pinterest" placeholder="Enter printerest url">
                         </div>
-                    </div>
+                    </div><br>
                 </div> 
             </div>
             <div class="grid">
@@ -538,5 +492,6 @@
                 </div>
             </div>
         </p-fieldset><br>
+        }
     </form>
 </div>

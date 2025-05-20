@@ -1,6 +1,7 @@
 
 .footer {
-  background-color: rgb(69, 134, 255); /* Blue background color */
+    /*background-color: rgb(69, 134, 255); /* Blue background color */
+    background-color: #bdd5ff; /* Blue background color */
   padding: 20px; /* Add some padding */
   width: 100%;
 }

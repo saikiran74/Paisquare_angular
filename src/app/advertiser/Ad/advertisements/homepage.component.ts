@@ -251,8 +251,9 @@ export class HomepageComponent implements OnInit {
       data=>{
         if (data) {
           const title = data.brandname;
-          const text = this.stripHtmlTags(data.description); // Remove HTML tags
-          const url = data.url;
+          const text = this.stripHtmlTags(data.description);
+          const url = "https://paisquare.com/advertisements/"+data.id+"/"+data.slug;
+          console.log("url",url)
           this.share(title, text, url);
         } else {
           console.log("Advertisement not found");
@@ -293,9 +294,13 @@ export class HomepageComponent implements OnInit {
     this.showReportDialog=true
     this.advertisementId=advertisementId;
   }
+  /*
   visitProfile(id:number){
     this._router.navigate(['visit/profile', id]);
-  }
+  }*/
+    visitProfile(id:number){
+      this._router.navigate(['profile/visit', 'advertiser', id]);
+    }
   openChat(Id: number, Name: string): void {
     this._router.navigate(['/user/chat'], { 
       queryParams: { userId: Id, name: Name }

@@ -1,8 +1,8 @@
 
 <div class="main flex justify-content-end" >
-    <p-dropdown [options]="period" [(ngModel)]="selectedPeriod" (click)="selectedtype(selectedPeriod)"
+    <p-dropdown [options]="period" [(ngModel)]="selectedPeriod" (onChange)="selectedtype($event.value)"
     optionLabel="name" optionValue="value"
-     placeholder="This month"></p-dropdown>
+     placeholder="This year"></p-dropdown>
 </div><br>
 <div class="container" style="background-color: rgb(197, 197, 197);">
     <div class="row" style="padding-top: 3px; padding-bottom: 3px;">

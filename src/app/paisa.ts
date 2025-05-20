@@ -14,6 +14,7 @@ export class Advertise{
     brandname:string='';
     description:string='';
     url:string='';
+    userid:Number=0;
     location:string=' ';
     backGroundColor:string='';
     gender!:string;

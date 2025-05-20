@@ -9,10 +9,12 @@ import { catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../../service/auth-service.service';
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-profileupdate',
   templateUrl: './profileupdate.component.html',
-  styleUrls: ['./profileupdate.component.css']
+  styleUrls: ['./profileupdate.component.css'],
+  providers: [ConfirmationService]
 })
 export class ProfileupdateComponent implements OnInit {
   profileImage: boolean=false; // Replace with your actual image path or null
@@ -25,7 +27,12 @@ export class ProfileupdateComponent implements OnInit {
   isAdvertiser:boolean=false;
   agerange:number=18;
   ageRangeValues: number[] = [10, 100];
-  constructor(private _service: PaiService,private _router: Router,private authService: AuthService,private messageService: MessageService
+  constructor(
+    private _service: PaiService,
+    private _router: Router,
+    private authService: AuthService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
     , private http: HttpClient
   ) {}
 
@@ -195,6 +202,21 @@ export class ProfileupdateComponent implements OnInit {
       }
     );
   }
+  getUserdata(){
+    this._service.getUserdata(this._service.userId).subscribe(
+      updatedData => {
+        this.profileData = updatedData;
+        this.isAdvertiser = updatedData.accountType?.toLowerCase() === 'advertiser';
+        this.populateProfileForm(updatedData);
+        this.messagesUpdate('success');
+        this.updatingInformation = false;
+      },
+      error => {
+        this.messagesUpdate('error');
+        this.updatingInformation = false;
+      }
+    );
+  }
   
   selectedFile: File | null = null;
 
@@ -240,7 +262,7 @@ export class ProfileupdateComponent implements OnInit {
       this._service.ProfilepersonalInformationUpdate(personalInfoData,this._service.userId).subscribe(
         data=>{
           this.messagesUpdate('success');
-          this._router.navigate(['profile/profileupdate',this._service.userId])
+          this._router.navigate(['profile/profileupdate'])
       },
         error=>{
         this.messagesUpdate('error');
@@ -302,24 +324,23 @@ export class ProfileupdateComponent implements OnInit {
 // Removed duplicate implementation of populateProfileForm
 onSubmitAccountTypeUpdate() {
   this.updatingInformation = true;
-  const accountTypeControl = this.profileForm.get('accountType');
   this.showMessageFor = 'AccountType';
+  const accountTypeControl = this.profileForm.get('accountType');
 
   if (accountTypeControl && accountTypeControl.valid) {
     const accountTypePayload = accountTypeControl.value;
-
-    this._service.ProfileAccountTypeUpdate(accountTypePayload, this._service.userId).subscribe(
-      data => {
-        console.log("Account type updated successfully:", data.user);
-        console.log("Account type updated token successfully:", data.token);
-        this.authService.login(data.token);
-        this._service.getUserdata(this._service.userId).subscribe(
-          updatedData => {
-            this.profileData = updatedData;
-            this.isAdvertiser = updatedData.accountType?.toLowerCase() === 'advertiser';
-            this.populateProfileForm(updatedData);
-            this.messagesUpdate('success');
-            this.updatingInformation = false;
+    this.confirmationService.confirm({
+      message: 'Please confirm on account switching?',
+      header: 'Switch Account Type',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Switch',
+      rejectLabel: 'Cancel',
+      accept: () => {
+        this._service.ProfileAccountTypeUpdate(accountTypePayload, this._service.userId).subscribe(
+          data => {
+            this.authService.login(data.token);
+            this.getUserdata();
+            this._router.navigate(['home']);
           },
           error => {
             this.messagesUpdate('error');
@@ -327,16 +348,17 @@ onSubmitAccountTypeUpdate() {
           }
         );
       },
-      error => {
-        this.messagesUpdate('error');
+      reject: () => {
         this.updatingInformation = false;
       }
-    );
+    });
+
   } else {
     this.messagesUpdate('info');
     this.updatingInformation = false;
   }
 }
+
 
 
 

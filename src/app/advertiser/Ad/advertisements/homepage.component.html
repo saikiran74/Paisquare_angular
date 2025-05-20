@@ -9,8 +9,8 @@
                     <div
                       *ngIf="ad.advertiser.profileImage; else placeholder"
                       class="logo-container">
-                        <img loading="lazy" [src]="'data:image/png;base64,' + ad.advertiser.profileImage" routerLink="" alt="Logo"
-                        style="width: 35px; height: 30px; padding-left: 5px; margin-top: -10px;" class="logo">
+                        <img loading="lazy" [src]="'data:image/png;base64,' + ad.advertiser.profileImage" alt="{{ad.brandname}} Logo"
+                        style="width: 35px; height: 30px; padding-left: 5px; margin-top: -10px; border-radius:50%" class="logo">
                     </div>
                     <ng-template #placeholder>
                     </ng-template>
@@ -44,13 +44,10 @@
         <div class="col-12 flex">
            <label style="font-size: 1.2rem; "  [innerHTML]="ad.description"></label>
         </div>
-        
     </div>
-
-    <!-- Footer Section with Interactions -->
+    <!--
     <div>
         <div class="flex gap-30">
-            <!-- Like Button -->
             <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
                 <div class="footer-icon">
                     <p-button [disabled]="!isAuthenticated" (click)="like(ad.id)" 
@@ -63,8 +60,6 @@
                     <label class="goldColor" style="padding-top: 0px;">{{ad.likes.length}} {{ad.likes.length == 1 ? 'Like' : 'Likes'}}</label>
                 </div>
             </div>
-
-            <!-- Follow Button -->
             <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
                 <div class="footer-icon">
                     <p-button [disabled]="!isAuthenticated" (click)="follower(ad.advertiser.id)" name="post_id">
@@ -76,14 +71,79 @@
                     <label class="goldColor">{{ followerslist.includes(ad.advertiser.id) ? 'Following' : 'Follow' }}</label>
                 </div>
             </div>
-
-            <!-- Share Button -->
             <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
                 <div class="footer-icon">
                     <p-button [disabled]="!isAuthenticated" role="button" (click)="Shareadvertisement(ad.id)" data-toggle="modal" data-target="#share"
                         class="btn btn-primary" [style]="{'border': 'none', 'background': 'none','color': 'rgb(17, 0, 255)'}">
                         <i class="pi pi-share-alt" style="font-size: 2rem"></i>
                     </p-button>
+                </div>
+                <div>
+                    <label class="goldColor">Share</label>
+                </div>
+            </div>
+            <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
+                <div class="footer-icon">
+                    <a (click)="visited(ad.id,ad.url)" href="{{ad.url}}" target="_blank" style="border:none;">
+                        <i [ngStyle]="{'color': ad.visiteduser.includes(userId) ? 'blue' : 'black'}"
+                            style="border: none;" role="button" class="pi pi-link" style="font-size: 2rem"></i>
+                    </a>
+                </div>
+                <div>
+                    <label class="goldColor">{{ad.visitscount}} Visits</label>
+                </div>
+            </div>
+            <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
+                <div class="footer-icon">
+                    <p-button [disabled]="!isAuthenticated" (click)="commentlist(ad.id)" aria-expanded="false">
+                        <i [ngStyle]="{'color': ad.commenteduser.includes(userId) ? 'blue' : 'black'}"
+                            style="border: none;" role="button" class="pi pi-comments" style="font-size: 2rem"></i>
+                    </p-button>
+                </div>
+                <div>
+                    <label class="goldColor"> Comments</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+    <!-- Footer Section with Interactions -->
+    <div>
+        <div class="flex gap-30">
+            <!-- Like Button -->
+            <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
+                <div class="footer-icon">
+                    <a disabled="!isAuthenticated" (click)="like(ad.id)" 
+                        id="likebotton" type="submit" name="post_id" >
+                        <i class="pi" [ngClass]="{'pi-thumbs-up-fill': ad.likes.includes(userId), 'pi-thumbs-up': !ad.likes.includes(userId)}"
+                            style="font-size: 2rem; color: blue;"></i>
+                    </a>
+                </div>
+                <div>
+                    <label class="goldColor" style="padding-top: 0px;">{{ad.likes.length}} {{ad.likes.length == 1 ? 'Like' : 'Likes'}}</label>
+                </div>
+            </div>
+
+            <!-- Follow Button -->
+            <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
+                <div class="footer-icon">
+                    <a disabled="!isAuthenticated" (click)="follower(ad.advertiser.id)" name="post_id">
+                        <i class="pi" [ngClass]="{'pi-heart-fill': followerslist.includes(ad.advertiser.id), 'pi-heart': !followerslist.includes(ad.advertiser.id)}"
+                            style="font-size: 2rem; color: blue;"></i>
+                    </a>
+                </div>
+                <div>
+                    <label class="goldColor">{{ followerslist.includes(ad.advertiser.id) ? 'Following' : 'Follow' }}</label>
+                </div>
+            </div>
+
+            <!-- Share Button -->
+            <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
+                <div class="footer-icon">
+                    <a disabled="!isAuthenticated" role="button" (click)="Shareadvertisement(ad.id)" data-toggle="modal" data-target="#share"
+                        class="btn btn-primary" [style]="{'border': 'none', 'background': 'none','color': 'rgb(17, 0, 255)'}">
+                        <i class="pi pi-share-alt" style="font-size: 2rem"></i>
+                    </a>
                 </div>
                 <div>
                     <label class="goldColor">Share</label>
@@ -106,10 +166,10 @@
             <!-- Comment Button -->
             <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
                 <div class="footer-icon">
-                    <p-button [disabled]="!isAuthenticated" (click)="commentlist(ad.id)" aria-expanded="false">
+                    <a disabled="!isAuthenticated" (click)="commentlist(ad.id)" aria-expanded="false">
                         <i [ngStyle]="{'color': ad.commenteduser.includes(userId) ? 'blue' : 'black'}"
                             style="border: none;" role="button" class="pi pi-comments" style="font-size: 2rem"></i>
-                    </p-button>
+                    </a>
                 </div>
                 <div>
                     <!--{{ad.commenteduser.length}}-->
@@ -170,7 +230,7 @@
     <p-dialog header="Report" [(visible)]="showReportDialog" [breakpoints]="{ '960px': '75vw' }"
         [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
         <ng-template pTemplate="header">
-            <label class="modal-title" id="reportModel">Report</label>
+            <h3 class="modal-title" id="reportModel">Report this post</h3>
             
         </ng-template>
         <ng-template pTemplate="body">
@@ -190,10 +250,12 @@
                 <input class="form-control" type="text" [(ngModel)]="selectOptionText" />
             </div>
         </ng-template>
+        <br>
         <ng-template pTemplate="footer">
-            <div class="justify-content-between">
+            <div class="justify-content-between" >
                 <button (click)="Reportadvertisement(advertisementId)" 
-                style="background-color: blue;" class="btn bg-primary border-round m-2" >Report Advertisement</button>
+                 class="btn bg-primary justify-content-center align-items-center"
+                  [style]="{'height':'50px','border-radius':'5px'}">Report Advertisement</button>
             </div>
         </ng-template>
     </p-dialog>
@@ -219,7 +281,7 @@
                     {{ ad.favourites.includes(userId) ? 'Remove from favourites' : 'Add to favourites' }}
                 </p-button>
             </div><br>
-            @if(ad.advertiser.id == userId && isAuthenticated){
+            @if(ad.userid == userId && isAuthenticated){
                 <p-button (click)="editAdvertisement(ad.id)">
                     Edit
                 </p-button>

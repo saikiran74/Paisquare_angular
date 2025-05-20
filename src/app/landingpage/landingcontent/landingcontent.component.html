@@ -28,10 +28,15 @@
             font-weight: 600; font-size: 20px; " >
             Explore & Earn
           </div>
-          <div style="font-family: Arial, Helvetica, sans-serif; font-weight: 400; font-size: 20px; color: #000000; margin-top: 30px;">
+          <!--<div style="font-family: Arial, Helvetica, sans-serif; font-weight: 400; font-size: 20px; color: #000000; margin-top: 30px;">
             Unlock Your Earning Potential with Pai Square!<br>
             Empowering Advertisers and Users Alike for Limitless Possibilities in Online Engagement.<br>
             Join the Revolution of Rewarding Ad Interactions Today!
+          </div>-->
+          <div style="font-family: Arial, Helvetica, sans-serif; font-weight: 400; font-size: 20px; color: #000000; margin-top: 30px;">
+            Struggling to get your brand noticed online?<br>
+            A Platform Where Every Interaction Builds Trust, Grows Reach, and Strengthens Genuine Brand Relationships.<br>
+            Experience the Future of Digital Marketing with Pai Square!
           </div>
         </div>
         @if(!isMobileView){
@@ -49,7 +54,7 @@
     <img src="../../../assets/images/landingPage/AdvertiserBackground.jpg" alt="paisquare image backgroud" class="responsive-image" width="100%" height="100%" loading="lazy">
     <div class="contentOverImage">
       <div class="flex justify-content-center">
-        <h1 class="tab-header"  style=" color: yellow;">Advertiser</h1>
+        <h1 class="tab-header"  style=" color: #FFD700;">Advertiser Benefits</h1>
       </div>
       <div class="grid" style="width: 100%;">
         <div class="col-12 md:col-6 sm:col-6">
@@ -78,7 +83,7 @@
     <img src="../../../assets/images/landingPage/UsersBackground.jpg" alt="paisquare  user image" class="responsive-image" width="100%" height="100%" loading="lazy">
     <div class="contentOverImage">
       <div class="flex justify-content-center">
-        <h1 class="tab-header" style="color: rgb(38, 20, 237); ">Users</h1>
+        <h1 class="tab-header" style="color: #264FED; ">User Benefits</h1>
       </div>
       <div class="grid">
         @if(!isMobileView){
@@ -86,7 +91,7 @@
             <img src="../../../assets/images/landingPage/UsersLeftside.jpg" alt="left Image 3" width="60%" height="60%" class="leftImage3" loading="lazy">
           </div>
         }
-        <div class="md:col-6 sm:col-6">
+        <div class="col-12 md:col-6 sm:col-6">
           <ul class="userList">
             <li><p class="infoText">Earn Money and PAIs by Clicking and Engaging with Ads.</p></li>
             <li><p class="infoText">Discover New Brands, Products, and Services Tailored to Your Interests.</p></li>
@@ -278,7 +283,7 @@
           </div>
         }
         <div class="col-12 sm:col-6 flex justify-content-center align-items-center">
-          <p-card>
+          <p-card [style]="{'height':'500px'}">
             <form class="flex justify-content-center" (ngSubmit)="contactusForm()">
               <div class="p-fluid " >
                 <div class="p-field"><br>
@@ -286,12 +291,14 @@
                   <input id="name" type="text" name="name" pInputText placeholder="Your Name" [(ngModel)]="contactus.name" />
                 </div>
                 <div class="p-field">
-                  <label for="email">Email<span class="text-danger">*</span></label>
-                  <input id="email" type="email" name="email" pInputText placeholder="Enter your email id" [(ngModel)]="contactus.email"/>
+                  <label for="email">Email <span class="text-danger">*</span></label>
+                  <input id="email" type="email" autocomplete="email" name="email" pInputText placeholder="Enter your email id" [(ngModel)]="contactus.email"/>
                 </div>
                 <div class="p-field">
-                  <label for="mobile">Mobile Number</label>
-                  <input id="mobile" type="number" name="mobileNumber" pInputText placeholder="Enter your Mobile number" [(ngModel)]="contactus.mobilenumber"/>
+                  <label for="mobile">Mobile Number <span class="text-danger">*</span></label>
+                  
+                  <p-inputMask mask="9999999999" class="mobile" id="mobile"
+                    formControlName="mobile" placeholder="Enter your Mobile number" [(ngModel)]="contactus.mobilenumber" /><br>
                 </div>
                 <div class="p-field">
                   <label for="issue">Issue<span class="text-danger">*</span></label>

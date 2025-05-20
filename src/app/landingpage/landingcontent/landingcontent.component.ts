@@ -20,6 +20,12 @@ border: any;
   constructor(private _service: PaiService,private _router: Router) {}
   
   ngOnInit(): void {
+    function setRealHeight() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    window.addEventListener('resize', setRealHeight);
+    setRealHeight();
     this.checkViewport();
     this.userId = this._service.userId;
     if (this.userId) {
@@ -40,16 +46,24 @@ border: any;
   }
   
   contactusForm(){
-    console.log("contactusForm")
     this.contactus.userid=this._service.userId;
     this.contactus.username=this._service.userName;
     if(this.contactus.name==''){
       this.message="Please enter your name";
       this.errorMessage=true;
+    } else if (this.contactus.name.length>30) {
+      this.message = "Enter your name less than 30 characters";
+      this.errorMessage = true;
     }
     else if(this.contactus.email==''){
       this.message="Please enter your email";      
       this.errorMessage=true;
+    } else if (!this.isValidEmail(this.contactus.email)) {
+      this.message = "Please enter a valid email address";
+      this.errorMessage = true;
+    } else if (!this.isValidMobileNumber(this.contactus.mobilenumber)) {
+      this.message = "Please enter valid number";
+      this.errorMessage = true;
     }
     else if(this.contactus.issue==''){
       this.message="Please enter your query";      
@@ -72,5 +86,14 @@ border: any;
       )
     }
   }
+  isValidEmail(email: string): boolean {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailPattern.test(email);
+  }
+  isValidMobileNumber(mobile: string): boolean {
+    const mobileRegex = /^[1-9]\d{9}$/;
+    return mobileRegex.test(mobile);
+  }
+  
 }
 
