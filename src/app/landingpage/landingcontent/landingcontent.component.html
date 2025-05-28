@@ -1,4 +1,570 @@
+<div class="landing-container">
+  <!-- Navigation -->
+  <div class="navbar">
+    <div class="navbar-left">
+      <img src="../../../assets/images/logo/paisquare_logo_without_bg.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+      <span class="brand-title">Pai Square</span>
+    </div>
+    <div class="navbar-links">
+      <a href="#Advertiser">Advertiser Benefits</a>
+      <a href="#User-Benefits">User Benefits</a>
+      <a href="#Who-Can-Advertisers">Who Can Advertisers</a>
+      <a href="#Contact-US">Contact US</a>
+    </div>
+    <div class="navbar-buttons">
+      <button pButton label="Sign In" routerLink="/login" class="p-button-outlined p-button-sm sign-in-btn"></button>
+      <button pButton label="Get Started Free"  routerLink="/createaccount" class="p-button-sm get-started-btn"></button>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="inline-flex align-items-center justify-content-center mb-6 px-3 py-1 border-round font-medium text-sm custom-badge">
+        <i class="pi pi-bolt mr-2 text-blue-700"></i>
+        India's First Reward-Based Advertising Platform
+      </div>
+      <h1 class="hero-heading">
+        The Advertising Platform for
+        <span class="highlighted-text">Indian Brands</span>
+      </h1>
+      <p class="hero-description">
+        Connect with your local audience through free and low-cost advertising.
+        Users earn rewards for engaging with ads, creating genuine interactions and higher ROI for brands.
+      </p>
+      <div class="hero-buttons">
+        <button pButton label="Start Advertising Free" routerLink="/login" icon="pi pi-arrow-right" iconPos="right" class="p-button-raised advertise-btn"></button>
+        <button pButton label="Earn While Browsing" routerLink="/home" icon="pi pi-wallet" iconPos="right" class="p-button-outlined"></button>
+      </div>
+      <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-number text-primary">10K+</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number text-purple">500+</div>
+        <div class="stat-label">Brands</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number text-green">₹2L+</div>
+        <div class="stat-label">Rewards Paid</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number text-orange">28</div>
+        <div class="stat-label">States Covered</div>
+      </div>
+    </div>
+    </div>
+    
+
+    
+  </section>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="Advertiser" class="advertiser-benefits" >
+  <div class="container">
+    <div class="intro-section">
+      <h2 class="headline">
+        For <span class="highlighted">Advertisers</span>
+      </h2>
+      <p class="subtext">
+        Powerful tools and features to help you reach your target audience effectively and grow your business
+      </p>
+    </div>
+
+    <div class="benefit-grid">
+      <div
+        class="card animate-slide-up"
+        *ngFor="let benefit of advertiserbenefits; index as i"
+        [style.animationDelay]="i * 0.1 + 's'">
+        <div class="card-header">
+          <div class="icon">{{ benefit.icon }}</div>
+          <h3>{{ benefit.title }}</h3>
+        </div>
+        <div class="card-content">
+          <p>{{ benefit.description }}</p>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="cta-section">
+      <div class="cta-box">
+        <h3 class="cta-title">Ready to Advertise with PaiSquare?</h3>
+        <p class="cta-subtext">
+          Join thousands of successful advertisers who trust PaiSquare for their marketing needs
+        </p>
+        <button pButton type="button" label="Start Advertising Today" class="cta-button"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--User section-->
+<section id="User-Benefits" class="user-benefits">
+  <div class="container">
+    <div class="section-header animate-fade-in">
+      <h2>
+        For <span class="gradient-text">Users</span>
+      </h2>
+      <p>Turn your time into money while discovering amazing products and services that match your interests</p>
+    </div>
+
+    <div class="benefit-grid">
+      <div
+        class="card animate-slide-up"
+        *ngFor="let benefit of userBenefits; index as i"
+        [style.animationDelay]="i * 0.1 + 's'"
+      >
+        <div class="card-header">
+          <div class="icon">{{ benefit.icon }}</div>
+          <h3>{{ benefit.title }}</h3>
+        </div>
+        <div class="card-content">
+          <p>{{ benefit.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="calculator">
+      <h3>Earning Potential Calculator</h3>
+      <div class="calculator-grid">
+        <div class="calculator-box green">
+          <div class="amount">₹500-1500</div>
+          <div class="label">Casual User</div>
+          <div class="details">5-15 ads per day</div>
+        </div>
+        <div class="calculator-box blue">
+          <div class="amount">₹1500-3000</div>
+          <div class="label">Active User</div>
+          <div class="details">15-30 ads per day</div>
+        </div>
+        <div class="calculator-box purple">
+          <div class="amount">₹3000+</div>
+          <div class="label">Power User</div>
+          <div class="details">30+ ads per day</div>
+        </div>
+      </div>
+      <p class="note">*Monthly earning estimates based on average engagement rates</p>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+<div class="advertiser-benefits-section" id="Who-Can-Advertisers">
+  <!-- Section Header -->
+  <h2 class="section-title text-center">
+    Who Can <span class="gradient-text">Advertise</span>
+  </h2>
+  <p class="section-subtitle text-center">
+    PaiSquare welcomes all types of businesses and organizations to connect with their target audience
+  </p>
+
+
+  <div class="benefit-grid">
+    <div
+      class="card animate-slide-up"
+      *ngFor="let item of categories; index as i"
+      [style.animationDelay]="i * 0.1 + 's'">
+      <div class="card-header">
+        <div class="icon">{{ item.icon }}</div>
+        <h3>{{ item.title }}</h3>
+      </div>
+      <div class="card-content">
+        <p>{{ item.description }}</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Call-to-Action Box -->
+  <div class="call-to-action text-center">
+    <h2 class="cta-title">Ready to reach your audience?</h2>
+    <p class="cta-subtitle">Join PaiSquare today and start advertising for free!</p>
+    <!-- PrimeNG rounded button -->
+    <p-button label="Get Started" [rounded]="true" styleClass="cta-button"></p-button>
+  </div>
+</div>
+
+
+
+
+
+
+<!--How It Works-->
+<section id="how-it-works" class="container py-5 bg-gradient">
+  <div class="header text-center">
+    <h2 class="title">
+      How It <span class="gradient-text">Works</span>
+    </h2>
+    <p class="subtitle">
+      Simple, transparent, and rewarding for everyone involved
+    </p>
+  </div>
+  <div class="grid px-1 max-w-screen-xl mx-auto">
+    <!-- Advertisers -->
+    <div class="col-12 md:col-6">
+      
+      <h3 class="text-2xl font-bold text-center text-gray-900 mb-4">For Advertisers</h3>
+      <div class="p-flex p-flex-column gap-3">
+        <div class="flex gap-3 align-items-center">
+          <div class="step-circle bg-primary ">1</div>
+          <div>
+            <h4 class="text-lg font-semibold mb-1">Sign Up & Create Profile</h4>
+            <p class="text-gray-600">
+              Register with basic details and set up your advertiser profile in minutes.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 align-items-center">
+          <div class="step-circle bg-primary">2</div>
+          <div>
+            <h4 class="text-lg font-semibold mb-1">Post Your Ad</h4>
+            <p class="text-gray-600">
+              Create compelling ads with targeting options, choose free or paid promotion, and publish instantly.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 align-items-center">
+          <div class="step-circle bg-primary">3</div>
+          <div>
+            <h4 class="text-lg font-semibold mb-1">Track & Engage</h4>
+            <p class="text-gray-600">
+              Monitor real-time analytics, respond to comments, and build relationships with your audience.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Users -->
+    <div class="col-12 md:col-6">
+      <h3 class="text-2xl font-bold text-center text-gray-900 mb-4">For Users</h3>
+      <div class="p-flex p-flex-column gap-3">
+        <div class="flex gap-3 align-items-center">
+          <div class="step-circle bg-purple">1</div>
+          <div>
+            <h4 class="text-lg font-semibold mb-1">Browse & Discover</h4>
+            <p class="text-gray-600">
+              Explore personalized ads based on your location and interests.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 align-items-center">
+          <div class="step-circle bg-purple">2</div>
+          <div>
+            <h4 class="text-lg font-semibold mb-1">Engage & Earn</h4>
+            <p class="text-gray-600">
+              Like, comment, share, and click on ads to earn PAI coins or money rewards.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 align-items-center">
+          <div class="step-circle bg-purple">3</div>
+          <div>
+            <h4 class="text-lg font-semibold mb-1">Redeem Rewards</h4>
+            <p class="text-gray-600">
+              Cash out your earnings or trade PAI coins with advertisers for better rates.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+
+
+
+<!-- Why Choose PaiSquare Section -->
+<div class="container text-center py-5">
+  <div class=" border-round-2xl text-white"
+       style="background: linear-gradient(to right, #7e22ce, #2563eb);">
+    <h3 class="text-center text-2xl font-bold mb-4 py-5">Why Choose PaiSquare?</h3>
+
+    <div class="grid justify-content-center gap-4">
+      <!-- Card 1 -->
+      <div class="col-12 md:col-3">
+        <div class="text-3xl mb-2">🚫</div>
+        <h4 class="font-semibold mb-2">No Middlemen</h4>
+        <p class="text-sm" style="opacity: 0.9;">Direct connection between advertisers and users</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-12 md:col-4">
+        <div class="text-3xl mb-2">⚡</div>
+        <h4 class="font-semibold mb-2">Instant Results</h4>
+        <p class="text-sm" style="opacity: 0.9;">Real-time publishing and engagement tracking</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-12 md:col-4">
+        <div class="text-3xl mb-2">🔒</div>
+        <h4 class="font-semibold mb-2">Secure Platform</h4>
+        <p class="text-sm" style="opacity: 0.9;">Protected transactions and data privacy</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<section id="Contact-US" class="contact-section py-5">
+  <div class="container px-3">
+    <!-- Heading -->
+    <div class="text-center mb-6 fadein animation-duration-500">
+      <h2 class="text-4xl font-bold vertical-gap">
+        Get&nbsp;In
+        <span class="gradient-text">Touch</span>
+      </h2>
+      <p class="text-xl text-gray-600 max-w-30rem mx-auto">
+        Have questions or need support? We're here to help you succeed on PaiSquare
+      </p>
+    </div>
+
+    <div class="grid lg:col-12 mx-auto max-w-full lg:max-w-90rem">
+      <!-- Contact Info -->
+      <div class="col-12 md:col-6 flex flex-column gap-4 ">
+        <div class="card shadow-4 p-4 border-round-2xl">
+          <h3 class="text-2xl font-bold mb-3">Contact Information</h3>
+          <div class="flex flex-column gap-3">
+            <div class="mb-3 flex align-items-center gap-3">
+              <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-purple-500 text-white border-circle">
+                📧
+              </div>
+              <div>
+                <div class="font-bold text-gray-900 flex justify-content-start">Email</div>
+                <small class="text-gray-600">supportpaisquare.com</small>
+              </div>
+            </div>
+            <div class="mb-3 flex align-items-center gap-3">
+              <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-green-500 text-white border-circle">
+                ⚡
+              </div>
+              <div>
+                <div class="font-bold text-gray-900">Response Time</div>
+                <small class="text-gray-600 flex justify-content-start">Within 1-2 Days</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="quick-support border-round-2xl p-4 text-center text-white">
+          <h3 class="text-xl font-bold mb-3">Quick Support</h3>
+          <p class="mb-4 opacity-80">
+            For immediate assistance, check our FAQ section or contact our support team directly.
+          </p>
+          <button pButton type="button" label="View FAQ" class="p-button-secondary bg-white text-purple-600 hover:bg-gray-100"></button>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="col-12 md:col-6 flex flex-column gap-4 card">
+        <h3 class="text-2xl font-bold mb-4">Send us a Message</h3>
+        <form class="container flex justify-content-start" (ngSubmit)="contactusForm()">
+          <div class="grid flex ">
+            <div class="col-12 lg:col-6 flex justify-content-start">
+              <label for="name" style="color: black;">Your Name <span class="text-danger">*</span></label>
+            </div>
+            <div class="col-12 lg:col-6 flex justify-content-start">
+              <input id="name" type="text" name="name" pInputText placeholder="Your Name" [(ngModel)]="contactus.name" />
+            </div>
+            <div class="col-12 lg:col-6 flex justify-content-start">
+              <label for="email">Email <span class="text-danger">*</span></label>
+            </div>
+            <div class="col-12 lg:col-6 flex justify-content-start">
+              <input id="email" type="email" autocomplete="email" name="email" pInputText placeholder="Enter your email id" [(ngModel)]="contactus.email"/>
+            </div>
+            <div class="col-12 lg:col-6 flex justify-content-start">
+              <label for="mobile">Mobile Number <span class="text-danger">*</span></label>
+            </div>
+            <div class="col-12 lg:col-6 flex justify-content-start">
+              <p-inputMask mask="9999999999" class="mobile" id="mobile"
+              formControlName="mobile" placeholder="Enter your Mobile number" [(ngModel)]="contactus.mobilenumber"
+              [style]="{'width':'60px' }" /><br>
+            </div>
+            <div class="col-12 lg:col-6 flex justify-content-start">
+              <label for="issue">Issue<span class="text-danger">*</span></label>
+            </div>
+            <div class="col-12 lg:col-6 flex justify-content-start">
+              <textarea id="issue" name="issue" type="text" pInputText placeholder="Enter your issue" [(ngModel)]="contactus.issue"></textarea>
+            </div>
+            <div class="col-12" style="width: 100%;" class="p-field flex justify-content-center">
+              <button pButton type="submit" label="send my query" class="p-button-raised p-button-primary" ></button>
+            </div>
+            <div class="col-12">
+              <div class="p-field" *ngIf="message">
+                <p [style]="{'color': errorMessage ? 'red':'green', 'text-align': 'center'}">{{ message }}</p>
+              </div>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer></footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div>
+  <!--
+  
   <div class="main"  style=" margin:-6px;">
     <img src="assets/images/landingPage/MainpageBackground2.jpg" alt="paisquare image" class="responsive-image-top" loading="lazy">
     <div class="contentOverImage"  >
@@ -28,11 +594,6 @@
             font-weight: 600; font-size: 20px; " >
             Explore & Earn
           </div>
-          <!--<div style="font-family: Arial, Helvetica, sans-serif; font-weight: 400; font-size: 20px; color: #000000; margin-top: 30px;">
-            Unlock Your Earning Potential with Pai Square!<br>
-            Empowering Advertisers and Users Alike for Limitless Possibilities in Online Engagement.<br>
-            Join the Revolution of Rewarding Ad Interactions Today!
-          </div>-->
           <div style="font-family: Arial, Helvetica, sans-serif; font-weight: 400; font-size: 20px; color: #000000; margin-top: 30px;">
             Struggling to get your brand noticed online?<br>
             A Platform Where Every Interaction Builds Trust, Grows Reach, and Strengthens Genuine Brand Relationships.<br>
@@ -50,6 +611,7 @@
       </div>
     </div>
   </div>
+  
   <div class="advertiser" style=" margin:-6px;" >
     <img src="../../../assets/images/landingPage/AdvertiserBackground.jpg" alt="paisquare image backgroud" class="responsive-image" width="100%" height="100%" loading="lazy">
     <div class="contentOverImage">
@@ -318,3 +880,4 @@
     </div>
   </div>
 </div>
+-->

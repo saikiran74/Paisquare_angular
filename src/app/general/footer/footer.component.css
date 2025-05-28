@@ -1,18 +1,42 @@
 
-.footer {
-    /*background-color: rgb(69, 134, 255); /* Blue background color */
-    background-color: #bdd5ff; /* Blue background color */
-  padding: 20px; /* Add some padding */
-  width: 100%;
+.text-gradient {
+    background: linear-gradient(to right, #60a5fa, #a78bfa);
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    transition: transform 0.3s;
+    text-decoration: none;
+  }
+  
+  .social-btn:hover {
+    transform: scale(1.1);
+  }
+  .logo {
+    height: 60px;
+    width:60px;
+    align-items:left;
+    cursor: pointer;
+    margin: 30px;
 }
 
+/*
+.footer {
+    background-color: #bdd5ff; 
+  padding: 20px;
+  width: 100%;
+}
 .logo {
     height: 60px;
     width:60px;
     align-items:left;
 }
- 
-
 .socialMediaIcons{
     height: 40px;
     width: 40px;
@@ -21,13 +45,9 @@
 label{
     color: black;
 }
-
-
 .textBlack {
     color: white;
 }
-
-
 ::ng-deep .p-button.p-button-link {
     border: none;
     box-shadow: none;
@@ -40,3 +60,4 @@ label{
     color: rgb(11, 11, 11);
 }
 
+*/
