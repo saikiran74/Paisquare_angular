@@ -1,3 +1,235 @@
+<div class="signup-container">
+  <div class="signup-box">
+    <!-- Logo and Brand -->
+    <div class="brand-header flex justify-content-center text-center">
+        
+      <div class="logo-box">
+          <a>
+              <img routerLink="/" style="cursor:pointer;"
+              src="../../../assets/images/logo/paisquare_logo_without_bg.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+          </a>      
+      </div>
+      <span class="brand-name">Pai Square</span>
+    </div>
+    <div class="card">
+      <h2 class="card-title">Create Account</h2>
+      <p class="card-desc">Fill in your details to get started</p>
+      <form [formGroup]="registrationForm" (ngSubmit)="registerUser()">
+        <div class="form-group grid-content">
+          <div class="grid">
+            <label for="username" class="col-12 md:col-4 col-form-label">User name</label>
+            <div class="col-12 md:col-8">
+              <input pInputText type="text" class="form-control" formControlName="username" placeholder="Enter username" autocomplete="postal-code" required><br>
+              <div *ngIf="registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched" class="text-danger">
+                  <div *ngIf="registrationForm.get('username')?.errors?.['required']">
+                    Username is required.
+                  </div>
+                  @if (registrationForm.get('username')?.value?.length>20) {
+                    <div>
+                      Please enter username less than 20 characters
+                    </div>
+                  }
+              </div>
+            </div>
+          </div>
+          <div class="grid">
+            <label for="email" class="col-12 md:col-4 col-form-label">Email</label>
+            <div class="col-12 md:col-8">
+              <input pInputText type="email" class="form-control" formControlName="email" placeholder="Enter email" required><br>
+              <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="text-danger">
+                  <div *ngIf="registrationForm.get('email')?.errors?.['required']">
+                    Email is required.
+                  </div>
+                  <div *ngIf="registrationForm.get('email')?.errors?.['email']">
+                    Please enter a valid email address.
+                  </div>
+                  </div>
+              </div>
+          </div>
+          <div class="grid">
+            <label for="pincode" class="col-12 md:col-4 col-form-label">Pin code</label>
+            <div class="col-12 md:col-8">
+              <p-inputMask mask="999999" class="form-control" formControlName="pincode" placeholder="Enter your location pincode"/><br>
+            
+              <div *ngIf="registrationForm.get('pincode')?.invalid && registrationForm.get('pincode')?.touched" class="text-danger">
+                  <div *ngIf="registrationForm.get('pincode')?.errors?.['required']">
+                    Pin code is required.
+                  </div>
+              </div>
+            </div>
+            
+          </div>
+          <div class="grid">
+            <label for="pincode" class="col-12 md:col-4 col-form-label">Location</label>
+            <div class="col-12 md:col-8">
+              <p-dropdown 
+              [options]="locationDropdownList"
+              class="small-dropdown"  optionLabel="name"
+              placeholder="Select Type" name="name" 
+              [style]="{'width': '70px'}"></p-dropdown>
+              
+            </div>
+            
+          </div>
+          <div class="grid">
+            <label for="accountType" class="col-12 md:col-4 col-form-label">Account Type</label>
+            <div class="col-12 md:col-8">
+              <div class="flex gap-2">
+                <div class="flex" id="accountType">
+                  <p-radioButton value="advertiser" inputId="advertiser" formControlName="accountType"></p-radioButton>
+                  <label for="advertiser" class="ml-2">Advertiser</label>
+                </div>
+                <div class="flex">
+                  <p-radioButton value="generalUser" inputId="generalUser" formControlName="accountType"></p-radioButton>
+                  <label for="generalUser" class="ml-2">General User</label>
+                </div>
+              </div>
+              <div *ngIf="registrationForm.get('accountType')?.invalid && registrationForm.get('accountType')?.touched" class="text-danger">
+                <div *ngIf="registrationForm.get('accountType')?.errors?.['required']">
+                  Account type is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid">
+              <label for="password" class="col-12 md:col-4 col-form-label">Password</label>
+              <div class="col-12 md:col-4">
+                <input pInputText type="password" id="password" formControlName="password" placeholder="Enter password" required>
+                
+              </div><br><br>
+              <div class="col-12 md:col-4">
+                  <input pInputText type="password" 
+                  autocomplete="new-password"  class="form-control" formControlName="confirmPassword" placeholder="Re-enter password" required><br>
+              </div>
+          </div>
+          <div class="grid">
+            <div class="col-12 md:col-8 md:col-offset-4">
+              <div *ngIf="registrationForm.get('password')?.touched" class="text-danger">
+                <div *ngIf="registrationForm.get('password')?.errors?.['required']">
+                  Password is required.
+                </div>
+                <div *ngIf="!registrationForm.get('password')?.errors?.['required'] &&
+                            registrationForm.get('password')?.errors?.['passwordRequirementsMessage']">
+                  {{ registrationForm.get('password')?.errors?.['passwordRequirementsMessage'] }}
+                </div>
+              </div>
+
+              <div *ngIf="registrationForm.get('confirmPassword')?.touched" class="text-danger">
+                <div *ngIf="registrationForm.get('confirmPassword')?.errors?.['required']">
+                  Confirm Password is required.
+                </div>
+              </div>
+
+              <div *ngIf="
+                    registrationForm.get('password')?.valid &&
+                    registrationForm.get('confirmPassword')?.touched &&
+                    registrationForm.hasError('mismatch')
+                  " class="text-danger">
+                <div>Passwords do not match.</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-content-center">
+            <div>
+              <p-checkbox
+              [binary]="true"
+              formControlName="acceptTerms"
+              inputId="acceptTerms"
+              ></p-checkbox>
+              <label className="text-sm text-gray-600">
+                I agree to the 
+                <a routerLink="/termsandconditions" target="_blank">
+                  Terms and Conditions
+                </a>
+                and 
+                <a routerLink="/privacyandpolicy" target="_blank">
+                  Privacy Policy
+                </a> 
+              </label>
+            </div>
+          </div>
+          <div class="flex justify-content-center">
+            <div
+              *ngIf="registrationForm.get('acceptTerms')?.touched && registrationForm.get('acceptTerms')?.invalid"
+              class="text-danger">
+              <label className="text-sm text-gray-600">
+                I agree to the 
+                <a routerLink="/terms-and-conditions">
+                  Terms and Conditions
+                </a>
+                and 
+                <a routerLink="/privacy-policy">
+                  Privacy Policy
+                </a>
+              </label>
+            </div>
+            
+          </div>
+          
+          @if (showEmailOTPBox) {
+            <div class="grid">
+              <div class="col-12 md:col-4 col-form-label">
+                <label for="emailOTP">Email OTP</label>
+              </div>
+              <div class="col-12 md:col-8">
+                <p-inputMask mask="999999" type="text" class="form-control" formControlName="emailOTP" placeholder="Enter OTP"/><br>
+              </div>
+            </div>
+          } 
+          @if(successMessage){
+            <span class="text-success text-green-500">{{message}}</span>
+          } @else {
+            <span class="text-danger">{{message}}</span>
+          }
+          @if (!showEmailOTPBox) {
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-primary"
+              [style]="{
+                'background': 'linear-gradient(to right, #4D5DFB, #8332FD) !important',
+                'border': 'none',
+                'color':'white',
+                'font-weight': 'bold',
+                'border-radius': '6px','cursor':'pointer',
+                'padding': '0.75rem 1rem'}
+              "
+              [style.background]="
+              (!registrationForm.valid || createaccoutButtonClicked) 
+                ? 'linear-gradient(to right, #A3A9F9, #C9B5FD)' 
+                : 'linear-gradient(to right, #4D5DFB, #8332FD)'
+            "
+             [disabled]="!registrationForm.valid || createaccoutButtonClicked">Create Account</button>
+              @if(createaccoutButtonClicked && !successMessage && !isInvalid){
+                Sending OTP...
+              } 
+            </div>
+          } @else{
+            <div class="col-12 text-center">
+              <p-button type="button" (onClick)="verifyOTP()" class="btn btn-primary" [disabled]="!registrationForm.valid || disableverifyOTPButton" >Verify OTP</p-button>
+            </div>
+          }
+        </div>
+      </form>
+      
+
+      <div class="signin-link">
+        Already have an account?
+        <a routerLink="/login">Sign in</a>
+      </div>
+    </div>
+
+    <div class="back-home">
+      <a routerLink="/">← Back to home</a>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!--
 <app-landingnavbar></app-landingnavbar>
 <br>
 <div class="grid flex  justify-content-center ">
@@ -8,8 +240,8 @@
           <div class="form-group grid-content">
 
             <div class="grid">
-              <label for="username" class="col-12 sm:col-4 col-form-label">User name</label>
-              <div class="col-12 sm:col-8">
+              <label for="username" class="col-12 md:col-4 col-form-label">User name</label>
+              <div class="col-12 md:col-8">
                 <input pInputText type="text" class="form-control" formControlName="username" placeholder="Enter username" autocomplete="postal-code" required><br>
                 <div *ngIf="registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched" class="text-danger">
                     <div *ngIf="registrationForm.get('username')?.errors?.['required']">
@@ -25,8 +257,8 @@
             </div>
             <br>
             <div class="grid">
-              <label for="email" class="col-12 sm:col-4 col-form-label">Email</label>
-              <div class="col-12 sm:col-8">
+              <label for="email" class="col-12 md:col-4 col-form-label">Email</label>
+              <div class="col-12 md:col-8">
                 <input pInputText type="email" class="form-control" formControlName="email" placeholder="Enter email" required><br>
                 <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="text-danger">
                     <div *ngIf="registrationForm.get('email')?.errors?.['required']">
@@ -77,10 +309,6 @@
                     <p-radioButton value="generalUser" inputId="generalUser" formControlName="accountType"></p-radioButton>
                     <label for="generalUser" class="ml-2">General User</label>
                   </div>
-                  <!--<div class="flex">
-                    <p-radioButton value="both" inputId="both" formControlName="accountType"></p-radioButton>
-                    <label for="both" class="ml-2">Both</label>
-                  </div>-->
                 </div>
                 <div *ngIf="registrationForm.get('accountType')?.invalid && registrationForm.get('accountType')?.touched" class="text-danger">
                   <div *ngIf="registrationForm.get('accountType')?.errors?.['required']">
@@ -91,19 +319,18 @@
             </div>
             <br>
             <div class="grid">
-                <label for="password" class="col-12 sm:col-4 col-form-label">Password</label>
-                <div class="col-12 sm:col-4">
+                <label for="password" class="col-12 md:col-4 col-form-label">Password</label>
+                <div class="col-12 md:col-4">
                   <input pInputText type="password" id="password" formControlName="password" placeholder="Enter password" required>
                   
                 </div><br><br>
-                <div class="col-12 sm:col-4">
+                <div class="col-12 md:col-4">
                     <input pInputText type="password" 
                     autocomplete="new-password"  class="form-control" formControlName="confirmPassword" placeholder="Re-enter password" required><br>
                 </div>
             </div><br>
             <div class="grid">
               <div class="col-12 md:col-8 md:col-offset-4">
-                <!-- Password Field Validation -->
                 <div *ngIf="registrationForm.get('password')?.touched" class="text-danger">
                   <div *ngIf="registrationForm.get('password')?.errors?.['required']">
                     Password is required.
@@ -114,14 +341,12 @@
                   </div>
                 </div>
 
-                <!-- Confirm Password Field Validation -->
                 <div *ngIf="registrationForm.get('confirmPassword')?.touched" class="text-danger">
                   <div *ngIf="registrationForm.get('confirmPassword')?.errors?.['required']">
                     Confirm Password is required.
                   </div>
                 </div>
 
-                <!-- Password Mismatch (only after both touched and password is valid) -->
                 <div *ngIf="
                       registrationForm.get('password')?.valid &&
                       registrationForm.get('confirmPassword')?.touched &&
@@ -129,34 +354,6 @@
                     " class="text-danger">
                   <div>Passwords do not match.</div>
                 </div>
-
-
-                <!--<div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched" class="text-danger">
-                  <div *ngIf="registrationForm.get('confirmPassword')?.errors?.['required']">
-                  Confirm Password is required.
-                  </div>
-                </div>
-                <div *ngIf="registrationForm.hasError('mismatch') && registrationForm.get('confirmPassword')?.touched" class="text-danger">
-                  <div>Passwords do not match.</div>
-                </div>
-                <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="text-danger">
-                  <div *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required.</div>
-                  <div *ngIf="registrationForm.get('password')?.errors?.['missingUpperCase']">
-                    Password must contain at least one uppercase letter.
-                  </div>
-                  <div *ngIf="registrationForm.get('password')?.errors?.['missingLowerCase']">
-                    Password must contain at least one lowercase letter.
-                  </div>
-                  <div *ngIf="registrationForm.get('password')?.errors?.['missingNumber']">
-                    Password must contain at least one number.
-                  </div>
-                  <div *ngIf="registrationForm.get('password')?.errors?.['missingSpecialChar']">
-                    Password must contain at least one special character.
-                  </div>
-                  <div *ngIf="registrationForm.get('password')?.errors?.['tooShort']">
-                    Password must be at least 8 characters long.
-                  </div>
-                </div>-->
               </div>
             </div>
             
@@ -170,13 +367,23 @@
                 ></p-checkbox>
               </div>
             </div>
+            <br>
             <div class="flex justify-content-center">
               <div
                 *ngIf="registrationForm.get('acceptTerms')?.touched && registrationForm.get('acceptTerms')?.invalid"
                 class="text-danger">
-                You must accept the terms and conditions.
+                <label className="text-sm text-gray-600">
+                  I agree to the 
+                  <a to="/terms-and-conditions" className="text-blue-600 hover:text-blue-800">
+                    Terms and Conditions
+                  </a>
+                  and 
+                  <a to="/privacy-policy" className="text-blue-600 hover:text-blue-800">
+                    Privacy Policy
+                  </a>
+                </label>
               </div>
-              
+              <br>
             </div>
             
             <br>
@@ -197,7 +404,16 @@
             }
             @if (!showEmailOTPBox) {
               <div class="col-12 text-center">
-                <p-button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid || createaccoutButtonClicked">Create Account</p-button>
+                <p-button type="submit" 
+                [style]="{
+                    'background': 'linear-gradient(to right, #4D5DFB, #8332FD) !important',
+                    'border': 'none',
+                    'color':'white',
+                    'font-weight': 'bold',
+                    'border-radius': '6px',
+                    'padding': '0.75rem 1rem'}
+                "
+                [disabled]="!registrationForm.valid || createaccoutButtonClicked">Create Account</p-button>
                 @if(createaccoutButtonClicked && !successMessage && !isInvalid){
                   Sending OTP...
                 } 
@@ -214,3 +430,4 @@
   </div>
 </div>
 <br><br><br><br><br><br><br><br>
+-->

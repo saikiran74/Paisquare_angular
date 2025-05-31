@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener} from '@angular/core';
 import { Router } from '@angular/router';
 import { PaiService } from '../../paisa.service';
-import { Contactus } from '../../paisa';
+import { Contactus,URLs } from '../../paisa';
 interface Step {
   step: number;
   title: string;
@@ -138,6 +138,7 @@ export class LandingcontentComponent implements OnInit {
   }
   
   contactusForm(){
+    console.log(this.contactus.mobilenumber)
     this.contactus.userid=this._service.userId;
     this.contactus.username=this._service.userName;
     if(this.contactus.name==''){
@@ -183,9 +184,15 @@ export class LandingcontentComponent implements OnInit {
     return emailPattern.test(email);
   }
   isValidMobileNumber(mobile: string): boolean {
+    console.log(mobile)
     const mobileRegex = /^[1-9]\d{9}$/;
     return mobileRegex.test(mobile);
   }
+  goToFaq() {
+    window.open(URLs.FAQ, '_blank');
+  }
+  
+  
   
 }
 

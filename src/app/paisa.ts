@@ -1,3 +1,7 @@
+export enum URLs{
+    FAQ='https://www.paisquare.in/2025/05/everything-you-need-to-know-about-paisquare-in-2025-advertising.html',
+}
+
 export class User {
     id!:Number;
     email!:string;

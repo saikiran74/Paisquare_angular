@@ -39,6 +39,7 @@ import { TableModule } from 'primeng/table';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
+import { PasswordModule } from 'primeng/password';
 
 const PRIMENG_MODULES:any[]=[
     CommonModule,
@@ -67,6 +68,7 @@ const PRIMENG_MODULES:any[]=[
     AppRoutingModule,
     TableModule,
     ChartModule,
+    PasswordModule,
     SidebarModule,
     ButtonModule,
     CardModule,
