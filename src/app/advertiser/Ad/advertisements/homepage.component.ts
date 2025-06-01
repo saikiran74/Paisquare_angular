@@ -37,8 +37,12 @@ export class HomepageComponent implements OnInit {
   message=''
   showComments=''
   currentOpenId: any;
+  currentOpenLocationId: any;
   following:any;
   advertisementid:any=0;
+  
+  isExpanded = false;
+  showMenu = false;
   constructor(private cdr: ChangeDetectorRef,private authService: AuthService,private _service: PaiService,private http: HttpClient,private _router: Router,private _route: ActivatedRoute) {
        
   }
@@ -230,6 +234,14 @@ export class HomepageComponent implements OnInit {
     }
     )
   }
+  
+  locationBox(advertisementid:Number){
+    if (this.currentOpenLocationId === advertisementid) {
+      this.currentOpenLocationId = null;
+    } else {
+      this.currentOpenLocationId = advertisementid;
+    }
+  }
   commentlist(advertisementid:Number){
     if (this.currentOpenId === advertisementid) {
       this.currentOpenId = null;
@@ -305,5 +317,50 @@ export class HomepageComponent implements OnInit {
     this._router.navigate(['/user/chat'], { 
       queryParams: { userId: Id, name: Name }
     });
+  }
+
+
+
+
+
+
+
+  get timeAgo(): string {
+    if (!this.ad?.opendate) return 'Recently';
+
+    const opendate = new Date(this.ad.opendate);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - opendate.getTime()) / 1000);
+
+    if (diffInSeconds < 60) {
+      return 'Just now';
+    } else if (diffInSeconds < 3600) {
+      const minutes = Math.floor(diffInSeconds / 60);
+      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    } else if (diffInSeconds < 86400) {
+      const hours = Math.floor(diffInSeconds / 3600);
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else if (diffInSeconds < 604800) {
+      const days = Math.floor(diffInSeconds / 86400);
+      return `${days} day${days > 1 ? 's' : ''} ago`;
+    } else {
+      return opendate.toLocaleDateString();
+    }
+  }
+
+  get daysLeft(): number | null {
+    if (!this.ad.expiresAt) return null;
+    const diffMs = new Date(this.ad.expiresAt).getTime() - new Date().getTime();
+    return diffMs > 0 ? Math.ceil(diffMs / (1000 * 60 * 60 * 24)) : null;
+  }
+  outsideClick() {
+    this.showMenu = false;
+  }
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
+  }
+  showLocation = false;
+  toggleLocation() {
+    this.showLocation = !this.showLocation;
   }
 }

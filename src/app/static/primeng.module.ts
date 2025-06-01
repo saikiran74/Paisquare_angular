@@ -40,7 +40,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
 import { PasswordModule } from 'primeng/password';
-
+import { BadgeModule } from 'primeng/badge';
 const PRIMENG_MODULES:any[]=[
     CommonModule,
     SelectButtonModule,
@@ -56,6 +56,7 @@ const PRIMENG_MODULES:any[]=[
     FormsModule,
     InputTextModule,
     InputTextareaModule,
+    BadgeModule,
     InputNumberModule,
     CalendarModule,
     RadioButtonModule,

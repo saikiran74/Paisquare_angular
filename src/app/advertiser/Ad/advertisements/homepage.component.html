@@ -1,35 +1,61 @@
+ 
 <div [ngStyle]="{'background': ad.backGroundColor, 'color': 'white','margin-top':'20px','margin':'10px'}" 
-    class="p-2 shadow-2  surface-100 border-bottom-1 surface-border 
-    ">
-    <!-- Header Section with Brand Info -->
+    
+    class=" card animate-slide-up">
     <div>
         <div class="grid">
             <div class="col-10 flex">
-                <div class="flex align-items-center">
-                    <div
-                      *ngIf="ad.advertiser.profileImage; else placeholder"
-                      class="logo-container">
-                        <img loading="lazy" [src]="'data:image/png;base64,' + ad.advertiser.profileImage" alt="{{ad.brandname}} Logo"
-                        style="width: 35px; height: 30px; padding-left: 5px; margin-top: -10px; border-radius:50%" class="logo">
-                    </div>
-                    <ng-template #placeholder>
-                    </ng-template>
-                  </div>
-                  
+                <div class="flex align-items-center justify-content-start  gap-2">
+
+                    <a (click)="visitProfile(ad.advertiser.id)">
+                        @if (ad.advertiser.profileImage && ad.advertiser.profileImage.length>2) {
+                            <p-avatar 
+                                [image]="ad.advertiser.profileImage ? 'data:image/png;base64,' + ad.advertiser.profileImage : ad.brandname.charAt(0).toUpperCase()" 
+                                styleClass="advertiser-avatar"
+                            ></p-avatar>
+                        } @else {
+                            <p-avatar 
+                                styleClass="advertiser-avatar"
+                                label="{{ ad.brandname.charAt(0).toUpperCase() }}"
+                            ></p-avatar>
+                        }   
+                        <ng-template #placeholder>
+                        </ng-template>
+                    </a>
+                </div>
                 <div>
-                    <label class="brandname goldColor" style="padding-left: 10px; margin-top: 100px;  padding-bottom: 0px;">
-                        {{ad.brandname}}
-                    </label>
+                    <div>
+                        <label class="brandname goldColor">
+                           {{ad.brandname}}
+                       </label>
+                    </div>
+                    <div class="flex p-ai-center p-text-secondary text-sm gap-2" style="padding-left:5px ; color: white;">
+                        <p-badge 
+                            value="{{ ad.category }}" 
+                            severity="info" 
+                            styleClass="custom-badge">
+                        </p-badge>
+                        <span class="flex align-items-center gap-1">
+                          <i class="pi pi-clock p-mr-1"></i>
+                          {{ timeAgo }}
+                        </span>
+                       
+                        <span *ngIf="ad.advertiser.rating" class="flex align-items-center gap-1">
+                          <i class="pi pi-star  p-mr-1"></i>
+                          {{ ad.advertiser.rating.toFixed(1) }}
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="col-2">
                 <div class="flex justify-content-end align-items-center" style="padding: 10px;">
-                    @if (ad.location.length > 3) {
-                        <a (click)="location.toggle($event)" style="cursor: pointer;  float: left;">
-                            <i class="pi pi-map-marker" style="font-size: 2rem"></i>
-                        </a>
-                    }
-                    <a (click)="op.toggle($event)" style="cursor: pointer;">
+                    <a
+                        *ngIf="ad.location.length > 3"
+                        (click)="locationBox(ad.id)"
+                        styleClass="p-button-text custom-icon-button">
+                        <i class="pi pi-map-marker" style="font-size: 2rem"></i>
+                    </a>
+                    <a (click)="opNew.toggle($event)" style="cursor: pointer;">
                         <i class="pi pi-ellipsis-v" style="font-size: 2rem"></i>
                     </a>
                 </div>
@@ -38,79 +64,29 @@
             
         </div>
     </div>
+    <hr class="separator" style="padding-bottom: 0px;"/>
 
-    <!-- Card Body with Advertisement Info -->
-    <div class="grid" style="padding-left: 5px;">
-        <div class="col-12 flex">
+    <div *ngIf="currentOpenLocationId == ad.id" >
+        <div   >
+            <div class="p-2">
+                <div class="custom-location-box">
+                  <p class="flex align-items-center gap-2 m-0 custom-location-text">
+                    <i class="pi pi-map-marker" style="font-size: 1rem; color: #ffffff;"></i>
+                    <span class="custom-location-label" >{{ ad.location }}</span>
+                  </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div >
+        <div >
            <label style="font-size: 1.2rem; "  [innerHTML]="ad.description"></label>
         </div>
     </div>
-    <!--
+    
+    <hr class="separator" />
     <div>
         <div class="flex gap-30">
-            <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
-                <div class="footer-icon">
-                    <p-button [disabled]="!isAuthenticated" (click)="like(ad.id)" 
-                        id="likebotton" type="submit" name="post_id" >
-                        <i class="pi" [ngClass]="{'pi-thumbs-up-fill': ad.likes.includes(userId), 'pi-thumbs-up': !ad.likes.includes(userId)}"
-                            style="font-size: 2rem; color: blue;"></i>
-                    </p-button>
-                </div>
-                <div>
-                    <label class="goldColor" style="padding-top: 0px;">{{ad.likes.length}} {{ad.likes.length == 1 ? 'Like' : 'Likes'}}</label>
-                </div>
-            </div>
-            <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
-                <div class="footer-icon">
-                    <p-button [disabled]="!isAuthenticated" (click)="follower(ad.advertiser.id)" name="post_id">
-                        <i class="pi" [ngClass]="{'pi-heart-fill': followerslist.includes(ad.advertiser.id), 'pi-heart': !followerslist.includes(ad.advertiser.id)}"
-                            style="font-size: 2rem; color: blue;"></i>
-                    </p-button>
-                </div>
-                <div>
-                    <label class="goldColor">{{ followerslist.includes(ad.advertiser.id) ? 'Following' : 'Follow' }}</label>
-                </div>
-            </div>
-            <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
-                <div class="footer-icon">
-                    <p-button [disabled]="!isAuthenticated" role="button" (click)="Shareadvertisement(ad.id)" data-toggle="modal" data-target="#share"
-                        class="btn btn-primary" [style]="{'border': 'none', 'background': 'none','color': 'rgb(17, 0, 255)'}">
-                        <i class="pi pi-share-alt" style="font-size: 2rem"></i>
-                    </p-button>
-                </div>
-                <div>
-                    <label class="goldColor">Share</label>
-                </div>
-            </div>
-            <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
-                <div class="footer-icon">
-                    <a (click)="visited(ad.id,ad.url)" href="{{ad.url}}" target="_blank" style="border:none;">
-                        <i [ngStyle]="{'color': ad.visiteduser.includes(userId) ? 'blue' : 'black'}"
-                            style="border: none;" role="button" class="pi pi-link" style="font-size: 2rem"></i>
-                    </a>
-                </div>
-                <div>
-                    <label class="goldColor">{{ad.visitscount}} Visits</label>
-                </div>
-            </div>
-            <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
-                <div class="footer-icon">
-                    <p-button [disabled]="!isAuthenticated" (click)="commentlist(ad.id)" aria-expanded="false">
-                        <i [ngStyle]="{'color': ad.commenteduser.includes(userId) ? 'blue' : 'black'}"
-                            style="border: none;" role="button" class="pi pi-comments" style="font-size: 2rem"></i>
-                    </p-button>
-                </div>
-                <div>
-                    <label class="goldColor"> Comments</label>
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
-    <!-- Footer Section with Interactions -->
-    <div>
-        <div class="flex gap-30">
-            <!-- Like Button -->
             <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
                 <div class="footer-icon">
                     <a disabled="!isAuthenticated" (click)="like(ad.id)" 
@@ -124,7 +100,6 @@
                 </div>
             </div>
 
-            <!-- Follow Button -->
             <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
                 <div class="footer-icon">
                     <a disabled="!isAuthenticated" (click)="follower(ad.advertiser.id)" name="post_id">
@@ -137,7 +112,6 @@
                 </div>
             </div>
 
-            <!-- Share Button -->
             <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
                 <div class="footer-icon">
                     <a disabled="!isAuthenticated" role="button" (click)="Shareadvertisement(ad.id)" data-toggle="modal" data-target="#share"
@@ -150,7 +124,6 @@
                 </div>
             </div>
 
-            <!-- Visit Button -->
             <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
                 <div class="footer-icon">
                     <a (click)="visited(ad.id,ad.url)" href="{{ad.url}}" target="_blank" style="border:none;">
@@ -163,7 +136,6 @@
                 </div>
             </div>
 
-            <!-- Comment Button -->
             <div class="flex flex-column justify-content-center align-items-center" style="flex: 1;">
                 <div class="footer-icon">
                     <a disabled="!isAuthenticated" (click)="commentlist(ad.id)" aria-expanded="false">
@@ -172,14 +144,12 @@
                     </a>
                 </div>
                 <div>
-                    <!--{{ad.commenteduser.length}}-->
                     <label class="goldColor"> Comments</label>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Comments Section -->
     <div class="grid" style="padding: 8px; margin: 0px;">
         <div class="col-12" *ngIf="currentOpenId == ad.id" >
             @if (comments.length>0) {
@@ -226,7 +196,6 @@
         </div>
     </div>
 
-    <!-- Modal for Reporting Advertisement -->
     <p-dialog header="Report" [(visible)]="showReportDialog" [breakpoints]="{ '960px': '75vw' }"
         [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
         <ng-template pTemplate="header">
@@ -260,7 +229,6 @@
         </ng-template>
     </p-dialog>
 
-    <!-- Overlay Panel for Additional Actions -->
     <p-overlayPanel #op>
         <ng-template pTemplate="content">
             <div>
@@ -300,4 +268,79 @@
             ></textarea><br>
         </ng-template>
     </p-overlayPanel>
+
+
+
+
+
+
+
+
+    <p-overlayPanel #opNew>
+        <ng-template pTemplate="content">
+           
+          <div class="action-menu-container">
+            <div>
+                <button pButton
+                    label="Visit Profile" variant="text"
+                    icon="pi pi-user-plus" 
+                    [disabled]="!isAuthenticated"
+                    class="p-button-text custom-action-button"
+                    (onClick)="visitProfile(ad.advertiser.id)"
+                ></button>
+              
+            </div>
+      <br>
+            <div>
+              <button pButton
+                [label]="blockedlist.includes(ad.advertiser.id) ? 'Unblock' : 'Block'"
+                icon="pi pi-shield" variant="text"
+                [disabled]="!isAuthenticated"
+                (click)="block(ad.advertiser.id)"
+                class="p-button-text custom-action-button"
+              ></button>
+            </div>
+      <br>
+            <div>
+              <button pButton
+                label="Report"
+                icon="pi pi-flag"
+                [disabled]="!isAuthenticated"
+                (click)="showReportDialogBox(ad.id)"
+                class="p-button-text custom-action-button"
+              ></button>
+            </div>
+      <br>
+            <div>
+              <button pButton
+                [label]="ad.favourites.includes(userId) ? 'Remove from favourites' : 'Add to favourites'"
+                icon="pi pi-star"
+                [disabled]="!isAuthenticated"
+                (click)="favourite(ad.id)"
+                class="p-button-text custom-action-button"
+              ></button>
+            </div>
+        <br>
+            <div>
+                @if(ad.userid == userId && isAuthenticated){
+                    <button pButton
+                        label="Edit"
+                        icon="pi pi-pencil"
+                        (click)="editAdvertisement(ad.id)"
+                        class="p-button-text custom-action-button"
+                    ></button>
+                } @else {
+                        <button pButton
+                            label="Chat"
+                            icon="pi pi-comments"
+                            [disabled]="!isAuthenticated"
+                            (click)="openChat(ad.advertiser.id, ad.advertiser.username)"
+                            class="p-button-text custom-action-button"
+                        ></button>
+                }
+            </div>
+          </div>
+        </ng-template>
+      </p-overlayPanel>
+      
 </div>

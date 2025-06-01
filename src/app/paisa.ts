@@ -33,6 +33,7 @@ export class Advertise{
     hashtags!: string;
     status!:string;
     pincodes!:string;
+    category!:string;
     commenteduser!:Number[];
     visiteduser!:Number[];
     constructor(){}
