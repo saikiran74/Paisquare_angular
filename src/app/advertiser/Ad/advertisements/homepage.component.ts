@@ -25,6 +25,7 @@ export class HomepageComponent implements OnInit {
   advertisements: any[] = [];
   advertisementsListById: any[] = [];
   comments: any[] = [];
+  latestFiveComments: any[] = [];
   followersuseridlist: any[]=[];
   followerslist: any[] = [];
   userData: any[] = [];
@@ -40,7 +41,7 @@ export class HomepageComponent implements OnInit {
   currentOpenLocationId: any;
   following:any;
   advertisementid:any=0;
-  
+  showAllCommentsDialog =false;
   isExpanded = false;
   showMenu = false;
   constructor(private cdr: ChangeDetectorRef,private authService: AuthService,private _service: PaiService,private http: HttpClient,private _router: Router,private _route: ActivatedRoute) {
@@ -242,6 +243,7 @@ export class HomepageComponent implements OnInit {
       this.currentOpenLocationId = advertisementid;
     }
   }
+  
   commentlist(advertisementid:Number){
     if (this.currentOpenId === advertisementid) {
       this.currentOpenId = null;
@@ -251,8 +253,9 @@ export class HomepageComponent implements OnInit {
     this.comments = [];
     this._service.CommentsListFromRemote(advertisementid).subscribe(
       data=>{
-        this.comments=data;
-        //this._router.navigate(['alladvertisements'])
+        const reversed = [...data].reverse();
+        this.comments=reversed;
+        this.latestFiveComments= reversed.slice(0,5); 
     },
       error=>{console.log("Error occured");
     }

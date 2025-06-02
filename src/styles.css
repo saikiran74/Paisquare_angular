@@ -69,8 +69,7 @@ textarea{
     padding-left: 5px;
     padding-right: 5px;
 }
-.p-inputtext, .p-dropdown, .p-textarea, .p-calendar,.p-inputMask {
-    padding-left: 5px;
+.p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
     width: 250px !important;
     height: 35px;
     font-size:1rem;
@@ -87,8 +86,13 @@ textarea{
       border-bottom-left-radius: 0;
       height: 35px;
   }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
 @media (max-width: 600px) {
-    .p-inputtext, .p-dropdown, .p-textarea, .p-calendar,.p-inputMask {
+    .p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
       padding-left: 5px;
       width: 250px !important;
       height: 35px;
@@ -105,3 +109,4 @@ textarea{
         padding-left: 0px;
     }
 }
+

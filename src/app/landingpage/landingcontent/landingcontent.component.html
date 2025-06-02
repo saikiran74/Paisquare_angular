@@ -25,7 +25,7 @@
         India's First Reward-Based Advertising Platform
       </div>
       <div>
-        <h1 class="brand-name text-5xl md:text-3xl lg:text-8xl m-0" >Pai Square</h1>
+        <h1 class="brand-name text-7xl md:text-3xl lg:text-8xl m-0" >Pai Square</h1>
 
       </div>
       <h1 class="hero-heading">
@@ -419,8 +419,7 @@
               <label for="mobile">Mobile Number <span class="text-danger">*</span></label>
             </div>
             <div class="col-12 lg:col-6 flex justify-content-start">
-              <p-inputMask mask="9999999999"  name="mobilenumber" 
-              [style]="{ 'width': '250px !important'}"
+              <input mask="9999999999" pInputText type="number"  name="mobilenumber" 
                placeholder="Enter your Mobile number" [(ngModel)]="contactus.mobilenumber"
                /><br>
             </div>
