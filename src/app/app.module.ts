@@ -19,6 +19,9 @@ import { startingLetterPipe } from './static/startingLetterPipe.pipe';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './service/jwt-interceptor.service';
 import {SitemapComponent} from './general/sitemap/sitemap.component'
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
