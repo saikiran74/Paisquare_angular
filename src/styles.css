@@ -22,6 +22,15 @@ a{
    cursor: pointer;
    text-decoration: none;
 }
+.commonButton{
+    background: linear-gradient(to right, #4D5DFB, #8332FD);
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+}
 
 textarea{
     width: 250px;
@@ -86,11 +95,7 @@ textarea{
       border-bottom-left-radius: 0;
       height: 35px;
   }
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
+
 @media (max-width: 600px) {
     .p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
       padding-left: 5px;

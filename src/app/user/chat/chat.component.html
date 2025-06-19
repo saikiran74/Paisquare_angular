@@ -1,3 +1,132 @@
+<div class="grid h-full">
+  <!-- Chat Sidebar -->
+  <div class="col-12 lg:col-4 border-right-1 surface-border flex flex-column">
+    <div class="px-3 border-bottom-1 surface-border">
+      <h2 class="text-xl font-bold mb-3">Messages</h2>
+      <div class="p-input-icon-left w-full">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" placeholder="Search conversations..." class="w-full" [(ngModel)]="searchQuery">
+      </div>
+    </div>
+
+    <div class="overflow-auto flex-grow-1">
+      <ng-container *ngIf="chatHistoryUsers.length > 0; else noConversations">
+        <div *ngFor="let user of chatHistoryUsers" (click)="selectUser(user)"
+             [ngClass]="{'bg-primary-100 border-left-3 border-primary': user.id === selectedUserId}"
+             class="p-3 border-bottom-1 surface-border cursor-pointer hover:bg-gray-100">
+          <div class="flex align-items-center">
+            <p-avatar
+            [image]="user.profileImage ? 'data:image/png;base64,' + user.profileImage :'null'"
+                      [label]="user.username.charAt(0).toUpperCase()" styleClass="mr-3" shape="circle">
+            </p-avatar>
+            <div class="flex-grow-1">
+              <div class="flex justify-content-between align-items-center">
+                <span class="font-medium">{{ user.username }}</span>
+                <small class="text-muted">{{ user.time || 'Just now' }}</small>
+              </div>
+              <div class="text-sm text-secondary">{{ user.lastMessage || 'No messages yet' }}</div>
+            </div>
+            <p-badge *ngIf="user.unread > 0" [value]="user.unread" severity="info" class="ml-2"></p-badge>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noConversations>
+        <div class="text-center p-4 text-muted">No conversations found</div>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Chat Messages -->
+  <div class="col-12 lg:col-8 flex flex-column">
+    <ng-container *ngIf="userSelected; else noChatSelected">
+      <!-- Chat Header -->
+      <div class="p-3 border-bottom-1 surface-border bg-white">
+        <div class="flex justify-content-between align-items-center">
+          <div class="flex align-items-center">
+            <button pButton icon="pi pi-arrow-left" class="p-button-text p-button-sm mr-2 lg:hidden" (click)="closeOpenedChatWindow()"></button>
+            <p-avatar [label]="selectedUserName.charAt(0).toUpperCase()" styleClass="mr-2"></p-avatar>
+            <div>
+              <div class="font-medium">{{ selectedUserName }}</div>
+              <small class="text-muted">Online</small>
+            </div>
+          </div>
+          <div class="flex align-items-center gap-2">
+            <button pButton icon="pi pi-phone" class="p-button-text p-button-sm"></button>
+            <button pButton icon="pi pi-video" class="p-button-text p-button-sm"></button>
+            <button pButton icon="pi pi-ellipsis-v" class="p-button-text p-button-sm"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages List -->
+      <div class="flex-grow-1 overflow-auto p-3 surface-50">
+        <div *ngFor="let msg of messages" class="mb-3">
+          <div [ngClass]="{'justify-content-end': msg.senderId === currentUserId, 'justify-content-start': msg.senderId !== currentUserId}"
+               class="flex">
+            <div class="flex flex-column" [ngClass]="{'align-items-end': msg.senderId === currentUserId}">
+              <div [ngClass]="{
+                     'bg-primary text-white': msg.senderId === currentUserId,
+                     'bg-white border-1 border-gray-300': msg.senderId !== currentUserId
+                   }"
+                   class="p-2 border-round max-w-20rem">
+                <div class="text-sm whitespace-pre-line">{{ msg.message }}</div>
+              </div>
+              <small class="text-muted mt-1" [ngClass]="{'text-right': msg.senderId === currentUserId}">{{ msg.time || '' }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message Input -->
+      <div class="p-3 border-top-1 surface-border">
+        <div class="flex gap-2 align-items-center">
+          <input pInputText [(ngModel)]="messageText" (keydown.enter)="sendMessage()" placeholder="Type your message..." class="flex-grow-1" />
+          <button pButton icon="pi pi-send" (click)="sendMessage()" [disabled]="!messageText.trim()"></button>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- No Chat Selected Template -->
+    <ng-template #noChatSelected>
+      <div class="flex-grow-1 flex align-items-center justify-content-center">
+        <div class="text-center">
+          <p-avatar icon="pi pi-comments" shape="circle" styleClass="mb-3 bg-gray-200"></p-avatar>
+          <h3 class="text-lg font-semibold text-secondary">Select a conversation</h3>
+          <p class="text-muted">Choose a chat from the sidebar to start messaging</p>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="grid h-screen">
   <!-- User List (Right Sidebar) -->
    @if(!userSelected){

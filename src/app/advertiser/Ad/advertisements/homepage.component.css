@@ -79,6 +79,9 @@ button{
     padding:0px !important;
     padding-left:1.5px !important;
   }
+  :host ::ng-deep  .card {
+    padding: 5px !important;
+  }
 }
 .comment-input {
   flex: 1; /* Makes it take remaining space */

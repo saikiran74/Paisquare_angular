@@ -1,7 +1,7 @@
  
 <div [ngStyle]="{'background': ad.backGroundColor, 'color': 'white','margin-top':'20px','margin':'10px'}" 
     
-    class=" card animate-slide-up">
+    class="card animate-slide-up" >
     <div>
         <div class="grid">
             <div class="col-10 flex">
@@ -31,11 +31,13 @@
                         
                     </div>
                     <div class="flex p-ai-center p-text-secondary text-sm gap-2" style="padding-left:5px ; color: white;">
-                        <p-badge 
-                            value="{{ ad.category }}" 
-                            severity="info" 
-                            styleClass="custom-badge">
-                        </p-badge>
+                        @if (ad.category && ad.category.length > 0) {
+                            <p-badge 
+                                value="{{ ad.category }}" 
+                                severity="info" 
+                                styleClass="custom-badge">
+                            </p-badge>
+                        }
                         <div class="flex justify-content-end">
                             <p-badge 
                                 *ngIf="ad.advertisement_type === 'paid'"
@@ -66,10 +68,10 @@
                         *ngIf="ad.location.length > 3"
                         (click)="locationBox(ad.id)"
                         styleClass="p-button-text custom-icon-button">
-                        <i class="pi pi-map-marker" style="font-size: 2rem"></i>
+                        <i class="pi pi-map-marker" style="font-size: 1.5rem"></i>
                     </a>
                     <a (click)="opNew.toggle($event)" style="cursor: pointer;">
-                        <i class="pi pi-ellipsis-v" style="font-size: 2rem"></i>
+                        <i class="pi pi-ellipsis-v" style="font-size: 1.5rem"></i>
                     </a>
                 </div>
                 
@@ -200,9 +202,6 @@
             </div>
         </div>
     </div>
-
-
-<br>
     <div  *ngIf="currentOpenId == ad.id" 
         style="
             background-color: #e9ecef;
@@ -259,8 +258,7 @@
           ></button>
         </form>
       </div>
-      
-<br>
+      <br>
         <p-dialog 
             header="All Comments" 
             [(visible)]="showAllCommentsDialog" 
@@ -331,7 +329,17 @@
                     {{ ad.favourites.includes(userId) ? 'Remove from favourites' : 'Add to favourites' }}
                 </p-button>
             </div><br>
-            @if(ad.userid == userId && isAuthenticated){
+
+            @if(ad.advertiser.user_id == userId && isAuthenticated){
+                <p-button (click)="editAdvertisement(ad.id)">
+                    Edit
+                </p-button>
+            } @else {
+                <div>
+                    <p-button [disabled]="!isAuthenticated" (click)="openChat(ad.advertiser.id,ad.advertiser.username)" label="Chat"></p-button>
+                </div><br>
+            }
+            @if(ad.advertiser.id == userId && isAuthenticated){
                 <p-button (click)="editAdvertisement(ad.id)">
                     Edit
                 </p-button>
@@ -404,7 +412,7 @@
             </div>
         <br>
             <div>
-                @if(ad.userid == userId && isAuthenticated){
+                @if(ad.advertiser.id == userId && isAuthenticated){
                     <button pButton
                         label="Edit"
                         icon="pi pi-pencil"

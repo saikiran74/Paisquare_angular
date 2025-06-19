@@ -14,6 +14,7 @@ import { ExponentialStrengthPipe } from 'src/app/static/exponential-strength.pip
 export class ChatComponent implements OnInit {
   chatHistoryUsers: any[] = [];
   messages: any[] = [];
+  searchQuery='';
   currentUserId = this._service.userId; // Logged-in user
   currentUserName = this._service.userName; // Logged-in user
   selectedUserId!: number;
@@ -28,6 +29,7 @@ export class ChatComponent implements OnInit {
     // First load the chat users
     this._service.getChatHistoryUsers(this._service.userId).subscribe({
       next: (data) => {
+        console.log("data-->",data)
         this.chatHistoryUsers.push(...data);
   
         // Now check query params AFTER users are loaded
