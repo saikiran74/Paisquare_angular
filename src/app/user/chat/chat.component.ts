@@ -18,6 +18,7 @@ export class ChatComponent implements OnInit {
   currentUserId = this._service.userId; // Logged-in user
   currentUserName = this._service.userName; // Logged-in user
   selectedUserId!: number;
+  selectedUserProfileImage: string = '';
   userSelected:boolean=false;
   messageText: string = '';
   selectedUserName: string ='';
@@ -78,8 +79,11 @@ export class ChatComponent implements OnInit {
   }
 
   selectUser(user: any): void {
+    this.selectedUserProfileImage = user.profileImage;
+    this.selectedUserName = user.username;
     this.selectedUserId = user.id;
     this._service.getMessages(this.currentUserId, this.selectedUserId).subscribe((data) => {
+      console.log("data"+data);
       this.messages = data;
       this.selectedUserName=user.username;
       this.chatHistoryUsers = [];

@@ -1,7 +1,7 @@
 <div class="grid h-full">
   <!-- Chat Sidebar -->
   <div class="col-12 lg:col-4 border-right-1 surface-border flex flex-column">
-    <div class="px-3 border-bottom-1 surface-border">
+    <div class="border-bottom-1 surface-border" style="padding-bottom: 10px;">
       <h2 class="text-xl font-bold mb-3">Messages</h2>
       <div class="p-input-icon-left w-full">
         <i class="pi pi-search"></i>
@@ -13,16 +13,22 @@
       <ng-container *ngIf="chatHistoryUsers.length > 0; else noConversations">
         <div *ngFor="let user of chatHistoryUsers" (click)="selectUser(user)"
              [ngClass]="{'bg-primary-100 border-left-3 border-primary': user.id === selectedUserId}"
-             class="p-3 border-bottom-1 surface-border cursor-pointer hover:bg-gray-100">
+             class="p-2 border-bottom-1 surface-border cursor-pointer hover:bg-gray-100">
           <div class="flex align-items-center">
-            <p-avatar
-            [image]="user.profileImage ? 'data:image/png;base64,' + user.profileImage :'null'"
-                      [label]="user.username.charAt(0).toUpperCase()" styleClass="mr-3" shape="circle">
-            </p-avatar>
+              @if (user.profileImage && user.profileImage.length>2) {
+                <p-avatar 
+                    [image]="user.profileImage ? 'data:image/png;base64,' + user.profileImage : user.username.charAt(0).toUpperCase()" 
+                    styleClass="advertiser-avatar" styleClass="mr-3" shape="circle"
+                ></p-avatar>
+              } @else {
+                  <p-avatar 
+                      styleClass="advertiser-avatar"
+                      label="{{ user.username.charAt(0).toUpperCase() }}" styleClass="mr-3" shape="circle"
+                  ></p-avatar>
+              }   
             <div class="flex-grow-1">
               <div class="flex justify-content-between align-items-center">
                 <span class="font-medium">{{ user.username }}</span>
-                <small class="text-muted">{{ user.time || 'Just now' }}</small>
               </div>
               <div class="text-sm text-secondary">{{ user.lastMessage || 'No messages yet' }}</div>
             </div>
@@ -31,6 +37,7 @@
         </div>
       </ng-container>
       <ng-template #noConversations>
+        <br><br><br><br>
         <div class="text-center p-4 text-muted">No conversations found</div>
       </ng-template>
     </div>
@@ -44,17 +51,30 @@
         <div class="flex justify-content-between align-items-center">
           <div class="flex align-items-center">
             <button pButton icon="pi pi-arrow-left" class="p-button-text p-button-sm mr-2 lg:hidden" (click)="closeOpenedChatWindow()"></button>
-            <p-avatar [label]="selectedUserName.charAt(0).toUpperCase()" styleClass="mr-2"></p-avatar>
+            @if (selectedUserProfileImage && selectedUserProfileImage.length > 2) {
+              <p-avatar 
+                  [image]="selectedUserProfileImage ? 'data:image/png;base64,' + selectedUserProfileImage : selectedUserName.charAt(0).toUpperCase()" 
+                  styleClass="advertiser-avatar" styleClass="mr-3" shape="circle"
+              ></p-avatar>
+            } @else {
+                <p-avatar 
+                    styleClass="advertiser-avatar"
+                    label="{{ selectedUserName.charAt(0).toUpperCase() }}" styleClass="mr-3" shape="circle"
+                ></p-avatar>
+            }   
+            
             <div>
               <div class="font-medium">{{ selectedUserName }}</div>
               <small class="text-muted">Online</small>
             </div>
           </div>
-          <div class="flex align-items-center gap-2">
-            <button pButton icon="pi pi-phone" class="p-button-text p-button-sm"></button>
-            <button pButton icon="pi pi-video" class="p-button-text p-button-sm"></button>
-            <button pButton icon="pi pi-ellipsis-v" class="p-button-text p-button-sm"></button>
-          </div>
+          <!--
+            <div class="flex align-items-center gap-2">
+              <button pButton icon="pi pi-phone" class="p-button-text p-button-sm"></button>
+              <button pButton icon="pi pi-video" class="p-button-text p-button-sm"></button>
+              <button pButton icon="pi pi-ellipsis-v" class="p-button-text p-button-sm"></button>
+            </div>
+          -->
         </div>
       </div>
 
@@ -71,7 +91,7 @@
                    class="p-2 border-round max-w-20rem">
                 <div class="text-sm whitespace-pre-line">{{ msg.message }}</div>
               </div>
-              <small class="text-muted mt-1" [ngClass]="{'text-right': msg.senderId === currentUserId}">{{ msg.time || '' }}</small>
+              <small class="text-muted mt-1" [ngClass]="{'text-right': msg.senderId === currentUserId}">{{ msg.timestamp | date:'short' }}</small>
             </div>
           </div>
         </div>
