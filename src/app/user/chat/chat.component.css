@@ -1,8 +1,21 @@
 
 
+.p-inputtext{
+  padding-left: 5px;
+  width: 100% !important;
+  height: 35px;
+  font-size: 1rem;
+}
 
 
 
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+.scroll-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
 
 
 
