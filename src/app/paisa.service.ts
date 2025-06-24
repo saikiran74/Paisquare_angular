@@ -116,6 +116,15 @@ export class PaiService {
       { responseType: 'text' as 'json' } // Specify that the response is plain text
     );
   }
+  public getSearchResults(query: string, type: string) {
+    if (type === 'hashtag') {
+      return this.getHashTagsAdvertisement(query);
+    } else if (type === 'pincode') {
+      return this.getPincodesAdvertisement(query);
+    } else {
+      return this.getGlobalSearchresult(query);
+    }
+  }
   
   public getProfileImage(): Observable<Blob> {
     return this._http.get<ArrayBuffer>(`${this.apiUrl}/updateProfile/profile-image/${this.userId}`, {
@@ -261,7 +270,7 @@ export class PaiService {
   getSitemap(): Observable<string> {
     return this._http.get(`${this.apiUrl}/sitemap.xml`, { responseType: 'text' });
   }
-
+  
 
 }
 
