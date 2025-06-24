@@ -44,7 +44,7 @@ ngOnInit(){
   this.checkViewport();
   this.fetchDistinctHashtags();
   this.advertisements=[];
-  this.fetchDistinctHashtags();
+  console.log("this.fetchDistinctHashtags();",this.fetchDistinctHashtags())
   this._route.queryParams.subscribe(params => {
     this.userId = params['userId'];
   

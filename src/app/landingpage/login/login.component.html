@@ -1,10 +1,105 @@
+
+<div class="login-container flex  justify-content-center">
+    <div class="login-card">
+      <div class="brand-header flex justify-content-center text-center">
+        
+        <div class="logo-box">
+            <a>
+                <img routerLink="/" style="cursor:pointer;"
+                src="../../../assets/images/logo/paisquare_logo_without_bg.png" alt="Logo" class="logo" style="border-radius: 50%;" />
+            </a>      
+        </div>
+        <span class="brand-name">Pai Square</span>
+      </div>
+      <p class="welcome-text">Welcome back! Please sign in to your account.</p>
+  
+      <p-card>
+        <ng-template pTemplate="header">
+          <h2 class="text-center" style="padding-top: 16px;">Sign In</h2>
+          <p class="text-center">Enter your credentials to access your account</p>
+        </ng-template>
+        <form [formGroup]="loginForm" (ngSubmit)="userLogin()" >
+            <div>
+                <div>
+                    <label for="email">Email</label>
+                    <div>
+                        <div>
+                              <input pInputText type="email" autocomplete="email" name="email"  
+                                class="form-control" formControlName="email" placeholder="Enter email"
+                                required><br>
+                          </div>
+                        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+                            <div *ngIf="loginForm.get('email')?.errors?.['required']">
+                            Email is required.
+                            </div>
+                            <div *ngIf="loginForm.get('email')?.errors?.['email']">
+                            Please enter a valid email address.
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
+                <div>
+                    <div>
+                        <label for="password" class="col-form-label">Password</label>
+                    </div>
+                    <div >
+                        <p-password type="password" name="password"  
+                        [toggleMask]="true" 
+                        autocomplete="current-password"  class="w-full form-control"
+                            formControlName="password" placeholder="Enter password" required/><br>
+                        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+                            <div *ngIf="loginForm.get('password')?.errors?.['required']">
+                            Password is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if(successMessage){
+                    <p class="text-success text-green-500">{{message}}</p>
+                    } @else {
+                    <p class="text-danger">{{message}}</p>
+                }
+                <button pButton type="submit" label="Sign In" class="w-full p-button" 
+                    [disabled]="!loginForm.valid || loginButtonDisable"
+                    style="
+                    background: linear-gradient(to right, #4D5DFB, #8332FD);
+                    border: none;
+                    color: white;
+                    font-weight: bold;
+                    border-radius: 6px;
+                    padding: 0.75rem 1rem;
+                "></button>
+                
+            </div>
+        </form>
+        <div class="text-center p-mt-3">
+            <p class="text-sm">Don't have an account? <a  style="text-decoration: none;" routerLink="/createaccount" class="link">Create account</a></p>
+        </div>
+        
+      </p-card><br>
+      <div class="text-center p-mt-3">
+        <a routerLink="/" class="link" style="text-decoration: none;">← Back to home</a>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+<!--
 <app-landingnavbar></app-landingnavbar>
 <br><br><br>
 <div class="grid flex  justify-content-center ">
     <div class="md:col-5 ">
-        <p-card header="Log In" [style]="{ 'background-image': 'url(/assets/images/Create_account_bg1.jpg)', 'background-size': 'cover', 'background-position': 'center', 'padding': '20px', 'border-radius': '10px' }">
-            <form [formGroup]="loginForm" (ngSubmit)="userLogin()">
-                <div class="">
+        <p-card header="Sign In to Your Account" [style]="{ 'background-image': 'url(/assets/images/Create_account_bg1.jpg)', 'background-size': 'cover', 'background-position': 'center', 'padding': '20px', 'border-radius': '10px' }">
+            <form [formGroup]="loginForm" (ngSubmit)="userLogin()" style="padding-top: 20px;">
+                <div>
                     <div class="grid">
                         <label for="email" class="col-12 sm:col-4 col-form-label">Email</label>
                         <div class="col-12 sm:col-8">
@@ -40,9 +135,11 @@
                     <div class="col-12 text-center">
                         <p-button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid || loginButtonDisable">Login</p-button>
                     </div>
+                    
                 </div>
             </form>
         </p-card> 
     </div>
 </div>
-<br><br><br><br><br><br><br><br><br><br><br><br>
+
+-->

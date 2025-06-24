@@ -71,14 +71,14 @@ export class NavbarComponent  implements OnInit{
               { key: '0-3', label: 'Dashboard', data: 'home/advertiserdashboard', type: 'url',icon:'pi pi-home' },
               { key: '0-4', label: 'Report', data: 'home/advertiserreport', type: 'url' ,icon:'pi pi-chart-bar'},
               { key: '0-5', label: 'My Advertisments', data: '/myadvertisement', type: 'url',icon:'pi pi-folder' },
-              { key: '0-6', label: 'Profile', data: 'profile/profile/:userId', type: 'url',icon:'pi pi-home'},
+              { key: '0-6', label: 'Profile', data: 'profile/visit/:userId', type: 'url',icon:'pi pi-home'},
               { key: '0-7', label: 'Update profile', data: 'profile/profileupdate', type: 'url',icon:'pi pi-chart-line'},
               { key: '0-8', label: 'Chat', data: 'user/chat', type: 'url',icon:'pi pi-id-card'},
               { key: '0-9', label: 'logout', data: 'logout', type: 'url',icon:'pi pi-sign-out'},
           ];
                 // Define menu items for regular users
       this.userNodes = this.allNodes.filter(node =>
-        node.key && ['0-0', '0-2','0-3', '0-6', '0-7', '0-8', '0-9'].includes(node.key)
+        node.key && ['0-0', '0-2','0-3', '0-7', '0-8', '0-9'].includes(node.key)
       );
 
       // Define menu items for advertisers
@@ -118,7 +118,7 @@ export class NavbarComponent  implements OnInit{
             expanded: true,
             label: 'Settings',
             children: [
-                { key: '2-0', label: 'Profile', data: 'profile/profile/:userId', type: 'url',icon:'pi pi-home'},
+                { key: '2-0', label: 'Profile', data: 'profile/visit/:userId', type: 'url',icon:'pi pi-home'},
                 { key: '2-1', label: 'Update profile', data: 'profile/profileupdate', type: 'url',icon:'pi pi-chart-line'},
                 { key: '2-2', label: 'logout', data: 'logout', type: 'url',icon:'pi pi-sign-out'},
             ]
@@ -138,8 +138,8 @@ export class NavbarComponent  implements OnInit{
       });
 
       //this._router.navigate(['/advertiser/myadvertisement'], {state: { userId: this.userId },});
-    } else if (val.includes('profile/profile/')) {
-      this._router.navigate([val.replace(':userId', this.userId)]);
+    } else if (val.includes('profile/visit/')) {
+      this._router.navigate(['profile/visit', 'user', this.userId]);
     } else if (val.includes('logout')) {
       this.confirmLogout()
     } 
@@ -207,7 +207,6 @@ export class NavbarComponent  implements OnInit{
   }
 
   homeButton(){
-    console.log("Chat history retrieval completed")
     this._router.navigate(['home'])
   }
 

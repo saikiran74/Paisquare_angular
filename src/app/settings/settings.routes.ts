@@ -8,7 +8,8 @@ const routes: Routes = [
     path:'',
     component:NavbarComponent,
     children:[
-      { path: 'profile/:id', component: ProfileComponent },
+      //{ path: 'profile/:id', component: ProfileComponent },
+      { path: 'visit/:type/:id', component: ProfileComponent },
       { path: 'profileupdate', component: ProfileupdateComponent },
     ]
   }

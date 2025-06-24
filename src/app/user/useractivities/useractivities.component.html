@@ -57,9 +57,9 @@
     }
     
     @if (profile==true) {
-        <div class="grid" style="padding-top: 5px;">
-            @for (profile of profileList; track $index) {
-                <div class="col-12 lg:col-4 sm:col-2 flex flex-wrap justify-content-center md:justify-content-start" >
+        <div class="grid" style="padding-top: 15px;">
+            @for(profile of profileList; track $index) {
+                <div class="col-12 lg:col-4 sm:col-2 flex flex-wrap justify-content-center md:justify-content-start" style="padding-top:15px !important;">
                     <p-card [style]="{'width':'220px'}">
                         <ng-template pTemplate="body">
                             <div >
@@ -98,7 +98,7 @@
                             </div>
                         </ng-template>
                     </p-card>
-                </div> <br>
+                </div> 
             }
         </div>
     } @else {

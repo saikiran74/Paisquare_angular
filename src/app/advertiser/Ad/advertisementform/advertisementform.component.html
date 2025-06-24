@@ -1,4 +1,11 @@
-<p-card header="Advertise">
+<div style="background: linear-gradient(90deg, #31B4F2, #0000FF, #025492);  text-align: center; color: #F8CF40;">
+    <!--<h1 style="font-size: 3rem; margin: 0; letter-spacing: 2px;">Advertise</h1>-->
+    <div style="font-size: 2rem; color: white; margin-top: 10px; padding: 20px;">
+      Promote your brand!
+    </div>
+</div>
+  
+<p-card>
     <div class="container">
         <div class="form">
             <form #loginform="ngForm" (ngSubmit)="advertisementForm()" class="form container">
@@ -168,6 +175,11 @@
                     <div class="col-12 md:col-6 sm:col-6">
                         <label for="adhead">Enter hashtags</label>
                         <div>
+                            <input pInputText  type="text" class="form-control" 
+                            id="hashtags" name="hashtags" placeholder="Enter comma seperated hashtags" [(ngModel)]="advertise.hashtags"><br>
+                        </div><br>
+                        <!--
+                        <div>
                           <p-chips 
                               [(ngModel)]="hashtags" 
                               separator="," 
@@ -179,6 +191,7 @@
                             You can only add up to 5 hashtags.
                           </p>
                         </div>
+                        
                         <div style="display: flex; padding: 5px; padding-left: 0px;" class="gap-2 justify-content-start align-items-center">
                             <p-chip 
                                 *ngFor="let chip of hashtags | slice:0:5; let i = index" 
@@ -188,7 +201,7 @@
                                 (onRemove)="removeChip(i)">
                             </p-chip>
                            
-                        </div>
+                        </div>-->
                       </div>
                       <!--
                     <div class="col-12 md:col-6 sm:col-6">
@@ -203,23 +216,27 @@
                         <label for="adhead">District</label>
                         <div>
                             <input pInputText  type="text" class="form-control" id="adsilver" name="District" placeholder="Target District" [(ngModel)]="advertise.district"><br>
-                        </div>
+                        </div><br>
                     </div>
                     <div class="col-12 md:col-6 sm:col:6">
                         <label for="adhead">State</label>
                         <div>
                             <input pInputText  type="text" class="form-control" id="adsilver" name="State" placeholder="Target State" [(ngModel)]="advertise.state"><br>
-                        </div>
+                        </div><br>
                     </div>
                     <div class="col-12 md:col-6 sm:col-6">
                         <label for="adhead">Country</label>
                         <div>
                             <input pInputText  type="text" class="form-control" id="adsilver" name="Country" placeholder="Target Country" [(ngModel)]="advertise.country"><br>
-                        </div>
+                        </div><br>
                     </div>
                     <div class="col-12 md:col-6 sm:col-6" style="width: 100%;">
                         <label for="adhead">Enter Location PinCodes</label>
                         <div>
+                            <input pInputText  type="text" class="form-control" 
+                            id="pincodes" name="pincodes" placeholder="Enter comma seperated pincodes" [(ngModel)]="advertise.pincodes"><br>
+                        </div><br>
+                        <!--<div>
                            <p-chips [(ngModel)]="pincodes" separator="," name="hashtagInput"
                             placeholder="Enter location pincode where your wants to publish" name="pincodes"></p-chips>
                         </div>
@@ -231,7 +248,7 @@
                                 [removable]="true" 
                                 (onRemove)="removeChip(i)">
                             </p-chip>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <!--
@@ -301,7 +318,7 @@
                 <h3 class="text-danger">{{message}}</h3>
                 <div class="col-12">
                     <div class="flex justify-content-center align-content-center">
-                        <p-button type="submit" href="advertise" class="btn btn-primary">Advertise</p-button>
+                        <button class="commonButton" type="submit" href="advertise">Advertise</button>
                     </div>
                 </div>  
             </form>

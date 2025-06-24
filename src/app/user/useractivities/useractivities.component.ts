@@ -65,7 +65,7 @@ export class UseractivitiesComponent implements OnInit{
   favouriteAdvertisements(){
     this._service.getFavouriteAdvertisements().subscribe(
       data => {
-        this.advertisementsOnClick = data;
+        this.advertisementsOnClick = data.reverse();
     },
       error=>{console.log("error occure while retrieving the data!")
     });
@@ -73,7 +73,7 @@ export class UseractivitiesComponent implements OnInit{
   likedAdvertisements(){
     this._service.getLikedAdvertisements().subscribe(
       data => {
-        this.advertisementsOnClick = data;
+        this.advertisementsOnClick = data.reverse();
     },
       error=>{console.log("error occure while retrieving the data!")
     });
@@ -81,7 +81,7 @@ export class UseractivitiesComponent implements OnInit{
   followingAdvertisements(){
     this._service.getFollowingAdvertisements().subscribe(
       data => {
-        this.advertisementsOnClick = data;
+        this.advertisementsOnClick = data.reverse();
     },
       error=>{console.log("error occure while retrieving the data!")
     });
@@ -89,7 +89,7 @@ export class UseractivitiesComponent implements OnInit{
   visitedAdvertisements(){
     this._service.getVisitedAdvertisements().subscribe(
       data => {
-        this.advertisementsOnClick = data;
+        this.advertisementsOnClick = data.reverse();
     },
       error=>{console.log("error occure while retrieving the data!")
     });

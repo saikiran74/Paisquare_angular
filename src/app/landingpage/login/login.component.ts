@@ -13,6 +13,7 @@ import { FormControl, FormGroup, Validators,ValidatorFn, AbstractControl,Validat
 })
 export class LoginComponent implements OnInit {
   message=''
+  showPassword: boolean = false;
   constructor(private _service: PaiService, private _router: Router, private authService: AuthService){};
   text=''
   loginForm!: FormGroup;
@@ -62,4 +63,13 @@ export class LoginComponent implements OnInit {
     }
     this.loginButtonDisable=false;
   }
+
+  goToSignup() {
+    this._router.navigate(['/signup']);
+  }
+
+  goToForgotPassword() {
+    this._router.navigate(['/forgot-password']);
+  }
+
 }

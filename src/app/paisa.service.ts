@@ -84,6 +84,9 @@ export class PaiService {
   public getUserdata(userId:Number){
     return this._http.get<any>(`${this.apiUrl}/userdata/${userId}`);
   }
+  public getAdvertiserProfile(userId:Number){
+    return this._http.get<any>(`${this.apiUrl}/advertiser_profile/${userId}`);
+  }
   public ProfileSocialMediaUpdate(profile:Profile,userId:Number):Observable<any>{
     return this._http.post<any>(`${this.apiUrl}/updateProfile/socialMediaLinks/${userId}`,profile)
   }

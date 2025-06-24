@@ -1,3 +1,88 @@
+.login-container {
+    height: 100vh;
+    background: linear-gradient(to bottom right, #e0f0ff, #f0e0ff);
+    padding: 1rem;
+  }
+  .welcome-text {
+    color: #4b5563; /* Tailwind's gray-600 */
+  }
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .brand-header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .logo-box {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    line-height: 40px;
+    text-align: center;
+  }
+  
+  .brand-name {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(to right, #2563eb, #9333ea);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 0.5rem;
+  }
+  
+  .welcome-text {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 1rem;
+  }
+  
+  .link {
+    color: #2563eb;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-sm {
+    font-size: 0.9rem;
+  }
+  
+  .p-input-icon-right > .pi:last-child {
+    position: absolute;
+    right: 0.75rem;
+    align-items: center;
+    top: 50%;
+    transform: translateY(-50%);
+    align-items: end;
+    justify-content: center;
+  }
+  .advertise-btn {
+    background-color: var(--primary-color);
+    border: none;
+  }
+
+  :host ::ng-deep .p-inputtext {
+    width: 100% !important;
+  }
+  :host ::ng-deep .p-password {
+    width: 100% !important;
+  }
+/*
 @media (max-width: 768px) {
     :host ::ng-deep .p-card{
         margin: 8px;
@@ -7,3 +92,4 @@
     padding-top: 0rem !important;
     padding-bottom: 0rem !important;
 }
+    */

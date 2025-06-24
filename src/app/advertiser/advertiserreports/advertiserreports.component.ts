@@ -81,6 +81,10 @@ ngOnInit() {
     };
 }
 selectedtype(period:String){
+    this.noDataFavourite=false;
+    this.noDataLikes=false;
+    this.noDataFollowers=false;
+    this.noDataVisitors=false;
     this.getFavouriteGraphFromRemote(period)
     this.getLikeGraphFromRemote(period)
     this.getVisitorGraphFromRemote(period)
@@ -89,6 +93,7 @@ selectedtype(period:String){
 getFavouriteGraphFromRemote(period:any){
     this._service.getFavouriteGraphFromRemote(this._service.userId,period).subscribe(
         data=>{
+            console.log("getFavouriteGraphFromRemote like",data)
             this.favouriteLabels=[]
             this.favouriteData=[]
             data.length

@@ -25,19 +25,20 @@ export class ProfileComponent  implements OnInit{
     this.userId=this._service.userId;
     this.getProfileImage()
     this._route.params.subscribe(params => {
-      this.advertiserId = params['id']; 
-      if (this.advertiserId) {
-        this.getProfile(this.advertiserId)
+      const id = params['id'];
+      const type = params['type'];
+      
+      if (id && type === 'advertiser') {
+        this.advertiserId=id;
+        console.log("this.advertiserId",this.advertiserId)
+        this.getAdvertiserProfile(id);
+      } else if (id && type === 'user') {
+        this.getUserProfile(id);
+      } else {
+        console.error('Invalid Profile Access');
       }
     });
-    this.getUserProfile(+this.userId)
-    this._service.getUserAdvertisements(this.advertiserId).subscribe(
-      data => {
-        this.advertisements = data;
-      },
-        error=>{
-          console.log("error occurred while retrieving the data for userId -")
-    });
+    this.getUserProfile(this._service.userId);
   }
   followerslist: any[] = [];
   userData: any[] = [];
@@ -49,7 +50,7 @@ export class ProfileComponent  implements OnInit{
     this._service.FollowerFromRemote(this.followerobj,advertiserid,+this.userId).subscribe(
       data=>{
         this.getUserProfile(+this.userId);
-        this.getProfile(+advertiserid);
+        this.getAdvertiserProfile(+advertiserid);
         //this._router.navigate(['homepage'])
       },
       error=>{
@@ -67,12 +68,23 @@ export class ProfileComponent  implements OnInit{
     });
     
   }
-  // loading profile data
+  getUserAdvertisements(advertiserId:number){
+    this._service.getUserAdvertisements(advertiserId).subscribe(
+      data => {
+        this.advertisements = data;
+      },
+        error=>{
+          console.log("error occurred while retrieving the data for userId -")
+    });
+  }
+  // loading profile data getAdvertiserProfile
   profileFound:boolean=false
-  getProfile(advertiserId:Number){
-    this._service.getProfileList(advertiserId).subscribe(
+  
+  getAdvertiserProfile(advertiserId:Number){
+    this._service.getAdvertiserProfile(advertiserId).subscribe(
       data =>{
         this.profile=data;
+        this.getUserAdvertisements(data.userId)
         this.followersCount=this.getFollowersCount();
         if (this.profile && Object.keys(this.profile).length > 0) {
           this.profileFound = true;
@@ -86,6 +98,12 @@ export class ProfileComponent  implements OnInit{
   getUserProfile(userId:Number){
     this._service.getUserdata(userId).subscribe(
       data =>{
+        this.profile=data;
+        this.getUserAdvertisements(data.userId)
+        this.followersCount=this.getFollowersCount();
+        if (this.profile && Object.keys(this.profile).length > 0) {
+          this.profileFound = true;
+        }
         this.followerslist=data.following;
         this.blockedlist=data.blockadvertiser;
       },

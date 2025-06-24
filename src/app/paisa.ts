@@ -1,3 +1,7 @@
+export enum URLs{
+    FAQ='https://www.paisquare.in/2025/05/everything-you-need-to-know-about-paisquare-in-2025-advertising.html',
+}
+
 export class User {
     id!:Number;
     email!:string;
@@ -14,6 +18,7 @@ export class Advertise{
     brandname:string='';
     description:string='';
     url:string='';
+    userid:Number=0;
     location:string=' ';
     backGroundColor:string='';
     gender!:string;
@@ -28,6 +33,7 @@ export class Advertise{
     hashtags!: string;
     status!:string;
     pincodes!:string;
+    category!:string;
     commenteduser!:Number[];
     visiteduser!:Number[];
     constructor(){}

@@ -107,7 +107,7 @@
             </div>
         </p-dialog>
         <br><br>
-        <div class="surface-ground md:px-4 lg:px-4" style="padding: 8px;">
+        <div class="surface-ground md:px-4 lg:px-4" style="padding: 8px; padding-top:20px">
             <div class="grid">
                 <div class="col-6 md:col-6 lg:col-3">
                     <div class="surface-card shadow-2 3 border-round">
@@ -181,7 +181,7 @@
     
     @if(advertisementsAvailable>0){
         <div style="padding-left: 8px;">
-            <h1>Advertisements</h1>
+            <h1>Advertiser Posts</h1>
             <app-homepage *ngFor="let ads of advertisements" [ad]="ads">
             </app-homepage>
         </div>

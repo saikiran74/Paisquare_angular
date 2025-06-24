@@ -25,6 +25,7 @@ export class HomepageComponent implements OnInit {
   advertisements: any[] = [];
   advertisementsListById: any[] = [];
   comments: any[] = [];
+  latestFiveComments: any[] = [];
   followersuseridlist: any[]=[];
   followerslist: any[] = [];
   userData: any[] = [];
@@ -37,8 +38,12 @@ export class HomepageComponent implements OnInit {
   message=''
   showComments=''
   currentOpenId: any;
+  currentOpenLocationId: any;
   following:any;
   advertisementid:any=0;
+  showAllCommentsDialog =false;
+  isExpanded = false;
+  showMenu = false;
   constructor(private cdr: ChangeDetectorRef,private authService: AuthService,private _service: PaiService,private http: HttpClient,private _router: Router,private _route: ActivatedRoute) {
        
   }
@@ -61,7 +66,6 @@ export class HomepageComponent implements OnInit {
           data => {
             this.userId=this._service.userId;
             this.advertisements = data;
-            
           },
             error=>{console.log("error occure while retrieving the data for ID -",adId)
         });
@@ -230,6 +234,15 @@ export class HomepageComponent implements OnInit {
     }
     )
   }
+  
+  locationBox(advertisementid:Number){
+    if (this.currentOpenLocationId === advertisementid) {
+      this.currentOpenLocationId = null;
+    } else {
+      this.currentOpenLocationId = advertisementid;
+    }
+  }
+  
   commentlist(advertisementid:Number){
     if (this.currentOpenId === advertisementid) {
       this.currentOpenId = null;
@@ -239,8 +252,9 @@ export class HomepageComponent implements OnInit {
     this.comments = [];
     this._service.CommentsListFromRemote(advertisementid).subscribe(
       data=>{
-        this.comments=data;
-        //this._router.navigate(['alladvertisements'])
+        const reversed = [...data].reverse();
+        this.comments=reversed;
+        this.latestFiveComments= reversed.slice(0,5); 
     },
       error=>{console.log("Error occured");
     }
@@ -251,8 +265,9 @@ export class HomepageComponent implements OnInit {
       data=>{
         if (data) {
           const title = data.brandname;
-          const text = this.stripHtmlTags(data.description); // Remove HTML tags
-          const url = data.url;
+          const text = this.stripHtmlTags(data.description);
+          const url = "https://paisquare.com/advertisements/"+data.id+"/"+data.slug;
+          console.log("url",url)
           this.share(title, text, url);
         } else {
           console.log("Advertisement not found");
@@ -293,12 +308,61 @@ export class HomepageComponent implements OnInit {
     this.showReportDialog=true
     this.advertisementId=advertisementId;
   }
+  /*
   visitProfile(id:number){
     this._router.navigate(['visit/profile', id]);
-  }
+  }*/
+    visitProfile(id:number){
+      this._router.navigate(['profile/visit', 'advertiser', id]);
+    }
   openChat(Id: number, Name: string): void {
     this._router.navigate(['/user/chat'], { 
       queryParams: { userId: Id, name: Name }
     });
+  }
+
+
+
+
+
+
+
+  get timeAgo(): string {
+    if (!this.ad?.opendate) return 'Recently';
+
+    const opendate = new Date(this.ad.opendate);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - opendate.getTime()) / 1000);
+
+    if (diffInSeconds < 60) {
+      return 'Just now';
+    } else if (diffInSeconds < 3600) {
+      const minutes = Math.floor(diffInSeconds / 60);
+      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    } else if (diffInSeconds < 86400) {
+      const hours = Math.floor(diffInSeconds / 3600);
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else if (diffInSeconds < 604800) {
+      const days = Math.floor(diffInSeconds / 86400);
+      return `${days} day${days > 1 ? 's' : ''} ago`;
+    } else {
+      return opendate.toLocaleDateString();
+    }
+  }
+
+  get daysLeft(): number | null {
+    if (!this.ad.expiresAt) return null;
+    const diffMs = new Date(this.ad.expiresAt).getTime() - new Date().getTime();
+    return diffMs > 0 ? Math.ceil(diffMs / (1000 * 60 * 60 * 24)) : null;
+  }
+  outsideClick() {
+    this.showMenu = false;
+  }
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
+  }
+  showLocation = false;
+  toggleLocation() {
+    this.showLocation = !this.showLocation;
   }
 }

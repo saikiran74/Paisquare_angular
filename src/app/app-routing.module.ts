@@ -43,6 +43,7 @@ const routes: Routes = [
     component:NavbarComponent,
     children:[
       { path: 'profile/:id', component: ProfileComponent},
+      { path: 'profile/:type/:id', component: ProfileComponent }
     ]
   },
   {

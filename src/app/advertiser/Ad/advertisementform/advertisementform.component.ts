@@ -120,8 +120,8 @@ export class AdvertisementformComponent implements OnInit{
     if(this.advertise.brandname==null || this.advertise.brandname==''){
       this.message="Please enter Brandname"
     } 
-    else if(this.advertise.brandname.length>15){
-      this.message="Please enter Brandname less than 15 characters"
+    else if(this.advertise.brandname.length>30){
+      this.message="Please enter Brandname less than 30 characters"
     }else if(this.advertise.brandname.length>50) {
       this.message="Please enter brand name less than 50 Characters"
     }
@@ -150,8 +150,8 @@ export class AdvertisementformComponent implements OnInit{
       return;
     } 
     else{
-      this.advertise.hashtags = this.hashtags.join(', ');
-      this.advertise.pincodes = this.pincodes.join(', '); 
+      //this.advertise.hashtags = this.hashtags.join(', ');
+      //this.advertise.pincodes = this.pincodes.join(', '); 
       this._service.advertiseFromRemote(this.advertise,this._service.userId).subscribe(
         data=>{
           this._router.navigate(['home'])

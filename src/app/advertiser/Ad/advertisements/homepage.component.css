@@ -13,7 +13,7 @@ button{
   border: none !important;
   background: transparent !important;
   margin: -10px;
-  box-shadow: none !important; /* Removes any shadow */
+  box-shadow: none !important;
 }
 .input-group {
   display: flex;
@@ -42,12 +42,14 @@ button{
   padding-right: 0px;
 }
 .brandname{ 
-  padding: 16px;
-  font-size: 2rem;
+  padding-left: 5px;
+  font-size: 1.7rem;
 }
 .footer-icon{
   background-color: white; 
   border-radius: 50%;
+  width: 52px;
+  height: 52px;
   padding: 10px;
 }
 .background-footer{
@@ -73,9 +75,144 @@ button{
   :host ::ng-deep .btn-comment-box {
     height: 34px;
   }
+  :host ::ng-deep .p-dialog .p-dialog-header {
+    padding:0px !important;
+    padding-left:1.5px !important;
+  }
+  :host ::ng-deep  .card {
+    padding: 5px !important;
+  }
 }
 .comment-input {
   flex: 1; /* Makes it take remaining space */
   width: 95% !important; /* Ensures 95% width */
   padding: 8px;
+}
+:host ::ng-deep .p-dialog .p-dialog-header {
+  padding:0px !important;
+  padding:24px !important;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+}
+
+
+
+:host ::ng-deep .advertiser-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  color: rgb(0, 47, 255);
+  font-size: 2rem;
+  color: #F8CF40;
+  font-family: Arial, Helvetica, sans-serif;
+}
+:host ::ng-deep .p-avatar img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+::ng-deep .p-avatar:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+::ng-deep .custom-badge {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  font-size: 16px !important;
+  border: none !important;
+  border-radius: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+::ng-deep .custom-icon-button {
+  color: white !important;
+  background-color: transparent !important;
+  border: none !important;
+  width: 2.5rem;
+  height: 2.5rem;
+  font: 1.2rem;
+}
+
+::ng-deep .custom-icon-button:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.custom-location-box {
+  background-color: rgba(0, 0, 0, 0.2); /* subtle dark background */
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.custom-location-text {
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.custom-location-label {
+  color: #CCEFFF; /* light and readable sky blue */
+  font-size: 1.2rem;
+}
+
+.action-menu-container {
+  width: 200px;
+  padding: 0.5rem 0;
+}
+
+/* This class removes background, border, and adjusts appearance */
+.custom-action-button {
+  background-color: rgb(120, 190, 255) !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: black !important; /* red color for text/icon */
+  padding: 0.5rem 1rem;
+  width: 120%;
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 0px !important;
+  border-radius: 10px;
+}
+
+/* Optional: on hover, keep transparent */
+.custom-action-button:hover {
+  background-color: rgb(52, 157, 255) !important;
+}
+.animate-slide-up {
+  animation: slideUp 0.6s ease-in-out forwards;
+}
+:host ::ng-deep  .ad_logo {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgb(8, 204, 253);
+  animation: slideUp 0.5s ease forwards;
+}
+:host ::ng-deep  .card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 6px;
+  margin-bottom: 6px;
+  padding: 10px 30px 0px 30px;
+  transition: all 0.3s ease;
+  animation: slideUp 0.5s ease forwards;
+}
+:host ::ng-deep  .card:hover {
+  background: linear-gradient(to bottom right, #eff6ff, #f5f3ff);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+.separator {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 0;
+  padding-bottom: 20px;
+}
+::ng-deep .pai-coin-gradient {
+  background: linear-gradient(to right, #ffa500, #ff4500); /* example gradient */
+}
+::ng-deep .p-overlaypanel .p-overlaypanel-content {
+  padding: 1rem;
+  width: 280px;
 }
