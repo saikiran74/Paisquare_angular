@@ -33,8 +33,6 @@ export class ProfileupdateComponent implements OnInit {
     private authService: AuthService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-
-  constructor(private _service: PaiService,private _router: Router,private authService: AuthService,private messageService: MessageService
     , private http: HttpClient
   ) {}
 
@@ -326,7 +324,6 @@ export class ProfileupdateComponent implements OnInit {
 // Removed duplicate implementation of populateProfileForm
 onSubmitAccountTypeUpdate() {
   this.updatingInformation = true;
-
   this.showMessageFor = 'AccountType';
   const accountTypeControl = this.profileForm.get('accountType');
 
@@ -344,26 +341,6 @@ onSubmitAccountTypeUpdate() {
             this.authService.login(data.token);
             this.getUserdata();
             this._router.navigate(['home']);
-
-  const accountTypeControl = this.profileForm.get('accountType');
-  this.showMessageFor = 'AccountType';
-
-  if (accountTypeControl && accountTypeControl.valid) {
-    const accountTypePayload = accountTypeControl.value;
-
-    this._service.ProfileAccountTypeUpdate(accountTypePayload, this._service.userId).subscribe(
-      data => {
-        console.log("Account type updated successfully:", data.user);
-        console.log("Account type updated token successfully:", data.token);
-        this.authService.login(data.token);
-        this._service.getUserdata(this._service.userId).subscribe(
-          updatedData => {
-            this.profileData = updatedData;
-            this.isAdvertiser = updatedData.accountType?.toLowerCase() === 'advertiser';
-            this.populateProfileForm(updatedData);
-            this.messagesUpdate('success');
-            this.updatingInformation = false;
-
           },
           error => {
             this.messagesUpdate('error');
@@ -371,22 +348,18 @@ onSubmitAccountTypeUpdate() {
           }
         );
       },
-
       reject: () => {
         this.updatingInformation = false;
       }
     });
 
-      error => {
-        this.messagesUpdate('error');
-        this.updatingInformation = false;
-      }
-    );
   } else {
     this.messagesUpdate('info');
     this.updatingInformation = false;
   }
 }
+
+
 
 
   onSubmitpasswordUpdate(){
