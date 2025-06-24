@@ -1,68 +1,55 @@
-<div class="grid h-full container " >
-  @if(!userSelected || isLargeScreen){
-    <!-- Chat Sidebar -->
-    <div class="col-12 lg:col-4 border-right-1 surface-border flex flex-column">
-      <div class="p-3 lg:p-0">
-        <div class="border-bottom-1 surface-border  " style="padding-bottom: 10px;">
-          <h2 class="text-xl font-bold mb-3 mt-0">Messages</h2>
-          <div class="p-input-icon-left w-full">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" 
-            placeholder="Search conversations..." class="w-full"
-            style="padding-left: 2rem; min-width: 0;"
-             [(ngModel)]="searchQuery"
-             (ngModelChange)="filterUsers()">
+<div class="grid h-full">
+  <!-- Chat Sidebar -->
+  <div class="col-12 lg:col-4 border-right-1 surface-border flex flex-column">
+    <div class="border-bottom-1 surface-border" style="padding-bottom: 10px;">
+      <h2 class="text-xl font-bold mb-3">Messages</h2>
+      <div class="p-input-icon-left w-full">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" placeholder="Search conversations..." class="w-full" [(ngModel)]="searchQuery">
+      </div>
+    </div>
+
+    <div class="overflow-auto flex-grow-1">
+      <ng-container *ngIf="chatHistoryUsers.length > 0; else noConversations">
+        <div *ngFor="let user of chatHistoryUsers" (click)="selectUser(user)"
+             [ngClass]="{'bg-primary-100 border-left-3 border-primary': user.id === selectedUserId}"
+             class="p-2 border-bottom-1 surface-border cursor-pointer hover:bg-gray-100">
+          <div class="flex align-items-center">
+              @if (user.profileImage && user.profileImage.length>2) {
+                <p-avatar 
+                    [image]="user.profileImage ? 'data:image/png;base64,' + user.profileImage : user.username.charAt(0).toUpperCase()" 
+                    styleClass="advertiser-avatar" styleClass="mr-3" shape="circle"
+                ></p-avatar>
+              } @else {
+                  <p-avatar 
+                      styleClass="advertiser-avatar"
+                      label="{{ user.username.charAt(0).toUpperCase() }}" styleClass="mr-3" shape="circle"
+                  ></p-avatar>
+              }   
+            <div class="flex-grow-1">
+              <div class="flex justify-content-between align-items-center">
+                <span class="font-medium">{{ user.username }}</span>
+              </div>
+              <div class="text-sm text-secondary">{{ user.lastMessage || 'No messages yet' }}</div>
+            </div>
+            <p-badge *ngIf="user.unread > 0" [value]="user.unread" severity="info" class="ml-2"></p-badge>
           </div>
         </div>
-  
-        <div class="overflow-auto flex-grow-1">
-          <ng-container *ngIf="filteredUsers.length > 0; else noConversations">
-            <div *ngFor="let user of filteredUsers" (click)="selectUser(user)"
-                [ngClass]="{'bg-primary-100 border-left-3 border-primary': user.id === selectedUserId}"
-                class="p-2 border-bottom-1 surface-border cursor-pointer hover:bg-gray-100">
-              <div class="flex align-items-center">
-                  @if (user.profileImage && user.profileImage.length>2) {
-                    <p-avatar 
-                        [image]="user.profileImage ? 'data:image/png;base64,' + user.profileImage : user.username.charAt(0).toUpperCase()" 
-                        styleClass="advertiser-avatar" styleClass="mr-3" shape="circle"
-                    ></p-avatar>
-                  } @else {
-                      <p-avatar 
-                          styleClass="advertiser-avatar"
-                          label="{{ user.username.charAt(0).toUpperCase() }}" styleClass="mr-3" shape="circle"
-                      ></p-avatar>
-                  }   
-                <div class="flex-grow-1">
-                  <div class="flex justify-content-between align-items-center">
-                    <span class="font-medium">{{ user.username }}</span>
-                  </div>
-                  <div class="text-sm text-secondary">{{ user.lastMessage || 'No messages yet' }}</div>
-                </div>
-                <p-badge *ngIf="user.unreadMessagesCount > 0" [value]="user.unreadMessagesCount" severity="info" class="ml-2"></p-badge>
-              </div>
-            </div>
-          </ng-container>
-          <ng-template #noConversations>
-            <br><br><br><br>
-            <div class="text-center p-4 text-muted">No conversations found</div>
-          </ng-template>
-        </div>
-      </div>
-      
+      </ng-container>
+      <ng-template #noConversations>
+        <br><br><br><br>
+        <div class="text-center p-4 text-muted">No conversations found</div>
+      </ng-template>
     </div>
-    
-  }
+  </div>
 
-
-  <ng-container *ngIf="userSelected; else noChatSelected">
   <!-- Chat Messages -->
-  <div class="col-12 lg:col-8 flex flex-column h-screen "  
-  style="max-height: calc(100vh - 40px);">
+  <div class="col-12 lg:col-8 flex flex-column">
+    <ng-container *ngIf="userSelected; else noChatSelected">
       <!-- Chat Header -->
       <div class="p-3 border-bottom-1 surface-border bg-white">
         <div class="flex justify-content-between align-items-center">
           <div class="flex align-items-center">
-            
             <button pButton icon="pi pi-arrow-left" class="p-button-text p-button-sm mr-2 lg:hidden" (click)="closeOpenedChatWindow()"></button>
             @if (selectedUserProfileImage && selectedUserProfileImage.length > 2) {
               <p-avatar 
@@ -92,30 +79,24 @@
       </div>
 
       <!-- Messages List -->
-      <div #chatContainer  class="flex-grow-1 overflow-auto p-3 surface-50 scroll-container">
-        <div *ngFor="let msg of messages" class="mb-3"> 
-          <div [ngClass]="{'justify-content-end': msg.sender.userId === currentUserId, 'justify-content-start': msg.sender.userId !== currentUserId}"
+      <div class="flex-grow-1 overflow-auto p-3 surface-50">
+        <div *ngFor="let msg of messages" class="mb-3">
+          <div [ngClass]="{'justify-content-end': msg.senderId === currentUserId, 'justify-content-start': msg.senderId !== currentUserId}"
                class="flex">
-            <div class="flex flex-column" [ngClass]="{'align-items-end': msg.sender.userId === currentUserId}">
-              <card [ngClass]="{
-                      
-                      'bg-primary text-white': msg.sender.userId === currentUserId,
-                      'bg-white border-1 border-gray-300': msg.sender.userId !== currentUserId,
-                      'border-radius':'7px !important'
+            <div class="flex flex-column" [ngClass]="{'align-items-end': msg.senderId === currentUserId}">
+              <div [ngClass]="{
+                     'bg-primary text-white': msg.senderId === currentUserId,
+                     'bg-white border-1 border-gray-300': msg.senderId !== currentUserId
                    }"
-                   class="p-2  max-w-20rem" style="min-width: 300px;border-radius:7px !important">
+                   class="p-2 border-round max-w-20rem">
                 <div class="text-sm whitespace-pre-line">{{ msg.message }}</div>
-              </card>
-              <small class="text-muted mt-1" 
-                [ngClass]="{'text-right': msg.sender.userId === currentUserId}"
-                style="color: rgba(107, 114, 128, 1);">
-                {{ msg.timestamp | date:'short' }}
-              </small>
+              </div>
+              <small class="text-muted mt-1" [ngClass]="{'text-right': msg.senderId === currentUserId}">{{ msg.timestamp | date:'short' }}</small>
             </div>
           </div>
         </div>
-        <div #bottom></div>
       </div>
+
       <!-- Message Input -->
       <div class="p-3 border-top-1 surface-border">
         <div class="flex gap-2 align-items-center">
@@ -123,24 +104,19 @@
           <button pButton icon="pi pi-send" (click)="sendMessage()" [disabled]="!messageText.trim()"></button>
         </div>
       </div>
+    </ng-container>
 
     <!-- No Chat Selected Template -->
-
-  </div>
-</ng-container>
-<ng-template #noChatSelected>
-  @if(userSelected){
-    <br><br><br><br>
-    <div class="flex-grow-1 flex align-items-center justify-content-center">
-      <div class="text-center">
-        <p-avatar icon="pi pi-comments" shape="circle" styleClass="mb-3 bg-gray-200"></p-avatar>
-        <h3 class="text-lg font-semibold text-secondary">Select a conversation</h3>
-        <p class="text-muted">Choose a chat from the sidebar to start messaging</p>
+    <ng-template #noChatSelected>
+      <div class="flex-grow-1 flex align-items-center justify-content-center">
+        <div class="text-center">
+          <p-avatar icon="pi pi-comments" shape="circle" styleClass="mb-3 bg-gray-200"></p-avatar>
+          <h3 class="text-lg font-semibold text-secondary">Select a conversation</h3>
+          <p class="text-muted">Choose a chat from the sidebar to start messaging</p>
+        </div>
       </div>
-    </div>
-  }
-  
-</ng-template>
+    </ng-template>
+  </div>
 </div>
 
 
@@ -170,8 +146,9 @@
 
 
 
-<!--
+
 <div class="grid h-screen">
+  <!-- User List (Right Sidebar) -->
    @if(!userSelected){
     
     <div class="col-12 lg:col-12 border-right-1 surface-border flex-shrink-0">
@@ -190,40 +167,48 @@
     </div>
   }
   
+  <!-- Chat Window -->
   <div class="col-12 lg:col-12 flex flex-column">
     @if (userSelected) {
+    <!-- Chat Header -->
     <div class="p-2 shadow-2  surface-100 border-bottom-1 surface-border 
     flex justify-content-between align-items-center">
       <button pButton icon="pi pi-arrow-left" style="border-radius: 50%; " (click)="closeOpenedChatWindow()"></button>
       <label class="text-center lg:text-left flex-grow-1" style="font-size: 1.5rem;">{{ selectedUserName }}</label>
     </div>
+    <!-- Chat Messages -->
 
     <div class="flex-1 p-3 overflow-y-auto" style="max-height: calc(100vh - 120px);">
       <div *ngFor="let message of messages" class="mb-1">
+        <!-- Username and Timestamp container -->
         <div
-          [class.ml-auto]="message.sender.id === currentUserId"
-          [class.mr-auto]="message.sender.id !== currentUserId"
-          [class.text-left]="message.sender.id !== currentUserId"
+          [class.ml-auto]="message.senderId === currentUserId"
+          [class.mr-auto]="message.senderId !== currentUserId"
+          [class.text-left]="message.senderId !== currentUserId"
           class="flex justify-between  border-round text-black max-w-75 sm:max-w-50 md:max-w-40 lg:max-w-30"
         >
-          <small *ngIf="message.sender.id === currentUserId" class="text-xs">{{currentUserName}}</small>
-          <small *ngIf="message.sender.id !== currentUserId" class="text-xs">{{selectedUserName}}</small>
+          <!-- Username aligned to the left -->
+          <small *ngIf="message.senderId === currentUserId" class="text-xs">{{currentUserName}}</small>
+          <small *ngIf="message.senderId !== currentUserId" class="text-xs">{{selectedUserName}}</small>
 
+          <!-- Timestamp aligned to the right -->
           <small class="text-xs" style="padding-left: 10px;">{{ message.timestamp | date:'short' }}</small>
         </div>
 
+        <!-- Message content container -->
         <div
-          [class.ml-auto]="message.sender.id === currentUserId"
-          [class.mr-auto]="message.sender.id !== currentUserId"
-          [class.text-left]="message.sender.id !== currentUserId"
-          [class.bg-primary]="message.sender.id === currentUserId"
-          [class.bg-secondary]="message.sender.id !== currentUserId"
+          [class.ml-auto]="message.senderId === currentUserId"
+          [class.mr-auto]="message.senderId !== currentUserId"
+          [class.text-left]="message.senderId !== currentUserId"
+          [class.bg-primary]="message.senderId === currentUserId"
+          [class.bg-secondary]="message.senderId !== currentUserId"
           class="p-2 border-round text-white max-w-75 sm:max-w-50 md:max-w-40 lg:max-w-30"
         >
           <p class="m-0">{{ message.message }}</p>
         </div>
       </div>
     </div>
+    <!-- Chat Input -->
     <div
       class="p-3 border-top-1 surface-border flex align-items-center"
       style="position: sticky; bottom: 0; background: white;"
@@ -245,5 +230,3 @@
     
   </div>
 </div>
--->
-
