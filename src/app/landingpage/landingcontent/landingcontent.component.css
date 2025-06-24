@@ -60,17 +60,6 @@
     display: flex;
   }
 }
-.btn-primary {
-  background-color: #3b82f6;
-  color: white;
-  border: none;
-}
-
-.btn-secondary {
-  background-color: #e5e7eb;
-  color: #374151;
-  border: none;
-}
 
 .navbar-links a {
   color: #666;

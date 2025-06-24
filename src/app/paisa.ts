@@ -36,8 +36,6 @@ export class Advertise{
     category!:string;
     commenteduser!:Number[];
     visiteduser!:Number[];
-    address!: string;
-    title!: string;
     constructor(){}
 }
 export class Contactus{
