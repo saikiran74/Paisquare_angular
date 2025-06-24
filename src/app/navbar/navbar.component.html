@@ -13,9 +13,16 @@
                     Pai Square
                 }
             </a>
-            
         </div>
         <div class="p-toolbar-group-end">
+            <div class="flex gap-2">
+                <button pButton label="Search" icon="pi pi-search" (click)="showSearch()"></button>
+                <button pButton label="Filter" icon="pi pi-filter" (click)="showFilter()"></button>
+            </div>
+
+        </div>
+        <!--
+         <div class="p-toolbar-group-end">
             @if (!isMobileView) {
                 <span class="p-input-icon-left search-box flex">
                     <i class="pi pi-search"></i>
@@ -45,6 +52,9 @@
                 </div>
             </div>
         }
+        -->
+       
+        
     </p-toolbar>
 </div>
 <div class="grid body">

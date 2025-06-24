@@ -1,4 +1,4 @@
-import { Component , OnInit, ViewChild, HostListener  } from '@angular/core';
+import { Component , OnInit, ViewChild, HostListener,Output, EventEmitter  } from '@angular/core';
 import { PaiService} from '../paisa.service';
 import { Router } from '@angular/router';
 import { Sidebar } from 'primeng/sidebar';
@@ -9,6 +9,7 @@ import { TreeNode } from 'primeng/api';
 import { Tree } from 'primeng/tree';
 import { AuthService } from '../service/auth-service.service';
 import { ConfirmationService } from 'primeng/api';
+import { UiCommunicationService } from '../service/UiCommunicationService';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +18,9 @@ import { ConfirmationService } from 'primeng/api';
   providers: [ConfirmationService]
 })
 export class NavbarComponent  implements OnInit{
+  @Output() toggleSearch = new EventEmitter<void>();
+  @Output() toggleFilter = new EventEmitter<void>();
+
   nodes!: TreeNode[];
   allNodes !: TreeNode[];
   userNodes !: TreeNode[];
@@ -25,6 +29,7 @@ export class NavbarComponent  implements OnInit{
   isMobileView: boolean = false;
   isSidebarVisible: boolean = false;
   constructor(
+    public uiService: UiCommunicationService,
     private _service: PaiService,private http: HttpClient, 
     private authService: AuthService,private _router: Router,
     private _route: ActivatedRoute,
@@ -222,5 +227,12 @@ export class NavbarComponent  implements OnInit{
         this._router.navigate(['/login']);
       }
     });
+  }
+  showSearch() {
+    this.uiService.toggleSearchBox();
+  }
+
+  showFilter() {
+    this.uiService.toggleFilterBox();
   }
 }

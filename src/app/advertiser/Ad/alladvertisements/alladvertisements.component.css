@@ -1,10 +1,19 @@
 
 @media (max-width: 600px) {
     .p-inputtext, .p-dropdown, .p-textarea, .p-calendar {
-        margin: 10px;
         padding-left: 5px;
         width: 250px !important;
         height: 35px;
         font-size: 1rem;
     }
+}
+.search-bar-container.focused {
+    border-color: #3b82f6;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  }
+.search-bar-container{    
+    border-width: 1px !important;
+    border-radius: 30px;
+    border-color: gray;
+    padding:10px
 }

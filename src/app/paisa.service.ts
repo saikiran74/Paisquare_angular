@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import {HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
-
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -17,7 +17,6 @@ export class PaiService {
   accountType:any;
   constructor( private _http : HttpClient) { }
   private apiUrl = environment.apiUrl;
-  
   
   isMobileView:boolean=false;
   @HostListener('window:resize', ['$event'])
@@ -214,6 +213,10 @@ export class PaiService {
   public getGlobalSearchresult(query:string){
     return this._http.get<any>(`${this.apiUrl}/search?query=${query}`);
   }
+  public getFilteredAds(body:any){
+    return this._http.post<any>(`${this.apiUrl}/getFilteredAds`, body);
+  }
+  
   public getHashTags(){
     return this._http.get<any>(`${this.apiUrl}/getHashTags`);
   }

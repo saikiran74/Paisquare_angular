@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, HostListener, Renderer2 } from '@angular/core';
 import { PaiService } from '../../../paisa.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../service/auth-service.service';
@@ -8,6 +8,9 @@ import { Meta, Title } from '@angular/platform-browser';
 import { Comments, Follower, Visited, Like, Block, Report, Favourite, Advertise } from '../../../paisa';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+
+import { UiCommunicationService } from '../../../service/UiCommunicationService';
 
 interface City {
   name: string,
@@ -22,15 +25,15 @@ interface City {
 
 export class AlladvertisementsComponent implements OnInit {
 isFocusedPincode: boolean = false;
-  sanitizePincode() {
-    this.newPincode = this.newPincode.replace(/[^0-9]/g, '').slice(0, 6);
-  }
-  
-  sanitizeHashtag() {
-    this.newHashtag = this.newHashtag.replace(/[^a-zA-Z0-9]/g, '');
-  }
+
+  showSearchBox = false;
+  showFilterBox = false;
+
+  private subs = new Subscription();
+
 
   constructor(
+    private uiService: UiCommunicationService,
     private _service: PaiService,
     private http: HttpClient,
     private _router: Router,
@@ -63,18 +66,9 @@ isFocusedPincode: boolean = false;
   pincodes: string[] = [];
   hashtags: string[] = [];
   isFocusedCategory = false;
-isFocusedLocation = false;
-// Removed duplicate declaration
-isFocusedHashtag = false;
-  
-get hasActiveFilters(): boolean {
-  return (
-    this.categorySearch.trim() !== '' ||
-    this.location.trim() !== '' ||
-    this.newPincode.trim().length === 6 ||
-    this.newHashtag.trim() !== ''
-  );
-}
+  isFocusedLocation = false;
+  // Removed duplicate declaration
+  isFocusedHashtag = false;
 
   categories = [
     'Travel', 'Health', 'Education', 'Business', 'Events', 'Agriculture',
@@ -90,7 +84,7 @@ get hasActiveFilters(): boolean {
   
   addPincode() {
     const valid = /^\d{6}$/.test(this.newPincode);
-    if (valid && !this.pincodes.includes(this.newPincode)) {
+    if (valid && !this.pincodes.includes(this.newPincode) && this.pincodes.length<5) {
       this.pincodes.push(this.newPincode);
       this.newPincode = '';
     }
@@ -102,7 +96,7 @@ get hasActiveFilters(): boolean {
   
   addHashtag() {
     const tag = this.newHashtag.trim().toLowerCase();
-    if (tag && !this.hashtags.includes(tag)) {
+    if (tag && !this.hashtags.includes(tag) && this.hashtags.length<5) {
       this.hashtags.push(tag);
       this.newHashtag = '';
     }
@@ -112,37 +106,40 @@ get hasActiveFilters(): boolean {
     this.hashtags = this.hashtags.filter(h => h !== tag);
   }
   
-  
-clearAllFilters() {
-  this.selectedCategory = '';
-  this.categorySearch = '';
-  this.location = '';
-  this.pincodes = [];
-  this.hashtags = [];
-}
+  clearAllFilters() {
+    this.categorySearch = '';
+    this.selectedCategory = '';
+    this.location = '';
+    this.newPincode = '';
+    this.pincodes = [];
+    this.newHashtag = '';
+    this.hashtags = [];
+  }
 
 selectCategory(cat: string) {
   this.selectedCategory = this.selectedCategory === cat ? '' : cat;
+  console.log("this.selectedCategory",this.selectedCategory)
 }
-
+filterSearch:boolean=false;
 handleSubmitFilters() {
   const trimmedPincode = this.newPincode.trim();
+  this.filterSearch = true;
+  const params = {
+    category: this.categorySearch || '',
+    location: this.location || '',
+    pincodes: this.pincodes.join(','),
+    hashtags: this.hashtags.join(',')
+  };
 
-  // Case: Pincode-based filtering only (single or multiple)
-  if (this.pincodes.length > 0) {
-    this.querySearch = true;
-    this._service.getAllAdvertisements().subscribe((ads: Advertise[]) => {
-      // Match if any ad contains at least one matching pincode
-      this.advertisements = ads.filter(ad =>
-        ad.pincodes &&
-        this.pincodes.some(pin => ad.pincodes.includes(pin))
-      );
-    });
-    return;
+  this._service.getFilteredAds(params).subscribe(
+    data => {
+        this.advertisements = data;
+    },
+    error => {
+      console.log("Error occurred while retrieving the advertisement for ID:", this.adId);
+    }
+  );
   }
-
-  // TODO: Extend logic for category, location, hashtags, etc. later
-}
 
 
   // --- New Search Bar Properties ---
@@ -151,10 +148,10 @@ handleSubmitFilters() {
   querySearch: boolean = false;
 
   ngOnInit() {
+    
     this.checkViewport();
     this.fetchDistinctHashtags();
     this.advertisements = [];
-    console.log("this.fetchDistinctHashtags();", this.fetchDistinctHashtags());
     this._route.queryParams.subscribe(params => {
       this.userId = params['userId'];
 
@@ -190,6 +187,20 @@ handleSubmitFilters() {
       }
     });
     this.userId = this._service.userId;
+    this.subs.add(
+      this.uiService.searchToggle$.subscribe(() => {
+        this.showSearchBox = !this.showSearchBox;
+      })
+    );
+
+    this.subs.add(
+      this.uiService.filterToggle$.subscribe(() => {
+        this.showFilterBox = !this.showFilterBox;
+      })
+    );
+  }
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
   fetchUserAdvertisements(userId: string) {
@@ -268,7 +279,6 @@ handleSubmitFilters() {
   // --- NEW: Modern Unified Search Method ---
   onSearchSubmit() {
     if (this.query.trim()) {
-      console.log('Search query:', this.query);
       this.querySearch = true;
       this.searchAdvertisements(this.query.trim());
     }
@@ -323,7 +333,6 @@ handleSubmitFilters() {
 
 
   isMobileView: boolean = false;
-  showSearchBox = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
@@ -403,7 +412,19 @@ handleSubmitFilters() {
 
     this.renderer.appendChild(document.head, script);
   }
-}
-function selectCategory(cat: any, string: any) {
-  throw new Error('Function not implemented.');
+  sanitizePincode() {
+    this.newPincode = this.newPincode.replace(/[^0-9]/g, '').slice(0, 6);
+  }
+  
+  sanitizeHashtag() {
+    this.newHashtag = this.newHashtag.replace(/[^a-zA-Z0-9]/g, '');
+  }
+
+  handleToggleSearch() {
+    this.showSearchBox = !this.showSearchBox;
+  }
+
+  handleToggleFilter() {
+    this.showFilterBox = !this.showFilterBox;
+  }
 }
