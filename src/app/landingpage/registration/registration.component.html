@@ -17,8 +17,8 @@
       <form [formGroup]="registrationForm" (ngSubmit)="registerUser()">
         <div class="form-group grid-content">
           <div class="grid">
-            <label for="username" class="col-12 md:col-4 col-form-label">User name</label>
-            <div class="col-12 md:col-8">
+            <label for="username" class="col-12 md:col-4 col-form-label">Name</label>
+            <div class="col-12 md:col-8 inputBox" >
               <input pInputText type="text" class="form-control" formControlName="username" placeholder="Enter username" autocomplete="postal-code" required><br>
               <div *ngIf="registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched" class="text-danger">
                   <div *ngIf="registrationForm.get('username')?.errors?.['required']">
@@ -34,7 +34,7 @@
           </div>
           <div class="grid">
             <label for="email" class="col-12 md:col-4 col-form-label">Email</label>
-            <div class="col-12 md:col-8">
+            <div class="col-12 md:col-8 inputBox">
               <input pInputText type="email" class="form-control" formControlName="email" placeholder="Enter email" required><br>
               <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="text-danger">
                   <div *ngIf="registrationForm.get('email')?.errors?.['required']">
@@ -48,7 +48,7 @@
           </div>
           <div class="grid">
             <label for="pincode" class="col-12 md:col-4 col-form-label">Pin code</label>
-            <div class="col-12 md:col-8">
+            <div class="col-12 md:col-8 inputBox">
               <p-inputMask mask="999999" class="form-control" formControlName="pincode" placeholder="Enter your location pincode"/><br>
             
               <div *ngIf="registrationForm.get('pincode')?.invalid && registrationForm.get('pincode')?.touched" class="text-danger">
@@ -61,7 +61,7 @@
           </div>
           <div class="grid">
             <label for="pincode" class="col-12 md:col-4 col-form-label">Location</label>
-            <div class="col-12 md:col-8">
+            <div class="col-12 md:col-8 inputBox">
               <p-dropdown 
               [options]="locationDropdownList"
               class="small-dropdown"  optionLabel="name"
@@ -73,7 +73,7 @@
           </div>
           <div class="grid">
             <label for="accountType" class="col-12 md:col-4 col-form-label">Account Type</label>
-            <div class="col-12 md:col-8">
+            <div class="col-12 md:col-8 inputBox">
               <div class="flex gap-2">
                 <div class="flex" id="accountType">
                   <p-radioButton value="advertiser" inputId="advertiser" formControlName="accountType"></p-radioButton>
@@ -93,11 +93,11 @@
           </div>
           <div class="grid">
               <label for="password" class="col-12 md:col-4 col-form-label">Password</label>
-              <div class="col-12 md:col-4">
+              <div class="col-12 md:col-4 inputBox">
                 <input pInputText type="password" id="password" formControlName="password" placeholder="Enter password" required>
                 
               </div><br><br>
-              <div class="col-12 md:col-4">
+              <div class="col-12 md:col-4 inputBox">
                   <input pInputText type="password" 
                   autocomplete="new-password"  class="form-control" formControlName="confirmPassword" placeholder="Re-enter password" required><br>
               </div>

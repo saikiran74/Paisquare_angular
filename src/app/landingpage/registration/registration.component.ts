@@ -113,7 +113,7 @@ export class RegistrationComponent implements OnInit {
   }
   registrationFormGroup(): FormGroup {
     return new FormGroup({
-      username: new FormControl('', [Validators.required,Validators.maxLength(15)]),
+      username: new FormControl('', [Validators.required,Validators.maxLength(20)]),
       email: new FormControl('', [Validators.required,Validators.email]),
       pincode: new FormControl('', Validators.required),
       accountType: new FormControl('', Validators.required),

@@ -161,7 +161,14 @@
     font-size: 0.875rem;
   }
   
-
+    @media (max-width: 768px) {
+      :host ::ng-deep .col-12 {
+        padding: 0rem !important;
+      }
+      .inputBox{
+        padding-bottom: 13px !important;
+      }
+  }
 /*
 @media (max-width: 768px) {
     :host ::ng-deep .p-card{

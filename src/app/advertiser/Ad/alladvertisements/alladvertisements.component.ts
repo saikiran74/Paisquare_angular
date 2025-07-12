@@ -114,6 +114,7 @@ isFocusedPincode: boolean = false;
     this.pincodes = [];
     this.newHashtag = '';
     this.hashtags = [];
+    this.fetchadvertisement();
   }
 
 selectCategory(cat: string) {
@@ -278,9 +279,12 @@ handleSubmitFilters() {
 
   // --- NEW: Modern Unified Search Method ---
   onSearchSubmit() {
+    console.log("this.query.trim()",this.query.trim())
     if (this.query.trim()) {
       this.querySearch = true;
       this.searchAdvertisements(this.query.trim());
+    } else {
+      this.fetchadvertisement();
     }
   }
 

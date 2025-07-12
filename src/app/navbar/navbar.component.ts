@@ -30,8 +30,10 @@ export class NavbarComponent  implements OnInit{
   isSidebarVisible: boolean = false;
   constructor(
     public uiService: UiCommunicationService,
-    private _service: PaiService,private http: HttpClient, 
-    private authService: AuthService,private _router: Router,
+    private _service: PaiService,
+    private http: HttpClient, 
+    private authService: AuthService,
+    private _router: Router,
     private _route: ActivatedRoute,
     private confirmationService: ConfirmationService ) {
        
@@ -210,10 +212,17 @@ export class NavbarComponent  implements OnInit{
   toggleSearchBox(){
     this.showSearchBox=!this.showSearchBox
   }
+  
 
-  homeButton(){
-    this._router.navigate(['home'])
+  homeButton() {
+    this._router.navigate(['home'], {
+      queryParams: { reload: Date.now() }
+    });
   }
+  /*
+  homeButton(){
+    this._router.navigate(['home'], { queryParams: { reload: new Date().getTime() } });
+  }*/
 
   confirmLogout() {
     this.confirmationService.confirm({
